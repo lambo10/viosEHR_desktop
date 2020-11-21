@@ -1,0 +1,640 @@
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Vios-Administartion</title>
+  <link rel="shortcut icon" type="image/icon" href="/favicon.ico"/>
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/popper.css" rel="stylesheet">
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/Vios_colors.css" rel="stylesheet">
+  <link href="css/vios_style.css" rel="stylesheet">
+  <link href="css/scroll_bar_style.css" rel="stylesheet">
+  <link href="css/dropzone.css" rel="stylesheet">
+  <link href="js/easyauto_comp/easy-autocomplete.min.css" rel="stylesheet">
+  <link href="js/easyauto_comp/easy-autocomplete.themes.min.css" rel="stylesheet">
+</head>
+
+<body onload="update()">
+
+  <!-- docturs portal header start -->
+  <div>
+<nav class="navbar navbar-expand-lg navbar-dark theme_color_primary" style="box-shadow: 0 0px 0px 0 rgba(0,0,0,.16),0 0px 0px 0 rgba(0,0,0,.12);">
+
+  <a class="navbar-brand" style="font-family: 'Ubuntu', sans-serif;" href="#"><b>Viostec</b></a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active waves-effect waves-light" id="tab_btnqqwer0" onclick="disp_active_pane_QQWER('panel_qqwer0')">
+        <a class="nav-link"><i class="fa fa-home"></i>Home</a>
+      </li>
+      <li class="nav-item waves-effect waves-light" id="tab_btnqqwer1" onclick="disp_active_pane_QQWER('panel_qqwer1')" style="padding-left: 10px;">
+        <a class="nav-link"><i class="fa fa-group"></i>Employee</a>
+      </li>
+      <li class="nav-item waves-effect waves-light" id="tab_btnqqwer2" style="padding-left: 10px;">
+        <a class="nav-link" href="formbuilder.html"><i class="fa fa-file"></i>Forms</a>
+      </li>
+    
+    </ul>
+
+    <ul class="navbar-nav">
+      <li class="nav-item avatar dropdown">
+        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <img src="img/working_prof/profile_pic.jpg" id="pr_profile_picSSG" class="rounded-circle z-depth-0" style="width: 30px; height: 30px" alt="avatar image">
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
+          <a class="dropdown-item waves-effect waves-light" onclick="$.fn.logoutHSD()"><svg height="15px" class="theme_text_colored_primary" aria-hidden="true" data-prefix="far" data-icon="sign-in-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-sign-in-alt fa-w-16 fa-fw fa-lg"><path fill="currentColor" d="M144 112v51.6H48c-26.5 0-48 21.5-48 48v88.6c0 26.5 21.5 48 48 48h96v51.6c0 42.6 51.7 64.2 81.9 33.9l144-143.9c18.7-18.7 18.7-49.1 0-67.9l-144-144C195.8 48 144 69.3 144 112zm192 144L192 400v-99.7H48v-88.6h144V112l144 144zm80 192h-84c-6.6 0-12-5.4-12-12v-24c0-6.6 5.4-12 12-12h84c26.5 0 48-21.5 48-48V160c0-26.5-21.5-48-48-48h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96z" class=""></path></svg> Logout</a>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+  </div>
+
+<div id="panel_qqwer0" onclick="disp_active_pane_QQWER('panel_qqwer0')" style="background: #eee; height: 1200px; display: block;">
+  <div class="row" style="padding: 20px;">
+    <div class="col-md-7">
+      <div class="card" style="padding: 20px;">
+        <div class="row" style="text-align: center;">
+        <div class="col-md-4" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+          <div style="cursor: pointer; padding: 10px; background: #09c; height: 130px; color: white;" data-toggle="modal" data-target="#add_TestModal">
+            <div style="font-size: 17px">Docturs present</div>
+            <div style="font-size: 40px;"><i class="fa fa-envelope"></i></div>
+            <div style="font-size: 17px">
+              50/60
+            </div>
+          </div></div>
+          <div class="col-md-4" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+          <div style="cursor: pointer; padding: 10px; background: #09c; height: 130px; color: white;" data-toggle="modal" data-target="#add_TestModal">
+            <div style="font-size: 17px">Nurse present</div>
+            <div style="font-size: 40px;"><i class="fa fa-envelope"></i></div>
+            <div style="font-size: 17px">
+              60/120
+            </div>
+          </div></div><div class="col-md-4" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+          <div style="cursor: pointer; padding: 10px; background: #09c; height: 130px; color: white;" data-toggle="modal" data-target="#add_TestModal">
+            <div style="font-size: 17px">Radiologist present</div>
+            <div style="font-size: 40px;"><i class="fa fa-envelope"></i></div>
+            <div style="font-size: 17px">
+              50/80
+            </div>
+          </div></div>
+          <div class="col-md-4" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+          <div style="cursor: pointer; padding: 10px; background: #09c; height: 130px; color: white;" data-toggle="modal" data-target="#add_TestModal">
+            <div style="font-size: 17px">Lab scientist present</div>
+            <div style="font-size: 40px;"><i class="fa fa-envelope"></i></div>
+            <div style="font-size: 17px">
+              20/60
+            </div>
+          </div></div>
+          <div class="col-md-4" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+          <div style="cursor: pointer; padding: 10px; background: #09c; height: 130px; color: white;" data-toggle="modal" data-target="#add_TestModal">
+            <div style="font-size: 17px">Record-manager present</div>
+            <div style="font-size: 40px;"><i class="fa fa-envelope"></i></div>
+            <div style="font-size: 17px">
+              70/80
+            </div>
+          </div></div>
+          <div class="col-md-4" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+          <div style="cursor: pointer; padding: 10px; background: #09c; height: 130px; color: white;" data-toggle="modal" data-target="#add_TestModal">
+            <div style="font-size: 17px">Accountants present</div>
+            <div style="font-size: 40px;"><i class="fa fa-envelope"></i></div>
+            <div style="font-size: 17px">
+              15/20
+            </div>
+          </div></div>
+         <div class="col-md-4" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+          <div style="cursor: pointer; padding: 10px; background: #09c; height: 130px; color: white;" data-toggle="modal" data-target="#add_TestModal">
+            <div style="font-size: 17px">Pharmacist present</div>
+            <div style="font-size: 40px;"><i class="fa fa-envelope"></i></div>
+            <div style="font-size: 17px">
+              15/20
+            </div>
+          </div></div>
+            <div class="col-md-4" style="padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px;">
+          <div style="cursor: pointer; padding: 10px; background: #09c; height: 130px; color: white;" data-toggle="modal" data-target="#add_TestModal">
+            <div style="font-size: 17px">Admin-Managers present</div>
+            <div style="font-size: 40px;"><i class="fa fa-envelope"></i></div>
+            <div style="font-size: 17px">
+              3/5
+            </div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5" style="padding-left: 20px;">
+      <div class="card"><canvas id="profit_A_month"></canvas></div>
+      <br>
+      <div class="card">
+      <div style="padding-left: 10px;">Profits</div>
+      <div style="text-align: center; color: blue"><b>1 Month</b></div>
+      <canvas id="profitExamin_A_month"></canvas></div>
+    </div>
+    <div class="row" style="padding-top: 25px; padding-left: 15px; padding-right: 15px;">
+        <div class="col-md-3" style="padding: 5px;">
+          
+        <div class="card" style="height: 200px; padding: 20px; text-align: center; color: rgb(99, 97, 97);">
+          <div style="font-size: 20"><b>TOTAL EXPENDITURE TODAY</b></div>
+          <div style="font-size: 50px;">5000</div>
+          <div>NGN</div>
+        </div>
+
+        </div>
+
+         <div class="col-md-3" style="padding: 5px;">
+          
+        <div class="card" style="height: 200px; padding: 20px; text-align: center; color: rgb(99, 97, 97);">
+          <div style="font-size: 20"><b>TOTAL PROFITS TODAY</b></div>
+          <div style="font-size: 50px;">3000</div>
+          <div>NGN</div>
+        </div>
+
+        </div>
+
+          <div class="col-md-3" style="padding: 5px;">
+          
+        <div class="card" style="height: 200px; padding: 20px; text-align: center; color: rgb(99, 97, 97);">
+          <div style="font-size: 20"><b>NO OF CLIENTS ATTENDED TO TODAY</b></div>
+          <div style="font-size: 50px;">150</div>
+          <div>NGN</div>
+        </div>
+
+        </div>
+
+        <div class="col-md-3" style="padding: 5px;">
+          
+        <div class="card" style="height: 200px; padding: 20px; text-align: center; color: rgb(99, 97, 97);">
+          <div style="font-size: 20"><b>AVERAGE NO OF CLIENTS PER DAY IN ONE MONTH</b></div>
+          <div style="font-size: 50px;">200</div>
+          <div>NGN</div>
+        </div>
+
+        </div>
+      </div>
+  </div>
+  <!-- modal -->
+
+<div class="modal fade" id="add_TestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="color: #595959"><b>DOCTORS PRESENT</b></h5>
+        <button style="background: red; color: whi" 
+         type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+<div class="row">
+  
+  <div class="col-md-6" style="border-right: solid 2px black;">
+    <div>
+      <b>Doctors Present</b>
+    </div>
+    <div style="height: 400px; overflow-y: auto;">
+      <li>Lambert Nnadi</li>
+      <li>Victor Ani</li>
+      <li>Patrick Oliora</li>
+      <li>Lambert Nnadi</li>
+      <li>Victor Ani</li>
+      <li>Patrick Oliora</li>
+      <li>Lambert Nnadi</li>
+      <li>Victor Ani</li>
+      <li>Patrick Oliora</li>
+      <li>Lambert Nnadi</li>
+      <li>Victor Ani</li>
+      <li>Patrick Oliora</li>
+      <li>Lambert Nnadi</li>
+      <li>Victor Ani</li>
+      <li>Patrick Oliora</li>
+      <li>Lambert Nnadi</li>
+      <li>Victor Ani</li>
+      <li>Patrick Oliora</li>
+      <li>Lambert Nnadi</li>
+      <li>Victor Ani</li>
+      <li>Patrick Oliora</li>
+      <li>Lambert Nnadi</li>
+      <li>Victor Ani</li>
+      <li>Patrick Oliora</li>
+      <li>Lambert Nnadi</li>
+      <li>Victor Ani</li>
+      <li>Patrick Oliora</li>
+    </div>
+  </div>
+
+    <div class="col-md-6">
+    <div>
+      <b>Doctors Absent</b>
+    </div>
+    <div style="height: 400px; overflow-y: auto;">
+      <li>Lambert Nnadi</li>
+      <li>Victor Ani</li>
+      <li>Patrick Oliora</li>
+      <li>Lambert Nnadi</li>
+      <li>Victor Ani</li>
+      <li>Patrick Oliora</li>
+      <li>Lambert Nnadi</li>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- modal end -->
+</div>
+<div id="panel_qqwer1" style="display: none;">
+  <div style="background: #eee; height: 1000px; width: 100%;">
+  <div style="width: 100%; height: 60px; background: white;">
+  <div class="row">
+    <div class="col-md-4" style="padding-left: 40px; padding-top: 10px;">
+      <input class="form-control" type="search" id="search_empl_id"  placeholder="Search Employee">
+    
+    </div>
+    <div class="col-md-1" style="text-align: center;">
+      <button type="button" class="btn waves-effect waves-light" style="background: #09c; display: inline-block; border-radius: 50px;"><i class="fa fa-search" ></i></button>
+    </div>
+  </div>
+</div>
+<!-- view document modal -->
+<div class="modal fade" id="employee_doc_view" tabindex="-1" role="dialog" aria-labelledby="employee_doc_view" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title" id="employee_doc_view_label" style="color: #595959">
+            <h5><b>DOCTORS PRESENT 1</b></h5>
+          </div>
+          <button style="background: red; color: whi" 
+           type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modal_body" style="min-height: 300px; max-height: 400px;">
+  <div class="row" id="modal_body_row">
+      
+  </div>
+  
+  
+  
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end view doc modal-->
+    <div class="row" style="padding-top: 50px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px;"> <div class="col-md-6 " style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;"><div class="card" style="height: 600px; padding: 10px; overflow-x: none; overflow-y: auto;">
+
+  <div id="emp_disp_div001">
+ <table class="table table-striped" id="crea_emp_display001">
+ <thead>
+   <tr>
+     <td>Profile Pic</td>
+     <td>First Name</td>
+     <td>Last Name</td>
+     <td>Middle Name</td>
+     <td>Job</td>
+     <td>Primary Phone No</td>
+     <td>Secondary Phone No</td>
+     <td>Email</td>
+     <td>Address</td>
+     <td>Documents</td>
+     <td>Edith</td>
+     <td>Remove</td>
+   </tr>
+ </thead>
+ 
+ </table>
+  </div>
+
+</div></div>  
+<div class="col-md-6 " style="padding-right: 20px;padding-top: 20px; padding-bottom: 20px;"><div class="card innDivScroll" style="height: 600px; padding: 10px; overflow-x: none; overflow-y: auto;">
+<div style="font-size: 30px; text-align: center; color: #595959">
+  ADD Employee<i class="fa fa-plus"></i>
+</div>
+<div>
+
+      <form class="text-center" style="color: #757575; display: block;" id="employee_reg_form1">
+
+          <div class="form-row">
+              
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input name="first_name" type="text" id="dde1" onkeypress="return runScript(event,'dde1')" class="form-control">
+                      <label for="dde1">First Name</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input name="last_name" type="text" id="dde2" onkeypress="return runScript(event,'dde2')" class="form-control">
+                      <label for="dde2">Last Name</label>
+                  </div>
+              </div>
+                <div class="col">
+                  <!-- First name -->
+                  <div class="md-form">
+                      <input name="middle_name" type="text" id="dde3" onkeypress="return runScript(event,'dde3')" class="form-control">
+                      <label for="dde3">Middle Name</label>
+                  </div>
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="col">
+                  <!-- First name -->
+                  <div class="md-form">
+                      <input name="primary_phone_no" type="number" id="dde4" onkeypress="return runScript(event,'dde4')" class="form-control">
+                      <label for="dde4">Primary Phone No</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input name="secondary_phone_no" type="number" id="dde5" onkeypress="return runScript(event,'dde5')" class="form-control">
+                      <label for="dde5">Secondary Phone No</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input name="email" type="email" id="dde6" onkeypress="return runScript(event,'dde6')" class="form-control">
+                      <label for="dde6">Email</label>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="md-form mt-0">
+              <input name="address" type="text" id="dde7" onkeypress="return runScript(event,'dde7')" class="form-control">
+              <label for="dde7">Address</label>
+          </div>
+
+          <div class="form-row">
+              <div class="col">
+                  <div class="md-form">
+                   <div style="text-align: left;">Role</div>
+                      <select name="job" id="dde8" onkeypress="return runScript(event)" class="form-control">
+                        <option value="Doctor">Doctor</option>
+                        <option value="Nurse">Nurse</option>
+                        <option value="LabScientist">Lab-Scientist</option>
+                        <option value="Radiologist">Radiologist</option>
+                        <option value="Record_manager">Records-manager</option>
+                        <option value="Pharmacist">Pharmacist</option>
+                        <option value="Admin_Manager">Admin-Managers</option>
+                        <option value="Bursery">Bursery</option>
+                      </select>
+                      
+                  </div>
+              </div>
+              
+          </div>
+          <div class="form-row">
+          <div class="col">
+            <div class="md-form mt-0">
+              <input name="empl_age" type="number" id="dde9" onkeypress="return runScript(event,'dde9')" class="form-control">
+              <label for="dde9">Age</label>
+          </div> 
+          </div></div>
+
+          <div style="width:100%">
+            <!-- Last name -->
+            <div class="md-form">
+                <button style="float:right" onclick="add_employee_submission()" class="btn btn-outline-info btn-rounded my-4 waves-effect z-depth-0" type="button">NEXT</button>
+            </div>
+        </div>
+          
+
+      </form>
+      
+      <form style="display:none;" id="employee_reg_form2">
+        <div class="form-row">
+          <div class="col" style="padding: 0px;">
+            <div>
+                <div style="width: 130px; height: 130px; border: dashed 1px black; float: left;">
+                   
+                    <div id="employee_passport_id" action="http://localhost:5000/upload_profile_pic" class="dropzone dz-clickable" style="min-height:128px; height: 98px; padding: 1px 1px; border: none;">
+                      <div class="dz-default dz-message" style="margin: 0em 0;">
+                          <span>Drop files or click to upload</span>
+                      </div>
+                    </div>
+                    
+                </div>
+                  
+                </div>
+            
+        </div>
+        <div class="col" style="padding: 0px;">
+          <b>
+            <div id="employee_add_name_view005"></div>
+          <div id="employee_add_num_view005"></div>
+          <div id="employee_add_email_view005"></div>
+          <div id="employee_add_job_view005"></div>
+          </b>
+          <div></div>
+          </div>
+        </div>
+        <br>
+        <div>
+          <div style="text-align:left">Upload Documents/Credentials</div>
+          <div class="md-form" style="padding-top: 0px;">
+            
+        <iframe id="tr_doc_frame" src="test.html"style="width:100%;height:300px; border:none"></iframe>
+          </div>
+      </div>
+      <div style="width:100%">
+        <!-- Last name -->
+        <div class="md-form">
+            <button id="finish_employee_reg" style="float:right; display: none;" onclick="reset_employee_creation_form()" class="btn btn-outline-info btn-rounded my-4 waves-effect z-depth-0" type="button">FINISH</button>
+        </div>
+    </div>
+      </form>
+
+  </div>
+
+</div> </div> 
+
+</div>
+  </div>
+</div>
+
+<div class="popper" width="200"id='poppertext'>
+  <div style="font-weight: bold;" id="poopertextinner"></div>
+  <div class="popper__arrow" x-arrow="" style="left: 65px;"></div>
+</div>
+<div class="popper" width="200"id='poppertext2'>
+  <div style="font-weight: bold;" id="poopertext2inner"></div>
+  <div class="popper__arrow" x-arrow="" style="left: 65px;"></div>
+</div>
+<div class="popper"  width="200"id='poppertext3'>
+  <div style="font-weight: bold;" id="poopertext3inner"></div>
+  <div class="popper__arrow" x-arrow="" style="left: 65px;"></div>
+</div>
+<div class="popper"  width="200"id='poppertext4'>
+  <div style="font-weight: bold;" id="poopertext4inner"></div>
+  <div class="popper__arrow" x-arrow="" style="left: 65px;"></div>
+</div>
+<div class="popper"  width="200"id='poppertext5'>
+  <div style="font-weight: bold;" id="poopertext5inner"></div>
+  <div class="popper__arrow" x-arrow="" style="left: 65px;"></div>
+</div>
+<div class="popper" width="200"id='poppertext6'>
+  <div style="font-weight: bold;" id="poopertext6inner"></div>
+  <div class="popper__arrow" x-arrow="" style="left: 65px;"></div>
+</div>
+<div class="popper" width="200"id='poppertext7'>
+  <div style="font-weight: bold;" id="poopertext7inner"></div>
+  <div class="popper__arrow" x-arrow="" style="left: 65px;"></div>
+</div>
+<div class="popper" width="200"id='poppertext9'>
+  <div style="font-weight: bold;" id="poopertext9inner"></div>
+  <div class="popper__arrow" x-arrow="" style="left: 65px;"></div>
+</div>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+      <script type="text/javascript" src="js/popper.min.js"></script>
+      <script type="text/javascript" src="js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="js/mdb.js"></script>
+      <script type="text/javascript" src="js/dropzone.js"></script>
+      <script type="text/javascript" src="js/easyauto_comp/jquery.easy-autocomplete.min.js"></script>
+      <script type="text/javascript" src="js/general_controller.js"></script>
+      <script type="text/javascript" src="js/Administartion_portalController.js"></script>
+    
+    <script>
+  var options = {
+
+url: function(phrase){
+  return "http://localhost:4417/general_server_files/employee_sugestions.json";
+},
+
+categories: [{
+    listLocation: "Doctor",
+    maxNumberOfElements: 4,
+    header: "Doctors"
+}, {
+    listLocation: "Pharmacist",
+    maxNumberOfElements: 4,
+    header: "Pharmacisits"
+}, {
+    listLocation: "Nurse",
+    maxNumberOfElements: 4,
+    header: "Nurses"
+}, {
+    listLocation: "Radiologist",
+    maxNumberOfElements: 4,
+    header: "Radiologiests"
+}, {
+    listLocation: "LabScientist",
+    maxNumberOfElements: 4,
+    header: "Lab-scientists"
+}, {
+    listLocation: "Record_manager",
+    maxNumberOfElements: 4,
+    header: "Record managers"
+}, {
+    listLocation: "Admin_Manager",
+    maxNumberOfElements: 4,
+    header: "Admin Managers"
+}],
+
+getValue: function(element) {
+    return element.character;
+},
+
+ajaxSettings:{
+  dataType: "json",
+  method: "POST",
+  data:{
+    dataType: "json"
+  }
+},
+
+preparePostData: function(data){
+data.phrase = $("#search_empl_id").val();
+return data;
+},
+
+requestDelay: 400,
+
+template: {
+    type: "custom",
+    method: function(value,item){
+      return "<img src='"+item.icon+"' style='width:30px; height:30px;' class='rounded-circle' /> "+value+" <span style='color: #aaa; font-style: italic; font-size: 0.9em'>"+item.id+"</span>";
+    }
+},
+
+list: {
+    maxNumberOfElements: 8,
+    match: {
+        enabled: true
+    },
+    sort: {
+        enabled: true
+    },
+    showAnimation:{
+      type: "fade",
+      time: 400,
+      callback: function(){}
+    },
+    hideAnimation:{
+      type: "slide",
+      time: 400,
+      callback: function(){}
+    },
+    onClickEvent: function(){
+      // alert($("#search_empl_id").getSelectedItemData().realName);
+    }
+},
+
+theme: "square"
+};
+
+$("#search_empl_id").easyAutocomplete(options);
+
+  Dropzone.options.employeePassportId = false;
+  Dropzone.options.employeePassportId = {
+  paramName: "filesUP00012101", // The name that will be used to transfer the file
+  maxFilesize: 2, // MB
+  maxFiles: 1,
+  addRemoveLinks: true,
+  method: 'post',
+  init: function() {
+    clearDropzone = function(){
+            this.removeAllFiles(true);
+        };
+    this.on("sending", function(file, xhr, formData) {
+      formData.append("r_empl_id", wk_inserted_id);
+    });
+  }
+};
+
+function clear_dropzone(){
+  Dropzone.options.employeePassportId.clearDropzone();
+}
+  </script>
+ 
+</body>
+
+</html>

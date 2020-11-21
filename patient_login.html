@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Vios</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/Vios_colors.css" rel="stylesheet">
+  <link href="css/vios_style.css" rel="stylesheet">
+  <link href="css/scroll_bar_style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="patient_login_fregment" style=" ">
+<div style="opacity: 0.4; position: fixed; background: black; width: 100%; height: 700px; position: absolute; top: 0px; left: 0px;">
+    </div>
+    <div style="height: 410px; width: 320px; background: #060d13; position: absolute; top: 17.8%; left: 51%; opacity: 0.8;" class="row card">
+</div>
+
+<div style="height: 410px; width: 320px; position: absolute; top: 17.8%; left: 51%;" class="row">
+
+<div style="padding-left: 20px; padding-right: 20px; padding-top: 10px; width: 100%; align-items: center;">
+<div style="text-align: center; color: white">
+  <h3>
+    Check in with fingerprint
+  </h3>
+</div>
+  <div style="padding-left: 110px; padding-right: 100px; padding-top: 15px">
+  <div class='hide'>
+   <svg id="my-svg" width="70" height="70" viewBox="0 0 22 22">
+            <g class="empty" fill="none" fill-rule="evenodd" stroke="#00b386" stroke-width="1.25">
+              <path d="M3.54 18.57a7.25 7.25 0 0 0 1.04-4.03c-.19-1.36 0-1.53-.34-3.13-.33-1.6 2.02-8.16 7.86-6.51"></path>
+              <path d="M13.44 5.5c3.14 1.87 5.13 5.05 3.41 13.6"></path>
+              <path d="M6.22 20.51c.89-1.6 1.71-3.74 1.55-5.9-.17-2.16-.92-4.25.78-5.66"></path>
+              <path d="M1.51 8.26a10.2 10.2 0 0 0 .08 6.63"></path>
+              <path d="M10.2 1.5h-.6C5.59 1.91 3.3 3.91 2 6.9"></path>
+              <path d="M20.27 11.5a9.83 9.83 0 0 0-8.44-9.86"></path>
+              <path d="M9.71 8.25c.16-.1-.1-.08.99-.25 1.09-.17 3.83.86 3.4 6.7-.42 5.82-1.01 5.97-1.23 6.38"></path>
+              <path d="M9.3 21.48c.27-.52.8-1.7.8-2.05"></path>
+              <path d="M10.6 17.59c.38-1.74.64-3.78-.15-6.57"></path>
+            </g>
+
+          </svg> 
+          </div>
+          <div style="padding-top: 10px;"><input type="text" onkeypress="keppressEventHandler(event)" style="width: 70px; height: 20px; outline: none; background: #263238; color: #00b386; font-size: 10px; border: solid 1px #00b386;" placeholder='ID' name="" id="input_id" >
+          </div>
+          
+  </div>
+  <div style="padding-left: 110px; display: none;" id="loader_jj">
+    <div class="lds-ellipsis"><div style="background: #ffa000"></div><div style="background: #ffa000"></div><div style="background: #ffa000"></div><div style="background: #ffa000"></div></div>
+  </div>
+  <div style="width: 100%; padding-left: 90px;">
+             <button type="button" id="check_in_btn" onclick="submit_id()" class="btn  btn-rounded btn-default" style="padding: 2px; padding-left: 2px; padding-right: 2px; padding-top: 4px; padding-bottom: 4px; width: 100px;">Check-in</button>
+          </div>
+</div>
+
+</div>
+
+
+    <div style="height: 450px; width: 320px; background: white; position: absolute; top: 15%; left: 29%;" class="row card">
+    <div style="color: #00b386; padding: 20px">
+    <h2><b>Welcome</b></h2>
+    <div class="v_h3_color"><b>
+      choose an option</b>
+    </div>
+    <div class="v_h3_color row" style="padding: 10px;">
+      <input type="radio" name="Hospital_permission" style="width: 20px; height: 20px;" checked><div>Share Medical Record</div>
+      <div style="font-size: 10px; color: #00b386;">By choosing this option, you agree to Share your full Medical Record with this hospital</div>
+    </div>
+    <div class="v_h3_color row" style="padding: 10px;">
+      <input type="radio" name="Hospital_permission" style="width: 20px; height: 20px;"><div>Do not Share Medical Record</div>
+      <div style="font-size: 10px; color: #00b386;">By choosing this option, you are declining this hospital permission to any of your exsisting Medical Record</div>
+    </div>
+    <div class="v_h3_color row" style="padding: 10px;">
+      <input type="radio" name="Hospital_permission" style="width: 20px; height: 20px;"><div>Restricted Access</div>
+      <div style="font-size: 10px; color: #00b386;">By choosing this option, you are granting this hospital full access to your Medical Record</div>
+    </div>
+  </div>
+</div> 
+
+<div class="animated" id="p_details_modal" style="width: 100%; background: #eee; position: absolute; top: 90px; left: 0px; height: 1000px; display: none;">
+    <div class="p_login_modal_close" style="cursor: pointer; float: right; padding-left: 15px; padding-right: 15px; padding-top: 10px; padding-bottom: 10px; border-left: solid gray 1px; border-top: solid gray 1px; border-bottom: solid gray 1px; color: white;" onclick="close_patient_details()"><i class="fa fa-close" aria-hidden="true"></i></div>
+<div class="row" style=" padding: 50px;">
+
+
+    <div class="col-md-7">
+        <!-- Card Narrower -->
+              <div class="card">
+      
+                <div>
+                <div style="padding-left: 15px;">
+                    <div style="width: 102.2%;">
+                        <div>
+          
+                            <div class="v_patient_details_module_header row">
+                                <div class="col-md-3">
+                                    <img src="img/working_prof/rily.jpg" class="rounded-circle z-depth-0" style="width: 70px; height: 70px" alt="avatar image">
+                                  </div>
+                            
+                                  <div class="col-md-8">
+                                      
+                                        <div style="font-size: 20px; font-family: Arial, Helvetica, sans-serif">NNADI LAMBERT</div>
+                                        <div style="font-size: 13px; padding-top: 10px; color: #bdbdbd;">
+                                          <div class="row"> <div class="col-md-4">Male</div> <div class="col-md-7">20 years old</div>  </div>
+                                          <div class="row"> <div class="col-md-8">Student</div> <div class="col-md-4">5.5ft</div>  </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+              
+                            
+                          </div>
+                    </div>
+              
+      
+                </div>
+                <div class="row" style="padding-top: 2px; padding-left: 20px; padding-right: 3px; padding-bottom: 2px;">
+                      <div class="col-md-6"><div><b>Sex:</b></div><div>Male</div></div>
+                      <div class="col-md-6"><div><b>Address:</b></div><div>4, Ikejiani Street, University of Nigeria, Nsukka, Enugu State.</div></div>
+                      <div class="col-md-6"><div><b>Age:</b></div><div>20</div></div>
+                    <div class="col-md-6"><div><b>Phone Number:</b></div><div>+234 706 8497 582</div></div>
+                    <div class="col-md-6"><div><b>Email:</b></div><div>Nnadi406@gmail.com</div></div>
+                    <div class="col-md-6"><div><b>Occupation:</b></div><div>Student</div></div>
+                    <div class="col-md-6"><div><b>Dept:</b></div><div>Computer Science</div></div>
+                    <div class="col-md-6"><div><b>Faculty:</b></div><div>Physical Sciences</div></div>
+                    </div>
+                </div>
+      <br><br>
+              </div>
+              <!-- Card Narrower -->
+      
+      </div>
+
+
+      <div class="col-md-5">
+          <!-- Card Narrower -->
+                <div class="card card-cascade narrower animated" id="lab-test-O-main-container">
+                  <!-- Card image -->
+                  <div style="width: 100%;">
+                  <div style="width: 100%;" align="center">
+                  <div class="view view-cascade overlay" style="width: 80%">
+                   <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary animated bounce"><h5>MESSAGE</h5></div>
+                    <a>
+                      <div class="mask rgba-white-slight"></div>
+                    </a>
+                  </div>
+                  </div>
+                  </div>
+        
+                  <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px;">
+                    <div class="row">
+                     <div style="font-size: 20px;"><b>Welcome to University of Nigeria, Nsukka Medical Center</b></div> <br>
+                     <div style="font-size: 15px">If you wish to make any changes to your details, you can refer to the Records Unit of this Hospital or download the Vios mobile App on PlayStore for Android devices or AppleStore for IOS devices.</div>
+                     <br>
+                     <div style="font-size: 12px">Help us improve your experience by emailing your suggestion(s) to viosconnect@gmail.com. We'd appreciate your feedback and give it due consideration.</div>
+                    </div> 
+            
+          </div>
+                  </div>
+        
+                </div>
+                <!-- Card Narrower -->
+        
+        </div>
+
+
+      
+
+</div>
+  
+</div>
+
+</div>
+
+
+
+
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>  
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  <script src="js/vivus.min.js"></script>
+  <script type="text/javascript" src="js/patiet_login_controller.js"></script>
+  <script>
+    $(document).ready(function(){
+   
+});
+  </script>
+</body>
+
+</html>

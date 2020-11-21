@@ -1,0 +1,1794 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <title>Vios</title>
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/iso_bootstrap3.3.7min.css" rel="stylesheet">
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <link href="css/dropzone.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/lightgallery.css" rel="stylesheet">
+  <link href="css/Vios_colors.css" rel="stylesheet">
+  <link href="css/vios_style.css" rel="stylesheet">
+  <link href="css/popper.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker.css" />
+  <link href="css/footable.standalone.css" rel="stylesheet">
+  <link href="css/scroll_bar_style.css" rel="stylesheet">
+  <link href="js/easyauto_comp/easy-autocomplete.min.css" rel="stylesheet">
+  <link href="js/easyauto_comp/easy-autocomplete.themes.min.css" rel="stylesheet">
+  <link href="css/jBox.all.min.css" rel="stylesheet">
+<style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style><style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style><style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style></head>
+
+<body onload="update()">
+
+  <!-- docturs portal header start -->
+  <div>
+<nav class="navbar navbar-expand-lg navbar-dark theme_color_primary" style="box-shadow: 0 0px 0px 0 rgba(0,0,0,.16),0 0px 0px 0 rgba(0,0,0,.12);">
+
+  <a class="navbar-brand" style="font-family: 'Ubuntu', sans-serif;" href="#"><b>Viostec</b></a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active" id="home_wut_id">
+            <a class="nav-link" onclick="set_home_main_fragment()"><i class="fa fa-home"></i>Home</a>
+          </li>
+      <li class="nav-item" id="patients_wut_id" onclick="set_patients_main_fragment()">
+        <a class="nav-link waves-effect waves-light"><i class="fa fa-male"></i>Patient</a>
+      </li>
+    </ul>
+    
+
+    <form class="form-inline" action="#">
+      <div class="md-form my-0 row" style="padding-right: 10px; height: 20px;">
+        <div class="col-md-9">
+            <input id="search_patient_input" class="form-control mr-sm-2" type="text" placeholder="Search Patient's Name or ID" aria-label="Search" style="width: 400px">
+        </div>
+        <div class="col-md-3">
+          <button onclick="search_patient_to_nav_s_btn_click()" class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3 waves-effect waves-light" type="button">GO</button>
+            <div style="width: 10px; display: inline-block;"><div style="height: 19.5px;"><img src="img/loading_topnav.gif" style="width: 30px; height: 30px; display: none;" id="top_nav_loading_anim"></div></div>
+        </div>
+      </div>
+    </form>
+
+
+    <ul class="navbar-nav">
+      <li class="nav-item avatar dropdown">
+        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <img src="img/working_prof/profile_pic.jpg" id="pr_profile_picSSG" class="rounded-circle z-depth-0" style="width: 30px; height: 30px" alt="avatar image">
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
+          <a class="dropdown-item waves-effect waves-light" onclick="$.fn.logoutHSD()"><svg height="15px" class="theme_text_colored_primary" aria-hidden="true" data-prefix="far" data-icon="sign-in-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-sign-in-alt fa-w-16 fa-fw fa-lg"><path fill="currentColor" d="M144 112v51.6H48c-26.5 0-48 21.5-48 48v88.6c0 26.5 21.5 48 48 48h96v51.6c0 42.6 51.7 64.2 81.9 33.9l144-143.9c18.7-18.7 18.7-49.1 0-67.9l-144-144C195.8 48 144 69.3 144 112zm192 144L192 400v-99.7H48v-88.6h144V112l144 144zm80 192h-84c-6.6 0-12-5.4-12-12v-24c0-6.6 5.4-12 12-12h84c26.5 0 48-21.5 48-48V160c0-26.5-21.5-48-48-48h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96z" class=""></path></svg> Logout</a>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+  </div>
+<!-- docturs portal header start -->
+
+<div id="main_home_fragment" style="background: #eee; padding-bottom: 40px; overflow-x: hidden;">
+  <div style="width: 100%;" id="m_home_fregment_main">
+  
+  <div class="row">
+  
+    <div class="col-md-4" style="padding: 10px; padding-left: 40px; padding-right: 10px; padding-top: 40px; padding-bottom: 30px;"> <div class="card" style="height: 450px; background: white; padding: 10px; "> <div style="font-size: 18px; color: #616161; text-align: center; " id="assigned_patients_txtx"></div> 
+  <div><canvas id="doughnutChart"> </canvas></div>
+  <div style="text-align:center; width:100%;">
+    <br><br><br><br><br><hr><div class=""><button class="btn btn-blue" style="float:right" onclick="$.fn.de_assign_all_patients()">De-Assign all patients</button></div>
+  </div>
+  
+  
+  </div> </div>
+  <div class="col-md-4" style="padding: 10px; padding-left: 10px; padding-right: 40px; padding-top: 40px; padding-bottom: 30px;"> <div class="card" style="height: 450px; overflow-x: hidden; overflow-y: auto;">
+  <div style="padding:10px; color:#616161">Recently Attended Patients</div>
+    <table class="table" style="color: black;" id="r_attend_p_table_id">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="r_attend_p_id">
+        </tbody>
+      </table>
+  
+  </div> </div>
+    <div class="col-md-4" style="padding: 10px; padding-left: 10px; padding-right: 40px; padding-top: 40px; padding-bottom: 30px;"> <div class="card" style="height: 450px; overflow-x: hidden; overflow-y: auto;">
+        <div style="padding:10px; color:#616161; text-align:center;">Assigned Patients</div>
+        <table class="table" style="color: black;" id="asg_p_table_id">
+            <thead>
+              <tr>
+                <th scope="col">img</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Sex</th>
+              </tr>
+            </thead>
+            <tbody id="asg_p_tb_id">
+              
+            </tbody>
+          </table>
+  
+    </div> </div>
+  
+  </div>
+  
+  
+  </div>
+  
+  
+  </div>
+
+
+<div class="patient_fragment" id="main_patient_fragment" style="overflow-x: hidden; display:none;">
+  <div id="patient_data_fragment" class="animated faster" style="display: none;">
+  
+    <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-bottom: #09c;">
+      <div style="width: 100%; height: 10px;"></div>
+      <li class="nav-item waves-effect waves-light">
+        <a class="nav-link active v_nav_link" id="chart-tab" data-toggle="tab" href="#chart" role="tab" aria-controls="chart" aria-selected="true" onclick="chartTabclick()">Chart</a>
+      </li>
+      <li class="nav-item waves-effect waves-light">
+        <a class="nav-link" id="Radiograph-tab" data-toggle="tab" href="#radiograph" role="tab" aria-controls="radiograph" aria-selected="false" onclick="radiographTabclick()">Radiograph</a>
+      </li>
+      <li class="nav-item waves-effect waves-light">
+          <a class="nav-link" id="Lab-tab" data-toggle="tab" href="#lab" role="tab" aria-controls="lab" aria-selected="false" onclick="labTabclick()">Lab</a>
+        </li>
+        <li class="nav-item waves-effect waves-light">
+            <a class="nav-link" id="Medication-tab" data-toggle="tab" href="#medication" role="tab" aria-controls="medication" aria-selected="false" onclick="PrescriptionTabclick()">Prescription</a>
+          </li>
+          <li class="nav-item waves-effect waves-light">
+              <a class="nav-link" id="Dispensed-tab" data-toggle="tab" href="#dispensed" role="tab" aria-controls="dispensed" aria-selected="false" onclick="DispensedTabclick()">Dispensed</a>
+            </li>
+            <li class="nav-item waves-effect waves-light">
+                <a class="nav-link" id="Note-tab" data-toggle="tab" href="#note" role="tab" aria-controls="note" aria-selected="false" onclick="NoteTabclick()">Note</a>
+              </li>
+           <li class="nav-item waves-effect waves-light">
+            <a class="nav-link" id="full-record" data-toggle="tab" href="#fullrecord" role="tab" aria-controls="fullrecord" onclick="FullrecTabclick()" aria-selected="false">Full Record</a>
+          </li> 
+          <div style="width: 25%;">
+            <button id="de_assign_btn_ID" class="btn btn-blue" style="border-radius:100px; height: 10px; padding-top:3px;padding-bottom: 21px; float: right;">De-assign</button>
+          </div>
+          <div style="width: 10%;"><div style="float: right;" style="width: 20%">
+            <button type="button" id="prv_p_btn_clickVN" onclick="$.fn.prv_patient_btn_click()" class="rounded-circle z-depth-0 theme_color_secondary waves-effect waves-light white_text" style=" padding-top: 10px; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; border:none; outline:none;"><i class="fa fa-arrow-left"></i></button>
+            <button type="button" class="rounded-circle z-depth-0 theme_color_secondary waves-effect waves-light white_text" id="next_p_btn_clickVN" onclick="$.fn.next_patient_btn_click()" style=" padding-top: 10px; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; border:none; outline:none;"><i class="fa fa-arrow-right"></i></button>
+          </div>
+          </div>
+          <div style="float: right; padding-left: 20px;"><button type="button" class="rounded-circle z-depth-0 waves-effect waves-light" onclick="insert_out_anim_for_idle_fragment()" style="padding-top: 10px; padding-left: 12px; padding-right: 12px; padding-bottom: 10px; color:grey; border: none; outline:none;"><i class="fa fa-close"></i></button></div>
+              
+    </ul>
+    <div class="theme_color_secondary" style="height: 10px;"></div>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="chart" role="tabpanel" aria-labelledby="chart-tab">
+        <div style="background: #eee; width: 100.1%;">
+  
+          <div style="width: 100%;" class="animated faster" id="chart_inner">
+      <div>
+  
+              <div class="row" style=" padding: 50px;">
+  
+  
+                      <div class="col-md-4">
+                          <!-- Card Narrower -->
+                                <div class="card" style="min-height: 300px;">
+                                  <div id="usrDetails_disp_div_loader" style="padding-top: 35%; text-align: center;">
+                                  <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                  </div>
+                                  <div id="usrDetails_disp_div" style="display:none;">
+                                  <div style="padding-left: 15px;">
+                                      <div style="width: 104.5%;">
+                                          <div>
+                            
+                                              <div class="v_patient_details_module_header row">
+                                                  <div class="col-md-3">
+                                                      <img id="patient_pp_pdr" src="img/working_prof/rily.jpg" class="rounded-circle z-depth-0" style="width: 70px; height: 70px" alt="avatar image">
+                                                    </div>
+                                              
+                                                    <div class="col-md-8">
+                                                        
+                                                          <div style="font-size: 20px; font-family: Arial, Helvetica, sans-serif" id="patient_name_pdr"></div>
+                                                          <div style="font-size: 13px; padding-top: 10px; color: #bdbdbd;">
+                                                            <div class="row"> <div class="col-md-4" id="patient_sex_pdr"></div> <div class="col-md-7"><span id="patient_age_pdr"></span> years old</div>  </div>
+                                                            <div class="row"> <div class="col-md-8" id="patient_prof_pdr"></div> <div class="col-md-4" id="patient_height_pdr"></div>  </div>
+                                                          </div>
+                                                          
+                                                      </div>
+                                                  </div>
+                                
+                                              
+                                            </div>
+                                      </div>
+                                
+                        
+                                  </div>
+                                  <div class="row" id="userProf_details_pdr" style="padding-top: 2px; padding-left: 20px; padding-right: 3px; padding-bottom: 2px; min-height: 320px;">
+                                        <div class="col-md-6" id="patient_md_sexS_pdr"><span><b>Sex:</b></span><span id="patient_sexS_pdr"></span></div>
+                                        <div class="col-md-6" id="patient_md_heightS_pdr"><span><b>Height:</b></span><span id="patient_heightS_pdr"></span></div>
+                                        <div class="col-md-6" id="patient_md_ageS_pdr"><span><b>Age:</b></span><span id="patient_ageS_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_phone_no_pdr"><span><b>No:</b></span><span id="patient_phone_no_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_email_pdr"><span><b>Email:</b></span><span id="patient_email_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_prof_pdr"><span><b>Occupation:</b></span><span id="patient_prof_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_dept_pdr"><span><b>Dept:</b></span><span id="patient_dept_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_facul_pdr"><span><b>Faculty:</b></span><span id="patient_facul_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_alerg_pdr"><span><b>Allergies:</b></span><span id="patient_alerg_pdr"></span></div>
+                                      </div>
+                                  </div>
+                        
+                                </div>
+                                <!-- Card Narrower -->
+                        
+                        </div>
+                  
+                  
+                        <div class="col-md-8" style="">
+                            <!-- Card Narrower -->
+                                  <div class="card card-cascade narrower animated" style="min-height: 500px;" id="lab-test-O-main-container">
+                                    <div id="chart_disp_div_loaderDDH" style="padding-top: 30%; text-align: center;">
+                                      <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                      </div>
+                                    <div id="chart_disp_div_mainDDH" style="display: none;">
+                                    <!-- Card image -->
+                                    <div style="width: 100%;">
+                                    <div style="width: 100%;" align="center">
+                                    <div class="view view-cascade overlay" style="width: 80%">
+                                     <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5>RECENT PRESCRIPTION (<span id="r_presc_date_pdr"></span>)</h5></div>
+                                      <a>
+                                        <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                                      </a>
+                                    </div>
+                                    </div>
+                                    </div>
+                          
+                                    <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="r_prescription_div_dpr">
+                               
+                                    </div>
+                                  </div>
+                          
+                                  </div>
+                                  <!-- Card Narrower -->
+                          
+                          </div>
+                  
+                  
+                        
+                  
+                  </div>
+  
+      </div>
+  
+           
+          </div>
+  
+  
+        </div>
+      </div>
+     
+      <div class="tab-pane fade" id="radiograph" role="tabpanel" aria-labelledby="Radiograph-tab">
+      
+          <div style="background: #eee; width: 100%;">
+  <div class="row v_Main_tab_padding_o">
+  
+      <div class="col-md-9">
+          <!-- Card Narrower -->
+                <div class="card card-cascade narrower animated faster" style="min-height: 500px;" id="Radiograph-main-container">
+                  <div id="radiograph_disp_div_loaderDDH" class="disp_loader_div">
+                    <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                    </div>
+                  <div style="display: none;" id="radiograph_disp_div_mainDDH">
+                  <!-- Card image -->
+                  <div style="width: 100%;">
+                  <div style="width: 100%;" align="center">
+                  <div class="view view-cascade overlay" style="width: 80%">
+                   <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="radiograph_date_pdr"></span></h5></div>
+                    <a>
+                      <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                    </a>
+                  </div>
+                  </div>
+                  </div>
+        
+                  <!-- Card content -->
+                 <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"></div>
+        
+                </div>
+                <!-- Card Narrower -->
+                </div>
+        </div>
+  
+  <div class="col-md-3">
+      <div class="card" style="min-height: 200px;">
+          <table id="radiograph_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+            </table>
+      </div>
+    </div>
+  </div>
+  <br>
+  </div>
+  
+      </div>
+      <div class="tab-pane fade" id="lab" role="tabpanel" aria-labelledby="Radiograph-tab">
+  
+  
+          <div style="background: #eee; width: 100%;">
+              <div class="row v_Main_tab_padding_o">
+              
+                  <div class="col-md-9">
+                      <!-- Card Narrower -->
+                            <div class="card card-cascade narrower animated faster" id="Lab-main-container" style="min-height: 500px;">
+                              <div id="lab_disp_div_loaderDDH" class="disp_loader_div">
+                                <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                </div>
+                              <div id="lab_disp_div_mainDDH" style="display: none;">
+                              <!-- Card image -->
+                              <div style="width: 100%;">
+                              <div style="width: 100%;" align="center">
+                              <div class="view view-cascade overlay" style="width: 80%">
+                               <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Lab_date_pdr"></span></h5></div>
+                                <a>
+                                  <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                                </a>
+                              </div>
+                              </div>
+                              </div>
+                    
+                              <!-- Card content -->
+                             <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"></div>
+                              </div>
+                            </div>
+                            <!-- Card Narrower -->
+                    
+                    </div>
+              
+              <div class="col-md-3">
+                  <div class="card" style="min-height: 200px;">
+                      <table id="Lab_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                        </table>
+                  </div>
+                </div>
+              </div>
+              <br>
+              </div>
+  
+  
+      </div>
+      <div class="tab-pane fade" id="medication" role="tabpanel" aria-labelledby="Medication-tab">
+  
+  
+          <div style="background: #eee; width: 100%;">
+              <div class="row v_Main_tab_padding_o">
+              
+                  <div class="col-md-9">
+                      <!-- Card Narrower -->
+                            <div class="card card-cascade narrower animated faster" id="Prescription-main-container" style="min-height: 500px;">
+                              <div id="prescription_disp_div_loaderDDH" class="disp_loader_div">
+                                <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                </div>
+                              <div id="prescription_disp_div_mainDDH" style="display: none;">
+                              <!-- Card image -->
+                              <div style="width: 100%;">
+                              <div style="width: 100%;" align="center">
+                              <div class="view view-cascade overlay" style="width: 80%">
+                               <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Prescription_date_pdr"></span></h5></div>
+                                <a>
+                                  <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                                </a>
+                              </div>
+                              </div>
+                              </div>
+                    
+                              <!-- Card content -->
+                             <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"></div>
+                    
+                            </div>
+                            <!-- Card Narrower -->
+                    </div>
+                    </div>
+              
+              <div class="col-md-3">
+                  <div class="card" style="min-height: 200px;">
+                      <table id="Prescription_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                        </table>
+                  </div>
+                </div>
+              </div>
+              <br>
+              </div>
+  
+  
+  
+      </div>
+      <div class="tab-pane fade" id="Dispensed" role="tabpanel"  aria-labelledby="Radiograph-tab">
+  
+  
+          <div style="background: #eee; width: 100%;">
+              <div class="row v_Main_tab_padding_o">
+              
+                  <div class="col-md-9">
+                      <!-- Card Narrower -->
+                            <div class="card card-cascade narrower animated faster" id="Dispensed-main-container" style="min-height: 500px;">
+                              <div id="dispansed_disp_div_loaderDDH" class="disp_loader_div">
+                                <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                </div>
+                              <div id="dispansed_disp_div_mainDDH" style="display: none;">
+                              <!-- Card image -->
+                              <div style="width: 100%;">
+                              <div style="width: 100%;" align="center">
+                              <div class="view view-cascade overlay" style="width: 80%">
+                               <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Dispensed_date_pdr"></span></h5></div>
+                                <a>
+                                  <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                                </a>
+                              </div>
+                              </div>
+                              </div>
+                    
+                              <!-- Card content -->
+                             <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"></div>
+                              </div>
+                            </div>
+                            <!-- Card Narrower -->
+                    
+                    </div>
+              
+              <div class="col-md-3">
+                  <div class="card" style="min-height: 200px;">
+                      <table id="Dispensed_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                        </table>
+                  </div>
+                </div>
+              </div>
+              <br>
+              </div>
+  
+  
+      </div>
+      <div class="tab-pane fade" id="Note" role="tabpanel" aria-Noteelledby="Radiograph-tab">
+  
+  
+        <div style="background: #eee; width: 100%;">
+            <div class="row v_Main_tab_padding_o">
+            
+                <div class="col-md-9">
+                    <!-- Card Narrower -->
+                          <div class="card card-cascade narrower animated faster" id="Note-main-container" style="min-height: 500px;">
+                            <div id="note_disp_div_loaderDDH" class="disp_loader_div">
+                              <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                              </div>
+                            <div id="note_disp_div_mainDDH" style="display: none;">
+                            <!-- Card image -->
+                            <div style="width: 100%;">
+                            <div style="width: 100%;" align="center">
+                            <div class="view view-cascade overlay" style="width: 80%">
+                             <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Note_date_pdr"></span></h5></div>
+                              <a>
+                                <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                              </a>
+                            </div>
+                            </div>
+                            </div>
+                  
+                            <!-- Card content -->
+                           <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"></div>
+                            </div>
+                          </div>
+                          <!-- Card Narrower -->
+                  
+                  </div>
+            
+            <div class="col-md-3">
+                <div class="card" style="min-height: 200px;">
+                    <table id="Note_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                      </table>
+                </div>
+              </div>
+            </div>
+            <br>
+            </div>
+
+
+    </div>
+      <div class="tab-pane fade" id="fullrecord" role="tabpanel" aria-labelledby="full-record">
+  
+  
+  
+  
+        <div style="background: #eee; width: 100%;">
+          <div class="row v_Main_tab_padding_o">
+          
+              <div class="col-md-9">
+                  <!-- Card Narrower -->
+                        <div class="card card-cascade narrower animated faster" id="Fullrec-main-container" style="min-height: 500px;">
+                          <div id="Fullrec_disp_div_loaderDDH" class="disp_loader_div">
+                            <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                            </div>
+                          <div id="Fullrec_disp_div_mainDDH" style="display: none;">
+                          <!-- Card image -->
+                          <div style="width: 100%;">
+                          <div style="width: 100%;" align="center">
+                          <div class="view view-cascade overlay" style="width: 80%">
+                           <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Fullrec_date_pdr"></span></h5></div>
+                            <a>
+                              <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                            </a>
+                          </div>
+                          </div>
+                          </div>
+                
+                          <!-- Card content -->
+                         <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"></div>
+                          </div>
+                        </div>
+                        <!-- Card Narrower -->
+                
+                </div>
+          
+          <div class="col-md-3">
+              <div class="card" style="min-height: 200px;">
+                  <table id="Fullrec_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                    </table>
+              </div>
+            </div>
+          </div>
+          <br>
+          </div>
+  
+  
+  
+  
+  
+  
+      </div>
+    </div>
+    
+  
+  
+  <div class="v_prescription_form_container animated faster" id="v_pr_form_container">
+      <div class="classic-tabs">
+  
+          <ul class="nav" id="myClassicTab" role="tablist" style="width: 98.9%; background: #424242;">
+            <li class="nav-item v_lower_tab_cell_hw">
+              <a class="waves-light waves-effect dispenseTabInitialTxtColor active show" onclick="tab_pane1ClickAction()" id="profile-tab-classic" data-toggle="tab" href="#profile-classic" role="tab" aria-controls="profile-classic" aria-selected="true"><div style="padding: 2px; width: 100px; text-align: center;"><b>Request Drug</b></div></a>
+            </li>
+            
+            
+            
+                <li class="nav-item v_lower_tab_cell_hw">
+                      <a class="v_lower_tab_cell waves-light v_text_whiteFF waves-effect" onclick="tab_pane5ClickAction()" id="note-btn" data-toggle="tab" href="#contact-classic3" role="tab" aria-controls="contact-classic3" aria-selected="false"><div style="padding: 2px; width: 100px; text-align: center; color: #ffd180;"><b>NOTE</b></div></a>
+                    </li>
+                <li class="nav-item" style="width: 60%;">
+                      <div class="row"> <div class="col-md-11"><div style="padding-top: 4px; padding-left: 340px;"><input type="text" id="dispen_drug_search" style="width: 400px; height: 19px;" placeholder="Search Drug name, Type, Brand"></div></div> <div class="col-md-1" style="padding-left: 0px;"><div class="btn btn-flat btn waves-effect waves-light" onclick="$.fn.dispen_drug_search()" style="padding-left: 10px; padding-right: 10px; padding-top: 4px; margin: 0px; padding-bottom: 10px; height: 30px; font-size: 15px; text-align: center;">GO</div></div> </div>
+                    </li>
+                    <li class="nav-item v_lower_tab_cell_hw">
+                      <a class="v_lower_tab_cell waves-light waves-effect " style="background: #09c;" id="forms_btn_id" onclick="$.fn.openFormSelector()"><div style="padding: 2px; width: 130px; text-align: center;" class="v_text_whiteFF"><b>Forms</b></div></a>
+                    </li>
+                    <li class="nav-item">
+                      <div style="padding-top: 1.8px;"><div class=" waves-effect waves-light fa fa-arrow-up" id="push_bottom_dispense_pane_up_id" onclick="$.fn.bottom_dispense_pane_button_press()" style="padding-left: 10px; padding-right: 10px; padding-top: 8px; padding-bottom: 10px; height: 13px; font-size: 10px; color: white;"></div> </div>
+                    </li>
+                    
+          </ul>
+          <div class="tab-content" id="myClassicTabContent" style="display: none;">
+  
+            <div class="tab-pane active show" id="profile-classic" role="tabpanel" aria-labelledby="profile-tab-classic">
+              <div style="width: 100%;">
+  
+  
+                  <div class="row" style="width: 100%;">
+                      <div style="width: 55%; padding-left: 15px;">
+                          
+                      <div class="records_portal_bottom_pane">
+                        <div style="height: 10px;"></div>
+                      <div class="prform_body">
+                        <div class="row" style="height: 235px; overflow: auto; color: white;">
+                            <table class="table table-striped" id="dispense_table_tablemain">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Brand</th>
+                                    <th scope="col">Qantity</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col"></th>
+                                  </tr>
+                                </thead>
+                                <tbody id="dispense_table_tablebody">
+                                 
+                                </tbody>
+                              </table>
+                              
+                              <div class="row">
+                                    <div class="col-md-6">
+                                        <div style="padding-right: 30px; padding-left: 10px; padding-bottom: 30px; width: 100%; text-align: left; color: #333333">
+                                            <div style="font-size: 15px;">
+                                              <b>Total Price:</b>
+                                            </div>
+                                            <b><div style="font-size: 30px; width:200px;" id="total_price_of_drugs_tb_dispn_id">
+                                                0 Naira
+                                              </div></b>
+                                            </div>
+                                    </div>
+  
+                                    <div class="col-md-6" style="padding-left: 300px;">
+                                      <button id="dispense_btn_oo" class="btn btn-outline-white waves-effect waves-light" style="text-align: center; float:right; width: 140px; cursor:pointer" onclick="$.fn.submit_dispensed_drug()"><span id="dispensed_btn_txt">Request</span> <span style="display: none;" id="dispensed_loading"><img src="img/loading_topnav.gif" style="width: 20px; height: 20px;" ></span></button>
+                                      </div>
+                              
+  
+                              
+                            </div>
+                      </div>
+                      </div>
+                      
+                      </div>
+                      </div>
+                      
+                      <div style="width: 45%;">
+                      <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray; background: #f2f2f2; height: 240px; overflow-y: 
+                      auto; overflow-x: none; ">
+                        <div style="height: 10px;"></div>
+                      <div style="padding-right: 30px; padding-left: 20px;padding-bottom: 10px;" id="dispen_drug_search_table_div">
+                      <div id="dispen_drug_search_table_label"></div>
+                      <table class="table" id="dispen_drug_search_table">
+                        <thead> <tr><td>Drug</td><td>Price(Naira)</td><td>Strength(mg)</td><td>Quantity in Stock</td><td>Dispense Quantity</td><td>Option</td> </tr> </thead> 
+                      </table>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+  
+                
+              </div>
+            </div>
+  
+  
+  
+  
+            <div class="tab-pane" id="follow-classic" role="tabpanel" aria-labelledby="follow-tab-classic">
+            </div>
+            <div class="tab-pane" id="contact-classic" role="tabpanel" aria-labelledby="contact-tab-classic">
+            </div>
+            <div class="tab-pane" id="contact-classic2" role="tabpanel" aria-labelledby="contact-tab-classic2"></div>
+            <div class="tab-pane" id="note-btn" role="tabpanel" aria-labelledby="contact-tab-classic">
+                  </div>
+  
+  
+  
+  
+              <div class="tab-pane" id="contact-classic3" style="height: 250px;" role="tabpanel" aria-labelledby="contact-tab-classic3">
+                      <div style="width: 100%;">
+        
+        
+                          <div class="row" style="width: 100%;">
+                              <div style="width: 55%; padding-left: 15px;">
+                                  
+                              <div class="records_portal_bottom_pane">
+                                <div style="height: 10px;"></div>
+                              <div class="prform_body">
+                                  <div class="row">
+                                      <div class="col-md-9">
+                                        <form id="paper" method="get" action="">
+                                          <textarea class="card mb-1" placeholder="Enter Note." id="text" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 160px; "></textarea>
+                                        </form>
+                                      </div>
+                                      <div class="col-md-3" style="padding-left: 70px;">
+                                        <button class="btn btn-outline-white waves-effect waves-light" onclick="$.fn.startNoteSubmission()" id="sNotebtn" style="text-align: center; padding-right: 20px; padding-left: 20px;">Save</button>
+                                      </div>
+                                      </div>
+                              </div>
+                              
+                              </div>
+                              </div>
+                              
+                              <div style="width: 45%;">
+                              <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray;">
+                                <div style="height: 10px;"></div>
+                              <div class="prform_body" style="color: white;">
+                                <div style="height: 230px; overflow-y: auto; overflow-x: hidden">
+                               <div style="font-size: 20px;"><b>Lastest Note</b></div>
+                               <div style="font-size: 17px;"><b>Date: <span id="rnoteDispLwNabBar_date_pdr"></span></b></div>
+                               <div style="min-height: 200px; width: 97%;" id="rnoteDispLwNabBar"></div>
+                                </div>
+                              </div>
+                              
+                              </div>
+                              </div>
+                              </div>
+          
+                        
+                      </div>
+                  </div>
+  
+              
+  
+            
+          </div>
+        
+        </div>
+  </div>
+  
+  </div>
+  <div id="idle_fragment" style="min-height: 1000px; text-align: center; display: block;" class="animated faster">
+    <div class="animated faster" id="idle_fragment_sub" style="display: block; padding-top: 13%;">
+        <div style="display: inline-block;">
+            <img src="img/appIcons/dextop_icon.png" style="width: 70px; height: 70px;" ><span style="font-size: 35px; padding-top: 30px; font-family: 'Ubuntu', sans-serif;"><b> Viostec</b></span>
+          </div><br><br>
+         <div>
+      
+            <div style="display: inline-block; text-align: left; padding-top: 10px;">
+                <input class="form-control" type="text" id="idle_searchBar" placeholder="Search" aria-label="Search" style="width: 450px;">
+                    </div>
+                    <div style="display: inline-block;">
+                        <button class="btn btn-blue" type="button" onclick="search_patient_s_btn_click()"><i class="fa fa-search"></i></button>
+                              </div>
+            <div style="width: 10px; display: inline-block;"><div style="height: 19.5px;"><img src="img/loading.gif" style="width: 30px; height: 30px; display: none;" id="loading_anim"></div></div>
+      
+         </div>
+    </div>
+    <div class="animated faster" id="search_result_fragment" style="display: none;"><br>
+        <div style="display: inline-block; width: 80%;">
+            <button type="button" id="prv_serach_r_btn" class="rounded-circle z-depth-0 theme_color_secondary waves-effect waves-light" style=" padding-top: 8px; padding-left: 10px; padding-right: 10px; padding-bottom: 8px; color:white; border:none; outline:none; float: left;" onclick="process_prv_search_r_click()"><i class="fa fa-arrow-left"></i></button>
+        </div>
+        <div style="display: inline-block; width: 10%;"><button type="button" class="rounded-circle z-depth-0 waves-effect waves-light" onclick="search_result_cancel()" style="padding-top: 10px; padding-left: 12px; padding-right: 12px; padding-bottom: 10px; color:grey; border: none; outline:none; float: right;"><i class="fa fa-close"></i></button></div>
+      <div id="search_txt_wkr_txt" style="font-size: 15px; color: #545454; text-align: left; padding-left: 200px;"></div>
+      <div id="idle_ps_r">
+    
+  </div>
+    </div>
+   
+  </div>
+
+</div>
+
+
+
+<div id="main_addpatient_wut_fragment" style="display: none;">
+<div style="width: 100%; height: 70px; padding-top: 1px; padding-bottom: 10px;">
+  
+  <div style="float: left; padding-top: 15px; padding-left: 10px; padding-right: 10px;"
+  >
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; background: #09c; color: white;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(6)" id="6inv_tab_btn">
+    Dispensing log
+  </div>
+  </div>
+  <div style="float: left; padding-top: 15px; padding-left: 10px; padding-right: 10px;"
+  >
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(5)" id="5inv_tab_btn">
+    Add Drug
+  </div>
+  </div>
+   <div id="4inv_tab_btn"></div>
+   <div style="float: left; padding-top: 15px; padding-left: 10px; padding-right: 10px;">
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;" class="card waves-light waves-effect"  onclick="process_invontory_tab_click(3)" id="3inv_tab_btn">
+    Losses
+  </div>
+  </div>
+   
+  
+   <div style="float: left; padding-top: 15px; padding-left: 10px; padding-right: 10px;">
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(1)" id="1inv_tab_btn">
+    SOH
+  </div>
+  </div>
+
+    <div style="float: left; padding-top: 15px; padding-left: 10px; padding-right: 10px;">
+        <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(8)" id="8inv_tab_btn">
+          Drug shortage
+        </div>
+        </div> 
+
+        <div style="float: left; padding-top: 15px; padding-left: 10px; padding-right: 10px;"
+   >
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; background: #EA0303; color: white;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(2)" id="2inv_tab_btn">
+    Expired Drugs
+  </div>
+  </div>
+
+  <div style="float: left; padding-top: 15px; padding-left: 10px; padding-right: 10px;">
+      <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; background: #EA0303; color: white;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(7)" id="7inv_tab_btn">
+        Poisons log
+      </div>
+      </div>
+    
+</div>
+<div style="background: #eee; width: 100%; overflow-x: hidden;" id="Add_patient_main_fregment">
+
+<div id="5inv_pane" style="display: none;">
+<div style="padding-top: 50px; padding-bottom: 50px; padding-left: 50px; padding-right: 50px;"> 
+<div style="padding-top: 20px; padding-bottom: 20px; text-align: center"><div class="card" style="height: 700px; padding: 10px; width: 600px; overflow-y: auto; display: inline-block;">
+<div style="font-size: 25px; text-align: center; color: #595959">
+  <i class="fa fa-plus"></i>ADD DRUG
+</div>
+<div>
+
+      <form class="text-center" style="color: #757575;" id="drug_add_form">
+
+          <div class="form-row">
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="text" id="dde1" onkeypress="return runScript(event,'dde1')" class="form-control">
+                      <label for="dde1">Name</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="text" id="dde2" onkeypress="return runScript(event, 'dde2')" class="form-control">
+                      <label for="dde2">Type</label>
+                  </div>
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="col">
+                  <!-- First name -->
+                  <div class="md-form">
+                      <input type="number" id="dde3" onkeypress="return runScript(event, 'dde3')" class="form-control">
+                      <label for="dde3">Price</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="number" id="dde4" onkeypress="return runScript(event, 'dde4')" class="form-control">
+                      <label for="dde4">Quantity</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="number" id="dde5" onkeypress="return runScript(event, 'dde5')" class="form-control">
+                      <label for="dde5">Batch Price</label>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="md-form">
+              <input type="text" id="dde6" onkeypress="return runScript(event, 'dde6')" class="form-control">
+              <label for="dde6">Brand</label>
+          </div>
+
+          <div class="form-row">
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="number" id="dde8" onkeypress="return runScript(event, 'dde8')" class="form-control">
+                      <label for="dde8">Drug Shortage Point</label>
+                  </div>
+              </div>
+              
+          </div>
+          <div class="form-row">
+            <div class="col">
+              <!-- Last name -->
+              <div class="md-form">
+                  <input type="text" id="dde9" onkeypress="return runScript(event, 'dde9')" class="form-control">
+                  <label for="dde9">Strength</label>
+              </div>
+          </div>
+          <div class="col">
+            <!-- Last name -->
+            <div class="md-form">
+                <input type="text" id="dde11" onkeypress="return runScript(event, 'dde11')" class="form-control"/>
+                <label for="dde11">Expiry Date</label>
+            </div>
+        </div>
+          </div>
+          <div class="form-row">
+          <div class="col">
+            <!-- Last name -->
+            <div class="md-form">
+                <select class="browser-default custom-select" id="dde12">
+                  <option value="" selected>Category</option>
+                  <option value="Capsules">Capsules</option>
+                  <option value="Caplets">Caplets</option>
+                  <option value="Creams">Creams</option>
+                  <option value="Canula">Canula</option>
+                  <option value="Dripset">Dripset</option>
+                  <option value="Injectables">Injectables</option>
+                  <option value="Needles">Needles</option>
+                  <option value="Ointments">Ointments</option>
+                  <option value="Parenteral_nutrition">Parenteral nutrition</option>
+                  <option value="Syrups">Syrups</option>
+                  <option value="Solutions">Solutions</option>
+                  <option value="Suspensions">Suspensions</option>
+                  <option value="Syringes">Syringes</option>
+                  <option value="Scalpvein">Scalpvein</option>
+                  <option value="Tablets">Tablets</option>
+                  <option value="WFI">WFI</option>
+                </select>
+            </div>
+        </div></div>
+
+          <!-- Sign up button -->
+          <button class="btn btn-outline-info btn-rounded my-4 waves-effect z-depth-0" onclick="add_drug_submission()" type="button">ADD</button>
+
+      </form>
+
+  </div>
+
+</div> </div> 
+</div>
+<div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div style="width:100%; background: #eee; height: 50px;">
+        <div class="popper" width="200"id='poppertext'>
+            <div style="font-weight: bold;" id="poopertextinner"></div>
+            <div class="popper__arrow" x-arrow="" style="left: 65px;"></div>
+          </div>
+          <div class="popper" width="200"id='poppertext2'>
+            <div style="font-weight: bold;" id="poopertext2inner"></div>
+            <div class="popper__arrow" x-arrow="" style="left: 65px;"></div>
+          </div>
+          <div class="popper"  width="200"id='poppertext3'>
+            <div style="font-weight: bold;" id="poopertext3inner"></div>
+            <div class="popper__arrow" x-arrow="" style="left: 65px;"></div>
+          </div>
+          <div class="popper"  width="200"id='poppertext4'>
+            <div style="font-weight: bold;" id="poopertext4inner"></div>
+            <div class="popper__arrow" x-arrow="" style="left: 65px;"></div>
+          </div>
+          <div class="popper"  width="200"id='poppertext5'>
+            <div style="font-weight: bold;" id="poopertext5inner"></div>
+            <div class="popper__arrow" x-arrow="" style="left: 65px;"></div>
+          </div>
+          <div class="popper" width="200"id='poppertext6'>
+            <div style="font-weight: bold;" id="poopertext6inner"></div>
+            <div class="popper__arrow" x-arrow="" style="left: 65px;"></div>
+          </div>
+          <div class="popper" width="200"id='poppertext7'>
+              <div style="font-weight: bold;" id="poopertext7inner"></div>
+              <div class="popper__arrow" x-arrow="" style="left: 75px;"></div>
+            </div>
+            <div class="popper" width="200"id='poppertext8'>
+                <div style="font-weight: bold;" id="poopertext8inner"></div>
+                <div class="popper__arrow" x-arrow="" style="left: 85px;"></div>
+              </div>
+              <div class="popper" width="200"id='poppertext9'>
+                <div style="font-weight: bold;" id="poopertext9inner"></div>
+                <div class="popper__arrow" x-arrow="" style="left: 95px;"></div>
+              </div>
+              <div class="popper" width="200"id='poppertext10'>
+                <div style="font-weight: bold;" id="poopertext10inner"></div>
+                <div class="popper__arrow" x-arrow="" style="left: 105px;"></div>
+              </div>
+              <div class="popper" width="200"id='poppertext11'>
+                <div style="font-weight: bold;" id="poopertext11inner"></div>
+                <div class="popper__arrow" x-arrow="" style="left: 115px;"></div>
+              </div>
+              <div class="popper" width="200"id='poppertext12'>
+                <div style="font-weight: bold;" id="poopertext12inner"></div>
+                <div class="popper__arrow" x-arrow="" style="left: 125px;"></div>
+              </div>
+                <div class="popper" width="200"id='poppertext10' style="background: #eee; height: 50px;">
+                  <div style="font-weight: bold;" id="poopertext8inner"></div>
+                  <div class="popper__arrow" x-arrow="" style="left: 85px;"></div>
+                </div>
+      </div>
+</div>
+</div>
+
+<div id="2inv_pane" style="display: none;">
+  <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+    <div class="row" style="min-height: 600px; padding: 10px;">
+      <div class="card" style="min-height: 600px; padding: 10px; overflow-x: hidden; overflow-y: auto; width: 1200px;">
+
+  <div>
+    <div>
+        <div style="display: inline; float: left; padding-top:7px; color: rgb(94, 93, 93);"><i class="fa fa-info-circle"></i> Click to remove from Expired table</div>
+     <!-- start date picker-->
+     <div style="float: right;"><div class="row" style="width: 450px;"> <div class="col-md-4" style="text-align: right; font-size: 25px; padding: 0px;">ExpireyDate</div><div class="col-md-7">
+        <div id="exp_DatePicker1" style="background: #fff; cursor: pointer; padding: 5px 5px; border: 1px solid #ccc; width: 100%;">
+        <i class="fa fa-calendar"></i>&nbsp;
+        <span></span>
+        <i class="fa fa-caret-down"></i>
+        <span id="exp_dispLDate"></span>
+        </div>
+      </div> </div></div>
+      <!-- end date picker-->
+      </div>
+    <table id="expiredTableACV" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" style="cursor: pointer;">
+    </table>
+
+
+      <hr>
+      <div>
+        <div class="row">
+          <div style="font-size: 25px; text-align: right; width: 90%;" id="expired_modal_total_price_div"></div>
+          <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="expired_modal_total_no_of_drugs_div"></div>
+          <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="expired_modal_total_quantity_div"></div>
+          </div>
+      </div>
+  </div>
+
+</div>
+</div>
+
+</div> </div>
+</div>
+
+<div id="3inv_pane" style="display: none;">
+    <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+        <div style="min-height: 600px; padding: 10px;">
+          <div class="card" style="min-height: 600px; width: 1000px; padding: 10px; overflow-x: hidden; overflow-y: auto;">
+    
+              <div>
+                <!-- start date picker-->
+     <div style="float: right;"><div class="row" style="width: 400px;"> <div class="col-md-3" style="text-align: right; font-size: 25px; padding: 0px;">Date</div><div class="col-md-8">
+        <div id="losses_DatePicker1" style="background: #fff; cursor: pointer; padding: 5px 5px; border: 1px solid #ccc; width: 100%;">
+        <i class="fa fa-calendar"></i>&nbsp;
+        <span></span>
+        <i class="fa fa-caret-down"></i>
+        <span id="losses_dispLDate"></span>
+        </div>
+      </div> </div></div>
+      <!-- end date picker-->
+                  <table id="losses_Table" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                    </table>
+               </div>
+               <div>
+                  <div class="row">
+                      <div style="font-size: 25px; text-align: right; width: 90%;" id="losses_total_price_div"></div>
+                      <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="losses_total_no_of_drugs_div"></div>
+                      <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="losses_total_quantity_div"></div>
+                    </div>
+               </div>
+    
+    </div>
+    </div>
+    
+    </div> </div>
+</div>
+
+<div id="4inv_pane" style="display: none;">
+</div>
+
+<div id="1inv_pane" style="display: none;">
+  <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+    <div class="row" style=" width: 1200px; padding: 10px;">
+      <div class="card col-md-9" style="height: 600px; padding: 10px; overflow-x: hidden; overflow-y: auto;">
+
+  <div>
+      <div style="padding-top:3px; color: rgb(94, 93, 93);text-align: left;"><i class="fa fa-info-circle"></i> Click to view batches and perform basic operations</div>
+    <div>
+      <div style="font-size: 20px; color: rgb(122, 121, 121);" id="soh_table_indicator">Capsules</div>
+      <table id="sohTable" style="cursor: pointer;" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+      </table>
+  
+  
+        <hr>
+        <div>
+          <div class="row">
+            <div style="font-size: 25px; text-align: right; width: 90%;" id="soh_total_price_div"></div>
+            <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="soh_total_no_of_drugs_div"></div>
+            <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="soh_total_quantity_div"></div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+</div>
+<div class="col-md-3" style="padding-left:30px;">
+<div class="card" style="height: 400px;padding: 10px; overflow-x: none; overflow-y: auto;">
+<table class="table">
+  <thead>
+    <tr style="text-align:center;"td><b>Category</b></td></tr>
+  </thead>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category1" onclick="$.fn.select_soh_tab(1, 'Capsules','Capsules')"><td>Capsules</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category2" onclick="$.fn.select_soh_tab(2, 'Caplets','Caplets')"><td>Caplets</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category3" onclick="$.fn.select_soh_tab(3, 'Creams','Creams')"><td>Creams</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category4" onclick="$.fn.select_soh_tab(4, 'Canula','Canula')"><td>Canula</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category5" onclick="$.fn.select_soh_tab(5, 'Dripset','Dripset')"><td>Dripset</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category6" onclick="$.fn.select_soh_tab(6, 'Injectables','Injectables')"><td>Injectables</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category7" onclick="$.fn.select_soh_tab(7, 'Needles','Needles')"><td>Needles</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category8" onclick="$.fn.select_soh_tab(8, 'Dripset','Dripset')"><td>Dripset</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category9" onclick="$.fn.select_soh_tab(9, 'Needles','Needles')"><td>Needles</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category10" onclick="$.fn.select_soh_tab(10, 'Ointments','Ointments')"><td>Ointments</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category11" onclick="$.fn.select_soh_tab(11, 'Parenteral nutrition','Parenteral_nutrition')"><td>Parenteral nutrition</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category12" onclick="$.fn.select_soh_tab(12, 'Syrups','Syrups')"><td>Syrups</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category13" onclick="$.fn.select_soh_tab(13, 'Solutions','Solutions')"><td>Solutions</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category14" onclick="$.fn.select_soh_tab(14, 'Scalpvein','Scalpvein')"><td>Scalpvein</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category15" onclick="$.fn.select_soh_tab(15, 'Tablets','Tablets')"><td>Tablets</td></tr>
+  <tr style="border:solid 1px grey; cursor: pointer;"  id="s_category16" onclick="$.fn.select_soh_tab(16, 'WFI','WFI')"><td>WFI</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+</div> </div>
+</div>
+<div id="8inv_pane" style="display: none;">
+  <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+    <div class="row" style="min-height: 600px; padding: 10px;">
+      <div class="card" style="min-height: 600px; padding: 10px; overflow-x: hidden; overflow-y: auto; width: 1200px;">
+
+  <div>
+    <table id="shortageTableACV" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+    </table>
+
+
+      <hr>
+      <div>
+        <div class="row">
+          <div style="font-size: 25px; text-align: right; width: 90%;" id="drugShortage_modal_total_price_div"></div>
+          <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="drugShortage_modal_total_no_of_drugs_div"></div>
+          <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="drugShortage_modal_total_quantity_div"></div>
+          </div>
+      </div>
+  </div>
+
+</div>
+</div>
+
+</div> </div>
+</div>
+<div id="6inv_pane">
+    <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+        <div class="row" style="height: 600px; width: 1200px; padding: 10px;">
+          <div class="card col-md-12" style="height: 600px; padding: 10px; overflow-x: hidden; overflow-y: auto;">
+    
+      <div>
+        <div>
+          <div style="display: inline; float: left; padding-top:7px; color: rgb(94, 93, 93);"><i class="fa fa-info-circle"></i> Click to view details</div>
+            <div style="float: right;"><div class="row" style="width: 400px;"> <div class="col-md-3" style="text-align: right; font-size: 25px; padding: 0px;">Date</div><div class="col-md-8">
+                <div id="rDatePicker1" style="background: #fff; cursor: pointer; padding: 5px 5px; border: 1px solid #ccc; width: 100%;">
+                <i class="fa fa-calendar"></i>&nbsp;
+                <span></span>
+                <i class="fa fa-caret-down"></i>
+                <span id="dispLDate"></span>
+                </div>
+                <!-- <input type="text" id="rDatePicker1" class="form-control"> -->
+              </div> </div></div>
+        </div>
+          
+        <table id="costingTable" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+        </table>
+    
+    
+          <hr>
+          <div>
+            <div class="row">
+              <div style="font-size: 25px; text-align: right; width: 90%;" id="dispensing_log_total_price_div"></div>
+              <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="dispensing_log_total_no_of_drugs_div"></div>
+              <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="dispensing_log_total_quantity_div"></div>
+              <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="dispensing_log_total_patients_purchase_div"></div>
+            </div>
+          </div>
+      </div>
+    
+    </div>
+    
+    </div>
+    
+    </div> </div>
+</div>
+<div id="7inv_pane" style="display: none;">
+  <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+    <div style="min-height: 600px; padding: 10px;">
+      <div class="card" style="min-height: 600px; width: 1200px; padding: 10px; overflow-x: hidden; overflow-y: auto;">
+        <div>
+            <div style="display: inline; float: left; padding-top:7px; color: rgb(94, 93, 93);"><i class="fa fa-info-circle"></i> Click to remove from Poisons log</div>
+        </div>
+          <div>
+              <table id="poision_log_Table" style="cursor: pointer;" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                </table>
+           </div>
+           <div>
+              <div class="row">
+                  <div style="font-size: 25px; text-align: right; width: 90%;" id="poision_log_total_price_div"></div>
+                  <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="poision_log_total_no_of_drugs_div"></div>
+                  <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="poision_log_total_quantity_div"></div>
+                </div>
+           </div>
+
+</div>
+</div>
+
+</div> </div>
+</div>
+
+</div>
+
+</div>
+
+<div class="animated faster" id="rp_details_modal" style="background: black; opacity: 0.8; width: 30%; height: 600px; position: absolute; right: 0px; bottom: 0px; overflow: auto; display: none;">
+  
+</div>
+
+<!-- modals -->
+<div class="modal fade" style="overflow-x: none; overflow-y: none;" id="drugInfo_Modal_SSG" tabindex="-1" role="dialog" aria-labelledby="drugInfoModalLabel" aria-hiddeHJn="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="drugInfoModalLabel" style="color: #595959"><b>ADD BATCH</b></h5>
+        <button style="background: red; color: whi" 
+         type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hiddeHJn="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+
+<div class="" style="min-height: 350px; padding: 10px; overflow-x: none; overflow-y: auto;">
+<div class="row" style="width: 99%;"><div class="col-md-3"><button class="btn btn-blue" style="float: left;" onclick="$.fn.add_adjustment()">Add Adjustment</button></div>
+<div class="col-md-3"><button class="btn btn-blue" style="float: right;" onclick="$.fn.add_losses_getDrugInfo()">Add drug Losses</button></div>
+<div class="col-md-3"><button class="btn btn-blue" style="float: right;" id="add_new_batch_btn_id" onclick="$.fn.getDrugInfo()">Add new batch</button></div>
+<div class="col-md-3"><button class="btn btn-grey" style="float: right;" onclick="start_add_to_poision_log()">Add To Poison-log</button></div>
+
+</div><hr>
+ <div>
+    <table id="batchesTable" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="3">
+      </table>
+ </div>
+ <div>
+    <div class="row">
+        <div style="font-size: 25px; text-align: right; width: 90%;" id="batch_modal_total_price_div"></div>
+        <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="batch_modal_total_no_of_drugs_div"></div>
+        <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="batch_modal_total_quantity_div"></div>
+      </div>
+ </div>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" style="overflow-x: none; overflow-y: none;" id="add_batchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hiddeHJn="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel" style="color: #595959"><b>ADD NEW BATCH</b></h5>
+          <button style="background: red; color: whi" 
+           type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hiddeHJn="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="height: 500px;">
+          
+  
+          <div style="fontsize:20px;">
+            <b>Drug Details</b>
+            <div style="border: solid rgb(192, 190, 190) 1px; padding: 20px; color: #757575;">
+            <div style="padding-left:20px;"><div class="row"><div class="col-md-6"><b>Name</b>:<span id="drug_name_D_modalAA">dkjfkdj dkldl</span></div><div class="col-md-6"><b>Type</b>:<span id="drug_Type_D_modalAA">dkjfkdj dkldl</span></div><div> </div></div> 
+            <div class="row"><div class="col-md-6"><b>Current Price(Naira)</b>:<span id="drug_Cprice_D_modalAA">100</span></div><div class="col-md-6"><b>Current Quantity</b>:<span id="drug_Cquantity_D_modalAA">300</span></div><div> </div></div> 
+            <div class="row"><div class="col-md-6"><b>Current Batch-Price(Naira)</b>:<span id="drug_Cbprice_D_modalAA">10000</span></div><div class="col-md-6"><b>Brand</b>:<span id="drug_brand_D_modalAA">dkjfkdj dkldl</span></div><div> </div></div> 
+            <div class="row"><div class="col-md-6"><b>Strength(mg)</b>:<span id="drug_strength_D_modalAA">10</span></div><div class="col-md-6"><b>Category</b>:<span id="drug_category_D_modalAA">Tablets</span></div><div> </div></div> 
+          </div></div>
+            <b>NEW-BATCH INFO</b>
+            <div style="border: solid rgb(192, 190, 190) 1px; padding: 20px; height: 270; overflow-x: hidden; overflow-y: auto;">
+            <div>
+             <form class="text-center" style="color: #757575;" id="add_batch_form">
+          
+                 <div class="form-row">
+                     <div class="col">
+                         <!-- First name -->
+                         <div class="md-form">
+                             <input type="number" id="newBatch_input1" onkeypress="return runScript(event, 'newBatch_input1')" class="form-control pharm_inputPlaceholder_color" placeholder="100">
+                             <label for="newBatch_input1">Price</label>
+                         </div>
+                     </div>
+                     <div class="col">
+                         <!-- Last name -->
+                         <div class="md-form">
+                             <input type="number" id="newBatch_input2" onkeypress="return runScript(event, 'newBatch_input2')" class="form-control pharm_inputPlaceholder_color" placeholder="100">
+                             <label for="newBatch_input2">Quantity</label>
+                         </div>
+                     </div>
+                     <div class="col">
+                         <!-- Last name -->
+                         <div class="md-form">
+                             <input type="number" id="newBatch_input3" onkeypress="return runScript(event, 'newBatch_input3')" class="form-control pharm_inputPlaceholder_color" placeholder="100">
+                             <label for="newBatch_input3">Batch Price</label>
+                         </div>
+                     </div>
+                 </div>
+                 
+                 
+           
+                 <div class="form-row">
+                    <div class="col">
+                        <!-- Last name -->
+                        <div class="md-form">
+                          <input type="text" id="newBatch_input4" onkeypress="return runScript(event, 'newBatch_input4')" class="form-control pharm_inputPlaceholder_color" placeholder="100">
+                          <label for="newBatch_input4">Brand</label>
+                      </div>
+                    </div>
+                     <div class="col">
+                         <!-- Last name -->
+                         <div class="md-form">
+                             <input type="number" id="newBatch_input5" onkeypress="return runScript(event, 'newBatch_input5')" class="form-control pharm_inputPlaceholder_color" placeholder="100">
+                             <label for="newBatch_input5">Drug Shortage Point</label>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="form-row">
+                  <div class="col">
+                    <!-- Last name -->
+                    <div class="md-form">
+                        <input type="text" id="newBatch_input6" onkeypress="return runScript(event, 'newBatch_input6')" class="form-control pharm_inputPlaceholder_color" placeholder="100">
+                        <label for="newBatch_input6">Strength</label>
+                    </div>
+                </div>
+                 <div class="col">
+                   <!-- Last name -->
+                   <div class="md-form">
+                       <input type="text" id="newBatch_input7" onkeypress="return runScript(event, 'newBatch_input7')" class="form-control pharm_inputPlaceholder_color" placeholder="2019/08/14">
+                       <label for="newBatch_input7">Expiry Date</label>
+                   </div>
+               </div>
+                 </div>
+           
+                 <!-- Sign up button -->
+                 <button class="btn btn-outline-info btn-rounded my-4 waves-effect z-depth-0" onclick="$.fn.submit_add_batch()" type="button">ADD</button>
+           
+             </form>
+           
+           </div></div> </div>
+  
+  
+  
+  
+        </div>
+       
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="edith_DrugModal" tabindex="-1" role="dialog" aria-labelledby="edith_DrugModalLabel" aria-hiddeEDITHDn="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="edith_DrugModalLabel" style="color: #595959"><b>ADJUST DRUG-INFO</b></h5>
+            <button style="background: red; color: whi" 
+             type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hiddeEDITHDn="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" style="height: 500px; overflow-y: auto;">
+              <form class="text-center" style="color: #757575;" id="adjust_drug_form_id">
+
+                  <div class="form-row">
+                      <div class="col">
+                          <!-- Last name -->
+                          <div class="md-form">
+                              <input type="text" id="adjDI0" onkeypress="return runScript(event,'adjDI0')" class="form-control pharm_inputPlaceholder_color" placeholder="Drug Name">
+                              <label for="adjDI0">Name</label>
+                          </div>
+                      </div>
+                      <div class="col">
+                          <!-- Last name -->
+                          <div class="md-form">
+                              <input type="text" id="adjDI1" onkeypress="return runScript(event, 'adjDI1')" class="form-control pharm_inputPlaceholder_color" placeholder="Drug Type">
+                              <label for="adjDI1">Type</label>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-row">
+                      <div class="col">
+                          <!-- First name -->
+                          <div class="md-form">
+                              <input type="number" id="adjDI2" onkeypress="return runScript(event, 'adjDI2')" class="form-control pharm_inputPlaceholder_color" placeholder="Drug Price">
+                              <label for="adjDI2">Price</label>
+                          </div>
+                      </div>
+                      <div class="col">
+                          <!-- Last name -->
+                          <div class="md-form">
+                              <input type="number" id="adjDI3" onkeypress="return runScript(event, 'adjDI3')" class="form-control pharm_inputPlaceholder_color" placeholder="Drug Quantity">
+                              <label for="adjDI3">Quantity</label>
+                          </div>
+                      </div>
+                      <div class="col">
+                          <!-- Last name -->
+                          <div class="md-form">
+                              <input type="number" id="adjDI4" onkeypress="return runScript(event, 'adjDI4')" class="form-control pharm_inputPlaceholder_color" placeholder="Batch Price">
+                              <label for="adjDI4">Batch Price</label>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="md-form">
+                      <input type="text" id="adjDI5" onkeypress="return runScript(event, 'adjDI5')" class="form-control pharm_inputPlaceholder_color" placeholder="Drug Brand">
+                      <label for="adjDI5">Brand</label>
+                  </div>
+        
+                  <div class="form-row">
+                      <div class="col">
+                          <!-- Last name -->
+                          <div class="md-form">
+                              <input type="number" id="adjDI6" onkeypress="return runScript(event, 'adjDI6')" class="form-control pharm_inputPlaceholder_color" placeholder="Shortage Point">
+                              <label for="adjDI6">Drug Shortage Point</label>
+                          </div>
+                      </div>
+                      
+                  </div>
+                  <div class="form-row">
+                      <div class="col">
+                          <!-- Last name -->
+                          <div class="md-form">
+                              <input type="text" id="adjDI7" onkeypress="return runScript(event, 'adjDI7')" class="form-control pharm_inputPlaceholder_color" placeholder="Drug Strength">
+                              <label for="adjDI7">Strength</label>
+                          </div>
+                      </div>
+                  <div class="col">
+                    <!-- Last name -->
+                    <div class="md-form">
+                        <input type="text" id="adjDI8" onkeypress="return runScript(event, 'adjDI8')" class="form-control pharm_inputPlaceholder_color" placeholder="Drug Expirey Date">
+                        <label for="adjDI8">Expiry Date</label>
+                    </div>
+                </div>
+                  </div>
+                  <div class="form-row">
+                  <div class="col">
+                    <!-- Last name -->
+                    <div class="md-form">
+                        <select class="browser-default custom-select" id="adjDI9">
+                          <option value="" selected="">Category</option>
+                          <option value="Capsules">Capsules</option>
+                          <option value="Caplets">Caplets</option>
+                          <option value="Creams">Creams</option>
+                          <option value="Canula">Canula</option>
+                          <option value="Dripset">Dripset</option>
+                          <option value="Injectables">Injectables</option>
+                          <option value="Needles">Needles</option>
+                          <option value="Ointments">Ointments</option>
+                          <option value="Parenteral_nutrition">Parenteral nutrition</option>
+                          <option value="Syrups">Syrups</option>
+                          <option value="Solutions">Solutions</option>
+                          <option value="Suspensions">Suspensions</option>
+                          <option value="Syringes">Syringes</option>
+                          <option value="Scalpvein">Scalpvein</option>
+                          <option value="Tablets">Tablets</option>
+                          <option value="WFI">WFI</option>
+                        </select>
+                    </div>
+                </div></div>
+        
+                  <!-- Sign up button -->
+                  <button class="btn btn-outline-info btn-rounded my-4 waves-effect z-depth-0" onclick="$.fn.add_drug_adjustments()" type="button">UPDATE</button>
+        
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="add_Drug_Losses_Modal" tabindex="-1" role="dialog" aria-labelledby="edith_DrugModalLabel" aria-hiddeEDITHDn="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="edith_DrugModalLabel" style="color: #595959"><b>ADD LOSSES</b></h5>
+              <button style="background: red; color: whi" 
+               type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hiddeEDITHDn="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" style="height: 500px; overflow-y: auto;">
+                <div style="fontsize:20px;">
+                    <b>Drug Details</b>
+                    <div style="border: solid rgb(192, 190, 190) 1px; padding: 20px; color: #757575;">
+                    <div style="padding-left:20px;"><div class="row"><div class="col-md-6"><b>Name</b>:<span id="drug_name_L_modalAA">dkjfkdj dkldl</span></div><div class="col-md-6"><b>Type</b>:<span id="drug_Type_L_modalAA">dkjfkdj dkldl</span></div><div> </div></div> 
+                    <div class="row"><div class="col-md-6"><b>Current Price(Naira)</b>:<span id="drug_Cprice_L_modalAA">100</span></div><div class="col-md-6"><b>Current Quantity</b>:<span id="drug_Cquantity_L_modalAA">300</span></div><div> </div></div> 
+                    <div class="row"><div class="col-md-6"><b>Current Batch-Price(Naira)</b>:<span id="drug_Cbprice_L_modalAA">10000</span></div><div class="col-md-6"><b>Brand</b>:<span id="drug_brand_L_modalAA">dkjfkdj dkldl</span></div><div> </div></div> 
+                    <div class="row"><div class="col-md-6"><b>Strength(mg)</b>:<span id="drug_strength_L_modalAA">10</span></div><div class="col-md-6"><b>Category</b>:<span id="drug_category_L_modalAA">Tablets</span></div><div> </div></div> 
+                  </div></div>
+                  <div>
+                      <form class="text-center" style="color: #757575;" id="add_loss_formID">
+                          <div class="form-row">
+                              <div class="col">
+                                  <!-- Last name -->
+                                  <div class="md-form">
+                                      <input type="number" id="ad_Loss_DI0" onkeypress="return runScript(event,'ad_Loss_DI0')" class="form-control">
+                                      <label for="ad_Loss_DI0">Quantity Lossed</label>
+                                  </div>
+                              </div>   
+                          </div>
+                          <div class="form-row">
+                              <div class="col">
+                                  <!-- Last name -->
+                                  <div class="md-form">
+                                      <textarea type="text" id="ad_Loss_DI1" class="form-control"  rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 160px;"></textarea>
+                                      <label for="ad_Loss_DI1">Cause(s)</label>
+                                  </div>
+                              </div>
+                          </div>
+                          <button class="btn btn-outline-info btn-rounded my-4 waves-effect z-depth-0" onclick="$.fn.add_losses()" type="button">ADD</button>
+                        </form>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div class="modal fade" id="drugAnalytics_pd_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="color: #595959"><b><span id="costing_t_m_title"></span></b></h5>
+        <button style="background: red; color: whi" 
+         type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="max-height: 380px;">
+        <table id="costingTable_modal" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+        </table>
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div style="font-size: 25px; text-align: right; width: 90%;" id="dispensing_log_modal_total_price_div"></div>
+          <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="dispensing_log_modal_total_no_of_drugs_div"></div>
+          <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="dispensing_log_modal_total_quantity_div"></div>
+          <div style="font-size: 15px; text-align: right; width: 90%; color: rgb(122, 121, 121);" id="dispensing_log_modal_total_patients_purchase_div"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display: none;"><div id="noteDispProcessing_div"></div></div>
+<div style="display: none;">
+<div id="f_file_collector" action="http://localhost:3130/uploadfile" class="dropzone dz-clickable" style="height: 140px; padding: 1px 1px; border: none;">
+</div>
+</div>
+</div>
+
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/jBox.all.min.js"></script>
+  <script type="text/javascript" src="js/mdb.js"></script>
+  <script type="text/javascript" src="js/general_controller.js"></script>
+  <script type="text/javascript" src="js/moment.min.js"></script>
+  <script type="text/javascript" src="js/daterangepicker.js"></script>
+  <script type="text/javascript" src="js/easyauto_comp/jquery.easy-autocomplete.min.js"></script>
+  <script type="text/javascript" src="js/footable.js"></script>
+  <script type="text/javascript" src="js/lightgallery-all.min.js"></script>
+  <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+  <script type="text/javascript" src="js/nurse_portal_controller.js"></script>
+  <script type="text/javascript" src="js/dropzone.js"></script>
+  <script>
+
+var drug_sugestion = {
+
+url: function(phrase){
+  return "http://localhost:4417/general_server_files/drug_sugestions.json";
+},
+
+getValue: function(element) {
+    return element.character;
+},
+
+ajaxSettings:{
+  dataType: "json",
+  method: "POST",
+  data:{
+    dataType: "json"
+  }
+},
+
+
+
+preparePostData: function(data){
+data.phrase = $("#dispen_drug_search").val();
+return data;
+},
+
+requestDelay: 400,
+
+template: {
+    type: "custom",
+    method: function(value,item){
+      return value+" <span style='color: #aaa; font-style: italic; font-size: 0.9em'>"+item.id+"</span>";
+    }
+},
+
+list: {
+    maxNumberOfElements: 8,
+    match: {
+        enabled: true
+    },
+    sort: {
+        enabled: true
+    },
+    showAnimation:{
+      type: "fade",
+      time: 400,
+      callback: function(){}
+    },
+    hideAnimation:{
+      type: "slide",
+      time: 400,
+      callback: function(){}
+    },
+    onClickEvent: function(){
+      var id_value = $("#dispen_drug_search").getSelectedItemData().id;
+      var char_value = $("#dispen_drug_search").getSelectedItemData().character;
+      $.fn.dispen_drug_find(id_value,char_value);
+    }
+},
+
+theme: "square"
+};
+
+$("#dispen_drug_search").easyAutocomplete(drug_sugestion);
+
+var options = {
+
+url: function(phrase){
+  return "http://localhost:4417/general_server_files/patient_sugestions.json";
+},
+
+categories: [{
+    listLocation: "name_based",
+    maxNumberOfElements: 4,
+    header: "By Names"
+}, {
+    listLocation: "id_based",
+    maxNumberOfElements: 4,
+    header: "By ID"
+}],
+
+getValue: function(element) {
+    return element.character;
+},
+
+ajaxSettings:{
+  dataType: "json",
+  method: "POST",
+  data:{
+    dataType: "json"
+  }
+},
+
+preparePostData: function(data){
+data.phrase = $("#search_patient_input").val();
+return data;
+},
+
+requestDelay: 400,
+
+template: {
+    type: "custom",
+    method: function(value,item){
+      return "<img src='"+item.icon+"' style='width:30px; height:30px;' class='rounded-circle' /> "+value+" <span style='color: #aaa; font-style: italic; font-size: 0.9em'>"+item.patientno+"</span>";
+    }
+},
+
+list: {
+    maxNumberOfElements: 8,
+    match: {
+        enabled: true
+    },
+    sort: {
+        enabled: true
+    },
+    showAnimation:{
+      type: "fade",
+      time: 400,
+      callback: function(){}
+    },
+    hideAnimation:{
+      type: "slide",
+      time: 400,
+      callback: function(){}
+    },
+    onClickEvent: function(){
+      var id_value = $("#search_patient_input").getSelectedItemData().id;
+      $.get('http://localhost:3130/set_currOpratP_coll',{
+    usrID:id_value
+  },
+  function (result){
+    if(result === "11111"){
+      process_normal_search_p_click(id_value);
+    }
+  });
+    }
+},
+
+theme: "square"
+};
+
+var options2 = {
+
+url: function(phrase){
+  return "http://localhost:4417/general_server_files/patient_sugestions.json";
+},
+
+categories: [{
+    listLocation: "name_based",
+    maxNumberOfElements: 4,
+    header: "By Names"
+}, {
+    listLocation: "id_based",
+    maxNumberOfElements: 4,
+    header: "By ID"
+}],
+
+getValue: function(element) {
+    return element.character;
+},
+
+ajaxSettings:{
+  dataType: "json",
+  method: "POST",
+  data:{
+    dataType: "json"
+  }
+},
+
+preparePostData: function(data){
+data.phrase = $("#idle_searchBar").val();
+return data;
+},
+
+requestDelay: 400,
+
+template: {
+    type: "custom",
+    method: function(value,item){
+      return "<img src='"+item.icon+"' style='width:30px; height:30px;' class='rounded-circle' /> "+value+" <span style='color: #aaa; font-style: italic; font-size: 0.9em'>"+item.patientno+"</span>";
+    }
+},
+
+list: {
+    maxNumberOfElements: 8,
+    match: {
+        enabled: true
+    },
+    sort: {
+        enabled: true
+    },
+    showAnimation:{
+      type: "fade",
+      time: 400,
+      callback: function(){}
+    },
+    hideAnimation:{
+      type: "slide",
+      time: 400,
+      callback: function(){}
+    },
+    onClickEvent: function(){
+      var id_value = $("#idle_searchBar").getSelectedItemData().id;
+      $.get('http://localhost:3130/set_currOpratP_coll',{
+    usrID:id_value
+  },
+  function (result){
+    if(result === "11111"){
+      process_idle_search_p_click(id_value);
+    }
+  });
+    },
+},
+
+theme: "square"
+};
+
+$("#search_patient_input").easyAutocomplete(options);
+
+
+$("#idle_searchBar").easyAutocomplete(options2);
+
+  </script>
+
+
+
+</body></html>

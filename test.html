@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FilePond from CDN</title>
+
+  <!-- Filepond stylesheet -->
+  <link href="css/filepond.css" rel="stylesheet">
+  <link href="css/filepond-plugin-image-preview.css" rel="stylesheet">
+  <script src="js/filepond-plugin-image-exif-orientation.js"></script>
+  <script src="js/filepond-plugin-image-preview.js"></script>
+  <script src="js/filepond-plugin-file-validate-size.js"></script>
+  <script src="js/filepond-plugin-file-encode.js"></script>
+  <script src="js/filepond.js"></script>
+  <style>
+/**
+ * FilePond Custom Styles
+ */
+ .filepond--drop-label {
+	color: #4c4e53;
+}
+
+.filepond--label-action {
+	text-decoration-color: #babdc0;
+}
+
+.filepond--panel-root {
+	border-radius: 2em;
+	background-color: #edf0f4;
+	height: 1em;
+}
+
+.filepond--item-panel {
+	background-color: #595e68;
+}
+
+.filepond--drip-blob {
+	background-color: #7f8a9a;
+}
+
+@media (min-width: 30em) {
+    .filepond--item {
+        width: calc(33.33% - .5em);
+    }
+}
+
+@media (min-width: 50em) {
+    .filepond--item {
+        width: calc(33.33% - .5em);
+    }
+}
+
+/**
+ * Page Styles
+ */
+ body::-webkit-scrollbar {
+    width: 0.3em;
+}
+ 
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 8px;
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: #09c;
+  outline: 1px solid slategrey;
+  border-radius: 8px;
+}
+
+</style>
+</head>
+<body>
+
+        <input id="uploadPR_PIC_input" type="file" 
+        class="filepond"
+        name="filepond"
+        multiple
+        data-max-file-size="15MB"
+        data-max-files="30" />
+ <script>
+     var usr_id = "";
+FilePond.registerPlugin(
+   
+   FilePondPluginFileEncode,
+   FilePondPluginFileValidateSize,
+   FilePondPluginImageExifOrientation,
+   FilePondPluginImagePreview
+  );
+  FilePond.setOptions({
+     server: {
+         process:(fieldName, file, metadata, load, error, progress, abort) => {
+ const formData = new FormData();
+ 
+ user_id = new Promise((resolve,reject)=>{
+     var result = "";
+    var http = new XMLHttpRequest();
+    var url = "http://localhost:3130/r_passed_usrID";
+    
+    http.open('GET',url,true);
+    http.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+    http.onreadystatechange = function(){
+      if(http.readyState == 4 && http.status == 200){
+       result = http.responseText;
+       if(result !== " ")resolve(result);
+     if(result == " ")reject('trash');
+      }
+    }
+    http.send();
+
+ });
+ user_id.then((idData)=>{
+    formData.append('filesUP00012101', file, file.name);
+ formData.append('user_id',idData);
+    const request = new XMLHttpRequest();
+ request.open('POST', 'http://localhost:5000/upload_doc');
+  request.upload.onprogress = (e) => {
+     progress(e.lengthComputable, e.loaded, e.total);
+ };
+  request.onload = function() {
+     if (request.status >= 200 && request.status < 300) {
+          load(request.responseText);
+     }
+     else {
+         error('oh no');
+     }
+ };
+ 
+ request.send(formData);
+ return {
+     abort: () => {
+       request.abort();
+         abort();
+     }
+ };
+
+ }).catch((e)=>{
+    formData.append('filesUP00012101', file, file.name);
+ formData.append('user_id',e);
+    const request = new XMLHttpRequest();
+ request.open('POST', 'http://localhost:5000/upload_doc');
+  request.upload.onprogress = (e) => {
+     progress(e.lengthComputable, e.loaded, e.total);
+ };
+  request.onload = function() {
+     if (request.status >= 200 && request.status < 300) {
+          load(request.responseText);
+     }
+     else {
+         error('oh no');
+     }
+ };
+ 
+ request.send(formData);
+ return {
+     abort: () => {
+       request.abort();
+         abort();
+     }
+ };
+ });
+  
+ 
+
+ }
+ },
+         fetch: null,
+         revert: null
+     
+ });
+  const inputElement = document.querySelector('input[type="file"]');
+  const pond = FilePond.create( inputElement, {
+     maxFiles: 10,
+     allowBrowse: true
+ });
+ </script>
+
+</body>
+</html>

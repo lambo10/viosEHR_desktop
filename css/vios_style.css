@@ -1,0 +1,444 @@
+.disp_loader_div{
+  text-align: center; 
+  padding-top: 25%;
+}
+.no_more_p{
+  cursor: not-allowed;
+  background: #d9d6d6;
+  color: #c4c2c2;
+}
+.white_text{
+color: white;
+}
+#Fullrec_selT_pdr tbody tr:hover{
+  cursor: pointer;
+  background: #90a4ae;
+  color: white;
+}
+#Fullrec_selT_pdr tbody tr:active{
+  cursor: pointer;
+  background: #6c7f88;
+  color: white;
+}
+#Note_selT_pdr tbody tr:hover{
+  cursor: pointer;
+  background: #90a4ae;
+  color: white;
+}
+#Note_selT_pdr tbody tr:active{
+  cursor: pointer;
+  background: #6c7f88;
+  color: white;
+}
+#Dispensed_selT_pdr tbody tr:hover{
+  cursor: pointer;
+  background: #90a4ae;
+  color: white;
+}
+#Dispensed_selT_pdr tbody tr:active{
+  cursor: pointer;
+  background: #6c7f88;
+  color: white;
+}
+#radiograph_selT_pdr tbody tr:hover{
+  cursor: pointer;
+  background: #90a4ae;
+  color: white;
+}
+#radiograph_selT_pdr tbody tr:active{
+  cursor: pointer;
+  background: #6c7f88;
+  color: white;
+}
+#Lab_selT_pdr tbody tr:hover{
+  cursor: pointer;
+  background: #90a4ae;
+  color: white;
+}
+#Lab_selT_pdr tbody tr:active{
+  cursor: pointer;
+  background: #6c7f88;
+  color: white;
+}
+#Prescription_selT_pdr tbody tr:hover{
+  cursor: pointer;
+  background: #90a4ae;
+  color: white;
+}
+#Prescription_selT_pdr tbody tr:active{
+  cursor: pointer;
+  background: #6c7f88;
+  color: white;
+}
+.formSelectionIndic:hover{
+  background-color: #bfe2fd;
+  cursor: pointer;
+}
+.v_nav_link:active {
+    color: aliceblue;
+    background: rgb(120, 194, 87);
+    border-top-left-radius: .25rem;
+border-top-right-radius: .25rem;
+padding: .5rem 1rem;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Ubuntu Regular'), local('Ubuntu-Regular'), url(../googleFonts/Ubuntu/Ubuntu-Regular.ttf) format('ttf');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+
+.viosZoomOut {
+  transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -webkit-transform: scale(0.7);
+  -o-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  opacity: 0;
+  /* IE 9 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.3, M12=0, M21=0, M22=0.3, SizingMethod='auto expand')";
+  /* IE8 */
+  filter: progid: DXImageTransform.Microsoft.Matrix(M11=0.3, M12=0, M21=0, M22=0.3, SizingMethod='auto expand');
+  /* IE6 and 7 */
+}
+
+.viosZoomIn {
+  transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transform: scale(0.6);
+  -moz-transform: scale(0.6);
+  -webkit-transform: scale(1.5);
+  -o-transform: scale(0.6);
+  -ms-transform: scale(0.6);
+  /* IE 9 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.3, M12=0, M21=0, M22=0.3, SizingMethod='auto expand')";
+  /* IE8 */
+  filter: progid: DXImageTransform.Microsoft.Matrix(M11=0.3, M12=0, M21=0, M22=0.3, SizingMethod='auto expand');
+  /* IE6 and 7 */
+  opacity: 1;
+}
+
+.viosSearchR_div:hover{
+  background: #bfc5db;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+  cursor: pointer;
+}
+.v_refferd_patient:hover{
+  background: grey;
+}
+.v_right_nav_small{
+    width: 60%;
+}
+.v_prescription_form_container{
+position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.v_prescription_form_tab_btn{
+width: 50px;
+padding: 5px;
+font-size: 1px;
+}
+
+.v_prescription_form{
+width: 100%;
+    background: #ffd740;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+
+.v_Ntxt_color{
+  color: #757575;
+}
+
+.v_lower_tab_cell{
+  color: white;
+}
+.v_lower_tab_cell_hw{
+  height: 28px;
+  width: 150px;
+}
+
+.v_text_whiteFF{
+  color: white;
+}
+
+.v_lower_pane_active{
+  background: #ffd740;
+  color: #455a64;
+}
+
+.v_Main_tab_padding_o{
+  padding: 50px;
+}
+
+
+.v_patient_details_module_header{
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 2px;
+  padding-right: 2px;
+  background: #424242;
+  color: white;
+}
+
+.patient_login_fregment{
+	align-items: center;
+	width: 100%;
+	height: 700px;
+	background: url(../img/lg_br.jpg)
+}
+.professionals_login_fregment{
+  width: 100%;
+  height: 1000px;
+  text-align: center;
+  background: url(../img/lg_br.jpg);
+}
+
+.p_login_modal_close {
+  background: red;
+}
+.p_login_modal_close:hover{
+background: #b71c1c;
+}
+.p_login_modal_close:active{
+  background: darkred;
+}
+.records_portal_bottom_pane{
+  width: 100%;
+    background: #09c;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    height: 250px;
+}
+
+.dispenseTabInitialTxtColor{
+  color: white;
+}
+
+.side_soh_selection{
+  background: rgb(0, 153, 204);
+  color: white
+}
+
+.records_portal_bottom_pane2{
+  width: 100%;
+    background: #3f5c80;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    height: 250px;
+}
+
+.records_lower_pane_active{
+  background: #09c;
+  color: #455a64;
+}
+
+.records_lower_p_form_container{
+  position: fixed;
+      bottom: 0;
+      overflow-y: auto;
+      width: 100%;
+  }
+ .r_add_p_c_img{
+   cursor: pointer;
+ } 
+
+.r_add_p_c_img:hover{
+background: #e0e0e0;
+}
+.r_add_p_c_img:active{
+  background: #9e9e9e;
+}
+
+.dr_home_s_p{
+  cursor: pointer;
+} 
+
+.dr_home_s_p:hover{
+background: #0277bd;
+}
+.dr_home_s_p:active{
+ background: #01579b;
+}
+
+
+/*  Ripple */
+
+.vios_ripple {
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  position: absolute;
+  opacity: 1;
+}
+.vios_rippleEffect {
+    -webkit-animation: vios_rippleDrop .6s linear;
+    animation: vios_rippleDrop .6s linear;
+}
+
+@-webkit-keyframes vios_rippleDrop {
+ 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes vios_rippleDrop {
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+/* End Ripple */
+
+/* paper view */
+
+.prform_body {
+		font-family:Courier, monospace;
+}
+#paper {
+	font-size:20px;
+}
+#margin {
+	margin-left:12px;
+	margin-bottom:20px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none; 
+}
+#text {
+	width:500px;
+	overflow:hidden;
+	color:#222;
+	font-family:Courier, monospace;
+	font-weight:normal;
+	resize:none;
+	line-height:40px;
+	padding-left:100px;
+	padding-right:20px;
+	padding-bottom:34px;
+	background: url(../img/overlays/lines.png), url(../img/overlays/paper.png);
+	background-repeat:repeat-y, repeat;
+	outline-width: 0;
+	border: none;
+}
+
+#text2 {
+	width:500px;
+	overflow:hidden;
+	color:#222;
+	font-family:Courier, monospace;
+	font-weight:normal;
+	resize:none;
+	line-height:40px;
+	padding-left:100px;
+	padding-right:20px;
+	padding-bottom:34px;
+	background: url(../img/overlays/lines.png), url(../img/overlays/paper.png);
+	background-repeat:repeat-y, repeat;
+	outline-width: 0;
+	border: none;
+}
+
+#text3 {
+	width:500px;
+	overflow:hidden;
+	color:#222;
+	font-family:Courier, monospace;
+	font-weight:normal;
+	resize:none;
+	line-height:40px;
+	padding-left:100px;
+	padding-right:20px;
+	padding-bottom:34px;
+	background: url(../img/overlays/lines.png), url(../img/overlays/paper.png);
+	background-repeat:repeat-y, repeat;
+	outline-width: 0;
+	border: none;
+}
+
+/* paper end */
+
+/* loader */
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 64px;
+  height: 30px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 27px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 6px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 6px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 26px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 45px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(19px, 0);
+  }
+}
+/* loader end */
+
+@media(max-width: 1200px){
+    .v_right_nav_small{
+        width: 50%;
+    }
+}

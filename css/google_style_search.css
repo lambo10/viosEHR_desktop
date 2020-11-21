@@ -1,0 +1,50 @@
+{
+    font-size: 14pt;
+}
+
+#search{
+    width: 80%; 
+    margin: auto; 
+    display: block; 
+    text-align: center; 
+    margin-top: 50px;
+}
+
+#searchin{
+    float: left;
+    width: 90%; 
+    height: 30px;
+}
+
+#btngo{
+    float: left;
+    width: 10%; 
+    height: 30px;
+    background-color: #333;
+    color: white;
+    border: none;
+    font-weight: bold;
+}
+
+#list{
+     padding: 0;
+     list-style-type: none;
+     display: none; 
+     position: absolute; 
+     z-index: 9999; 
+     width: 80%; 
+     margin-top: 30px;
+     max-height: 120px;
+     overflow: hidden;
+     overflow-y: scroll;
+}
+
+#list > li{
+     text-align: left;
+     padding: 5px;
+     display: none;
+}
+
+#list > li:hover{
+      background-color: #eee;
+}

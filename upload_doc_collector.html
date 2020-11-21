@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FilePond from CDN</title>
+
+  <!-- Filepond stylesheet -->
+  <link href="css/filepond.css" rel="stylesheet">
+  <link href="css/filepond-plugin-image-preview.css" rel="stylesheet">
+  <script src="js/filepond-plugin-image-exif-orientation.js"></script>
+  <script src="js/filepond-plugin-image-preview.js"></script>
+  <script src="js/filepond-plugin-file-validate-size.js"></script>
+  <script src="js/filepond-plugin-file-encode.js"></script>
+  <script src="js/filepond.js"></script>
+  <style>
+/**
+ * FilePond Custom Styles
+ */
+ .filepond--drop-label {
+	color: #4c4e53;
+}
+
+.filepond--label-action {
+	text-decoration-color: #babdc0;
+}
+
+.filepond--panel-root {
+	border-radius: 2em;
+	background-color: #edf0f4;
+	height: 1em;
+}
+
+.filepond--item-panel {
+	background-color: #595e68;
+}
+
+.filepond--drip-blob {
+	background-color: #7f8a9a;
+}
+
+@media (min-width: 30em) {
+    .filepond--item {
+        width: calc(33.33% - .5em);
+    }
+}
+
+@media (min-width: 50em) {
+    .filepond--item {
+        width: calc(33.33% - .5em);
+    }
+}
+
+/**
+ * Page Styles
+ */
+ body::-webkit-scrollbar {
+    width: 0.3em;
+}
+ 
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 8px;
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: #09c;
+  outline: 1px solid slategrey;
+  border-radius: 8px;
+}
+
+</style>
+</head>
+<body>
+
+        <input id="uploadPR_PIC_input" type="file" 
+        class="filepond"
+        name="filepond"
+        multiple
+        data-max-file-size="15MB"
+        data-max-files="1" />
+ <script>   
+ FilePond.registerPlugin(
+   
+	// encodes the file as base64 data
+  FilePondPluginFileEncode,
+	
+	// validates the size of the file
+	FilePondPluginFileValidateSize,
+	
+	// corrects mobile image orientation
+	FilePondPluginImageExifOrientation,
+	
+	// previews dropped images
+  FilePondPluginImagePreview
+ );
+ FilePond.setOptions({
+    server: {
+        process:(fieldName, file, metadata, load, error, progress, abort) => {
+
+// fieldName is the name of the input field
+// file is the actual file object to send
+const formData = new FormData();
+formData.append('filesUP00012101', file, file.name);
+formData.append('user_id','ijedgygduuuy')
+const request = new XMLHttpRequest();
+request.open('POST', 'http://localhost:5000/upload_profile_pic');
+
+// Should call the progress method to update the progress to 100% before calling load
+// Setting computable to false switches the loading indicator to infinite mode
+request.upload.onprogress = (e) => {
+    progress(e.lengthComputable, e.loaded, e.total);
+};
+
+// Should call the load method when done and pass the returned server file id
+// this server file id is then used later on when reverting or restoring a file
+// so your server knows which file to return without exposing that info to the client
+request.onload = function() {
+    if (request.status >= 200 && request.status < 300) {
+        // the load method accepts either a string (id) or an object
+        load(request.responseText);
+    }
+    else {
+        // Can call the error method if something is wrong, should exit after
+        error('oh no');
+    }
+};
+
+request.send(formData);
+
+// Should expose an abort method so the request can be cancelled
+return {
+    abort: () => {
+        // This function is entered if the user has tapped the cancel button
+        request.abort();
+
+        // Let FilePond know the request has been cancelled
+        abort();
+    }
+};
+}
+},
+        fetch: null,
+        revert: null
+    
+});
+ const inputElement = document.querySelector('input[type="file"]');
+
+// create a FilePond instance at the input element location
+const pond = FilePond.create( inputElement, {
+    maxFiles: 1,
+    allowBrowse: true,
+    labelIdle: `Drag & Drop your picture or <span class="filepond--label-action">Browse</span>`,
+    imagePreviewHeight: 170,
+    imageCropAspectRatio: '1:1',
+    imageResizeTargetWidth: 200,
+    imageResizeTargetHeight: 200,
+    stylePanelLayout: 'compact circle',
+    styleLoadIndicatorPosition: 'center bottom',
+    styleButtonRemoveItemPosition: 'center bottom'
+});
+
+ </script>
+
+</body>
+</html>

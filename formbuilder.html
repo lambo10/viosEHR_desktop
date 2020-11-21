@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Vios</title>
+  
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+  <link href="css/bootstrap.minC.css" rel="stylesheet">
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <link href="css/Vios_colors.css" rel="stylesheet">
+  <link href="css/scroll_bar_style.css" rel="stylesheet">
+  <link href="css/jBox.all.min.css" rel="stylesheet">
+  <link href="css/formbuilder.css" rel="stylesheet">
+  <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+  
+  <style>
+        .FD_border_tag{
+            min-height: 30px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+        </style>
+</head>
+
+<body onload="onLoadfrm()">
+
+  <!-- docturs portal header start -->
+  <div>
+<nav class="bootstrap navbar navbar-expand-lg navbar-dark theme_color_primary" style="border-radius: 0px; box-shadow: 0 0px 0px 0 rgba(0,0,0,.16),0 0px 0px 0 rgba(0,0,0,.12);">
+
+  <a class="bootstrap navbar-brand" style="font-family: 'Ubuntu', sans-serif; font-size: 20px; color: white;" href="#">Viostec</a>
+  <span class="bootstrap navbar-brand" style="color: white; font-size: 20px;">Form Builder</span>
+  <!-- Collapsible content -->
+  <div class="bootstrap collapse navbar-collapse" id="basicExampleNav">
+
+    <ul class="bootstrap navbar-nav" style="float: right; width: 15%; padding-top: 10px;">
+      <div class="bootstrap nav-item avatar dropdown">
+        <a class="bootstrap nav-link dropdown-toggle waves-effect waves-light" style="float: right;" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <img src="img/working_prof/profile_pic.jpg" id="pr_profile_picSSG" class="bootstrap z-depth-0" style="width: 30px; height: 30px; border-radius: 50px;" alt="avatar image">
+        </a><div style="height: 30px;"></div>
+        <div class="bootstrap dropdown-menu dropdown-menu-right dropdown-secondary" style="float: left;" aria-labelledby="navbarDropdownMenuLink-5">
+          <div><a class="bootstrap dropdown-item waves-effect waves-light" href="#" style="font-size:15px"><i class="bootstrap fa fa-user theme_text_colored_primary"></i> Profile</a></div>
+          <div><a class="bootstrap dropdown-item waves-effect waves-light" style="font-size:15px" onclick="$.fn.logoutHSD()"><svg height="15px" class="bootstrap theme_text_colored_primary" aria-hidden="true" data-prefix="far" data-icon="sign-in-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="bootstrap svg-inline--fa fa-sign-in-alt fa-w-16 fa-fw fa-lg"><path fill="currentColor" d="M144 112v51.6H48c-26.5 0-48 21.5-48 48v88.6c0 26.5 21.5 48 48 48h96v51.6c0 42.6 51.7 64.2 81.9 33.9l144-143.9c18.7-18.7 18.7-49.1 0-67.9l-144-144C195.8 48 144 69.3 144 112zm192 144L192 400v-99.7H48v-88.6h144V112l144 144zm80 192h-84c-6.6 0-12-5.4-12-12v-24c0-6.6 5.4-12 12-12h84c26.5 0 48-21.5 48-48V160c0-26.5-21.5-48-48-48h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96z" class="bootstrap "></path></svg> Logout</a></div>
+        </div>
+    </div>
+    </ul>
+
+
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+
+<div style="overflow-x: hidden;">
+        <div class="bootstrap container">
+                <div class="bootstrap row clearfix">
+                    <div>
+                            <div style="cursor: pointer; width: fit-content; display: inline; padding-top: 0px; padding-bottom: 0px; padding-left: 10px; padding-right: 10px;" onclick="$.fn.goBack()" class="bootstrap btn-flat"><i class="bootstrap fa fa-arrow-left"></i></div>
+                            <div style="display: inline;"><input type="color" id="colorSelectorID" value="#ffffff" onchange="$.fn.colorSlectorChange()" style="border: 1px solid rgb(211, 208, 208);"></div>
+                            <div style="border: 1px solid; background: rgb(247, 229, 132); color:rgb(247, 229, 132); display: inline; cursor: pointer;" onclick="$.fn.colorBoxClick('rgb(247, 229, 132)')">......</div>
+                            <div style="border: 1px solid; background: rgb(236, 248, 126); color:rgb(236, 248, 126); display: inline; cursor: pointer;" onclick="$.fn.colorBoxClick('rgb(236, 248, 126)')">......</div>
+                            <div style="border: 1px solid; background: rgb(195, 247, 148); color:rgb(195, 247, 148); display: inline; cursor: pointer;" onclick="$.fn.colorBoxClick('rgb(195, 247, 148)')">......</div>
+                            <div style="border: 1px solid; background: rgb(135, 221, 250); color:rgb(135, 221, 250); display: inline; cursor: pointer;" onclick="$.fn.colorBoxClick('rgb(135, 221, 250)')">......</div>
+                            <div style="border: 1px solid; background: rgb(250, 149, 158); color:rgb(253, 169, 176); display: inline; cursor: pointer;" onclick="$.fn.colorBoxClick('rgb(250, 149, 158)')">......</div>
+                            <div style="display: inline;"><span> Permission </span><select style="border: 1px solid rgb(211, 208, 208);" id="clerance_inp">
+                                    <option value="Doctor">Doctor</option>
+                                    <option value="Nurse">Nurse</option>
+                                    <option value="LabScientist">Lab-Scientist</option>
+                                    <option value="Radiologist">Radiologist</option>
+                                    <option value="Record_manager">Records-manager</option>
+                                    <option value="Pharmacist">Pharmacist</option>
+                                    <option value="Admin_Manager">Admin-Managers</option>
+                            </select></div>
+                            <div style="display: inline;"><span> Category </span><select style="border: 1px solid rgb(211, 208, 208);" id="category_inp">
+                                    <option value="Radiograph">Radiograph</option>
+                                    <option value="Lab">Lab</option>
+                                    <option value="Prescription">Prescription</option>
+                                    <option value="Note">Note</option>
+                                    <option value="Other">Other</option>
+                            </select></div>
+                            <div style="display: inline;"><span> Form-Name </span>
+                            <input type="text" placeholder="Enter Name" id="formName_inp">
+                            </div>
+                            <div style="display: inline;"><button type="button" onclick="$.fn.saveForm()" class="bootstrap btn btn-blue" style="border-radius:50px; float:right; font-size: 10px;"><b>Save</b></button></div>
+                    </div>
+                        
+                  <div class="bootstrap col-md-6"><div style="height: 15px;"></div>
+                    <div class="bootstrap clearfix">
+                      <h2>Your Form</h2>
+                      <hr>
+                      <div id="build" style="height: 400px; overflow-y: auto; overflow-x: hidden;">
+                        <form id="target" class="bootstrap form-horizontal">
+                          <fieldset>
+                            <div id="legend" class="bootstrap component" rel="popover" title="Title" trigger="manual"
+                              data-content="
+                              <form class='form'>
+                                <div class='form-group col-md-12'>
+                                  <label class='control-label'>Title</label> <input class='form-control' type='text' name='title' id='text'>
+                                  <hr/>
+                                  <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                </div>
+                              </form>" data-html="true"
+                              >
+                              <legend class="bootstrap valtype" data-valtype="text" style="text-align: center; font-size: 30px;">Title</legend>
+                            </div>
+                          </fieldset>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+          
+                  <div class="bootstrap col-md-6">
+                      <h2>Drag & Drop components</h2>
+                      <hr>
+                    <div class="bootstrap tabbable">
+                      <ul class="bootstrap nav nav-tabs" id="navtab">
+                        <li class="bootstrap active"><a href="#0" data-toggle="tab">Text</a></li>
+                        <li><a href="#1" data-toggle="tab">Input</a></li>
+                        <li class><a href="#2" data-toggle="tab">Select</a></li>
+                        <li class><a href="#3" data-toggle="tab">Checkbox / Radio</a></li>
+                        <li class><a href="#4" data-toggle="tab">Buttons</a></li>
+                        <li class><a href="#5" data-toggle="tab">Image</a></li>
+                      </ul>
+                      <form class="bootstrap form-horizontal" id="components" style="padding-left: 30px;">
+                        <fieldset>
+                          <div class="bootstrap tab-content">
+                            <div class="bootstrap tab-pane active" id="0" style="height: 350px; overflow-y: auto; overflow-x: hidden;">
+          
+                                <div class="bootstrap form-group component" style="background-color:inherit;" data-type="text" rel="popover" title="Text_bold" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Text input-->
+                                <label for="input01" data-valtype='label' style="padding-left: 20px; padding-right: 20px; text-align: center; width: 100%;">Text</label>
+                              </div>
+                              <div class="bootstrap form-group component" style="background-color:inherit;" data-type="text" rel="popover" title="Text_normal" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Text input-->
+                                <label for="input01" data-valtype='label' style="padding-left: 20px; padding-right: 20px; text-align: center; width: 100%; font-weight: normal;">Text</label>
+                              </div>
+          
+                              <div class="bootstrap form-group component" style="background-color:inherit;" data-type="text" rel="popover" title="medium_bold_text" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Text input-->
+                                <label for="input01" data-valtype='label' style="padding-left: 20px; padding-right: 20px; text-align: center; width: 100%; font-size: 21px;">Text</label>
+                              </div>
+                              <div class="bootstrap form-group component" style="background-color:inherit;" data-type="text" rel="popover" title="medium_normal_text" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Text input-->
+                                <label for="input01" data-valtype='label' style="padding-left: 20px; padding-right: 20px; text-align: center; width: 100%; font-size: 21px; font-weight: normal;">Text</label>
+                              </div>
+          
+                              <div class="bootstrap form-group component" style="background-color:inherit;" data-type="text" rel="popover" title="large_bold_text" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Text input-->
+                                <label for="input01" data-valtype='label' style="padding-left: 20px; padding-right: 20px; text-align: center; width: 100%; font-size: 30px;">Text</label>
+                              </div>
+                              <div class="bootstrap form-group component" style="background-color:inherit;" data-type="text" rel="popover" title="large_normal_text" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Text input-->
+                                <label for="input01" data-valtype='label' style="padding-left: 20px; padding-right: 20px; text-align: center; width: 100%; font-size: 30px; font-weight: normal;">Text</label>
+                              </div>
+                              
+                              <div class="bootstrap form-group component" style="background-color:inherit;" data-type="text" rel="popover" title="Line Break" trigger="manual"
+                                data-content="" data-html="true" 
+                                >
+                                <!-- hr-->
+                                <div style="padding-left: 20px; padding-right: 20px;"><hr style="border-top:1px solid rgb(190, 187, 187);"></div>  
+                              </div>
+                              <div class="bootstrap form-group component" style="background-color:inherit;" data-type="text" rel="popover" title="Line Break black" trigger="manual"
+                                data-content="" data-html="true" 
+                                >
+                                <!-- hr-->
+                                <div style="padding-left: 20px; padding-right: 20px;"><hr style="border-top:1px solid rgb(95, 94, 94);"></div>  
+                              </div>
+                              <br>
+                              <div class="bootstrap form-group component" style="background-color:inherit;" data-type="text" rel="popover" title="thick_line_light" trigger="manual"
+                                data-content="" data-html="true" 
+                                >
+                                <!-- hr-->
+                                <div style="padding-left: 20px; padding-right: 20px;"><div style="border-top:1px solid rgb(190, 187, 187);"></div></div>  
+                              </div>
+                              <br>
+                              <div class="bootstrap form-group component" style="background-color:inherit;" data-type="text" rel="popover" title="thick_line_bold" trigger="manual"
+                                data-content="" data-html="true" 
+                                >
+                                <!-- hr-->
+                                <div style="padding-left: 20px; padding-right: 20px;"><div style="border-top:1px solid rgb(90, 89, 89);"></div></div>  
+                              </div>
+                              <br>
+                              <div class="bootstrap form-group component" style="background-color:inherit;" data-type="text" rel="popover" title="thick_line_light" trigger="manual"
+                                data-content="" data-html="true" 
+                                >
+                                <!-- hr-->
+                                <div style="padding-left: 20px; padding-right: 20px;"><div style="border-top:5px solid rgb(190, 187, 187);"></div></div>  
+                              </div>
+                              <br>
+                              <div class="bootstrap form-group component" style="background-color:inherit;" data-type="text" rel="popover" title="thick_line_bold" trigger="manual"
+                                data-content="" data-html="true" 
+                                >
+                                <!-- hr-->
+                                <div style="padding-left: 20px; padding-right: 20px;"><div style="border-top:5px solid rgb(90, 89, 89);"></div></div>  
+                              </div>
+            
+                              </div>
+                            <div class="bootstrap tab-pane" id="1" style="height: 350px; overflow-y: auto; overflow-x: hidden;">
+          
+                              <div class="bootstrap form-group component" style="background-color:inherit;" id="input_componentInitialID" data-type="text" rel="popover" title="Text Input" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder' class='form-control'>
+                                    <label class='control-label'>Help Text</label> <input type='text' name='help' id='help' class='form-control'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Text input-->
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID" for="input01" data-valtype='label'>Text input</label>
+                                <div class="bootstrap col-md-5 FD_border_tag">
+                                  <input type="text" component_type = "input" id="input_textInputInitialID" placeholder="placeholder" class="bootstrap form-control input-md valtype" data-valtype="placeholder" >
+                                  <p class="bootstrap help-block valtype" data-valtype='help'></p>
+                                </div>
+                              </div>
+                              <div class="bootstrap form-group component" style="background-color:inherit;" id="input_componentInitialID" data-type="text" rel="popover" title="Text Input" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder' class='form-control'>
+                                    <label class='control-label'>Help Text</label> <input type='text' name='help' id='help' class='form-control'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Text input-->
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID" for="input01" data-valtype='label'>Number input</label>
+                                <div class="bootstrap col-md-5 FD_border_tag">
+                                  <input type="number" component_type = "input" id="input_textInputInitialID" placeholder="placeholder" class="bootstrap form-control input-md valtype" data-valtype="placeholder" >
+                                  <p class="bootstrap help-block valtype" data-valtype='help'></p>
+                                </div>
+                              </div>
+          
+                              <div class="bootstrap form-group component" style="background-color:inherit;" id="input_componentInitialID" data-type="search" rel="popover" title="Search Input" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder' class='form-control'>
+                                    <label class='control-label'>Help Text</label> <input type='text' name='help' id='help' class='form-control'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Search input-->
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID" data-valtype="label">Search input</label>
+                                <div class="bootstrap col-md-5 FD_border_tag">
+                                  <input type="text" component_type = "input" placeholder="placeholder" id="input_textInputInitialID" class="bootstrap form-control input-md search-query valtype" data-valtype="placeholder">
+                                  <p class="bootstrap help-block valtype" data-valtype="help"></p>
+                                </div>
+          
+                              </div>
+          
+                              <div class="bootstrap form-group component" style="background-color:inherit;" id="input_componentInitialID" data-type="prep-text" rel="popover" title="Prepended Text Input" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <label class='control-label'>Prepend</label> <input type='text' name='prepend' id='prepend' class='form-control'>
+                                    <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder' class='form-control'>
+                                    <label class='control-label'>Help Text</label> <input type='text' name='help' id='help' class='form-control'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Prepended text-->
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID" data-valtype="label">Prepended text</label>
+                                <div class="bootstrap col-md-5 FD_border_tag">
+                                  <div class="bootstrap input-group">
+                                    <span class="bootstrap input-group-addon valtype" data-valtype="prepend">^_^</span>
+                                    <input component_type = "input" class="bootstrap form-control valtype" id="input_textInputInitialID" placeholder="placeholder" type="text" data-valtype="placeholder">
+                                  </div>
+                                  <p class="bootstrap help-block valtype" data-valtype="help"></p>
+                                </div>
+          
+                              </div>
+          
+                              <div class="bootstrap form-group component" style="background-color:inherit;" id="input_componentInitialID" data-type="app-text" rel="popover" title="Appended Text Input" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <label class='control-label'>Appepend</label> <input type='text' name='append' id='append' class='form-control'>
+                                    <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder' class='form-control'>
+                                    <label class='control-label'>Help Text</label> <input type='text' name='help' id='help' class='form-control'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Appended input-->
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID" data-valtype="label">Appended text</label>
+                                <div class="bootstrap col-md-5 FD_border_tag">
+                                  <div class="bootstrap input-group">
+                                    <input component_type = "input" name="appendedtext" id="input_textInputInitialID" class="bootstrap form-control valtype" data-valtype="placeholder" placeholder="placeholder" type="text">
+                                    <span class="bootstrap input-group-addon valtype" data-valtype="append">^_^</span>
+                                  </div>
+                                  <p class="bootstrap help-block valtype" data-valtype="help"></p>
+                                </div>
+          
+          
+                              </div>
+          
+                              <div class="bootstrap form-group component" style="background-color:inherit;" id="input_componentInitialID" rel="popover" title="Search Input" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder' class='form-control'>
+                                    <label class='control-label'>Help Text</label> <input type='text' name='help' id='help' class='form-control'>
+                                    <label class='checkbox'><input type='checkbox' class='input-inline' name='checked' id='checkbox'>Checked</label>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Prepended checkbox -->
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID" data-valtype="label">Prepended checkbox</label>
+                                <div class="bootstrap col-md-5 FD_border_tag">
+                                  <div class="bootstrap input-group">
+                                    <span class="bootstrap input-group-addon">
+                                      <input type="checkbox" class="bootstrap valtype" data-valtype="checkbox">
+                                    </span>
+                                    <input component_type = "input" class="bootstrap form-control valtype" id="input_textInputInitialID" placeholder="placeholder" type="text" data-valtype="placeholder">
+                                  </div>
+                                  <p class="bootstrap help-block valtype" data-valtype="help"></p>
+                                </div>
+          
+                              </div>
+          
+                              <div class="bootstrap form-group component" style="background-color:inherit;" id="input_componentInitialID" rel="popover" title="Search Input" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder' class='form-control'>
+                                    <label class='control-label'>Help Text</label> <input type='text' name='help' id='help' class='form-control'>
+                                    <label class='checkbox'><input type='checkbox' class='input-inline' name='checked' id='checkbox'>Checked</label>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Appended checkbox -->
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID" data-valtype="label">Append checkbox</label>
+                                <div class="bootstrap col-md-5 FD_border_tag">
+                                  <div class="bootstrap input-group">
+                                    <input component_type = "input" class="bootstrap form-control valtype" id="input_textInputInitialID" placeholder="placeholder" type="text" data-valtype="placeholder">
+                                    <span class="bootstrap input-group-addon">
+                                      <input type="checkbox" class="bootstrap valtype" data-valtype="checkbox">
+                                    </span>
+                                  </div>
+                                  <p class="bootstrap help-block valtype" data-valtype="help"></p>
+                                </div>
+                              </div>
+          
+                              <div class="bootstrap form-group component" style="background-color:inherit;" id="input_componentInitialID" rel="popover" title="Search Input" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Textarea -->
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID" data-valtype="label">Textarea</label>
+                                <div class="bootstrap col-md-5 FD_border_tag">
+                                  <div class="bootstrap textarea">
+                                        <textarea component_type = "input" class="bootstrap form-control valtype" id="input_textInputInitialID" data-valtype="checkbox" /> </textarea>
+                                  </div>
+                                </div>
+                              </div>
+          
+                              <!-- 2sides -->
+                              <div class="bootstrap form-group component" style="background-color:inherit;" id="double_input_componentInitialID" data-type="text" rel="popover" title="Text Input 2side" trigger="manual"
+                              data-content="
+                              <form class='form'>
+                                <div class='form-group col-md-12'>
+                                  <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                  <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder' class='form-control'>
+                                  <label class='control-label'>Help Text</label> <input type='text' name='help' id='help' class='form-control'>
+                                  <hr/>
+                                  <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label2'>
+                                  <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder2' class='form-control'>
+                                  <label class='control-label'>Help Text</label> <input type='text' name='help' id='help2' class='form-control'>
+                                  <hr/>
+                                  <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                </div>
+                              </form>" data-html="true" 
+                              >
+          
+                              <!-- Text input-->
+                              <div style="text-align: center;">
+                              <div class="bootstrap row" style="display: inline-block; width: 85%;">
+                                <div class="bootstrap col-md-6">
+                              <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID1" for="input01" data-valtype='label'>Text input</label>
+                              <div class="bootstrap col-md-8 FD_border_tag">
+                                <input type="text" component_type = "input" placeholder="placeholder" id="input_textInputInitialID1" class="bootstrap form-control input-md valtype" data-valtype="placeholder" >
+                                <p class="bootstrap help-block valtype" data-valtype='help'></p>
+                              </div>
+                            </div>
+                            <div class="bootstrap col-md-6">
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID2" for="input01" data-valtype='label2'>Text input</label>
+                                <div class="bootstrap col-md-8 FD_border_tag">
+                                  <input type="text" component_type = "input" placeholder="placeholder" id="input_textInputInitialID2" class="bootstrap form-control input-md valtype" data-valtype="placeholder2" >
+                                  <p class="bootstrap help-block valtype" data-valtype='help2'></p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+          
+                          </div>
+                          <div class="bootstrap form-group component" style="background-color:inherit;" id="double_input_componentInitialID" data-type="text" rel="popover" title="Text Input 2side" trigger="manual"
+                              data-content="
+                              <form class='form'>
+                                <div class='form-group col-md-12'>
+                                  <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                  <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder' class='form-control'>
+                                  <label class='control-label'>Help Text</label> <input type='text' name='help' id='help' class='form-control'>
+                                  <hr/>
+                                  <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label2'>
+                                  <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder2' class='form-control'>
+                                  <label class='control-label'>Help Text</label> <input type='text' name='help' id='help2' class='form-control'>
+                                  <hr/>
+                                  <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                </div>
+                              </form>" data-html="true" 
+                              >
+          
+                              <!-- Text input-->
+                              <div style="text-align: center;">
+                              <div class="bootstrap row" style="display: inline-block; width: 85%;">
+                                <div class="bootstrap col-md-6">
+                              <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID1" for="input01" data-valtype='label'>Number input</label>
+                              <div class="bootstrap col-md-8 FD_border_tag">
+                                <input type="number" component_type = "input" placeholder="placeholder" id="input_textInputInitialID1" class="bootstrap form-control input-md valtype" data-valtype="placeholder" >
+                                <p class="bootstrap help-block valtype" data-valtype='help'></p>
+                              </div>
+                            </div>
+                            <div class="bootstrap col-md-6">
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID2" for="input01" data-valtype='label2'>Number input</label>
+                                <div class="bootstrap col-md-8 FD_border_tag">
+                                  <input type="number" component_type = "input" placeholder="placeholder" id="input_textInputInitialID2" class="bootstrap form-control input-md valtype" data-valtype="placeholder2" >
+                                  <p class="bootstrap help-block valtype" data-valtype='help2'></p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+          
+                          </div>
+                          <div class="bootstrap form-group component" style="background-color:inherit;" id="double_input_componentInitialID" data-type="text" rel="popover" title="Search Input 2side" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder' class='form-control'>
+                                    <label class='control-label'>Help Text</label> <input type='text' name='help' id='help' class='form-control'>
+                                    <hr/>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label2'>
+                                    <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder2' class='form-control'>
+                                    <label class='control-label'>Help Text</label> <input type='text' name='help' id='help2' class='form-control'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Text input-->
+                                <div style="text-align: center;">
+                                <div class="bootstrap row" style="display: inline-block; width: 85%;">
+                                  <div class="bootstrap col-md-6">
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID1" for="input01" data-valtype='label'>Search input</label>
+                                <div class="bootstrap col-md-8 FD_border_tag">
+                                    <input type="text" component_type = "input" placeholder="placeholder" id="input_textInputInitialID1" class="bootstrap form-control input-md search-query valtype" data-valtype="placeholder">
+                                  <p class="bootstrap help-block valtype" data-valtype='help'></p>
+                                </div>
+                              </div>
+                              <div class="bootstrap col-md-6">
+                                  <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID2" for="input01" data-valtype='label2'>Search input</label>
+                                  <div class="bootstrap col-md-8 FD_border_tag">
+                                      <input type="text" component_type = "input" placeholder="placeholder" id="input_textInputInitialID2" class="bootstrap form-control input-md search-query valtype" data-valtype="placeholder2">
+                                    <p class="bootstrap help-block valtype" data-valtype='help2'></p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+          
+                            </div>
+                            <div class="bootstrap form-group component" style="background-color:inherit;" id="double_input_componentInitialID" data-type="text" rel="popover" title="Prepended Text Input 2side" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <label class='control-label'>Prepend</label> <input type='text' name='prepend' id='prepend' class='form-control'>
+                                    <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder' class='form-control'>
+                                    <label class='control-label'>Help Text</label> <input type='text' name='help' id='help' class='form-control'>
+                                    <hr/>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label2'>
+                                    <label class='control-label'>Prepend</label> <input type='text' name='prepend' id='prepend2' class='form-control'>
+                                    <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder2' class='form-control'>
+                                    <label class='control-label'>Help Text</label> <input type='text' name='help' id='help2' class='form-control'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true" 
+                                >
+          
+                                <!-- Text input-->
+                                <div style="text-align: center;">
+                                <div class="bootstrap row" style="display: inline-block; width: 85%;">
+                                  <div class="bootstrap col-md-6">
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID1" for="input01" data-valtype='label'>Prepended text</label>
+                                <div class="bootstrap col-md-8 FD_border_tag">
+                                    <div class="bootstrap input-group">
+                                    <span class="bootstrap input-group-addon valtype" data-valtype="prepend">^_^</span>
+                                    <input class="bootstrap form-control valtype" component_type = "input" id="input_textInputInitialID1" placeholder="placeholder" type="text" data-valtype="placeholder">
+                                    </div>
+                                  <p class="bootstrap help-block valtype" data-valtype='help'></p>
+                                </div>
+                              </div>
+                              <div class="bootstrap col-md-6">
+                                  <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID2" for="input01" data-valtype='label2'>Prepended text</label>
+                                  <div class="bootstrap col-md-8 FD_border_tag">
+                                      <div class="bootstrap input-group">
+                                      <span class="bootstrap input-group-addon valtype" data-valtype="prepend2">^_^</span>
+                                    <input class="bootstrap form-control valtype" component_type = "input" id="input_textInputInitialID2" placeholder="placeholder" type="text" data-valtype="placeholder2">
+                                    </div>
+                                    <p class="bootstrap help-block valtype" data-valtype='help2'></p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+          
+                            </div>
+                            <div class="bootstrap form-group component" style="background-color:inherit;" id="double_input_componentInitialID" data-type="text" rel="popover" title="Appended Text Input 2side" trigger="manual"
+                            data-content="
+                            <form class='form'>
+                              <div class='form-group col-md-12'>
+                                <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                <label class='control-label'>Appepend</label> <input type='text' name='append' id='append' class='form-control'>
+                                <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder' class='form-control'>
+                                <label class='control-label'>Help Text</label> <input type='text' name='help' id='help' class='form-control'>
+                                <hr/>
+                                <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label2'>
+                                <label class='control-label'>Appepend</label> <input type='text' name='append' id='append2' class='form-control'>
+                                <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder2' class='form-control'>
+                                <label class='control-label'>Help Text</label> <input type='text' name='help' id='help2' class='form-control'>
+                                <hr/>
+                                <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                              </div>
+                            </form>" data-html="true" 
+                            >
+          
+                            <!-- Text input-->
+                            <div style="text-align: center;">
+                            <div class="bootstrap row" style="display: inline-block; width: 85%;">
+                              <div class="bootstrap col-md-6">
+                            <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID1" for="input01" data-valtype='label'>Appepend text</label>
+                            <div class="bootstrap col-md-8 FD_border_tag">
+                                <div class="bootstrap input-group">
+                                <input class="bootstrap form-control valtype" component_type = "input" id="input_textInputInitialID1" placeholder="placeholder"  type="text" data-valtype="placeholder">
+                                <span class="bootstrap input-group-addon valtype" data-valtype="append">^_^</span>
+                              </div>
+                              <p class="bootstrap help-block valtype" data-valtype='help'></p>
+                            </div>
+                          </div>
+                          <div class="bootstrap col-md-6">
+                              <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID2" for="input01" data-valtype='label2'>Appepend text</label>
+                              <div class="bootstrap col-md-8 FD_border_tag">
+                                  <div class="bootstrap input-group">
+                                <input class="bootstrap form-control valtype" component_type = "input" id="input_textInputInitialID2" placeholder="placeholder"  type="text" data-valtype="placeholder2">
+                                <span class="bootstrap input-group-addon valtype" data-valtype="append2">^_^</span>  
+                              </div>
+                                <p class="bootstrap help-block valtype" data-valtype='help2'></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+          
+                        </div>
+                        <div class="bootstrap form-group component" style="background-color:inherit;" id="double_input_componentInitialID" data-type="text" rel="popover" title="Prepended checkbox Input 2side" trigger="manual"
+                            data-content="
+                            <form class='form'>
+                              <div class='form-group col-md-12'>
+                                <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder' class='form-control'>
+                                <label class='control-label'>Help Text</label> <input type='text' name='help' id='help' class='form-control'>
+                                <label class='checkbox'><input type='checkbox' class='input-inline' name='checked' id='checkbox'>Checked</label>
+                                <hr/>
+                                <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label2'>
+                                <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder2' class='form-control'>
+                                <label class='control-label'>Help Text</label> <input type='text' name='help' id='help2' class='form-control'>
+                                <label class='checkbox'><input type='checkbox' class='input-inline' name='checked' id='checkbox2'>Checked</label>
+                                <hr/>
+                                <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                              </div>
+                            </form>" data-html="true" 
+                            >
+          
+                            <!-- Text input-->
+                            <div style="text-align: center;">
+                            <div class="bootstrap row" style="display: inline-block; width: 85%;">
+                              <div class="bootstrap col-md-6">
+                            <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID1" for="input01" data-valtype='label'>Prepended checkbox</label>
+                            <div class="bootstrap col-md-8 FD_border_tag">
+                                <div class="bootstrap input-group">
+                                    <span class="bootstrap input-group-addon">
+                                        <input type="checkbox" class="bootstrap valtype" data-valtype="checkbox" checked="checked">
+                                      </span>
+                                <input class="bootstrap form-control valtype" component_type = "input" id="input_textInputInitialID1" placeholder="placeholder"  type="text" data-valtype="placeholder">
+                              </div>
+                              <p class="bootstrap help-block valtype" data-valtype='help'></p>
+                            </div>
+                          </div>
+                          <div class="bootstrap col-md-6">
+                              <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID2" for="input01" data-valtype='label2'>Prepended checkbox</label>
+                              <div class="bootstrap col-md-8 FD_border_tag">
+                                  <div class="bootstrap input-group">
+                                      <span class="bootstrap input-group-addon">
+                                          <input type="checkbox" class="bootstrap valtype" data-valtype="checkbox2" checked="checked">
+                                        </span>
+                                <input class="bootstrap form-control valtype" component_type = "input" id="input_textInputInitialID2" placeholder="placeholder"  type="text" data-valtype="placeholder2"> 
+                              </div>
+                                <p class="bootstrap help-block valtype" data-valtype='help2'></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+          
+                        </div>
+                        <div class="bootstrap form-group component" style="background-color:inherit;" id="double_input_componentInitialID" data-type="text" rel="popover" title="Appended checkbox Input 2side" trigger="manual"
+                            data-content="
+                            <form class='form'>
+                              <div class='form-group col-md-12'>
+                                <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder' class='form-control'>
+                                <label class='control-label'>Help Text</label> <input type='text' name='help' id='help' class='form-control'>
+                                <label class='checkbox'><input type='checkbox' class='input-inline' name='checked' id='checkbox'>Checked</label>
+                                <hr/>
+                                <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label2'>
+                                <label class='control-label'>Placeholder</label> <input type='text' name='placeholder' id='placeholder2' class='form-control'>
+                                <label class='control-label'>Help Text</label> <input type='text' name='help' id='help2' class='form-control'>
+                                <label class='checkbox'><input type='checkbox' class='input-inline' name='checked' id='checkbox2'>Checked</label>
+                                <hr/>
+                                <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                              </div>
+                            </form>" data-html="true" 
+                            >
+          
+                            <!-- Text input-->
+                            <div style="text-align: center;">
+                            <div class="bootstrap row" style="display: inline-block; width: 85%;">
+                              <div class="bootstrap col-md-6">
+                            <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID1" for="input01" data-valtype='label'>Appended checkbox</label>
+                            <div class="bootstrap col-md-8 FD_border_tag">
+                                <div class="bootstrap input-group">
+                                    <span class="bootstrap input-group-addon">
+                                        <input type="checkbox" class="bootstrap valtype" data-valtype="checkbox" checked="checked">
+                                      </span>
+                                <input class="bootstrap form-control valtype" component_type = "input" id="input_textInputInitialID1" placeholder="placeholder"  type="text" data-valtype="placeholder">
+                              </div>
+                              <p class="bootstrap help-block valtype" data-valtype='help'></p>
+                            </div>
+                          </div>
+                          <div class="bootstrap col-md-6">
+                              <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID2" for="input01" data-valtype='label2'>Appended checkbox</label>
+                              <div class="bootstrap col-md-8 FD_border_tag">
+                                  <div class="bootstrap input-group">
+                                      <span class="bootstrap input-group-addon">
+                                          <input type="checkbox" class="bootstrap valtype" data-valtype="checkbox2" checked="checked">
+                                        </span>
+                                <input class="bootstrap form-control valtype" component_type = "input" id="input_textInputInitialID2" placeholder="placeholder"  type="text" data-valtype="placeholder2"> 
+                              </div>
+                                <p class="bootstrap help-block valtype" data-valtype='help2'></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+          
+                        </div>
+          
+                            </div>
+          
+                            <div class="bootstrap tab-pane" id="2">
+          
+                              <div class="bootstrap form-group component" style="background-color:inherit;" id="input_componentInitialID" rel="popover" title="Search Input" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <label class='control-label'>Options: </label>
+                                    <textarea class='form-control' style='min-height: 200px' id='option'> </textarea>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true"
+                                >
+          
+                                <!-- Select Basic -->
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="input_labelInitialID" data-valtype="label">Select - Basic</label>
+                                <div class="bootstrap col-md-5 FD_border_tag">
+                                  <select class="bootstrap form-control input-md valtype" component_type = "input" id="input_textInputInitialID" data-valtype="option">
+                                    <option>Enter</option>
+                                    <option>Your</option>
+                                    <option>Options</option>
+                                    <option>Here!</option>
+                                  </select>
+                                </div>
+          
+                              </div>
+          
+          
+                            </div>
+          
+                            <div class="bootstrap tab-pane" id="3" style="height: 350px; overflow-y: auto; overflow-x: hidden;">
+          
+                              <div class="bootstrap form-group component down-pad" style="background-color:inherit;" component_type = "checkboxes" id="double_input_componentInitialID" rel="popover" title="Multiple Checkboxes" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <label class='control-label'>Options: </label>
+                                    <textarea class='form-control' style='min-height: 200px' id='checkboxes'> </textarea>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true"
+                                >
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="mainLabelFI" data-valtype="label">Checkboxes</label>
+                                <div class="bootstrap col-md-5 valtype FD_border_tag" data-valtype="checkboxes">
+          
+                                  <!-- Multiple Checkboxes -->
+                                  <label class="bootstrap checkbox">
+                                    <input type="checkbox" id="input_textInputInitialID1"  value="Option one" checked="checked">
+                                    <span id="input_labelInitialID1">Option one</span>
+                                  </label>
+                                  <label class="bootstrap checkbox">
+                                    <input type="checkbox" id="input_textInputInitialID2"  value="Option two">
+                                    <span id="input_labelInitialID2">Option two</span>
+                                  </label>
+                                </div>
+          
+                              </div>
+          
+                              <div class="bootstrap form-group component down-pad" style="background-color:inherit;" component_type = "radio" id="double_input_componentInitialID" rel="popover" title="Multiple Radios" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <label class='control-label'>Group Name Attribute</label> <input class='form-control' type='text' name='name' id='name'>
+                                    <label class='control-label'>Options: </label>
+                                    <textarea class='form-control' style='min-height: 200px' id='radios'></textarea>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true"
+                                >
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="mainLabelFI" data-valtype="label">Radio buttons</label>
+                                <div class="bootstrap col-md-5 valtype FD_border_tag" data-valtype="radios">
+          
+                                  <!-- Multiple Radios -->
+                                  <label class="bootstrap radio">
+                                    <input type="radio" id="input_textInputInitialID1"  value="Option one" name="group" checked="checked">
+                                    <span id="input_labelInitialID1">Option one</span>
+                                  </label>
+                                  <label class="bootstrap radio">
+                                    <input type="radio" id="input_textInputInitialID2"  value="Option two" name="group">
+                                    <span id="input_labelInitialID2">Option two</span>
+                                  </label>
+                                </div>
+          
+                              </div>
+          
+          
+                            </div>
+          
+                            <div class="bootstrap tab-pane" id="4">
+                              <div class="bootstrap form-group component" style="background-color:inherit;" id="input_componentInitialID" rel="popover" title="File Upload" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true"
+                                >
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" id="mainLabelFI" data-valtype="label">File Button</label>
+          
+                                <!-- File Upload -->
+                                <div class="bootstrap col-md-5">  
+                                  <input class="bootstrap input-file" id="input_textInputInitialID" type="button" value="choose file" onclick="$.fn.submitFormFileInput('1')" fileType="file" component_type = "file">
+                                  <br><br>
+                                  <div id="imageInputLoaderDiv" style="text-align: center; width: 80px;"><img src="img/loading.gif" id="imageInputLoader" style="width: 49px; height: 50px; border: none; display: none;">
+                                  </div>
+                                  <div id="imageInputfileIconDiv" style="width: 80px; height: 100px; text-align: center; display: none;">
+                                    <img style="width: 80px; height: 100px;" src="img/formIcon3.png">
+                                  </div>
+                                  
+                                  <div id="f_fileNameVB" style="text-align: center; width: 80px;"></div>
+                                  <br>
+                                  <a href="http://localhost:4417/formFiles/uploadfile/" id="fileViewBtn_Z" target="_blank"><button class="btn" style="margin: 0px; font-size: 12px; background: rgb(85, 137, 248); color: white; border: 0px;" type="button">View</button></a>
+                                  <br><br>
+
+                                </div>
+                              </div>
+          
+                              <div class="bootstrap form-group component buttonDiv" style="background-color:inherit;" rel="popover" title="Search Input" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <label class='control-label'>Button Text</label> <input class='form-control' type='text' name='label' id='button'>
+                                    <label class='control-label' id=''>Type: </label>
+                                    <select class='form-control input-md' id='color'>
+                                      <option id='btn-default'>Default</option>
+                                      <option id='btn-primary'>Primary</option>
+                                      <option id='btn-info'>Info</option>
+                                      <option id='btn-success'>Success</option>
+                                      <option id='btn-warning'>Warning</option>
+                                      <option id='btn-danger'>Danger</option>
+                                      <option id='btn-inverse'>Inverse</option>
+                                    </select>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true"
+                                >
+                                <label class="bootstrap col-md-4 control-label valtype"  style="text-align:right" data-valtype="label">Button</label>
+          
+                                <!-- Button -->
+                                <div class="bootstrap col-md-5 valtype"  data-valtype="button" style="padding-top: 10px; padding-bottom: 10px;">
+                                  <button type="button" class='btn btn-success' style='font-size: 13px;' onclick='$.fn.startCFormSubmission()'>Submit</button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="bootstrap tab-pane" id="5">
+                              <div class="bootstrap form-group component" style="background-color:inherit;" id="input_componentInitialID" rel="popover" title="File Upload" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true"
+                                >
+                                <label class="bootstrap col-md-3 control-label valtype"  style="text-align:right" id="mainLabelFI" data-valtype="label">File Button</label>
+          
+                                <!-- File Upload -->
+                                <div class="bootstrap col-md-7">
+                                 
+                                    <input class="bootstrap input-file" id="input_textInputInitialID" type="button" value="choose file" onclick="$.fn.submitFormFileInput('1')" fileType="image" component_type = "file">
+                                  <div id="imageInputLoaderDiv" style="width: 210px; height: 170px; border: dashed 1px; text-align: center; padding-top: 60px;"><img src="img/loading.gif" id="imageInputLoader" style="width: 49px; height: 50px; border: none; display: none;"></div>
+                                   <ul id="imageInputUL" style="padding:0px; list-style: none; display: none;">
+                                    <li data-src="img/Radiographs/f.jpg" id="imageInputLI">
+                                      <img src="img/Radiographs/f.jpg" style="width: 210px; height: 170px;" id="imageInputDispVM">
+                                    </li>
+                                  </ul>
+                                  <button class="btn" style="margin: 0px; font-size: 12px; background: rgb(85, 137, 248); color: white; border: 0px;" id="imageViewBtn_Z" onclick="$.fn.viewDispFormImage('../img/lg_br.jpg')" type="button">View</button>
+                                <br><br>
+                                </div>
+                              </div>
+                              
+                              
+          
+                            </div>
+                            <div class="bootstrap tab-pane" id="6" style="">
+                              <textarea id="source" class="bootstrap col-md-12"></textarea>
+                            </div>
+                            <br><br>
+                          </fieldset>
+                        </form>
+                      </div>
+                    </div> <!-- row -->
+                <div class="bootstrap row clearfix">
+                  <div class="bootstrap col-md-12"></div>
+                </div>
+              </div><!-- /container -->
+              <div id="site-navbar" style="position: absolute; top: -4px; right: -3px; border: 0; z-index: 2000;padding:0;margin:0;"><a href="http://github.com/aiopio/Bootstrap3-form-builder" title="在github关注我" style="background:none;"></a></div> 
+</div>
+<div id="string_object_converter" style="display: none;">
+
+</div>
+  </div>
+  
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.minC.js"></script>
+  <script type="text/javascript" src="js/jBox.all.min.js"></script>
+   <script type="text/javascript" src="js/mdb.js"></script>
+  <script type="text/javascript" src="js/general_controller.js"></script>
+  <script src="js/fb.js"></script>
+</body>
+
+</html>

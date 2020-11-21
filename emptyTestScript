@@ -1,0 +1,32 @@
+function add_formEffect(e,element){
+var allDiv = document.getElementsByTagName('div');
+var count = 0;
+var formDiv = [];
+while(count < allDiv.length){
+if (allDiv[count].classList.contains("md-form")) {
+formDiv.push(allDiv[count]);
+}
+count++;
+}
+alert(formDiv.length);
+ count = 0;
+while(count < formDiv.length){
+  var divLabel = formDiv[count].getElementsByTagName('label');
+  var divInput = formDiv[count].getElementsByTagName('input');
+alert("here");
+if (divLabel[0].classList.contains("active")) {
+  if (divInput[0].value == null || divInput[0].value == "") {
+    divLabel[0].classList.remove("active");
+  }
+}
+alert('here3');
+
+  count++;
+}
+
+var labels = element.getElementsByTagName('label');
+var inputs = element.getElementsByTagName('input');
+labels[0].classList.add("active");
+inputs[0].focus();
+
+}

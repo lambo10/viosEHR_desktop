@@ -1,0 +1,1948 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Vios</title>
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/Vios_colors.css" rel="stylesheet">
+  <link href="css/vios_style.css" rel="stylesheet">
+  <link href="css/scroll_bar_style.css" rel="stylesheet">
+<style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style><style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style><style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style></head>
+
+<body>
+
+  <!-- docturs portal header start -->
+  <div>
+<nav class="navbar navbar-expand-lg navbar-dark theme_color_primary" style="box-shadow: 0 0px 0px 0 rgba(0,0,0,.16),0 0px 0px 0 rgba(0,0,0,.12);">
+
+  <a class="navbar-brand" href="#"><b>VIOSTEC</b></a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active" id="patients_wut_id" onclick="set_patients_main_fragment()">
+        <a class="nav-link waves-effect waves-light"><i class="fa fa-male"></i>Patient</a>
+      </li>
+      <li class="nav-item" id="add_patient" onclick="set_addpatient_main_fragment()">
+        <a class="nav-link waves-effect waves-light"><i class="fa fa-book"></i>Inventory</a>
+      </li>
+    </ul>
+    
+
+    <form class="form-inline">
+      <div class="md-form my-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search Patient's Name" aria-label="Search" style="width: 400px">
+        <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3 waves-effect waves-light" type="submit">GO</button>
+      </div>
+    </form>
+
+
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link waves-effect waves-light">1
+          <i class="fa fa-envelope"></i>
+        </a>
+      </li>
+      <li class="nav-item avatar dropdown">
+        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <img src="img/working_prof/profile_pic.jpg" class="rounded-circle z-depth-0" style="width: 30px; height: 30px" alt="avatar image">
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
+          <a class="dropdown-item waves-effect waves-light" href="#"><i class="fa fa-user theme_text_colored_primary"></i> Profiles</a>
+          <a class="dropdown-item waves-effect waves-light" href="#"><i class="fa fa-cog theme_text_colored_primary"></i> Settings</a>
+          <a class="dropdown-item waves-effect waves-light" href="index.html"><svg height="15px" class="theme_text_colored_primary" aria-hidden="true" data-prefix="far" data-icon="sign-in-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M144 112v51.6H48c-26.5 0-48 21.5-48 48v88.6c0 26.5 21.5 48 48 48h96v51.6c0 42.6 51.7 64.2 81.9 33.9l144-143.9c18.7-18.7 18.7-49.1 0-67.9l-144-144C195.8 48 144 69.3 144 112zm192 144L192 400v-99.7H48v-88.6h144V112l144 144zm80 192h-84c-6.6 0-12-5.4-12-12v-24c0-6.6 5.4-12 12-12h84c26.5 0 48-21.5 48-48V160c0-26.5-21.5-48-48-48h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96z" class=""></path></svg> Logout</a>
+        </div>
+      </li>
+    </ul>
+
+
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+  </div>
+<!-- docturs portal header start -->
+<div class="patient_fragment" id="main_patient_fragment">
+  <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-bottom: #09c;">
+    <div style="width: 100%; height: 10px;"></div>
+    <li class="nav-item waves-effect waves-light">
+      <a class="nav-link active v_nav_link" id="chart-tab" data-toggle="tab" href="#chart" role="tab" aria-controls="chart" aria-selected="true">Chart</a>
+    </li>
+    <li class="nav-item waves-effect waves-light">
+      <a class="nav-link" id="Radiograph-tab" data-toggle="tab" href="#radiograph" role="tab" aria-controls="radiograph" aria-selected="false">Radiograph</a>
+    </li>
+    <li class="nav-item waves-effect waves-light">
+        <a class="nav-link" id="Lab-tab" data-toggle="tab" href="#lab" role="tab" aria-controls="lab" aria-selected="false">Lab</a>
+      </li>
+      <li class="nav-item waves-effect waves-light">
+          <a class="nav-link" id="Medication-tab" data-toggle="tab" href="#medication" role="tab" aria-controls="medication" aria-selected="false">Medication</a>
+        </li>
+         <li class="nav-item waves-effect waves-light">
+          <a class="nav-link" id="full-record" data-toggle="tab" href="#fullrecord" role="tab" aria-controls="fullrecord" aria-selected="false">Full Record</a>
+        </li>       
+  </ul>
+  <div class="theme_color_secondary" style="height: 10px;"></div>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="chart" role="tabpanel" aria-labelledby="chart-tab">
+      <div style="background: #eee; width: 100.1%; height: 800px;">
+
+        <div style="width: 100%;" class="animated faster" id="chart_inner">
+    <div>
+
+            <div class="row" style=" padding: 50px;">
+
+
+                    <div class="col-md-4">
+                        <!-- Card Narrower -->
+                              <div class="card">
+                      
+                                <div>
+                                <div style="padding-left: 15px;">
+                                    <div style="width: 104.5%;">
+                                        <div>
+                          
+                                            <div class="v_patient_details_module_header row">
+                                                <div class="col-md-3">
+                                                    <img src="img/working_prof/rily.jpg" class="rounded-circle z-depth-0" style="width: 70px; height: 70px" alt="avatar image">
+                                                  </div>
+                                            
+                                                  <div class="col-md-8">
+                                                      
+                                                        <div style="font-size: 20px; font-family: Arial, Helvetica, sans-serif">NNADI LAMBERT</div>
+                                                        <div style="font-size: 13px; padding-top: 10px; color: #bdbdbd;">
+                                                          <div class="row"> <div class="col-md-4">Male</div> <div class="col-md-7">20 years old</div>  </div>
+                                                          <div class="row"> <div class="col-md-8">Student</div> <div class="col-md-4">5.5ft</div>  </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                              
+                                            
+                                          </div>
+                                    </div>
+                              
+                      
+                                </div>
+                                <div class="row" style="padding-top: 2px; padding-left: 20px; padding-right: 3px; padding-bottom: 2px;">
+                                      <div class="col-md-6"><div><b>Sex:</b></div><div>Male</div></div>
+                                      <div class="col-md-6"><div><b>Height:</b></div><div>5.5ft</div></div>
+                                      <div class="col-md-6"><div><b>Age:</b></div><div>20</div></div>
+                                    <div class="col-md-6"><div><b>No:</b></div><div>07068497582</div></div>
+                                    <div class="col-md-6"><div><b>Email:</b></div><div>nnadi406@gmail.com</div></div>
+                                    <div class="col-md-6"><div><b>Occupation:</b></div><div>Student</div></div>
+                                    <div class="col-md-6"><div><b>Dept:</b></div><div>Computer Science</div></div>
+                                    <div class="col-md-6"><div><b>Faculty:</b></div><div>Physical Science</div></div>
+                                    <div class="col-md-6"><div><b>Allergies:</b></div><div>chloroquine, sulfa drugs, body cream containing hydroquinone</div></div>
+                                    </div>
+                                </div>
+                      
+                              </div>
+                              <!-- Card Narrower -->
+                      
+                      </div>
+                
+                
+                      <div class="col-md-8" style="">
+                          <!-- Card Narrower -->
+                                <div class="card card-cascade narrower animated" id="lab-test-O-main-container">
+                                  <!-- Card image -->
+                                  <div style="width: 100%;">
+                                  <div style="width: 100%;" align="center">
+                                  <div class="view view-cascade overlay" style="width: 80%">
+                                   <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary animated bounce"><h5>RECENT PRESCRIPTION</h5></div>
+                                    <a>
+                                      <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                                    </a>
+                                  </div>
+                                  </div>
+                                  </div>
+                        
+                                  <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px;">
+                             <div class="row" style="min-height: 258px;">
+                               
+                              <div style="width: 100%;">
+                                <div class="row"> <div class="col-md-2"><b>Date:</b> <span>1-17-2019</span></div> 
+                                <div class="col-md-5"><b>Time:</b> <span>8:30PM</span></div>
+                                </div>
+                                <div>
+                                  <div>
+                                    <b>By:</b> Dr. <span>Nnadi Lambert</span>
+                                  </div>
+                                </div><br>
+                                <div>
+                                  Endomal 150mg bd 3/7 <br>
+                     Then, ACT QS 1tab bd 3/7 <br>
+                    PCM 500mg tid 5/7 <br>
+                    Ceftriaxone 1g bd 5/7 <br>
+                    Stressvite 100mg OD 1/52 <br>
+                                </div>
+                              </div>
+                              
+                             </div> 
+                              
+                          <div>
+                            
+                          </div>
+                                  </div>
+                        
+                                </div>
+                                <!-- Card Narrower -->
+                        
+                        </div>
+                
+                
+                      
+                
+                </div>
+
+    </div>
+
+         
+        </div>
+
+
+      </div>
+    </div>
+   
+    <div class="tab-pane fade" id="radiograph" role="tabpanel" aria-labelledby="Radiograph-tab">
+    
+        <div style="background: #eee; width: 100%;">
+<div class="row v_Main_tab_padding_o">
+
+    <div class="col-md-9">
+        <!-- Card Narrower -->
+              <div class="card card-cascade narrower animated faster" id="Radiograph-main-container">
+      
+                <!-- Card image -->
+                <div style="width: 100%;">
+                <div style="width: 100%;" align="center">
+                <div class="view view-cascade overlay" style="width: 80%">
+                 <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary animated bounce"><h5>26-03-2018</h5></div>
+                  <a>
+                    <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                  </a>
+                </div>
+                </div>
+                </div>
+      
+                <!-- Card content -->
+                <div>
+                <div class="card-body card-body-cascade">     
+              <div class="row">
+                <div class="col-md-6">
+                    <div style="text-align: center;"><h5><b>OBSTETRICS ULTRA SOUND REPORT</b></h5></div>
+                    <div style="text-align: left">
+                      <div><b>Name:</b> Nnadi Lambert</div>
+                      <div><b>Age:</b> 20yrs</div>
+                      <div><b>Sex:</b> Male</div>
+                      <div><b>LMP:</b> 04/08/2018</div>
+                      <div><b>EDD:</b> 23/03/2019</div>
+                      <div><b>Clinical History:</b> Normal</div>
+                    </div>
+                    <div style="text-align: left;">
+                      <b><div style="text-align: center;">SONOGRAPHERS REPORT</div></b>
+                      <div><b>Gestations:</b> 6months</div>
+                      <div><b>Placentation:</b>...........................</div>
+                      <div><b>Fetal life:</b>...........................</div>
+                      <div><b>Placenta position:</b>...........................</div>
+                      <div><b>Liquor volume:</b>...........................</div>
+                      <div><b>Fetal Movement:</b>...........................</div>
+                      <div><b>Cardiac activity:</b>...........................</div>
+                    </div>
+                    <div style="text-align: left;">
+                      <b><div style="text-align: center;">MATURITY</div></b>
+                      <div class="row">
+                        <div class="col-md-6">
+                            <div><b>BPD:</b>..........................</div>
+                            <div><b>AC:</b>...........................</div>
+                            <div><b>FL:</b>...........................</div>
+                            <div><b>GA:</b>...........................</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div><b>EDD:</b>..........................</div>
+                            <div><b>AFL:</b>...........................</div>
+                            <div><b>EFW:</b>...........................</div>
+                            <div><b>FHR:</b>...........................</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div style="text-align: left">
+                      <b><div style="text-align: center;">IMPRESSION</div></b>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="text-align: center;"><h5><b>Images</b></h5></div>
+                    <div class="row">
+                        <div class="col-md-6" style="padding: 20px;"><img src="img/Radiographs/f.jpg" style="width: 100%; height: 150px; box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); border: solid 2px white"></div>
+                        <div class="col-md-6" style="padding: 20px;"><img src="img/Radiographs/g.jpg" style="width: 100%; height: 150px; box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); border: solid 2px white"></div>
+                        <div class="col-md-6" style="padding: 20px;"><img src="img/Radiographs/h.jpg" style="width: 100%; height: 150px; box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); border: solid 2px white"></div>
+                        <div class="col-md-6" style="padding: 20px;"><img src="img/Radiographs/i.jpg" style="width: 100%; height: 150px; box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); border: solid 2px white"></div>
+                      </div>
+                </div>
+              </div>
+      
+                </div>
+                </div>
+      
+              </div>
+              <!-- Card Narrower -->
+      
+      </div>
+
+<div class="col-md-3">
+    <div class="card">
+        <div class="view view-cascade py-3 gradient-card-header info-color-dark mx-4 d-flex justify-content-between align-items-center">
+            
+            <div>
+                <button onclick="Radiofraphs_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
+                    First
+                </button>
+            </div>
+
+            <a href="" class="white-text mx-3">Radiographs</a>
+
+            <div>
+                <button onclick="Radiofraphs_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
+                    Last
+                </button>
+            </div>
+
+        </div>
+        <div style="text-align: center">
+          <div style="display: inline-block">
+            <ul class="pagination pagination-circle pg-blue mb-0">
+                <li class="page-item">
+                    <a class="page-link waves-effect waves-effect">&lt;&lt;</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link waves-effect waves-effect">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link waves-effect waves-effect">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link waves-effect waves-effect">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link waves-effect waves-effect">&gt;&gt;</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+        <table class="table animated faster" id="radiograph_table">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="v_row_as_btn" onclick="on_row_as_btn_click()">
+                <th scope="row">13:45</th>
+                <td>09-09-2018</td>
+              </tr>
+              <tr class="v_row_as_btn" onclick="on_row_as_btn_click()">
+                <th scope="row">15:00</th>
+                <td>07-08-2018</td>
+              </tr>
+              <tr class="v_row_as_btn" onclick="on_row_as_btn_click()">
+                <th scope="row">09:15</th>
+                <td>19-05-2018</td>
+              </tr>
+              <tr class="v_row_as_btn" onclick="on_row_as_btn_click()">
+                  <th scope="row">8:03</th>
+                  <td>25-03-2018</td>
+                </tr>
+                <tr class="v_row_as_btn" onclick="on_row_as_btn_click()">
+                    <th scope="row">14:11</th>
+                    <td>19-07-2017</td>
+                  </tr>
+                  <tr class="v_row_as_btn" onclick="on_row_as_btn_click()">
+                      <th scope="row">12:11</th>
+                      <td>19-05-2017</td>
+                    </tr>
+                    <tr class="v_row_as_btn" onclick="on_row_as_btn_click()">
+                        <th scope="row">14:02</th>
+                        <td>19-03-2017</td>
+                      </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+
+    </div>
+    <div class="tab-pane fade" id="lab" role="tabpanel" aria-labelledby="Radiograph-tab">
+
+
+<div style="background: #eee; width: 100%;">
+<div class="row v_Main_tab_padding_o">
+
+    <div class="col-md-9">
+        <!-- Card Narrower -->
+              <div class="card card-cascade narrower animated faster" id="lab-test-O-main-container">
+      
+                <!-- Card image -->
+                <div style="width: 100%;">
+                <div style="width: 100%;" align="center">
+                <div class="view view-cascade overlay" style="width: 80%">
+                 <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary animated bounce"><h5>26-03-2018</h5></div>
+                  <a>
+                    <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                  </a>
+                </div>
+                </div>
+                </div>
+      
+                <div style="padding: 30px;">
+                    <div><h5><b>MICROSCOPY &amp; SENSITIVITY</b></h5></div>
+           <div class="row">
+             <div class="col-md-3">
+               <div>
+                 <b>Widal test</b>
+               </div>
+               <div class="row" style="padding-left: 15px;">    
+                    <table class="table">
+                      <thead class="grey lighten-2">
+                        <tr>
+                          <th scope="col">O</th>
+                          <th scope="col">H</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>160</td>
+                          <td>40</td>
+                        </tr>
+                        <tr>
+                          <td>40</td>
+                          <td>40</td>
+                        </tr>
+                        <tr>
+                          <td>20</td>
+                          <td>40</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+               </div>
+             </div>
+             <div class="col-md-3">
+               <div>
+                 <b>Stool Analysis</b>
+               </div>
+               <div style="">Brown and soft.  No ova, parasite or cyst found. Culture yielded moderate growth of Samonella spp after 24hr at 37&deg;C</div>
+             </div>
+             <div class="col-md-3">
+               <div>
+                 <b>Drug Chart</b>
+               </div>
+               <div style="">Cyproflox(+++), <br>Pefloxacin(+++), <br>Gentamicin(+++), <br>Septrin(++), <br>Resist. to Erythromycin, Ampiclox, Amoxil, Rocephin &amp; Streptomycin</div>
+             </div>
+             <div class="col-md-3">
+                <div>
+                  <b>Drug chart</b>
+                </div>
+                <div style="">Culture - yeilded moderate growth of Staph. spp after 24hrs at 37&deg;C.</div>
+              </div>
+            
+           </div> 
+            
+        <div>
+          
+        </div>
+                </div>
+      
+              </div>
+              <!-- Card Narrower -->
+      
+      </div>
+
+<div class="col-md-3">
+    <div class="card">
+        <div class="view view-cascade py-3 gradient-card-header info-color-dark mx-4 d-flex justify-content-between align-items-center">
+            
+            <div>
+                <button onclick="lab_test_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
+                    First
+                </button>
+            </div>
+
+            <a href="" class="white-text mx-3">Lab test</a>
+
+            <div>
+                <button onclick="lab_test_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
+                    Last
+                </button>
+            </div>
+
+        </div>
+        <div style="text-align: center">
+          <div style="display: inline-block">
+            <ul class="pagination pagination-circle pg-blue mb-0">
+                <li class="page-item">
+                    <a class="page-link waves-effect waves-effect">&lt;&lt;</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link waves-effect waves-effect">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link waves-effect waves-effect">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link waves-effect waves-effect">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link waves-effect waves-effect">&gt;&gt;</a>
+                </li>
+            </ul>
+            </div>
+        </div>
+        <table class="table animated faster" id="lab_test_O_table">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="v_row_as_btn" onclick="lab_test_on_row_as_btn_click()">
+                <th scope="row">13:45</th>
+                <td>09-09-2018</td>
+              </tr>
+              <tr class="v_row_as_btn" onclick="lab_test_on_row_as_btn_click()">
+                <th scope="row">15:00</th>
+                <td>07-08-2018</td>
+              </tr>
+              <tr class="v_row_as_btn" onclick="lab_test_on_row_as_btn_click()">
+                <th scope="row">09:15</th>
+                <td>19-05-2018</td>
+              </tr>
+              <tr class="v_row_as_btn" onclick="lab_test_on_row_as_btn_click()">
+                  <th scope="row">8:03</th>
+                  <td>25-03-2018</td>
+                </tr>
+                <tr class="v_row_as_btn" onclick="lab_test_on_row_as_btn_click()">
+                    <th scope="row">14:11</th>
+                    <td>19-07-2017</td>
+                  </tr>
+                  <tr class="v_row_as_btn" onclick="lab_test_on_row_as_btn_click()">
+                      <th scope="row">12:11</th>
+                      <td>19-05-2017</td>
+                    </tr>
+                    <tr class="v_row_as_btn" onclick="lab_test_on_row_as_btn_click()">
+                        <th scope="row">14:02</th>
+                        <td>19-03-2017</td>
+                      </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+
+
+    </div>
+    <div class="tab-pane fade" id="medication" role="tabpanel" aria-labelledby="Medication-tab">
+
+
+        <div style="background: #eee; width: 100%;">
+            <div class="row v_Main_tab_padding_o">
+            
+                <div class="col-md-9">
+                    <!-- Card Narrower -->
+                          <div class="card card-cascade narrower animated faster" id="medications-O-main-container">
+                  
+                            <!-- Card image -->
+                            <div style="width: 100%;">
+                            <div style="width: 100%;" align="center">
+                            <div class="view view-cascade overlay" style="width: 80%">
+                             <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary animated bounce"><h5>26-03-2018</h5></div>
+                              <a>
+                                <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                              </a>
+                            </div>
+                            </div>
+                            </div>
+                  
+                            <div style="padding: 30px;">
+                              <div><h5><b>MEDICATION</b></h5></div>
+                              <div class="row">
+                                <div class="col-md-2">
+                                  <div>
+                                    <b>S/N</b>
+                                  </div>
+                                  <div class="row" style="padding-left: 15px;"><div>1.</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>2.</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>3.</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>4.</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>5.</div></div>
+                                </div>
+                                <div class="col-md-2">
+                                  <div>
+                                    <b>Date</b>
+                                  </div>
+                                  <div class="row" style="padding-left: 15px;"><div>19-05-2017</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>19-05-2018</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>19-07-2018</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>19-07-2018</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>19-07-2018</div></div>
+                              
+                                </div>
+                                <div class="col-md-2">
+                                  <div>
+                                    <b>Medication</b>
+                                  </div>
+                                  <div class="row" style="padding-left: 15px;"><div>HCTZ 25mg</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>Metformin 500mg</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>Atorvastatin 20mg</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>Atenolol 50mg</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>Cloxacillin 500mg</div></div>
+                                  
+                                </div>
+                                <div class="col-md-2">
+                                  <div>
+                                    <b>Presciption</b>
+                                  </div>
+                                  <div class="row" style="padding-left: 15px;"><div>1 tab at breakfast</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>2 tabs twice daily</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>1 tab at supper</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>1 tab at breakfast</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>Discontinued</div></div>
+                                  
+                                </div>
+                                <div class="col-md-2">
+                                  <div>
+                                    <b>Last filled</b>
+                                  </div>
+                                  <div class="row" style="padding-left: 15px;"><div>01-02-2017</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>05-02-2017</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>07-04-2018</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>07-04-2018</div></div>
+                                  <div class="row" style="padding-left: 15px;"><div>07-04-2018</div></div>
+                                </div>
+                              </div> 
+                                 
+                             <div>
+                               
+                             </div>
+                            </div>
+                  
+                          </div>
+                          <!-- Card Narrower -->
+                  
+                  </div>
+            
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="view view-cascade py-3 gradient-card-header info-color-dark mx-4 d-flex justify-content-between align-items-center">
+                        
+                        <div>
+                            <button onclick="medications_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
+                                First
+                            </button>
+                        </div>
+            
+                        <a href="" class="white-text mx-3">Medications</a>
+            
+                        <div>
+                            <button onclick="medications_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
+                                Last
+                            </button>
+                        </div>
+            
+                    </div>
+                    <div style="text-align: center">
+                      <div style="display: inline-block">
+                        <ul class="pagination pagination-circle pg-blue mb-0">
+                            <li class="page-item">
+                                <a class="page-link waves-effect waves-effect">&lt;&lt;</a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link waves-effect waves-effect">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link waves-effect waves-effect">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link waves-effect waves-effect">3</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link waves-effect waves-effect">&gt;&gt;</a>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    <table class="table animated faster" id="medications_O_table">
+                        <thead>
+                          <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="v_row_as_btn" onclick="medications_on_row_as_btn_click()">
+                            <th scope="row">13:45</th>
+                            <td>09-09-2018</td>
+                          </tr>
+                          <tr class="v_row_as_btn" onclick="medications_on_row_as_btn_click()">
+                            <th scope="row">15:00</th>
+                            <td>07-08-2018</td>
+                          </tr>
+                          <tr class="v_row_as_btn" onclick="medications_on_row_as_btn_click()">
+                            <th scope="row">09:15</th>
+                            <td>19-05-2018</td>
+                          </tr>
+                          <tr class="v_row_as_btn" onclick="medications_on_row_as_btn_click()">
+                              <th scope="row">8:03</th>
+                              <td>25-03-2018</td>
+                            </tr>
+                            <tr class="v_row_as_btn" onclick="medications_on_row_as_btn_click()">
+                                <th scope="row">14:11</th>
+                                <td>19-07-2017</td>
+                              </tr>
+                              <tr class="v_row_as_btn" onclick="medications_on_row_as_btn_click()">
+                                  <th scope="row">12:11</th>
+                                  <td>19-05-2017</td>
+                                </tr>
+                                <tr class="v_row_as_btn" onclick="medications_on_row_as_btn_click()">
+                                    <th scope="row">14:02</th>
+                                    <td>19-03-2017</td>
+                                  </tr>
+                        </tbody>
+                      </table>
+                </div>
+              </div>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
+            
+
+
+
+
+    </div>
+    <div class="tab-pane fade" id="fullrecord" role="tabpanel" aria-labelledby="full-record">
+
+
+
+
+        <div style="background: #eee; width: 100%;">
+            <div class="row v_Main_tab_padding_o">
+            
+                <div class="col-md-9">
+                    <!-- Card Narrower -->
+                          <div class="card card-cascade narrower animated faster" id="full-record-O-main-container">
+                  
+                            <!-- Card image -->
+                            <div style="width: 100%;">
+                            <div style="width: 100%;" align="center">
+                            <div class="view view-cascade overlay" style="width: 80%">
+                             <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary animated bounce"><h5>26-03-2018</h5></div>
+                              <a>
+                                <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                              </a>
+                            </div>
+                            </div>
+                            </div>
+                  
+                            <div style="padding: 30px;">
+                                <div><h5><b>MICROSCOPY &amp; SENSITIVITY</b></h5></div>
+           <div class="row">
+             <div class="col-md-3">
+               <div>
+                 <b>Widal test</b>
+               </div>
+               <div class="row" style="padding-left: 15px;">    
+                    <table class="table">
+                      <thead class="grey lighten-2">
+                        <tr>
+                          <th scope="col">O</th>
+                          <th scope="col">H</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>160</td>
+                          <td>40</td>
+                        </tr>
+                        <tr>
+                          <td>40</td>
+                          <td>40</td>
+                        </tr>
+                        <tr>
+                          <td>20</td>
+                          <td>40</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+               </div>
+             </div>
+             <div class="col-md-3">
+               <div>
+                 <b>Stool Analysis</b>
+               </div>
+               <div style="">Brown and soft.  No ova, parasite or cyst found. Culture yielded moderate growth of Samonella spp after 24hr at 37&deg;C</div>
+             </div>
+             <div class="col-md-3">
+               <div>
+                 <b>Drug chart</b>
+               </div>
+               <div style="">Cyproflox(+++), <br>Pefloxacin(+++), <br>Gentanicin(+++), <br>Septrin(++), <br>Resist. to Erythlomycin, Ampiclox, Amoxil, Rocephin &amp; Streptomycin</div>
+             </div>
+             <div class="col-md-3">
+                <div>
+                  <b>Drug chart</b>
+                </div>
+                <div style="">Culture - yeilded moderate growth of Staph. spp after 24hrs at 37&deg;C.</div>
+              </div>
+            
+           </div> 
+            
+        <div>
+          
+        </div>
+                            </div>
+                  
+                          </div>
+                          <!-- Card Narrower -->
+                  
+                  </div>
+            
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="view view-cascade py-3 gradient-card-header info-color-dark mx-4 d-flex justify-content-between align-items-center">
+                        
+                        <div>
+                            <button onclick="full_record_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
+                                First
+                            </button>
+                        </div>
+            
+                        <a href="" class="white-text mx-3">Full Record</a>
+            
+                        <div>
+                            <button onclick="full_record_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
+                                Last
+                            </button>
+                        </div>
+            
+                    </div>
+                    <div style="text-align: center">
+                      <div style="display: inline-block">
+                        <ul class="pagination pagination-circle pg-blue mb-0">
+                            <li class="page-item">
+                                <a class="page-link waves-effect waves-effect">&lt;&lt;</a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link waves-effect waves-effect">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link waves-effect waves-effect">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link waves-effect waves-effect">3</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link waves-effect waves-effect">&gt;&gt;</a>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    <table class="table animated faster" id="full_record_O_table">
+                        <thead>
+                          <tr style="border-bottom: none; border-top: none;">
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="v_row_as_btn" style="border: solid grey 1px" onclick="full_record_on_row_as_btn_click()">
+                            <th scope="row">Lab test</th>
+                            <td>13:45</td>
+                            <td>09-09-2018</td>
+                          </tr>
+                          <tr class="v_row_as_btn" style="border: solid grey 1px" onclick="full_record_on_row_as_btn_click()">
+                              <th scope="row">Lab test</th>
+                              <td>13:45</td>
+                              <td>09-09-2018</td>
+                            </tr>
+                            <tr class="v_row_as_btn" style="border: solid grey 1px" onclick="full_record_on_row_as_btn_click()">
+                                <th scope="row">Lab test</th>
+                                <td>13:45</td>
+                                <td>09-09-2018</td>
+                              </tr>
+                              <tr class="v_row_as_btn" style="border: solid grey 1px" onclick="full_record_on_row_as_btn_click()">
+                                  <th scope="row">Lab test</th>
+                                  <td>13:45</td>
+                                  <td>09-09-2018</td>
+                                </tr>
+                                <tr class="v_row_as_btn" style="border: solid grey 1px" onclick="full_record_on_row_as_btn_click()">
+                                    <th scope="row">Lab test</th>
+                                    <td>13:45</td>
+                                    <td>09-09-2018</td>
+                                  </tr>
+                                  <tr class="v_row_as_btn" style="border: solid grey 1px" onclick="full_record_on_row_as_btn_click()">
+                                      <th scope="row">Lab test</th>
+                                      <td>13:45</td>
+                                      <td>09-09-2018</td>
+                                    </tr>
+                                    <tr class="v_row_as_btn" style="border-left: solid grey 1px; border-right: solid grey 1px" onclick="full_record_on_row_as_btn_click()">
+                                        <th scope="row">Lab test</th>
+                                        <td>13:45</td>
+                                        <td>09-09-2018</td>
+                                      </tr>
+                        </tbody>
+                      </table>
+                </div>
+              </div>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
+            
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+
+<div class="v_prescription_form_container animated faster" id="v_pr_form_container">
+    <div class="classic-tabs">
+
+        <ul class="nav" id="myClassicTab" role="tablist" style="width: 98.9%; background: #424242;">
+          <li class="nav-item v_lower_tab_cell_hw">
+            <a class="waves-light waves-effect records_lower_pane_active active show" onclick="tab_pane1ClickAction()" id="profile-tab-classic" data-toggle="tab" href="#profile-classic" role="tab" aria-controls="profile-classic" aria-selected="true"><div style="padding: 2px; width: 100px; text-align: center;"><b>Dispense</b></div></a>
+          </li>
+          
+          
+          
+              <li class="nav-item v_lower_tab_cell_hw">
+                    <a class="v_lower_tab_cell waves-light v_text_whiteFF waves-effect" onclick="tab_pane5ClickAction()" id="note-btn" data-toggle="tab" href="#contact-classic3" role="tab" aria-controls="contact-classic3" aria-selected="false"><div style="padding: 2px; width: 100px; text-align: center; color: #ffd180;"><b>NOTE</b></div></a>
+                  </li>
+              <li class="nav-item">
+                    <div style="padding-top: 1.8px; padding-left: 500px;"><input type="text" style="width: 400px; height: 19px;" placeholder="Search Drug name, Type, Brand, or Content of drug"><div class="btn waves-effect waves-light" style="padding-left: 10px; padding-right: 10px; padding-top: 0px; padding-bottom: 10px; height: 13px; font-size: 10px;">GO</div> </div>
+                  </li>
+        </ul>
+        <div class="tab-content" id="myClassicTabContent">
+
+          <div class="tab-pane active show" id="profile-classic" role="tabpanel" aria-labelledby="profile-tab-classic">
+            <div style="width: 100%;">
+
+
+                <div class="row" style="width: 100%;">
+                    <div style="width: 55%; padding-left: 15px;">
+                        
+                    <div class="records_portal_bottom_pane">
+                      <div style="height: 10px;"></div>
+                    <div class="prform_body">
+                      <div class="row" style="height: 235px; overflow: auto; color: white;">
+                          <table class="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Name</th>
+                                  <th scope="col">Type</th>
+                                  <th scope="col">Brand</th>
+                                  <th scope="col">Qantity</th>
+                                  <th scope="col">Price</th>
+                                  <th scope="col"></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td style="padding-top: 25px;">Emzor</td>
+                                  <td style="padding-top: 25px;">Paracetamol</td>
+                                  <td style="padding-top: 25px;">Emzor LTD</td>
+                                  <td style="padding-top: 25px; padding-left: 15px;">2</td>
+                                  <td style="padding-top: 25px;">200 Naira</td>
+                                  <td> <button class="btn waves-effect waves-light" style=" background: #ff6666; padding-left: 10px; padding-right: 10px; padding-top: 2px; padding-bottom: 2px; color:white">Remove</button> </td>
+                                </tr>
+                                <tr>
+                                  <td style="padding-top: 25px;">Emzor</td>
+                                  <td style="padding-top: 25px;">Paracetamol</td>
+                                  <td style="padding-top: 25px;">Emzor LTD</td>
+                                  <td style="padding-top: 25px; padding-left: 15px;">2</td>
+                                  <td style="padding-top: 25px;">200 Naira</td>
+                                  <td> <button class="btn waves-effect waves-light" style=" background: #ff6666; padding-left: 10px; padding-right: 10px; padding-top: 2px; padding-bottom: 2px; color:white">Remove</button> </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <div style="padding-right: 30px; width: 100%; text-align: right; color: #333333">
+                            <div style="font-size: 15px;">
+                              <b>Total Price</b>
+                            </div>
+                              <div style="font-size: 30px;">
+                                <b>1200 Naira</b>
+                              </div>
+                            </div>
+                    </div>
+                    </div>
+                    
+                    </div>
+                    </div>
+                    
+                    <div style="width: 45%;">
+                    <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray; background: #f2f2f2; height: 240px; overflow-y: 
+                    auto; overflow-x: none; ">
+                      <div style="height: 10px;"></div>
+                    <div style="padding-right: 30px; padding-left: 20px;padding-bottom: 10px;">
+                    <div>Search Result For: <span>Painkiller</span></div>
+                    <div class="row">
+                    <div class="col-md-6" style="padding-left: 10px; padding-right: 10px;">
+                     <div class="card">
+                       <div class="row">
+                         <div class="col-md-4" style="padding-left: 20px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+                           <div>
+                             <img src="img/emzor.jpg" style="width: 70px; height: 70px;">
+                           </div>
+                           <div>
+                           <div style="font-size: 15px;">Dispense Quantity</div>
+                             <input type="number" name="" value="1" style="width: 50px; height: 20px;">
+                           </div>
+                         </div>
+                         <div class="col-md-7">
+                           <div><b>Name:</b><span>Emzor</span></div>
+                           <div><b>Type:</b><span>Paracetamol</span></div>
+                           <div><b>Brand:</b><span>Emzor LTD</span></div>
+                           <div><b>Price:</b><span>200 Naira</span></div>
+                         <div><b>Quantity:</b><span>200</span></div>
+                         
+                         <div style="width: 100%">
+                           <button class="waves-effect waves-light btn-success" style="border: none;">Dispense</button>
+                         </div>
+                         <div style="width:100%; height: 10px;"></div>
+                         </div>
+                         
+
+                       </div>
+                     </div>
+                    </div>
+
+                     <div class="col-md-6" style="padding-left: 10px; padding-right: 10px;">
+                     <div class="card">
+                       <div class="row">
+                         <div class="col-md-4" style="padding-left: 20px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+                           <div>
+                             <img src="img/emzor.jpg" style="width: 70px; height: 70px;">
+                           </div>
+                           <div>
+                           <div style="font-size: 15px;">Dispense Quantity</div>
+                             <input type="number" name="" value="1" style="width: 50px; height: 20px;">
+                           </div>
+                         </div>
+                         <div class="col-md-7">
+                           <div><b>Name:</b><span>Emzor</span></div>
+                           <div><b>Type:</b><span>Paracetamol</span></div>
+                           <div><b>Brand:</b><span>Emzor LTD</span></div>
+                           <div><b>Price:</b><span>200 Naira</span></div>
+                         <div><b>Quantity:</b><span>200</span></div>
+                         
+                         <div style="width: 100%">
+                           <button class="waves-effect waves-light btn-success" style="border: none;">Dispense</button>
+                         </div>
+                         <div style="width:100%; height: 10px;"></div>
+                         </div>
+                         
+
+                       </div>
+                     </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+
+              
+            </div>
+          </div>
+
+
+
+
+          <div class="tab-pane" id="follow-classic" role="tabpanel" aria-labelledby="follow-tab-classic">
+          </div>
+          <div class="tab-pane" id="contact-classic" role="tabpanel" aria-labelledby="contact-tab-classic">
+          </div>
+          <div class="tab-pane" id="contact-classic2" role="tabpanel" aria-labelledby="contact-tab-classic2"></div>
+          <div class="tab-pane" id="note-btn" role="tabpanel" aria-labelledby="contact-tab-classic">
+                </div>
+
+
+
+
+            <div class="tab-pane" id="contact-classic3" role="tabpanel" aria-labelledby="contact-tab-classic3">
+                    <div style="width: 100%;">
+      
+      
+                        <div class="row" style="width: 100%;">
+                            <div style="width: 55%; padding-left: 15px;">
+                                
+                            <div class="records_portal_bottom_pane">
+                              <div style="height: 10px;"></div>
+                            <div class="prform_body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                      <form id="paper" method="get" action="">
+                                        <textarea class="card mb-1" placeholder="Enter Note." id="text" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 160px; "></textarea>
+                                      </form>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 70px;">
+                                      <button class="btn btn-outline-white waves-effect waves-light" style="text-align: center; padding-right: 20px; padding-left: 20px;">Save</button>
+                                      <button class="btn btn-outline-white waves-effect waves-light" style="text-align: center;">Print</button>
+                                    </div>
+                                    </div>
+                            </div>
+                            
+                            </div>
+                            </div>
+                            
+                            <div style="width: 45%;">
+                            <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray;">
+                              <div style="height: 10px;"></div>
+                            <div class="prform_body" style="color: white;">
+                              <div style="height: 180.5px; overflow-y: auto; overflow-x: hidden">
+                             <div style="font-size: 20px;"><b>Last Note</b></div> 
+                             <div>By:<i>Nurse-Abigail Nnenna</i></div>
+                             <div><i>08-7-2018</i></div>
+                            <div>
+                              <div class="row">
+                               <div style="padding-left: 15px; padding-right: 2px; padding-top: 10px; overflow-x: hidden; overflow-y: auto;">
+                                  Still feeling feverish, slight increase in temperature from about 27-29&deg;C, complained of periodic headache.
+                               </div>
+                              </div>
+                            </div>
+                              </div>
+                            </div>
+                            
+                            </div>
+                            </div>
+                            </div>
+        
+                      
+                    </div>
+                </div>
+
+            
+
+          
+        </div>
+      
+      </div>
+</div>
+
+</div>
+
+
+
+
+
+<div id="main_addpatient_wut_fragment" style="display: none;">
+<div style="width: 100%; height: 70px; padding-top: 1px; padding-bottom: 10px; padding-left: 50px;">
+  <input type="text" name="" style="width: 500px;" placeholder="Search Name, Brand or Category of Drugs"><button class="waves-light waves-effect btn" style="background: #09c;">GO</button>
+  <div style="float: right; padding-top: 15px; padding-left: 10px; padding-right: 10px;"
+  >
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(6)" id="6inv_tab_btn">
+    Dispensing log
+  </div>
+  </div>
+  <div style="float: right; padding-top: 15px; padding-left: 10px; padding-right: 10px;"
+  >
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(5)" id="5inv_tab_btn">
+    Add Drug
+  </div>
+  </div>
+   <div style="float: right; padding-top: 15px; padding-left: 10px; padding-right: 10px;">
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(4)" id="4inv_tab_btn">
+    Adjustment
+  </div>
+  </div>
+   <div style="float: right; padding-top: 15px; padding-left: 10px; padding-right: 10px;">
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;" class="card waves-light waves-effect"  onclick="process_invontory_tab_click(3)" id="3inv_tab_btn">
+    Losses
+  </div>
+  </div>
+   <div style="float: right; padding-top: 15px; padding-left: 10px; padding-right: 10px;"
+   >
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; background: #EA0303; color: white;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(2)" id="2inv_tab_btn">
+    Expired Drugs
+  </div>
+  </div>
+   <div style="float: right; padding-top: 15px; padding-left: 10px; padding-right: 10px;">
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; background: #09c; color: white;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(1)" id="1inv_tab_btn">
+    SOH
+  </div>
+  </div>
+  <div style="float: right; padding-top: 15px; padding-left: 10px; padding-right: 10px;">
+    <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; background: #EA0303; color: white;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(7)" id="7inv_tab_btn">
+      Poisons log
+    </div>
+    </div>
+</div>
+<div style="background: #eee; height: 1000px; width: 100%;" id="Add_patient_main_fregment">
+
+<div id="5inv_pane" style="display: none;">
+<div class="row" style="padding-top: 50px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px;"> 
+  <div class="col-md-6 " style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px;">
+    <div class="card" style="height: 400px; padding: 10px; overflow-x: none; overflow-y: auto;">
+
+  <div>
+ <table class="table table-striped">
+ <thead>
+   <tr>
+     <td>Name</td>
+     <td>Type</td>
+     <td>Brand</td>
+     <td>Price</td>
+     <td>Quantity</td>
+     <td>Add new batch</td>
+     <td>Edit drug info</td>
+   </tr>
+ </thead>
+ <tr style="cursor: pointer;">
+   <td>Emzor</td>
+   <td>Paracetamol</td>
+   <td>Emzor LTD</td>
+   <td>200 Naira</td>
+   <td>300</td>
+
+   <td><button style="cursor: pointer;" data-toggle="modal" data-target="#add_batchModal"><i class="fa fa-plus"></i></button></td>
+   <td><button style="cursor: pointer; font-size: 15px; padding-top: 1px; text-align: center;" data-toggle="modal" data-target="#edith_DrugModal"><i class="fa fa-pencil-square-o"></i></button></td>
+ </tr>
+ <tr style="cursor: pointer;"  data-toggle="modal" data-target="#edith_DrugModal">
+  <td>Emzor</td>
+   <td>Paracetamol</td>
+   <td>Emzor LTD</td>
+   <td>200 Naira</td>
+   <td>300</td>
+   
+   <td><button style="cursor: pointer;" data-toggle="modal" data-target="#add_batchModal"><i class="fa fa-plus"></i></button></td>
+   <td><button style="cursor: pointer; font-size: 15px; padding-top: 1px; text-align: center;" data-toggle="modal" data-target="#edith_DrugModal"><i class="fa fa-pencil-square-o"></i></button></td>
+ </tr>
+ </table>
+  </div>
+
+</div></div>  
+<div class="col-md-6 " style="padding-right: 20px;padding-top: 20px; padding-bottom: 20px;"><div class="card" style="height: 400px; padding: 10px; overflow-x: none; overflow-y: auto;">
+<div style="font-size: 30px; text-align: center; color: #595959">
+  ADD DRUG<i class="fa fa-plus"></i>
+</div>
+<div>
+
+      <form class="text-center" style="color: #757575;">
+
+          <div class="form-row">
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="text" id="dde1" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde1">Name</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="text" id="dde2" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde2">Type</label>
+                  </div>
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="col">
+                  <!-- First name -->
+                  <div class="md-form">
+                      <input type="number" id="dde3" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde3">Price</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="number" id="dde4" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde4">Quantity</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="number" id="dde5" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde5">Batch Price</label>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="md-form mt-0">
+              <input type="text" id="dde6" onkeypress="return runScript(event)" class="form-control">
+              <label for="dde6">Brand</label>
+          </div>
+
+          <div class="form-row">
+              <div class="col">
+                  <!-- First name -->
+                  <div style="font-size: 13px; text-align: left;">Enter coma(,) after each content</div>
+                  <div class="md-form">
+                      <textarea type="textarea" id="dde7" onkeypress="return runScript(event)" class="form-control"></textarea>
+                      <label for="dde7" style="padding-left: 2px;"> Content</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form" style="padding-top: 43px;">
+                      <input type="number" id="dde8" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde8">Drug Shortage Point</label>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Sign up button -->
+          <button class="btn btn-outline-info btn-rounded my-4 waves-effect z-depth-0" type="button">ADD</button>
+
+      </form>
+
+  </div>
+
+</div> </div> 
+
+</div>
+</div>
+
+<div id="2inv_pane" style="display: none;">
+  <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+    <div style="height: 400px; width: 1400px; padding: 10px;">
+      <div class="card col-md-9" style="height: 400px; width:100%; padding: 10px; overflow-x: none; overflow-y: auto;">
+
+  <div>
+ <table class="table table-striped">
+ <thead>
+   <tr>
+     <td>S/N</td>
+     <td>Drug</td>
+     <td>Quantity</td>
+     <td>Batch No</td>
+     <td>Expiry Date</td>
+   </tr>
+ </thead>
+  <tr>
+    <td>2</td>
+    <td>Paracetamol</td>
+    <td>1000</td>
+    <td>15</td>
+    <td>21-07-2020</td>
+  
+   </tr>
+ <tr>
+  <td>3</td>
+  <td>Paracetamol</td>
+  <td>1000</td>
+  <td>15</td>
+  <td>21-07-2020</td>
+
+ </tr>
+ <tr>
+  <td>4</td>
+  <td>Paracetamol</td>
+  <td>1000</td>
+  <td>15</td>
+  <td>21-07-2020</td>
+
+ </tr>
+ <tr>
+  <td>5</td>
+  <td>Paracetamol</td>
+  <td>1000</td>
+  <td>15</td>
+  <td>21-07-2020</td>
+
+ </tr>
+ <tr>
+  <td>6</td>
+  <td>Paracetamol</td>
+  <td>1000</td>
+  <td>15</td>
+  <td>21-07-2020</td>
+
+ </tr>
+ </table>
+  </div>
+
+</div>
+
+</div>
+
+</div> </div>
+</div>
+
+<div id="3inv_pane" style="display: none;">
+ <div class="" style="padding-top: 50px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;"><div class="card" style="height: 400px; width: 1200px; padding: 10px; overflow-x: none; overflow-y: auto;">
+
+  <div>
+ <table class="table table-striped">
+ <thead>
+   <tr>
+     <td>Pic</td>
+     <td>Name</td>
+     <td>Type</td>
+     <td>Brand</td>
+     <td>Price</td>
+     <td>Quantity</td>
+     <td>Content</td>
+     <td>Add new batch</td>
+   </tr>
+ </thead>
+ <tr>
+   <td><img src="img/emzor.jpg" style="width: 50px; height: 50px;"></td>
+   <td>Emzor</td>
+   <td>Paracetamol</td>
+   <td>Emzor LTD</td>
+   <td>200 Naira</td>
+   <td>300</td>
+  
+   <td><button style="cursor: pointer;"><i class="fa fa-plus"></i></button></td>
+ </tr>
+ <tr>
+   <td><img src="img/emzor.jpg" style="width: 50px; height: 50px;"></td>
+   <td>Emzor</td>
+   <td>Paracetamal</td>
+   <td>Emzor LTD</td>
+   <td>200 Naira</td>
+   <td>300</td>
+   <td></td>
+   <td><button style="cursor: pointer;"><i class="fa fa-plus"></i></button></td>
+ </tr>
+ </table>
+  </div>
+
+</div></div> </div>
+</div>
+
+<div id="4inv_pane" style="display: none;"> 
+    <div class="" style="padding-top: 50px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;"><div class="card" style="height: 400px; width: 1200px; padding: 10px; overflow-x: none; overflow-y: auto;">
+  <div>
+ <table class="table table-striped">
+ <thead>
+   <tr>
+     <td>Pic</td>
+     <td>Name</td>
+     <td>Type</td>
+     <td>Brand</td>
+     <td>Price</td>
+     <td>Quantity</td>
+     <td>Content</td>
+     <td>Add new batch</td>
+   </tr>
+ </thead>
+ <tr>
+   <td><img src="img/emzor.jpg" style="width: 50px; height: 50px;"></td>
+   <td>Emzor</td>
+   <td>Paracetamal</td>
+   <td>Emzor LTD</td>
+   <td>200 Naira</td>
+   <td>300</td>
+   <td></td>
+   <td><button style="cursor: pointer;"><i class="fa fa-plus"></i></button></td>
+ </tr>
+ <tr>
+   <td><img src="img/emzor.jpg" style="width: 50px; height: 50px;"></td>
+   <td>Emzor</td>
+   <td>Paracetamal</td>
+   <td>Emzor LTD</td>
+   <td>200 Naira</td>
+   <td>300</td>
+   <td></td>
+   <td><button style="cursor: pointer;"><i class="fa fa-plus"></i></button></td>
+ </tr>
+ </table>
+  </div>
+
+</div></div> </div>
+</div>
+
+<div id="1inv_pane" >
+  <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+    <div class="row" style="height: 400px; width: 1200px; padding: 10px;">
+      <div class="card col-md-9" style="height: 400px; padding: 10px; overflow-x: none; overflow-y: auto;">
+
+  <div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <b><td>S/N</td></b>
+          <b><td>Drug</td></b>
+          <b></b><td>Strength</td></b>
+          <b></b><td>Dosage</td></b>
+          <b></b><td>Expiry Date</td></b>
+          <b></b><td>Date</td></b>
+          <b></b><td>Batch No</td></b>
+        </tr>
+      </thead>
+       <tr>
+         <td>2</td>
+         <td>Paracetamol</td>
+         <td>500mg</td>
+         <td>20mg</td>
+         <td>21-07-2020</td>
+         <td>8-07-2018</td>
+         <td>0028</td>
+       
+        </tr>
+      <tr>
+       <td>2</td>
+       <td>Paracetamol</td>
+       <td>500mg</td>
+       <td>20mg</td>
+       <td>21-07-2020</td>
+       <td>8-07-2018</td>
+       <td>0028</td>
+     
+      </tr>
+      <tr>
+       <td>3</td>
+       <td>Paracetamol</td>
+       <td>500mg</td>
+       <td>20mg</td>
+       <td>21-07-2020</td>
+       <td>8-07-2018</td>
+       <td>0028</td>
+     
+      </tr>
+      <tr>
+       <td>4</td>
+       <td>Paracetamol</td>
+       <td>500mg</td>
+       <td>20mg</td>
+       <td>21-07-2020</td>
+       <td>8-07-2018</td>
+       <td>0028</td>
+     
+      </tr>
+      <tr>
+       <td>5</td>
+       <td>Paracetamol</td>
+       <td>500mg</td>
+       <td>20mg</td>
+       <td>21-07-2020</td>
+       <td>8-07-2018</td>
+       <td>0028</td>
+     
+      </tr>
+      </table>
+  </div>
+
+</div>
+<div class="col-md-3" style="padding-left:30px;">
+<div class="card" style="height: 400px;padding: 10px; overflow-x: none; overflow-y: auto;">
+<table class="table">
+  <thead>
+    <tr style="text-align:center;"td><b>Category</b></td></tr>
+  </thead>
+  <tr style="border:solid 1px grey;"><td>Tablets|Capsules|Caplets</td></tr>
+  <tr style="border:solid 1px grey"><td>Syrups|Solutions|Suspensions</td></tr>
+  <tr style="border:solid 1px grey"><td>Injectables</td></tr>
+  <tr style="border:solid 1px grey"><td>Ointments</td></tr>
+  <tr style="border:solid 1px grey"><td>Creams</td></tr>
+  <tr style="border:solid 1px grey"><td>Dripset</td></tr>
+  <tr style="border:solid 1px grey"><td>Needles</td></tr>
+  <tr style="border:solid 1px grey"><td>Syringes</td></tr>
+  <tr style="border:solid 1px grey"><td>Scalpvein</td></tr>
+  <tr style="border:solid 1px grey"><td>Canula</td></tr>
+  <tr style="border:solid 1px grey"><td>Parenteral nutrition</td></tr>
+  <tr style="border:solid 1px grey"><td>WFI</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+</div> </div>
+</div>
+<div id="6inv_pane" style="display: none;">
+  <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+    <div style="height: 400px; width: 1200px; padding: 10px;">
+      <div class="card" style="height: 400px; width: 100%; padding: 10px; overflow-x: none; overflow-y: auto;">
+
+  <div>
+ <table class="table table-striped">
+ <thead>
+   <tr>
+    <b><td>S/N</td></b>
+      <b><td>Drug</td></b>
+      <b><td>Strength</td></b>
+      <b><td>Qty dispensed</td></b>
+      <b><td>Amt/cost</td></b>
+      <b><td>Date</td></b>
+   </tr>
+ </thead>
+  <tr>
+    <td>2</td>
+    <td>Paracetamol</td>
+    <td>500mg</td>
+    <td>2</td>
+    <td>50 Naira</td>
+    <td>8-07-2018</td>
+  
+   </tr>
+   <tr>
+    <td>2</td>s
+    <td>Paracetamol</td>
+    <td>500mg</td>
+    <td>2</td>
+    <td>50 Naira</td>
+    <td>8-07-2018</td>
+  
+   </tr>
+   <tr>
+    <td>2</td>
+    <td>Paracetamol</td>
+    <td>500mg</td>
+    <td>2</td>
+    <td>50 Naira</td>
+    <td>8-07-2018</td>
+  
+   </tr>
+   <tr>
+    <td>2</td>
+    <td>Paracetamol</td>
+    <td>500mg</td>
+    <td>2</td>
+    <td>50 Naira</td>
+    <td>8-07-2018</td>
+  
+   </tr>
+   <tr>
+    <td>2</td>
+    <td>Paracetamol</td>
+    <td>500mg</td>
+    <td>2</td>
+    <td>50 Naira</td>
+    <td>8-07-2018</td>
+  
+   </tr>
+ </table>
+  </div>
+
+</div>
+</div>
+
+</div> </div>
+</div>
+<div id="7inv_pane" style="display: none;">
+  <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+    <div style="height: 400px; width: 1200px; padding: 10px;">
+      <div class="card" style="height: 400px; width: 100%; padding: 10px; overflow-x: none; overflow-y: auto;">
+
+  <div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td>S/N</td>
+          <td>Drug</td>
+          <td>Strength</td>
+          <td>Qty dispensed</td>
+          <td>Amt/cost</td>
+          <td>Date</td>
+        </tr>
+      </thead>
+       <tr>
+         <td>2</td>
+         <td>Paracetamol</td>
+         <td>500mg</td>
+         <td>2</td>
+         <td>50 Naira</td>
+         <td>8-07-2018</td>
+       
+        </tr>
+        <tr>
+         <td>2</td>
+         <td>Paracetamol</td>
+         <td>500mg</td>
+         <td>2</td>
+         <td>50 Naira</td>
+         <td>8-07-2018</td>
+       
+        </tr>
+        <tr>
+         <td>2</td>
+         <td>Paracetamol</td>
+         <td>500mg</td>
+         <td>2</td>
+         <td>50 Naira</td>
+         <td>8-07-2018</td>
+       
+        </tr>
+        <tr>
+         <td>2</td>
+         <td>Paracetamol</td>
+         <td>500mg</td>
+         <td>2</td>
+         <td>50 Naira</td>
+         <td>8-07-2018</td>
+       
+        </tr>
+        <tr>
+         <td>2</td>
+         <td>Paracetamol</td>
+         <td>500mg</td>
+         <td>2</td>
+         <td>50 Naira</td>
+         <td>8-07-2018</td>
+       
+        </tr>
+      </table>
+  </div>
+
+</div>
+</div>
+
+</div> </div>
+</div>
+</div>
+
+</div>
+
+<div class="animated faster" id="rp_details_modal" style="background: black; opacity: 0.8; width: 30%; height: 550px; position: absolute; right: 0px; bottom: 0px; overflow: auto; display: none;">
+  
+</div>
+
+<!-- modals -->
+<div class="modal fade" id="add_batchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="color: #595959"><b>ADD BATCH</b></h5>
+        <button style="background: red; color: whi" 
+         type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+
+<div class="" style="height: 400px; padding: 10px; overflow-x: none; overflow-y: auto;">
+<div>
+
+      <form class="text-center" style="color: #757575;">
+
+          <div class="form-row">
+              <div class="col" style="padding: 0px;">
+                  <div>
+                      <img src="" style="width: 100px; height: 100px; border: dashed 1px black; float: left;">
+                      </div>
+                  
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="text" id="dde1" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde1">Name</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="text" id="dde2" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde2">Type</label>
+                  </div>
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="col">
+                  <!-- First name -->
+                  <div class="md-form">
+                      <input type="number" id="dde3" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde3">Price</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="number" id="dde4" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde4">Quantity</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="number" id="dde5" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde5">Price batch</label>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="md-form mt-0">
+              <input type="text" id="dde6" onkeypress="return runScript(event)" class="form-control">
+              <label for="dde6">Brand</label>
+          </div>
+
+          <div class="form-row">
+              <div class="col">
+                  <!-- First name -->
+                  <div style="font-size: 13px; text-align: left;">Enter commer(,) after each content</div>
+                  <div class="md-form">
+                      <textarea type="textarea" id="dde7" onkeypress="return runScript(event)" class="form-control"></textarea>
+                      <label for="dde7" style="padding-left: 2px;"> Contents</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form" style="padding-top: 43px;">
+                      <input type="number" id="dde8" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde8">Drug Shortage Point</label>
+                  </div>
+              </div>
+          </div>
+
+      </form>
+
+  </div>
+
+</div> 
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary waves-light waves-effect">ADD</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="edith_DrugModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="color: #595959"><b>EDIT DRUG INFO</b></h5>
+        <button style="background: red; color: whi" 
+         type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+
+<div class="" style="height: 400px; padding: 10px; overflow-x: none; overflow-y: auto;">
+<div>
+
+      <form class="text-center" style="color: #757575;">
+
+          <div class="form-row">
+              <div class="col" style="padding: 0px;">
+              <div class="row">
+                  <div class="col-md-3">
+                      <img src="" style="width: 100px; height: 100px; border: dashed 1px black; float: left;">
+                      </div>
+                      <div class="col-md-7" style="font-size: 30px; padding-left: 30px;">
+                        Emzor
+                      </div>
+                      </div>
+              </div>
+             
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="text" id="dde2" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde2">Type</label>
+                  </div>
+              </div>
+          </div>
+          <div class="form-row">
+              <div class="col">
+                  <!-- First name -->
+                  <div class="md-form">
+                      <input type="number" id="dde3" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde3">Price</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="number" id="dde4" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde4">Quantity</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form">
+                      <input type="number" id="dde5" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde5">Price batch</label>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="md-form mt-0">
+              <input type="text" id="dde6" onkeypress="return runScript(event)" class="form-control">
+              <label for="dde6">Brand</label>
+          </div>
+
+          <div class="form-row">
+              <div class="col">
+                  <!-- First name -->
+                  <div style="font-size: 13px; text-align: left;">Enter coma(,) after each content</div>
+                  <div class="md-form">
+                      <textarea type="textarea" id="dde7" onkeypress="return runScript(event)" class="form-control"></textarea>
+                      <label for="dde7" style="padding-left: 2px;"> Content</label>
+                  </div>
+              </div>
+              <div class="col">
+                  <!-- Last name -->
+                  <div class="md-form" style="padding-top: 43px;">
+                      <input type="number" id="dde8" onkeypress="return runScript(event)" class="form-control">
+                      <label for="dde8">Drug Shortage Point</label>
+                  </div>
+              </div>
+          </div>
+
+      </form>
+
+  </div>
+
+</div> 
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary waves-light waves-effect">ADD</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/mdb.js"></script>
+  <div class="hiddendiv common"></div><div class="hiddendiv common"></div><div class="hiddendiv common"></div>
+  <script type="text/javascript" src="js/general_controller.js"></script>
+  <script type="text/javascript" src="js/pharmacist_portal_controller.js"></script>
+  <script>
+    $(document).ready(function(){
+  $('#text').focus();
+    $('#text').autosize();
+});
+  </script>
+
+
+
+</body></html>
