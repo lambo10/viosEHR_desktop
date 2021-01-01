@@ -110,7 +110,7 @@
 /* buttons */
 .footable .btn {
 	display: inline-block;
-	padding: 6px 12px;
+	padding: 10px;
 	margin-bottom: 0;
 	font-size: 14px;
 	font-weight: 400;
@@ -155,7 +155,7 @@
 }
 .footable .btn-primary {
 	color: #fff;
-	background-color: #337ab7;
+	background-color: #243797;
 	border-color: #2e6da4;
 }
 .footable .btn-primary:hover,
@@ -401,7 +401,7 @@
 	padding: 6px 12px;
 	margin-left: -1px;
 	line-height: 1.42857143;
-	color: #337ab7;
+	color: #243797;
 	text-decoration: none;
 	background-color: #fff;
 	border: 1px solid #ddd;
@@ -423,8 +423,8 @@
 	z-index: 2;
 	color: #fff;
 	cursor: default;
-	background-color: #337ab7;
-	border-color: #337ab7;
+	background-color: #243797;
+	border-color: #243797;
 }
 .footable .pagination > .disabled > span,
 .footable .pagination > .disabled > span:hover,

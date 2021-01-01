@@ -3,7 +3,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
-  <title>Vios</title>
+  <title>Mount Araphat</title>
+  
   <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/iso_bootstrap3.3.7min.css" rel="stylesheet">
@@ -20,18 +21,28 @@
   <link href="js/easyauto_comp/easy-autocomplete.min.css" rel="stylesheet">
   <link href="js/easyauto_comp/easy-autocomplete.themes.min.css" rel="stylesheet">
   <link href="css/jBox.all.min.css" rel="stylesheet">
+  <link href='css/opensans.css' rel='stylesheet' type='text/css'>
 <style type="text/css">/* Chart.js */
-@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style><style type="text/css">/* Chart.js */
-@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style><style type="text/css">/* Chart.js */
-@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style></head>
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
+.btn.btn-default.dropdown-toggle{
+padding: 14px;
+-webkit-box-shadow:none
+}
+.btn.btn-primary{
+-webkit-box-shadow:none
+}
+a.nav-link{
+  color: white;
+}
+</style>
 
-<body onload="update()">
+<body onload="update()" style="font-family: 'Nunito', sans-serif;">
 
   <!-- docturs portal header start -->
   <div>
 <nav class="navbar navbar-expand-lg navbar-dark theme_color_primary" style="box-shadow: 0 0px 0px 0 rgba(0,0,0,.16),0 0px 0px 0 rgba(0,0,0,.12);">
 
-  <a class="navbar-brand" style="font-family: 'Ubuntu', sans-serif;" href="#"><b>Viostec</b></a>
+  <a class="navbar-brand" style="font-family: 'Nunito', sans-serif;" href="#"><img src="img/appIcons/favicon.png" style="width: 20px; height: 20px;"></a>
 
   <!-- Collapse button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,14 +53,14 @@
   <div class="collapse navbar-collapse" id="basicExampleNav">
 
     <ul class="navbar-nav mr-auto">
-        <li class="nav-item active" id="home_wut_id">
+        <li class="nav-item" id="home_wut_id">
             <a class="nav-link" onclick="set_home_main_fragment()"><i class="fa fa-home"></i>Home</a>
           </li>
-      <li class="nav-item" id="patients_wut_id" onclick="set_patients_main_fragment()">
-        <a class="nav-link waves-effect waves-light"><i class="fa fa-male"></i>Patient</a>
+      <li class="nav-item active" id="patients_wut_id" onclick="set_patients_main_fragment()">
+        <a class="nav-link waves-effect waves-light"><i class="fa fa-male"></i><b>Patient</b></a>
       </li>
       <li class="nav-item" id="add_patient" onclick="set_addpatient_main_fragment()">
-        <a class="nav-link waves-effect waves-light"><i class="fa fa-book"></i>Inventory</a>
+        <a class="nav-link waves-effect waves-light"><i class="fa fa-book"></i><b>Inventory</b></a>
       </li>
     </ul>
     
@@ -85,7 +96,7 @@
   </div>
 <!-- docturs portal header start -->
 
-<div id="main_home_fragment" style="background: #eee; padding-bottom: 40px; overflow-x: hidden;">
+<div id="main_home_fragment" style="display:none; background: #eee; padding-bottom: 40px; overflow-x: hidden;">
   <div style="width: 100%;" id="m_home_fregment_main">
   
   <div class="row">
@@ -140,12 +151,12 @@
   </div>
 
 
-<div class="patient_fragment" id="main_patient_fragment" style="overflow-x: hidden; display:none;">
+<div class="patient_fragment" id="main_patient_fragment" style="overflow-x: hidden;">
   <div id="patient_data_fragment" class="animated faster" style="display: none;">
-  
-    <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-bottom: #09c;">
+  <b>
+    <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-bottom: #243797; background: #243797;">
       <div style="width: 100%; height: 10px;"></div>
-      <li class="nav-item waves-effect waves-light">
+      <li class="nav-item waves-effect waves-light" style="display: none;">
         <a class="nav-link active v_nav_link" id="chart-tab" data-toggle="tab" href="#chart" role="tab" aria-controls="chart" aria-selected="true" onclick="chartTabclick()">Chart</a>
       </li>
       <li class="nav-item waves-effect waves-light">
@@ -166,8 +177,8 @@
            <li class="nav-item waves-effect waves-light">
             <a class="nav-link" id="full-record" data-toggle="tab" href="#fullrecord" role="tab" aria-controls="fullrecord" onclick="FullrecTabclick()" aria-selected="false">Full Record</a>
           </li> 
-          <div style="width: 25%;">
-            <button id="de_assign_btn_ID" class="btn btn-blue" style="border-radius:100px; height: 10px; padding-top:3px;padding-bottom: 21px; float: right;">De-assign</button>
+          <div style="width: 35%; padding-top:7px">
+            <button id="de_assign_btn_ID" class="btn btn-white" style="border-radius:100px; height: 10px; padding-top:3px;padding-bottom: 21px; float: right;">De-assign</button>
           </div>
           <div style="width: 10%;"><div style="float: right;" style="width: 20%">
             <button type="button" id="prv_p_btn_clickVN" onclick="$.fn.prv_patient_btn_click()" class="rounded-circle z-depth-0 theme_color_secondary waves-effect waves-light white_text" style=" padding-top: 10px; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; border:none; outline:none;"><i class="fa fa-arrow-left"></i></button>
@@ -177,9 +188,26 @@
           <div style="float: right; padding-left: 20px;"><button type="button" class="rounded-circle z-depth-0 waves-effect waves-light" onclick="insert_out_anim_for_idle_fragment()" style="padding-top: 10px; padding-left: 12px; padding-right: 12px; padding-bottom: 10px; color:grey; border: none; outline:none;"><i class="fa fa-close"></i></button></div>
               
     </ul>
-    <div class="theme_color_secondary" style="height: 10px;"></div>
+  </b>
+
+    <div class="theme_color_secondary" style="height: 10px; background: #243797;"></div>
+    <div style="background: #eee;">
+      <div style="background: #243797; padding-bottom: 10px; color: white;">
+        <div class="row" style="padding-top: 5px; padding-left: 30px;">
+          <div class="col-md-2">
+            <img id="patient_pp_pdr" src="img/working_prof/rily.jpg" class="rounded-circle z-depth-0" style="width: 40px; height: 40px" alt="avatar image"><span> </span><span style="font-size: 17px; font-family: 'Nunito', sans-serif; " id="patient_name_pdr">hjyut  tyft gfx</span>
+          </div>
+          <div class="col-md-1" style="padding-top: 8px;">Sex: <span id="patient_sex_pdr"></span></div> 
+          <div class="col-md-1" style="padding-top: 8px;">Age: <span id="patient_age_pdr"></span></div>
+          <div class="col-md-1" style="padding-top: 8px;">Height: <span id="patient_heightS_pdr"></span></div>
+          <div class="col-md-3" style="padding-top: 8px;">Email: <span id="patient_email_pdr"></span></div> 
+          <div class="col-md-2" style="padding-top: 8px;">PhoneNo: <span id="patient_phone_no_pdr"></span></div>
+          <div class="col-md-2" style="padding-top: 8px;">Occupation: <span id="patient_prof_pdr"></span></div> 
+        </div>
+        </div>
+    </div>
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="chart" role="tabpanel" aria-labelledby="chart-tab">
+      <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">
         <div style="background: #eee; width: 100.1%;">
   
           <div style="width: 100%;" class="animated faster" id="chart_inner">
@@ -200,16 +228,12 @@
                                           <div>
                             
                                               <div class="v_patient_details_module_header row">
-                                                  <div class="col-md-3">
-                                                      <img id="patient_pp_pdr" src="img/working_prof/rily.jpg" class="rounded-circle z-depth-0" style="width: 70px; height: 70px" alt="avatar image">
-                                                    </div>
+                                                  
                                               
                                                     <div class="col-md-8">
                                                         
-                                                          <div style="font-size: 20px; font-family: Arial, Helvetica, sans-serif" id="patient_name_pdr"></div>
                                                           <div style="font-size: 13px; padding-top: 10px; color: #bdbdbd;">
-                                                            <div class="row"> <div class="col-md-4" id="patient_sex_pdr"></div> <div class="col-md-7"><span id="patient_age_pdr"></span> years old</div>  </div>
-                                                            <div class="row"> <div class="col-md-8" id="patient_prof_pdr"></div> <div class="col-md-4" id="patient_height_pdr"></div>  </div>
+                                                            
                                                           </div>
                                                           
                                                       </div>
@@ -221,7 +245,7 @@
                                 
                         
                                   </div>
-                                  <div class="row" id="userProf_details_pdr" style="padding-top: 2px; padding-left: 20px; padding-right: 3px; padding-bottom: 2px; min-height: 320px;">
+                                  <!-- <div class="row" id="userProf_details_pdr" style="padding-top: 2px; padding-left: 20px; padding-right: 3px; padding-bottom: 2px; min-height: 320px;">
                                         <div class="col-md-6" id="patient_md_sexS_pdr"><span><b>Sex:</b></span><span id="patient_sexS_pdr"></span></div>
                                         <div class="col-md-6" id="patient_md_heightS_pdr"><span><b>Height:</b></span><span id="patient_heightS_pdr"></span></div>
                                         <div class="col-md-6" id="patient_md_ageS_pdr"><span><b>Age:</b></span><span id="patient_ageS_pdr"></span></div>
@@ -231,7 +255,7 @@
                                       <div class="col-md-6" id="patient_md_dept_pdr"><span><b>Dept:</b></span><span id="patient_dept_pdr"></span></div>
                                       <div class="col-md-6" id="patient_md_facul_pdr"><span><b>Faculty:</b></span><span id="patient_facul_pdr"></span></div>
                                       <div class="col-md-6" id="patient_md_alerg_pdr"><span><b>Allergies:</b></span><span id="patient_alerg_pdr"></span></div>
-                                      </div>
+                                      </div> -->
                                   </div>
                         
                                 </div>
@@ -283,14 +307,14 @@
         </div>
       </div>
      
-      <div class="tab-pane fade" id="radiograph" role="tabpanel" aria-labelledby="Radiograph-tab">
+      <div class="tab-pane fade show active" id="radiograph" role="tabpanel" aria-labelledby="Radiograph-tab">
       
           <div style="background: #eee; width: 100%;">
   <div class="row v_Main_tab_padding_o">
   
-      <div class="col-md-9">
+      <div class="col-md-9" style="padding-left: 30px; padding-right: 30px;">
           <!-- Card Narrower -->
-                <div class="card card-cascade narrower animated faster" style="min-height: 500px;" id="Radiograph-main-container">
+                <div class="card card-cascade narrower animated faster" style="min-height: 500px;border-radius: 30px;" id="Radiograph-main-container">
                   <div id="radiograph_disp_div_loaderDDH" class="disp_loader_div">
                     <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
                     </div>
@@ -316,8 +340,8 @@
         </div>
   
   <div class="col-md-3">
-      <div class="card" style="min-height: 200px;">
-          <table id="radiograph_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+      <div class="card" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
+          <table id="radiograph_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record">
             </table>
       </div>
     </div>
@@ -425,7 +449,7 @@
               
                   <div class="col-md-9">
                       <!-- Card Narrower -->
-                            <div class="card card-cascade narrower animated faster" id="Dispensed-main-container" style="min-height: 500px;">
+                            <div class="card card-cascade narrower animated faster" id="Dispensed-main-container" style="min-height: 500px; border-radius: 30px;">
                               <div id="dispansed_disp_div_loaderDDH" class="disp_loader_div">
                                 <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
                                 </div>
@@ -451,8 +475,8 @@
                     </div>
               
               <div class="col-md-3">
-                  <div class="card" style="min-height: 200px;">
-                      <table id="Dispensed_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                  <div class="card" style="min-height: 200px; border-radius: 30px;">
+                      <table id="Dispensed_selT_pdr" style="cursor: pointer;" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
                         </table>
                   </div>
                 </div>
@@ -565,9 +589,9 @@
   <div class="v_prescription_form_container animated faster" id="v_pr_form_container">
       <div class="classic-tabs">
   
-          <ul class="nav" id="myClassicTab" role="tablist" style="width: 98.9%; background: #424242;">
+          <ul class="nav" id="myClassicTab" role="tablist" style="width: 98.9%; background: #232323; border-top-right-radius: 30px; border-top-left-radius: 30px;">
             <li class="nav-item v_lower_tab_cell_hw">
-              <a class="waves-light waves-effect dispenseTabInitialTxtColor active show" onclick="tab_pane1ClickAction()" id="profile-tab-classic" data-toggle="tab" href="#profile-classic" role="tab" aria-controls="profile-classic" aria-selected="true"><div style="padding: 2px; width: 100px; text-align: center;"><b>Dispense</b></div></a>
+              <a class="waves-light waves-effect dispenseTabInitialTxtColor active show" onclick="tab_pane1ClickAction()" id="profile-tab-classic" data-toggle="tab" href="#profile-classic" role="tab" aria-controls="profile-classic" aria-selected="true" style="border-top-left-radius: 30px;"><div style="padding: 2px; width: 100px; text-align: center;"><b>Dispense</b></div></a>
             </li>
             
             
@@ -576,7 +600,7 @@
                       <a class="v_lower_tab_cell waves-light v_text_whiteFF waves-effect" onclick="tab_pane5ClickAction()" id="note-btn" data-toggle="tab" href="#contact-classic3" role="tab" aria-controls="contact-classic3" aria-selected="false"><div style="padding: 2px; width: 100px; text-align: center; color: #ffd180;"><b>NOTE</b></div></a>
                     </li>
                 <li class="nav-item" style="width: 60%;">
-                      <div class="row"> <div class="col-md-11"><div style="padding-top: 4px; padding-left: 340px;"><input type="text" id="dispen_drug_search" style="width: 400px; height: 19px;" placeholder="Search Drug name, Type, Brand"></div></div> <div class="col-md-1" style="padding-left: 0px;"><div class="btn btn-flat btn waves-effect waves-light" onclick="$.fn.dispen_drug_search()" style="padding-left: 10px; padding-right: 10px; padding-top: 4px; margin: 0px; padding-bottom: 10px; height: 30px; font-size: 15px; text-align: center;">GO</div></div> </div>
+                      <div class="row"> <div class="col-md-11"><div style="padding-top: 5px; padding-left: 340px;"><input type="text" id="dispen_drug_search" style="width: 400px; height: 19px; border-radius: 30px; outline: none;" placeholder="Search Drug name, Type, Brand"></div></div> <div class="col-md-1" style="padding-left: 0px; padding-top: 2px;"><div class="btn btn-flat btn waves-effect waves-light" onclick="$.fn.dispen_drug_search()" style="padding-left: 10px; padding-right: 10px; padding-top: 1px; margin: 0px; padding-bottom: 10px; height: 24px; font-size: 15px; text-align: center; border: solid 1px white; border-radius: 20px;">GO</div></div> </div>
                     </li>
                     <li class="nav-item v_lower_tab_cell_hw">
                       <a class="v_lower_tab_cell waves-light waves-effect " style="background: #09c;" id="forms_btn_id" onclick="$.fn.openFormSelector()"><div style="padding: 2px; width: 130px; text-align: center;" class="v_text_whiteFF"><b>Forms</b></div></a>
@@ -595,10 +619,10 @@
                   <div class="row" style="width: 100%;">
                       <div style="width: 55%; padding-left: 15px;">
                           
-                      <div class="records_portal_bottom_pane">
+                      <div class="records_portal_bottom_pane" style="background: #f2f2f2; height: 470px;">
                         <div style="height: 10px;"></div>
                       <div class="prform_body">
-                        <div class="row" style="height: 235px; overflow: auto; color: white;">
+                        <div class="row" style="height: 470px; overflow: auto; color: white;">
                             <table class="table table-striped" id="dispense_table_tablemain">
                                 <thead>
                                   <tr>
@@ -610,7 +634,7 @@
                                     <th scope="col"></th>
                                   </tr>
                                 </thead>
-                                <tbody id="dispense_table_tablebody">
+                                <tbody id="dispense_table_tablebody" style="min-height: 300px;">
                                  
                                 </tbody>
                               </table>
@@ -628,7 +652,7 @@
                                     </div>
   
                                     <div class="col-md-6" style="padding-left: 300px;">
-                                      <button id="dispense_btn_oo" class="btn btn-outline-white waves-effect waves-light" style="text-align: center; float:right; width: 140px; cursor:pointer" onclick="$.fn.submit_dispensed_drug()"><span id="dispensed_btn_txt">Dispense </span> <span style="display: none;" id="dispensed_loading"><img src="img/loading_topnav.gif" style="width: 20px; height: 20px;" ></span></button>
+                                      <button id="dispense_btn_oo" class="btn waves-effect waves-light" style="text-align: center; float:right; width: 140px; cursor:pointer;background: #232323;margin: .375rem;" onclick="$.fn.submit_dispensed_drug()"><span id="dispensed_btn_txt">Dispense </span> <span style="display: none;" id="dispensed_loading"><img src="img/loading_topnav.gif" style="width: 20px; height: 20px;" ></span></button>
                                       </div>
                               
   
@@ -641,7 +665,7 @@
                       </div>
                       
                       <div style="width: 45%;">
-                      <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray; background: #f2f2f2; height: 240px; overflow-y: 
+                      <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray; background: #f2f2f2; height: 470px; overflow-y: 
                       auto; overflow-x: none; ">
                         <div style="height: 10px;"></div>
                       <div style="padding-right: 30px; padding-left: 20px;padding-bottom: 10px;" id="dispen_drug_search_table_div">
@@ -725,21 +749,39 @@
   </div>
   
   </div>
-  <div id="idle_fragment" style="min-height: 1000px; text-align: center; display: block;" class="animated faster">
-    <div class="animated faster" id="idle_fragment_sub" style="display: block; padding-top: 13%;">
-        <div style="display: inline-block;">
-            <img src="img/appIcons/dextop_icon.png" style="width: 70px; height: 70px;" ><span style="font-size: 35px; padding-top: 30px; font-family: 'Ubuntu', sans-serif;"><b> Viostec</b></span>
-          </div><br><br>
+  <div id="idle_fragment" style="min-height: 1000px; background-color: #0d218a; text-align: center; display: block;" class="animated faster">
+    <div class="animated faster" id="idle_fragment_sub" style="display: block; padding-top: 7%;">
+      <div style="display: inline-block;">
+        <img src="img/appIcons/viosLogoWhiteTransparent.png" style="width: 150px; height: 70px;" >
+      </div>
+      <div>
+        <h1 style="color: white;">A Better Way to Manage Medical Data</h1>
+        <p style="color: rgb(235, 234, 253);">Our simple, all-in-one electronic health records and hospital management system makes your practice easier and more efficient.</p>
+      </div>
+        <br>
          <div>
       
             <div style="display: inline-block; text-align: left; padding-top: 10px;">
-                <input class="form-control" type="text" id="idle_searchBar" placeholder="Search" aria-label="Search" style="width: 450px;">
+                <input class="form-control" type="text" id="idle_searchBar" placeholder="Search" aria-label="Search" style="width: 450px; padding: 14px 20px;
+               opacity: 0.85;
+                color: #3c4858 !important;
+                outline: none !important;
+                padding-right: 160px;
+                padding-left: 30px;
+                background-color: #fff!important;
+                border: 1px solid #e9ecef !important;
+                border-radius: 30px !important;
+                
+                ">
                     </div>
                     <div style="display: inline-block;">
-                        <button class="btn btn-blue" type="button" onclick="search_patient_s_btn_click()"><i class="fa fa-search"></i></button>
+                        <button class="btn" style="border-radius: 30px; background-color: #243797;" type="button" onclick="search_patient_s_btn_click()"><i id="searchBTNsearchIcon" class="fa fa-search"></i><img src="img/loading.gif" style="width: 20px; height: 20px; display: none;" id="loading_anim"></button>
                               </div>
-            <div style="width: 10px; display: inline-block;"><div style="height: 19.5px;"><img src="img/loading.gif" style="width: 30px; height: 30px; display: none;" id="loading_anim"></div></div>
+            
       
+         </div><br>
+         <div>
+           <img src="img/indexIllustration.png" style="width: 500px; height: 350px;">
          </div>
     </div>
     <div class="animated faster" id="search_result_fragment" style="display: none;"><br>
@@ -747,7 +789,7 @@
             <button type="button" id="prv_serach_r_btn" class="rounded-circle z-depth-0 theme_color_secondary waves-effect waves-light" style=" padding-top: 8px; padding-left: 10px; padding-right: 10px; padding-bottom: 8px; color:white; border:none; outline:none; float: left;" onclick="process_prv_search_r_click()"><i class="fa fa-arrow-left"></i></button>
         </div>
         <div style="display: inline-block; width: 10%;"><button type="button" class="rounded-circle z-depth-0 waves-effect waves-light" onclick="search_result_cancel()" style="padding-top: 10px; padding-left: 12px; padding-right: 12px; padding-bottom: 10px; color:grey; border: none; outline:none; float: right;"><i class="fa fa-close"></i></button></div>
-      <div id="search_txt_wkr_txt" style="font-size: 15px; color: #545454; text-align: left; padding-left: 200px;"></div>
+      <div id="search_txt_wkr_txt" style="font-size: 15px; color: white; text-align: left; padding-left: 200px;"></div>
       <div id="idle_ps_r">
     
   </div>
@@ -760,50 +802,50 @@
 
 
 <div id="main_addpatient_wut_fragment" style="display: none;">
-<div style="width: 100%; height: 70px; padding-top: 1px; padding-bottom: 10px;">
+<div style="width: 100%; height: 70px; padding-top: 1px; padding-bottom: 10px; background: #243797">
   
   <div style="float: left; padding-top: 15px; padding-left: 10px; padding-right: 10px;"
   >
-  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; background: #09c; color: white;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(6)" id="6inv_tab_btn">
-    Dispensing log
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; background: white; color: rgb(51, 50, 50); border-top-left-radius: 4px; border-top-right-radius: 4px;" class="pharmInvTopbtn waves-light waves-effect" onclick="process_invontory_tab_click(6)" id="6inv_tab_btn">
+    <b>Dispensing log</b>
   </div>
   </div>
   <div style="float: left; padding-top: 15px; padding-left: 10px; padding-right: 10px;"
   >
-  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(5)" id="5inv_tab_btn">
-    Add Drug
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; color: white; border-top-left-radius: 4px; border-top-right-radius: 4px;" class="pharmInvTopbtn waves-light waves-effect" onclick="process_invontory_tab_click(5)" id="5inv_tab_btn">
+    <b>Add Drug</b>
   </div>
   </div>
    <div id="4inv_tab_btn"></div>
    <div style="float: left; padding-top: 15px; padding-left: 10px; padding-right: 10px;">
-  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;" class="card waves-light waves-effect"  onclick="process_invontory_tab_click(3)" id="3inv_tab_btn">
-    Losses
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; color: white; border-top-left-radius: 4px; border-top-right-radius: 4px;" class="pharmInvTopbtn waves-light waves-effect"  onclick="process_invontory_tab_click(3)" id="3inv_tab_btn">
+    <b>Losses</b>
   </div>
   </div>
    
   
    <div style="float: left; padding-top: 15px; padding-left: 10px; padding-right: 10px;">
-  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(1)" id="1inv_tab_btn">
-    SOH
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; color: white; border-top-left-radius: 4px; border-top-right-radius: 4px;" class="pharmInvTopbtn waves-light waves-effect" onclick="process_invontory_tab_click(1)" id="1inv_tab_btn">
+    <b>SOH</b>
   </div>
   </div>
 
     <div style="float: left; padding-top: 15px; padding-left: 10px; padding-right: 10px;">
-        <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(8)" id="8inv_tab_btn">
-          Drug shortage
+        <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; color: white; border-top-left-radius: 4px; border-top-right-radius: 4px;" class="pharmInvTopbtn waves-light waves-effect" onclick="process_invontory_tab_click(8)" id="8inv_tab_btn">
+          <b>Drug shortage</b>
         </div>
         </div> 
 
         <div style="float: left; padding-top: 15px; padding-left: 10px; padding-right: 10px;"
    >
-  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; background: #EA0303; color: white;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(2)" id="2inv_tab_btn">
-    Expired Drugs
+  <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; background: #ff000082; color: white; border-top-left-radius: 4px; border-top-right-radius: 4px;" class="pharmInvTopbtn waves-light waves-effect" onclick="process_invontory_tab_click(2)" id="2inv_tab_btn">
+    <b>Expired Drugs</b>
   </div>
   </div>
 
   <div style="float: left; padding-top: 15px; padding-left: 10px; padding-right: 10px;">
-      <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; background: #EA0303; color: white;" class="card waves-light waves-effect" onclick="process_invontory_tab_click(7)" id="7inv_tab_btn">
-        Poisons log
+      <div style="padding-right: 10px; padding-left: 10px; padding-top: 5px; padding-bottom: 5px; cursor: pointer; background: #ff000082; color: white; border-top-left-radius: 4px; border-top-right-radius: 4px;" class="pharmInvTopbtn waves-light waves-effect" onclick="process_invontory_tab_click(7)" id="7inv_tab_btn">
+        <b>Poisons log</b>
       </div>
       </div>
     
@@ -812,7 +854,7 @@
 
 <div id="5inv_pane" style="display: none;">
 <div style="padding-top: 50px; padding-bottom: 50px; padding-left: 50px; padding-right: 50px;"> 
-<div style="padding-top: 20px; padding-bottom: 20px; text-align: center"><div class="card" style="height: 700px; padding: 10px; width: 600px; overflow-y: auto; display: inline-block;">
+<div style="padding-top: 20px; padding-bottom: 20px; text-align: center"><div class="card" style="height: 700px; border-radius: 30px; padding: 10px; width: 70%; overflow-y: auto; display: inline-block;">
 <div style="font-size: 25px; text-align: center; color: #595959">
   <i class="fa fa-plus"></i>ADD DRUG
 </div>
@@ -986,9 +1028,10 @@
 </div>
 
 <div id="2inv_pane" style="display: none;">
-  <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
-    <div class="row" style="min-height: 600px; padding: 10px;">
-      <div class="card" style="min-height: 600px; padding: 10px; overflow-x: hidden; overflow-y: auto; width: 1200px;">
+  <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 60px; text-align: center;"> 
+    <div class="" style="width: 100%; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+    <div class="" style="height: 700px; width: 100%; padding: 10px;">
+      <div class="card" style="height: 700px; width: 100%; padding: 10px; overflow-x: hidden; overflow-y: auto; border-radius: 30px; display: inline-block;">
 
   <div>
     <div>
@@ -1025,9 +1068,10 @@
 </div>
 
 <div id="3inv_pane" style="display: none;">
-    <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
-        <div style="min-height: 600px; padding: 10px;">
-          <div class="card" style="min-height: 600px; width: 1000px; padding: 10px; overflow-x: hidden; overflow-y: auto;">
+    <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 60px; text-align: center;"> 
+      <div class="" style=" width: 100%; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+        <div style="height: 700px; width: 100%; padding: 10px;">
+          <div class="card" style="height: 700px; width: 100%; padding: 10px; overflow-x: hidden; overflow-y: auto; border-radius: 30px; display: inline-block;">
     
               <div>
                 <!-- start date picker-->
@@ -1063,10 +1107,10 @@
 <div id="1inv_pane" style="display: none;">
   <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
     <div class="row" style=" width: 1200px; padding: 10px;">
-      <div class="card col-md-9" style="height: 600px; padding: 10px; overflow-x: hidden; overflow-y: auto;">
+      <div class="card col-md-9" style="height: 600px; border-radius: 30px; padding: 10px; overflow-x: hidden; overflow-y: auto;">
 
   <div>
-      <div style="padding-top:3px; color: rgb(94, 93, 93);text-align: left;"><i class="fa fa-info-circle"></i> Click to view batches and perform basic operations</div>
+      <div style="padding-top:3px; color: rgb(94, 93, 93);text-align: left;padding-left: 10px;"><i class="fa fa-info-circle"></i> Click to view batches and perform basic operations</div>
     <div>
       <div style="font-size: 20px; color: rgb(122, 121, 121);" id="soh_table_indicator">Capsules</div>
       <table id="sohTable" style="cursor: pointer;" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
@@ -1086,7 +1130,7 @@
 
 </div>
 <div class="col-md-3" style="padding-left:30px;">
-<div class="card" style="height: 400px;padding: 10px; overflow-x: none; overflow-y: auto;">
+<div class="card" style="height: 450px; border-radius: 30px; padding: 10px; overflow-x: none; overflow-y: auto;">
 <table class="table">
   <thead>
     <tr style="text-align:center;"td><b>Category</b></td></tr>
@@ -1115,9 +1159,10 @@
 </div> </div>
 </div>
 <div id="8inv_pane" style="display: none;">
-  <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
-    <div class="row" style="min-height: 600px; padding: 10px;">
-      <div class="card" style="min-height: 600px; padding: 10px; overflow-x: hidden; overflow-y: auto; width: 1200px;">
+  <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 60px; text-align: center;"> 
+    <div class="" style="width: 100%; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+    <div style="height: 700px; width: 100%; padding: 10px;">
+      <div class="card" style="height: 700px; width: 100%; padding: 10px; overflow-x: hidden; overflow-y: auto; border-radius: 30px; display: inline-block;">
 
   <div>
     <table id="shortageTableACV" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
@@ -1140,13 +1185,14 @@
 </div> </div>
 </div>
 <div id="6inv_pane">
-    <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
-        <div class="row" style="height: 600px; width: 1200px; padding: 10px;">
-          <div class="card col-md-12" style="height: 600px; padding: 10px; overflow-x: hidden; overflow-y: auto;">
+    <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 60px; text-align: center;"> 
+      <div class="" style="width: 100%; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+        <div class="" style="height: 700px; width: 100%; padding: 10px;">
+          <div class="card " style="height: 700px; width: 100%; padding: 10px; overflow-x: hidden; overflow-y: auto; border-radius: 30px; display: inline-block;">
     
       <div>
         <div>
-          <div style="display: inline; float: left; padding-top:7px; color: rgb(94, 93, 93);"><i class="fa fa-info-circle"></i> Click to view details</div>
+          <div style="display: inline; float: left; padding-left: 13px; padding-top:7px; color: rgb(94, 93, 93);"><i class="fa fa-info-circle"></i> Click to view details</div>
             <div style="float: right;"><div class="row" style="width: 400px;"> <div class="col-md-3" style="text-align: right; font-size: 25px; padding: 0px;">Date</div><div class="col-md-8">
                 <div id="rDatePicker1" style="background: #fff; cursor: pointer; padding: 5px 5px; border: 1px solid #ccc; width: 100%;">
                 <i class="fa fa-calendar"></i>&nbsp;
@@ -1180,9 +1226,10 @@
     </div> </div>
 </div>
 <div id="7inv_pane" style="display: none;">
-  <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 50px; text-align: center;"> <div class="" style="padding-right: 50px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
-    <div style="min-height: 600px; padding: 10px;">
-      <div class="card" style="min-height: 600px; width: 1200px; padding: 10px; overflow-x: hidden; overflow-y: auto;">
+  <div class="" style="padding-top: 30px; padding-bottom: 50px; padding-left: 60px; padding-right: 60px; text-align: center;"> 
+    <div class="" style="width: 100%; padding-top: 20px; padding-bottom: 20px; display: inline-block;">
+    <div style="height: 700px; width: 100%; padding: 10px;">
+      <div class="card" style="height: 700px; width: 100%; padding: 10px; overflow-x: hidden; overflow-y: auto; border-radius: 30px; display: inline-block;">
         <div>
             <div style="display: inline; float: left; padding-top:7px; color: rgb(94, 93, 93);"><i class="fa fa-info-circle"></i> Click to remove from Poisons log</div>
         </div>
@@ -1702,6 +1749,7 @@ list: {
   function (result){
     if(result === "11111"){
       process_normal_search_p_click(id_value);
+      $("#Radiograph-tab").click();
     }
   });
     }
@@ -1778,6 +1826,7 @@ list: {
   function (result){
     if(result === "11111"){
       process_idle_search_p_click(id_value);
+      $("#Radiograph-tab").click();
     }
   });
     },
@@ -1790,6 +1839,8 @@ $("#search_patient_input").easyAutocomplete(options);
 
 
 $("#idle_searchBar").easyAutocomplete(options2);
+
+
 
   </script>
 

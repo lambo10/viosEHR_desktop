@@ -510,12 +510,12 @@ function set_patients_main_fragment(assignID){
                           wrk_obj.style.background = "#EA0303";
                           wrk_obj.style.color = "white";
                         }else{
-                        wrk_obj.style.background = "white";
-                        wrk_obj.style.color = "black";
+                        wrk_obj.style.background = "#243797";
+                        wrk_obj.style.color = "white";
                         }
                       }else{
-                        wrk_obj.style.background = "#09c";
-                        wrk_obj.style.color = "white";
+                        wrk_obj.style.background = "white";
+                        wrk_obj.style.color = "black";
                       }
                       count++;
                     }
@@ -1459,10 +1459,10 @@ if(quantity > drug_stock_quality){
                   object.style.padding = '.375rem .75rem';
                   object.style.fontSize = '1rem';
                   object.style.lineHeight = '1.5';
-                  object.style.color = '#495057';
-                  object.style.backgroundColor = '#fff';
-                  object.style.border = '1px solid #ced4da';
-                  object.style.borderRadius = '.25rem';
+                  object.style.color = '#3c4858 !important';
+                  object.style.backgroundColor = '#fff!important';
+                  object.style.border = '1px solid #e9ecef !important';
+                  object.style.borderRadius = '30px !important';
                   
                 }
                 run_a_p_s = run_a_p_s + 1;
@@ -1484,6 +1484,7 @@ if(quantity > drug_stock_quality){
               });
               }
               function process_idle_search_hitEnter_re_click(id_value){
+                $("#Radiograph-tab").click();
                 static_data.usrID = id_value;
                 $.get('http://localhost:3130/set_currOpratP_coll',{
                 usrID:id_value
@@ -1519,6 +1520,7 @@ if(quantity > drug_stock_quality){
               function search_patient_s_btn_click(){
                 reset_wkr_var_search_r();
                 static_data.search_input = 0;
+                document.getElementById('searchBTNsearchIcon').style.display = "none";
                 document.getElementById('loading_anim').style.display = "block";
                 $.fn.search_Patient_idleF('');
               }
@@ -1558,8 +1560,9 @@ if(quantity > drug_stock_quality){
                 }else{
                   insert_in_anim_for_idle_fragment();
                 }
-                get_patient_d_f_static_vars_prd();
+                reset_wkr_var_search_r();
                 $.fn.getLatest_noteDwrkBar();
+                get_patient_d_f_static_vars_prd();
                 reload_curr_PdispTab();
               }
             });
@@ -1752,6 +1755,7 @@ if(quantity > drug_stock_quality){
               
               function process_search_Patient_idleF(e){
                 document.getElementById('loading_anim').style.display = "none";
+                document.getElementById('searchBTNsearchIcon').style.display = "block";
                 document.getElementById('top_nav_loading_anim').style.display = "none";
                 var mdv = document.createElement("div");
                 mdv.setAttribute("id","idle_ps_r");
@@ -1771,22 +1775,22 @@ if(quantity > drug_stock_quality){
                   dv3.setAttribute("class","col-md-7");
                   dv3.setAttribute("style","text-align: left;");
                   var dv4 = document.createElement("div");
-                  dv4.setAttribute("style","font-size: 30px; color: #3f5c80;");
+                  dv4.setAttribute("style","font-size: 30px; color: white;");
                   var tex1 = document.createTextNode(e.first_name+" "+e.last_name+" "+e.middle_name);
                   var dv5 = document.createElement("div");
-                  dv5.setAttribute("style","font-size: 15px; color: #006621;");
+                  dv5.setAttribute("style","font-size: 15px; color: #00ff52;");
                   var tex2 = document.createTextNode(e._id);
                   var dv6 = document.createElement("div");
-                  dv6.setAttribute("style","font-size: 15px; color: #545454;");
+                  dv6.setAttribute("style","font-size: 15px; color: white;");
                   var tex3 = document.createTextNode("Email: "+e.email);
                   var dv7 = document.createElement("div");
-                  dv7.setAttribute("style","font-size: 15px; color: #545454;");
+                  dv7.setAttribute("style","font-size: 15px; color: white;");
                   var tex4 = document.createTextNode("Phone No: "+e.phone_no);
                   var dv8 = document.createElement("div");
-                  dv8.setAttribute("style","font-size: 15px; color: #545454;");
+                  dv8.setAttribute("style","font-size: 15px; color: white;");
                   var tex5 = document.createTextNode("Sex: "+e.gender);
                   var dv9 = document.createElement("div");
-                  dv9.setAttribute("style","font-size: 15px; color: #545454;");
+                  dv9.setAttribute("style","font-size: 15px; color: white;");
                   var tex6 = document.createTextNode("Age: "+e.age);
               
                   dv1.append(dv2);
@@ -1833,6 +1837,7 @@ if(quantity > drug_stock_quality){
               
               function process_search_Patient_top_nav(e){
                 document.getElementById('loading_anim').style.display = "none";
+                document.getElementById('searchBTNsearchIcon').style.display = "block";
                 document.getElementById('top_nav_loading_anim').style.display = "none";
                 var mdv = document.createElement("div");
                 mdv.setAttribute("id","idle_ps_r");
@@ -2114,6 +2119,7 @@ if(quantity > drug_stock_quality){
                 if (key === 13) {
                   static_data.search_input = 0;
                   reset_wkr_var_search_r();
+                  document.getElementById('searchBTNsearchIcon').style.display = "none";
                   document.getElementById('loading_anim').style.display = "block";
                   $.fn.search_Patient_idleF('');
                 }
@@ -3063,14 +3069,14 @@ if(quantity > drug_stock_quality){
   form_disp_wkr.find("form").css("padding-bottom","30px");
   // form_disp_wkr.find(".down-pad").css("padding-bottom","20px");
   if(form_disp_wkr.find("form").css("background-color") === "#ffffff" || form_disp_wkr.find("form").css("background-color") === "#f5f5f5" || form_disp_wkr.find("form").css("background-color") === "rgb(255, 255, 255)" ){
-    form_disp_wkr.find(".FD_border_tag").attr("style","border: 1px solid rgb(190, 187, 187); min-height:30px; padding-left: 30px");
+    form_disp_wkr.find(".FD_border_tag").attr("style","border: 1px solid rgb(190, 187, 187); background-color:#ebeff3; min-height:30px; padding-left: 30px; box-shadow: 0px 0px 23px 0px #11111130;border-radius: 8px;");
   }else if(form_disp_wkr.find("form").css("background-color") === "rgb(247, 229, 132)" || form_disp_wkr.find("form").css("background-color") === "rgb(236, 248, 126)"
   || form_disp_wkr.find("form").css("background-color") === "#ffff80" || form_disp_wkr.find("form").css("background-color") === "#ffffa6"
   || form_disp_wkr.find("form").css("background-color") === "rgb(135, 221, 250)"
   ){
-    form_disp_wkr.find(".FD_border_tag").attr("style","border: 1px solid #9f9b9b; min-height:30px; padding-left: 30px");
+    form_disp_wkr.find(".FD_border_tag").attr("style","background-color:#ebeff3; min-height:30px; padding-left: 30px; box-shadow: 0px 0px 23px 0px #11111130;border-radius: 8px;");
   }else{
-    form_disp_wkr.find(".FD_border_tag").attr("style","border: 1px solid #f5f5f5; min-height:30px; padding-left: 30px");
+    form_disp_wkr.find(".FD_border_tag").attr("style","border: 1px solid #f5f5f5; background-color:#ebeff3; min-height:30px; padding-left: 30px; box-shadow: 0px 0px 23px 0px #11111130;border-radius: 8px;");
   }
   var wkr_disp_inputs = form_disp_wkr.find("input");
   $.each(wkr_disp_inputs, function( i, el ) {
@@ -3695,7 +3701,7 @@ $.fn.process_fPic_disp = function(name){
     }
 
           $.fn.getLatest_radiograph = function(){
-            var startDate = moment().subtract(174,'days');
+            var startDate = moment().subtract(10,'days');
             var endDate = moment();
             $.get('http://localhost:3130/get_currOpratP_coll',{
           },
@@ -3763,7 +3769,7 @@ $.fn.process_fPic_disp = function(name){
               }});
           $('#radiograph_selT_pdr').footable({
             "columns": $.post('http://localhost:4417/general_server_files/radiographSelTableColuumn.json'),
-            "rows": result
+            "rows": result.reverse()
           });
         });
       });

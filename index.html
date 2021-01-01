@@ -16,14 +16,20 @@
   <link href="css/slick.css" rel="stylesheet">
   <link href="css/jBox.all.min.css" rel="stylesheet">
   <link href="css/scroll_bar_style.css" rel="stylesheet">
+
+  <!-- <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;1,300;1,400;1,600&display=swap" rel="stylesheet"> -->
+<link href='css/opensans.css' rel='stylesheet' type='text/css'>
+
 </head>
 
-<body onload="" style="overflow-x: hidden; overflow-y: hidden;">
+<body onload="" style="overflow-x: hidden; overflow-y: hidden; font-family: 'Nunito', sans-serif;">
 
     <div>
         <div class="row" style="min-height: 1500px;">
-            <div class="col-md-4" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; background-color: #3f5c80; padding-top: 10px; padding-left: 30px;color: white;">
-            <div style="font-size: 30px;"><b>Vios EHR</b></div>
+            <div class="col-md-5" style="font-family: 'Nunito', sans-serif; background-color: #0f27a3; padding-top: 10px; padding-left: 30px;color: white;">
+            <div style="font-size: 30px;">ViosEHR</div><br><br>
+            <div style="text-align: center;"><img style="display: inline-block;width: 300px;height: 210px;" src="img/indexIllustration2.png" ></div><br><br>
             <div style="font-size: 25px;">Tips</div><br>
             <div id="tipSlider">
 
@@ -64,70 +70,97 @@
             </div>
             
             </div>
-            <div class="col-md-8" style="background-color: rgb(224, 226, 230);">
-            <div style="padding: 20px;">
-                <div style="width: 100%;"><div style="width: 300px;float: right;padding-right: 20px; text-align: right;"><b>University of Nigeria Medical Center</b></div></div>
+            <div class="col-md-7" style="background-color: rgb(240, 240, 240);"><br><br><br><br><br>
+            <div class="animated faster" style="padding: 20px;" id="modulePane">
+                <div style="width: 100%;"><div style="width: 100%;float: left;padding-right: 23px; text-align: left;padding-left: 70px;font-size: 20px; color: #454546;"><b>Mount Ara-phat Hospital</b></div></div>
                 <br><br>
                 <div style="text-align: center;">
-                    <div style="width: 800px; display: inline-block; font-size: 17px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+                    <div style="width: 80%; display: inline-block; font-size: 17px; font-family: 'Nunito', sans-serif;">
                         <div class="row">
                             <div class="col-md-3">
-                                <div class="card" id="doc_lBtnID" style="width: 170px; height: 150px; text-align: center; cursor: pointer;">
-                                <div style="display: inline-block; padding: 20px;"><img style="width: 70px; height: 80px;" src="img/docLogo.png"><div>Doctor</div></div>
+                                <div class="card" id="doc_lBtnID" onclick="showLoginPane('Doctor')" style="width: 130px; height: 130px; text-align: center; cursor: pointer;border-radius: 20px;">
+                                <div style="display: inline-block; padding: 20px;background-color: #0f27a3;color:white;border-radius: 20px;"><img style="width: 70px; height: 80px;" src="img/indexPageimgs/stethoscopeWhite.png"><div style="font-size: 14px;"><b>Doctor</b></div></div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card" id="nurse_lBtnID" style="width: 170px; height: 150px; text-align: center; cursor: pointer;">
-                                <div style="display: inline-block; padding: 20px;"><img style="width: 67px; height: 80px;" src="img/nurseLogo.png"><div>Nurse</div></div>
+                                <div class="card" id="nurse_lBtnID" onclick="showLoginPane('Nurse')" style="width: 130px; height: 130px; text-align: center; cursor: pointer;border-radius: 20px;">
+                                <div style="display: inline-block; padding: 20px;background-color: #0f27a3;color:white;border-radius: 20px;"><img style="width: 67px; height: 80px;" src="img/indexPageimgs/nurseWhite.png"><div style="font-size: 14px;"><b>Nurse</b></div></div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card" id="pharm_lBtnID" style="width: 170px; height: 150px; text-align: center; cursor: pointer;">
-                                <div style="display: inline-block; padding: 20px;"><img style="width: 75px; height: 80px;" src="img/pharmacistLogo.png"><div>Pharmacist</div></div>
+                                <div class="card" id="pharm_lBtnID" onclick="showLoginPane('Pharmacist')" style="width: 130px; height: 130px; text-align: center; cursor: pointer;border-radius: 20px;">
+                                <div style="display: inline-block; padding: 20px;background-color: #0f27a3;color:white;border-radius: 20px;"><img style="width: 75px; height: 80px;" src="img/indexPageimgs/syrupWhite.png"><div style="font-size: 14px;"><b>Pharmacist</b></div></div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card" id="rec_lBtnID" style="width: 170px; height: 150px; text-align: center; cursor: pointer;">
-                                <div style="display: inline-block; padding: 20px;"><img style="width: 75px; height: 80px;" src="img/recordsManLogo.png"><div>RecordsManager</div></div>
+                                <div class="card" id="rec_lBtnID" onclick="showLoginPane('Record_manager')" style="width: 130px; height: 130px; text-align: center; cursor: pointer;border-radius: 20px;">
+                                <div style="display: inline-block; padding: 20px;background-color: #0f27a3;color:white;border-radius: 20px;"><img style="width: 75px; height: 80px;" src="img/indexPageimgs/medical-reportWhite.png"><div style="font-size: 14px;"><b>Records</b></div></div>
                                 </div>
                             </div>
                         </div>
                         <br>
                         <div class="row">
                             <div class="col-md-3">
-                                <div class="card" id="radio_lBtnID" style="width: 170px; height: 150px; text-align: center; cursor: pointer;">
-                                <div style="display: inline-block; padding: 20px;"><img style="width: 70px; height: 80px;" src="img/radiographer.png"><div>Radiographer</div></div>
+                                <div class="card" id="radio_lBtnID" onclick="showLoginPane('Radiologist')" style="width: 130px; height: 130px; text-align: center; cursor: pointer;border-radius: 20px;">
+                                <div style="display: inline-block; padding: 20px;background-color: #0f27a3;color:white;border-radius: 20px;"><img style="width: 70px; height: 80px;" src="img/indexPageimgs/x-rayWhite.png"><div style="font-size: 14px;"><b>Radiologist</b></div></div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card" id="lab_lBtnID" style="width: 170px; height: 150px; text-align: center; cursor: pointer;">
-                                <div style="display: inline-block; padding: 20px;"><img style="width: 67px; height: 80px;" src="img/labScientist.png"><div>Lab Scientist</div></div>
+                                <div class="card" id="lab_lBtnID" onclick="showLoginPane('LabScientist')" style="width: 130px; height: 130px; text-align: center; cursor: pointer;border-radius: 20px;">
+                                <div style="display: inline-block; padding: 20px;background-color: #0f27a3;color:white;border-radius: 20px;"><img style="width: 67px; height: 80px;" src="img/indexPageimgs/microscopeWhite.png"><div style="font-size: 14px;"><b>Lab Scientist</b></div></div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card" id="busry_lBtnID" style="width: 170px; height: 150px; text-align: center; cursor: pointer;">
-                                <div style="display: inline-block; padding: 20px;"><img style="width: 75px; height: 80px;" src="img/bursery.png"><div>Billings</div></div>
+                                <div class="card" id="busry_lBtnID" onclick="showLoginPane('Bursery')" style="width: 130px; height: 130px; text-align: center; cursor: pointer;border-radius: 20px;">
+                                <div style="display: inline-block; padding: 20px;background-color: #0f27a3;color:white;border-radius: 20px;"><img style="width: 75px; height: 80px;" src="img/indexPageimgs/medicalWhite.png"><div style="font-size: 14px;"><b>Billings</b></div></div>
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="card" id="admin_lBtnID" style="width: 170px; height: 150px; text-align: center; cursor: pointer;">
-                                <div style="display: inline-block; padding: 20px;"><img style="width: 80px; height: 80px;" src="img/adminLogo.png"><div>Admin</div></div>
+                                <div class="card" id="admin_lBtnID" onclick="showLoginPane('Admin_Manager')" style="width: 130px; height: 130px; text-align: center; cursor: pointer;border-radius: 20px;">
+                                <div style="display: inline-block; padding: 20px;background-color: #0f27a3;color:white;border-radius: 20px;"><img style="width: 80px; height: 80px;" src="img/indexPageimgs/hospitalWhite.png"><div style="font-size: 14px;"><b>Admin</b></div></div>
                                 </div>
                             </div>
                         </div>
                         <br>
-                        <button id="helpBtn" class="btn" style="border-radius:100px; background-color: #3f5c80; height: 10px; padding-top:3px;padding-bottom: 21px; float: right;"><i class="fa fa-question-circle"></i> Help</button>
+                        <button id="helpBtn" class="btn" style="border-radius:100px; background-color: #0f27a3; height: 10px; padding-top:3px;padding-bottom: 21px; float: right;"><i class="fa fa-question-circle"></i> Help</button>
                         
                     </div>
                 </div>
             
             </div>
-            <div>
-            <video id="vedioAD" style="width:100%; position: absolute; left: 0%;" loop autoplay muted>
-                <source src="vid/hw.mp4" type="video/mp4">
-            </video>
-        </div>
+            
+
+            <div class="animated faster" style="display: none; text-align: center; padding: 20px; font-family: 'Nunito', sans-serif;" id="loginPane">
+                <div style="min-width: 500px;width: 65%;display: inline-block;">
+                    <div style="text-align: left;width: 100%;cursor: pointer;" class="fa fa-arrow-left" onclick="showModulePane()"></div>
+                    <div style="font-size:23px;width: 100%;text-align: left;">Log in to your account</div><br>
+                <div class="form-row">
+                          <div class="col">
+                              <!-- Last name -->
+                              <div>
+                                  <input type="email" id="loginEmail" style="outline: none;" onkeypress="return runScript(event,'dde1')" class="borderd_inputT1" placeholder="Email">
+                              </div>
+                          </div>
+                          </div>
+                          <div class="form-row">
+                          <div class="col">
+                              <!-- Last name -->
+                              <div>
+                                  <input type="password" id="loginPassword" style="outline: none;" onkeypress="return runScript(event,'dde2')" class="borderd_inputT1" placeholder="Password">
+                              </div>
+                          </div>
+                          </div>
+                          <button class="btn" type="button" style="margin:0px; border-radius:10px; width: 100%; background: #0f27a3;" onclick="$.fn.submitLoginDetails()"><span id="loginBtnTXT">Login</span><img src="img/loading_topnav.gif" style="width: 18px; height: 18px; display: none;" id="loginBtnLoader"></button>
+                          
+                          <div style="width:100%; cusor:pointer; padding-top: 15px;" onclick="">Don't have an account yet? <a style="color: #0f27a3;">Register</a></div>
+                          <div style="width:100%; color: #0f27a3; cusor:pointer" onclick="">Forget Password?</div>
+                </div>
+                </div>
+
             </div>
+       
+       
+       
         </div>
 
     </div>

@@ -1,38 +1,37 @@
 
 .pharm_inputPlaceholder_color::-webkit-input-placeholder{
-    color: #abafb3;
-    padding: 0px;
-    }
-    
-    .theme_color_primary{
-        background: #3f5c80;
-    }
-    
-    .theme_color_secondary{
-        background: #09c;
-    }
-    
-    .theme_text_colored_primary{
-        color:  rgb(120, 194, 87);
-    }
-    
-    a{
-        color: #6c757d;
-    }
-    a:hover{
-        color: #6c757d;
-    }
-    
-    .v_nav-link{
-        border-color: #09c;
-        padding: .5rem 1rem;
-        border: 1px solid transparent;
-    border-top-left-radius: .10rem;
-    border-top-right-radius: .10rem;
-    }
-    
-    .v_h3_color{
-        color: #455a64;
-    }
-    
-    
+color: #abafb3;
+padding: 0px;
+}
+
+.theme_color_primary{
+    background: #0d218a;
+}
+
+.theme_color_secondary{
+    background: #243797;
+}
+
+.theme_text_colored_primary{
+    color:  rgb(120, 194, 87);
+}
+
+a{
+    color: white;
+}
+a:hover{
+    color: #6c757d;
+}
+
+.v_nav-link{
+    border-color: #607b9c;
+    padding: .5rem 1rem;
+    border: 1px solid transparent;
+border-top-left-radius: .10rem;
+border-top-right-radius: .10rem;
+}
+
+.v_h3_color{
+    color: #455a64;
+}
+
