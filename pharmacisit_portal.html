@@ -36,7 +36,7 @@ a.nav-link{
 }
 </style>
 
-<body onload="update()" style="font-family: 'Nunito', sans-serif;">
+<body onload="update()" style="font-family: 'Nunito', sans-serif; background-color: #0d218a;">
 
   <!-- docturs portal header start -->
   <div>
@@ -54,10 +54,10 @@ a.nav-link{
 
     <ul class="navbar-nav mr-auto">
         <li class="nav-item" id="home_wut_id">
-            <a class="nav-link" onclick="set_home_main_fragment()"><i class="fa fa-home"></i>Home</a>
+            <a class="nav-link" id="home_wut_innerLink" onclick="set_home_main_fragment()"><i class="fa fa-home"></i>Home</a>
           </li>
       <li class="nav-item active" id="patients_wut_id" onclick="set_patients_main_fragment()">
-        <a class="nav-link waves-effect waves-light"><i class="fa fa-male"></i><b>Patient</b></a>
+        <a class="nav-link waves-effect waves-light" id="patients_wut_innerLink"><i class="fa fa-male"></i><b>Patient</b></a>
       </li>
       <li class="nav-item" id="add_patient" onclick="set_addpatient_main_fragment()">
         <a class="nav-link waves-effect waves-light"><i class="fa fa-book"></i><b>Inventory</b></a>
@@ -71,7 +71,7 @@ a.nav-link{
             <input id="search_patient_input" class="form-control mr-sm-2" type="text" placeholder="Search Patient's Name or ID" aria-label="Search" style="width: 400px">
         </div>
         <div class="col-md-3">
-          <button onclick="search_patient_to_nav_s_btn_click()" class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3 waves-effect waves-light" type="button">GO</button>
+          <button onclick="search_patient_to_nav_s_btn_click()" class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3 waves-effect waves-light" type="button" style="border-radius: 20px;">GO</button>
             <div style="width: 10px; display: inline-block;"><div style="height: 19.5px;"><img src="img/loading_topnav.gif" style="width: 30px; height: 30px; display: none;" id="top_nav_loading_anim"></div></div>
         </div>
       </div>
@@ -96,57 +96,56 @@ a.nav-link{
   </div>
 <!-- docturs portal header start -->
 
-<div id="main_home_fragment" style="display:none; background: #eee; padding-bottom: 40px; overflow-x: hidden;">
-  <div style="width: 100%;" id="m_home_fregment_main">
-  
-  <div class="row">
-  
-    <div class="col-md-4" style="padding: 10px; padding-left: 40px; padding-right: 10px; padding-top: 40px; padding-bottom: 30px;"> <div class="card" style="height: 450px; background: white; padding: 10px; "> <div style="font-size: 18px; color: #616161; text-align: center; " id="assigned_patients_txtx"></div> 
-  <div><canvas id="doughnutChart"> </canvas></div>
-  <div style="text-align:center; width:100%;">
-    <br><br><br><br><br><hr><div class=""><button class="btn btn-blue" style="float:right" onclick="$.fn.de_assign_all_patients()">De-Assign all patients</button></div>
+<div id="main_home_fragment" style="display:none; min-height: 700px; background: #0d218a; padding-bottom: 40px; overflow-x: hidden;">
+ 
+ <div style="padding: 70px;">
+<div class="row">
+  <div class="col-md-6">
+    <div style="font-size: 25px; color:#f3f1f1c9">Assigned Patients</div>
+    <br>
+<div id="asg_p_table_id">
+  <div id="asg_p_tb_id">
+    
   </div>
-  
-  
-  </div> </div>
-  <div class="col-md-4" style="padding: 10px; padding-left: 10px; padding-right: 40px; padding-top: 40px; padding-bottom: 30px;"> <div class="card" style="height: 450px; overflow-x: hidden; overflow-y: auto;">
-  <div style="padding:10px; color:#616161">Recently Attended Patients</div>
-    <table class="table" style="color: black;" id="r_attend_p_table_id">
-        <thead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody id="r_attend_p_id">
-        </tbody>
-      </table>
-  
-  </div> </div>
-    <div class="col-md-4" style="padding: 10px; padding-left: 10px; padding-right: 40px; padding-top: 40px; padding-bottom: 30px;"> <div class="card" style="height: 450px; overflow-x: hidden; overflow-y: auto;">
-        <div style="padding:10px; color:#616161; text-align:center;">Assigned Patients</div>
-        <table class="table" style="color: black;" id="asg_p_table_id">
-            <thead>
-              <tr>
-                <th scope="col">img</th>
-                <th scope="col">Name</th>
-                <th scope="col">Age</th>
-                <th scope="col">Sex</th>
-              </tr>
-            </thead>
-            <tbody id="asg_p_tb_id">
-              
-            </tbody>
-          </table>
-  
-    </div> </div>
-  
+</div>
+              <br>
+              <div style="font-size: 80px; color: white;">
+                <div class="row">
+                  <div class="col-md-3" style="padding:10px;">
+                  <div id="un_attend_p_t_Num">0</div>
+                  <div style="font-size: 13px;">Un-attended patients</div>
+                  </div>
+          
+                  <div class="col-md-3" style="padding:10px;">
+                    <div id="attend_p_t_Num">0</div>
+                    <div style="font-size: 13px;">Attended patients</div>
+                    </div>
+                </div>
+              </div><br>
+              <button class="btn waves-effect waves-light" onclick="$.fn.de_assign_all_patients()" style="border-radius: 30px; background-color: #243797; position: fixed; left: 20px; bottom: 20px; text-transform:initial" type="button">De-Assign all patients</button>
   </div>
-  
-  
+
+  <div class="col-md-6">
+    <div style="font-size: 25px; color:#f3f1f1c9">Recently Attended Patients</div>
+    <br>
+    <div id="r_attend_p_table_id">
+  <div id="r_attend_p_id">
+    <div style="padding-bottom: 20px;">
+      <div style="width:100%; color: white; min-height: 50px; background: #11111133; padding: 20px; border-radius: 20px;">
+        <div style="font-size: 18px;">Dada chibuzor okaffor <span style="color: #f3f1f1c9; font-size: 13px;"> 12abdksdGDJSmsdndk</span></div>
+        <div style="color: #f3f1f1c9;">lsdmk sdlkm sdkln sdk k ldnk ksdj ksjd jsdn sdoij sdioj sdioj sdoij</div>
+      </div>
+    </div>
   </div>
+  </div>
+
   
+
+    
+
+  </div>
+</div>
+ </div>
   
   </div>
 
@@ -340,7 +339,7 @@ a.nav-link{
         </div>
   
   <div class="col-md-3">
-      <div class="card" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
+      <div class="card" id="radiograph_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
           <table id="radiograph_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record">
             </table>
       </div>
@@ -358,7 +357,7 @@ a.nav-link{
               
                   <div class="col-md-9">
                       <!-- Card Narrower -->
-                            <div class="card card-cascade narrower animated faster" id="Lab-main-container" style="min-height: 500px;">
+                            <div class="card card-cascade narrower animated faster" id="Lab-main-container" style="min-height: 500px;border-radius: 30px;">
                               <div id="lab_disp_div_loaderDDH" class="disp_loader_div">
                                 <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
                                 </div>
@@ -384,7 +383,7 @@ a.nav-link{
                     </div>
               
               <div class="col-md-3">
-                  <div class="card" style="min-height: 200px;">
+                  <div class="card" id="Lab_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
                       <table id="Lab_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
                         </table>
                   </div>
@@ -403,7 +402,7 @@ a.nav-link{
               
                   <div class="col-md-9">
                       <!-- Card Narrower -->
-                            <div class="card card-cascade narrower animated faster" id="Prescription-main-container" style="min-height: 500px;">
+                            <div class="card card-cascade narrower animated faster" id="Prescription-main-container" style="min-height: 500px; border-radius: 30px;">
                               <div id="prescription_disp_div_loaderDDH" class="disp_loader_div">
                                 <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
                                 </div>
@@ -429,7 +428,7 @@ a.nav-link{
                     </div>
               
               <div class="col-md-3">
-                  <div class="card" style="min-height: 200px;">
+                  <div class="card" id="Prescription_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
                       <table id="Prescription_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
                         </table>
                   </div>
@@ -475,7 +474,7 @@ a.nav-link{
                     </div>
               
               <div class="col-md-3">
-                  <div class="card" style="min-height: 200px; border-radius: 30px;">
+                  <div class="card" id="Dispensed_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
                       <table id="Dispensed_selT_pdr" style="cursor: pointer;" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
                         </table>
                   </div>
@@ -494,7 +493,7 @@ a.nav-link{
             
                 <div class="col-md-9">
                     <!-- Card Narrower -->
-                          <div class="card card-cascade narrower animated faster" id="Note-main-container" style="min-height: 500px;">
+                          <div class="card card-cascade narrower animated faster" id="Note-main-container" style="min-height: 500px; border-radius: 30px;">
                             <div id="note_disp_div_loaderDDH" class="disp_loader_div">
                               <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
                               </div>
@@ -520,7 +519,7 @@ a.nav-link{
                   </div>
             
             <div class="col-md-3">
-                <div class="card" style="min-height: 200px;">
+                <div class="card" id="Note_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
                     <table id="Note_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
                       </table>
                 </div>
@@ -541,7 +540,7 @@ a.nav-link{
           
               <div class="col-md-9">
                   <!-- Card Narrower -->
-                        <div class="card card-cascade narrower animated faster" id="Fullrec-main-container" style="min-height: 500px;">
+                        <div class="card card-cascade narrower animated faster" id="Fullrec-main-container" style="min-height: 500px; border-radius: 30px;">
                           <div id="Fullrec_disp_div_loaderDDH" class="disp_loader_div">
                             <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
                             </div>
@@ -567,7 +566,7 @@ a.nav-link{
                 </div>
           
           <div class="col-md-3">
-              <div class="card" style="min-height: 200px;">
+              <div class="card" id="Fullrec_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
                   <table id="Fullrec_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
                     </table>
               </div>
@@ -696,7 +695,7 @@ a.nav-link{
   
   
   
-              <div class="tab-pane" id="contact-classic3" style="height: 250px;" role="tabpanel" aria-labelledby="contact-tab-classic3">
+              <div class="tab-pane" id="contact-classic3" style="height: 470px;" role="tabpanel" aria-labelledby="contact-tab-classic3">
                       <div style="width: 100%;">
         
         
@@ -706,14 +705,15 @@ a.nav-link{
                               <div class="records_portal_bottom_pane">
                                 <div style="height: 10px;"></div>
                               <div class="prform_body">
-                                  <div class="row">
-                                      <div class="col-md-9">
+                                  <div>
+                                      <div>
                                         <form id="paper" method="get" action="">
-                                          <textarea class="card mb-1" placeholder="Enter Note." id="text" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 160px; "></textarea>
+                                          <textarea class="card mb-1" placeholder="Enter Note." id="text" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 380px; "></textarea>
                                         </form>
                                       </div>
-                                      <div class="col-md-3" style="padding-left: 70px;">
-                                        <button class="btn btn-outline-white waves-effect waves-light" onclick="$.fn.startNoteSubmission()" id="sNotebtn" style="text-align: center; padding-right: 20px; padding-left: 20px;">Save</button>
+                                      
+                                      <div>
+                                        <button class="btn btn-outline-black waves-effect waves-light" onclick="$.fn.startNoteSubmission()" id="sNotebtn" style="text-align: center; padding-right: 20px; padding-left: 20px; border-radius: 10px;">Save</button>
                                       </div>
                                       </div>
                               </div>
@@ -724,11 +724,16 @@ a.nav-link{
                               <div style="width: 45%;">
                               <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray;">
                                 <div style="height: 10px;"></div>
-                              <div class="prform_body" style="color: white;">
-                                <div style="height: 230px; overflow-y: auto; overflow-x: hidden">
-                               <div style="font-size: 20px;"><b>Lastest Note</b></div>
-                               <div style="font-size: 17px;"><b>Date: <span id="rnoteDispLwNabBar_date_pdr"></span></b></div>
-                               <div style="min-height: 200px; width: 97%;" id="rnoteDispLwNabBar"></div>
+                              <div class="">
+                                <div style="height: 450px; overflow-y: auto; overflow-x: hidden">
+                               <div style="font-size: 20px; color: #333333;"><b>Lastest Note</b></div>
+                               <div style="font-size: 17px; color: #333333;"><b>Date: <span id="rnoteDispLwNabBar_date_pdr"></span></b></div>
+                               <div id="rnoteDispLwNabBar_loaderDDH" class="disp_loader_div">
+                                <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                </div>
+                               <div id="rnoteDispLwNabBar_mainDDH" style="display: none;">
+                                <div style="min-height: 200px; width: 97%;" id="rnoteDispLwNabBar"></div>
+                               </div>
                                 </div>
                               </div>
                               
@@ -794,7 +799,8 @@ a.nav-link{
     
   </div>
     </div>
-   
+    <button class="btn waves-effect waves-light " id="asg_pTab_bBar_btn" onclick="$.fn.enterHome()" style="border-radius: 30px; background-color: #243797; position: fixed; right: 20px; bottom: 20px; text-transform:initial" type="button">Assign patients <span class="badge bg-danger" style="border-radius: 15px;" id="asg_pTab_bBar_btn_num_indicators"></span></button>
+
   </div>
 
 </div>
@@ -1749,7 +1755,6 @@ list: {
   function (result){
     if(result === "11111"){
       process_normal_search_p_click(id_value);
-      $("#Radiograph-tab").click();
     }
   });
     }

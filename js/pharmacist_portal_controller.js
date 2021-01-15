@@ -38,7 +38,13 @@ var static_data = {
   // module operations details
   current_active_inventory_tab:6,
   current_active_dispRecTab:'',
-  file_input_lf_index:''
+  file_input_lf_index:'',
+  rediograph_firstClickFlag: false,
+  lab_firstClickFlag: false,
+  prescription_firstClickFlag: false,
+  dispensed_firstClickFlag: false,
+  note_firstClickFlag: false,
+  fullRec_firstClickFlag: false
 };
 var pharmacistP_static_vars = {
   selected_start_date:"",
@@ -529,6 +535,7 @@ function set_patients_main_fragment(assignID){
                     if(checkhasuplogo){
                       $('#push_bottom_dispense_pane_up_id').removeClass('fa-arrow-up');
                       $('#push_bottom_dispense_pane_up_id').addClass('fa-arrow-down');
+                      $.fn.hide_selT_pdr_tables();
                     }
                   }; 
 
@@ -538,8 +545,27 @@ function set_patients_main_fragment(assignID){
                     if(checkhasuplogo){
                       $('#push_bottom_dispense_pane_up_id').removeClass('fa-arrow-down');
                       $('#push_bottom_dispense_pane_up_id').addClass('fa-arrow-up');
+                      $.fn.display_selT_pdr_tables();
                     }
                   }; 
+
+                  $.fn.hide_selT_pdr_tables = function() {
+                      getE("radiograph_selT_pdr").style.display = "none";
+                      getE("Lab_selT_pdr").style.display = "none";
+                      getE("Prescription_selT_pdr").style.display = "none";
+                      getE("Dispensed_selT_pdr").style.display = "none";
+                      getE("Note_selT_pdr").style.display = "none";
+                      getE("Fullrec_selT_pdr").style.display = "none";
+                  }
+
+                  $.fn.display_selT_pdr_tables = function() {
+                    getE("radiograph_selT_pdr").style.display = "block";
+                    getE("Lab_selT_pdr").style.display = "block";
+                    getE("Prescription_selT_pdr").style.display = "block";
+                    getE("Dispensed_selT_pdr").style.display = "block";
+                    getE("Note_selT_pdr").style.display = "block";
+                    getE("Fullrec_selT_pdr").style.display = "block";
+                }
 
                   
 
@@ -549,6 +575,7 @@ function set_patients_main_fragment(assignID){
                     }else{
                       $.fn.bottom_dispense_pane_down();
                     }
+                    $.fn.getLatest_noteDwrkBar();
                   };
 
                   var pl_dde1 = document.querySelector("#dde1");
@@ -933,23 +960,6 @@ function set_patients_main_fragment(assignID){
                  
                   }
 
-                  function render_chart11(){
-                    var ctxD = document.getElementById("doughnutChart").getContext('2d');
-                  var myLineChart = new Chart(ctxD, {
-                    type: 'pie',
-                    data: {
-                      labels: ["Unattended Patients "+static_data.unattended_patients, "Attended Patients "+static_data.attended_patients],
-                      datasets: [{
-                        data: [static_data.unattended_patients,static_data.attended_patients],
-                        backgroundColor: ["#F7464A","#26a69a"],
-                        hoverBackgroundColor: ["#FF5A5E", "#5AD3D1"]
-                      }]
-                    },
-                    options: {
-                      responsive: true
-                    }
-                  });
-                }
                 function add_search_result_row(add,search_text){
                   var table = document.createElement("table");
                     table.setAttribute("class","table");
@@ -1168,7 +1178,7 @@ if(quantity > drug_stock_quality){
                   notice.open();
                 }else if(resultInt == 1110012){
                   var notice = new jBox('Notice', {
-                    content: 'Erro geting Assigned Details',
+                    content: 'Erro getting Assigned Details',
                     color: 'red',
                     animation: notification_popup.animation,
                     closeOnClick: notification_popup.closeOnClick,
@@ -1178,7 +1188,7 @@ if(quantity > drug_stock_quality){
                   notice.open();
                 }else if(resultInt == 1110016){
                   var notice = new jBox('Notice', {
-                    content: 'Erro geting Assigned Details',
+                    content: 'Erro getting Assigned Details',
                     color: 'red',
                     animation: notification_popup.animation,
                     closeOnClick: notification_popup.closeOnClick,
@@ -1216,6 +1226,7 @@ if(quantity > drug_stock_quality){
                     delayClose: notification_popup.delayClose
                   });
                   notice.open();
+                  getE("home_wut_innerLink").click();
                 }
                 
                                
@@ -1288,10 +1299,16 @@ if(quantity > drug_stock_quality){
               },
               function (result){
                 if(result === "11111"){
-                startOnpatientPick();
-                set_patients_main_fragment('');
-                insert_in_anim_for_idle_fragment();
-                $.fn.getLatest_noteDwrkBar();
+
+                  getE("patients_wut_innerLink").click();
+                  process_idle_search_hitEnter_re_click(id);
+
+                // startOnpatientPick();
+                // set_patients_main_fragment('');
+                // insert_in_anim_for_idle_fragment();
+                // $.fn.getLatest_noteDwrkBar();
+                
+
                 }
               });
               }
@@ -1303,126 +1320,243 @@ if(quantity > drug_stock_quality){
               },
               function (result){
                 if(result === "11111"){
-                startOnpatientPick();
-                set_patients_main_fragment(assignID);
-                insert_in_anim_for_idle_fragment();
-                $.fn.getLatest_noteDwrkBar();
+
+                  getE("patients_wut_innerLink").click();
+                  process_idle_search_hitEnter_re_click(id);
+
+                // startOnpatientPick();
+                // set_patients_main_fragment(assignID);
+                // insert_in_anim_for_idle_fragment();
+                // $.fn.getLatest_noteDwrkBar();
                 }
               });
               }
               
               function process_get_r_attended_patients(data){
-                var tbody = document.createElement("tbody");
+                var tbody = document.createElement("div");
                 tbody.setAttribute("id","r_attend_p_id");
-                try{
-                  data.forEach(e=>{
-                    var tr = document.createElement("tr");
-                    tr.setAttribute("class","dr_home_s_p");
-                    tr.setAttribute("onclick","process_recent_attended_a_assigned_p_click('"+e.usrID+"')");
-                    var th = document.createElement("th");
-                    th.setAttribute("scope","row");
-                    var img = document.createElement("img");
-                    img.setAttribute("class","rounded-circle z-depth-0");
-                    img.setAttribute("src","http://localhost:4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
-                    img.setAttribute("style","width: 70px; height: 70px;");
-                    var td1 = document.createElement("td");
-                    var div1 = document.createElement("div");
-                    div1.setAttribute("style","width:50px;");
-                    var strong1 = document.createElement("strong");
-                    div1_1 = document.createElement("div");
-                    div1_1.setAttribute("style","color:#616161");
-                    var txt1_1 = document.createTextNode(e.user_name);
-                    var hr = document.createElement("hr");
-                    div1_2 = document.createElement("div");
-                    div1_2.setAttribute("style","color:#616161");
-                    var txt1_2 = document.createTextNode(e.usrID);
-                    var td2 = document.createElement("td");
-                    var b1 = document.createElement("b");
-                    var br = document.createElement("br");
-                    var txt2_1 = document.createTextNode(e.type);
-                    div1_3 = document.createElement("div");
-                    div1_3.setAttribute("style","width:40%;");
-                    var txt2_2 = document.createTextNode(e.inserted_txt);
-                  
-                    tr.append(th);
-                    th.append(img);
-                    tr.append(td1);
-                    td1.append(div1);
-                    div1.append(strong1);
-                    strong1.append(div1_1);
-                    div1_1.append(txt1_1);
-                    strong1.append(hr);
-                    strong1.append(div1_2);
-                    div1_2.append(txt1_2);
-                    tr.append(td2);
-                    td2.append(b1);
-                    b1.append(txt2_1);
-                    td2.append(br);
-                    div1_3.append(txt2_2);
-                    td2.append(div1_3);
-                    tbody.prepend(tr);
-                    });
-                }catch{
+                
+                if(data.length <= 0){
+                  var emptyDiv = document.createElement("div");
+                  emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+                  emptyDiv.append(document.createTextNode("You have not attended to any patient today"));
+                 tbody.prepend(emptyDiv);
+                 getE("asg_pTab_bBar_btn").style.display = "none";
+                }else{
+              if(data === "1110013"){
+                var emptyDiv = document.createElement("div");
+                emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+                emptyDiv.append(document.createTextNode("Access Denied"));
+               tbody.prepend(emptyDiv);
+            }else{
 
-                }
+             try{
+
+               
+              data.forEach(e=>{
+                var div1 = document.createElement("div");
+                div1.setAttribute("id","r_attend_p_table_id");
+                var div2 = document.createElement("div");
+                div2.setAttribute("style","padding-bottom: 20px; cursor:pointer");
+                div2.setAttribute("onclick","process_recent_attended_a_assigned_p_click('"+e.usrID+"')");
+                var div3 = document.createElement("div");
+                div3.setAttribute("style","width:100%; color: white; min-height: 50px; background: #11111133; padding: 20px; border-radius: 20px;");
+                var div4 = document.createElement("div");
+                div4.setAttribute("style","font-size: 18px;");
+                var pnameTXT = document.createTextNode(e.user_name);
+                var id_span = document.createElement("span");
+                id_span.setAttribute("style","color: #f3f1f1c9; font-size: 13px;");
+                var idTxt = document.createTextNode(e.usrID);
+                id_span.append(idTxt);
+                div4.append(pnameTXT);
+                div4.append(id_span);
+                var div5 = document.createElement("div");
+                div5.setAttribute("style","color: #f3f1f1c9;");
+                var opTXT = document.createTextNode(e.inserted_txt);
+                div5.append(opTXT);
+
+                div3.append(div4);
+                div3.append(div5);
+                div2.append(div3);
+                div1.append(div2);
+                tbody.prepend(div1);
+              });
+            
+
+              // data.forEach(e=>{
+              //   var tr = document.createElement("tr");
+              //   tr.setAttribute("class","dr_home_s_p");
+              //   tr.setAttribute("onclick","process_recent_attended_a_assigned_p_click('"+e.usrID+"')");
+              //   var th = document.createElement("th");
+              //   th.setAttribute("scope","row");
+              //   var img = document.createElement("img");
+              //   img.setAttribute("class","rounded-circle z-depth-0");
+              //   img.setAttribute("src","http://localhost:4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
+              //   img.setAttribute("style","width: 70px; height: 70px;");
+              //   var td1 = document.createElement("td");
+              //   var div1 = document.createElement("div");
+              //   div1.setAttribute("style","width:50px;");
+              //   var strong1 = document.createElement("strong");
+              //   div1_1 = document.createElement("div");
+              //   div1_1.setAttribute("style","color:#616161");
+              //   var txt1_1 = document.createTextNode(e.user_name);
+              //   var hr = document.createElement("hr");
+              //   div1_2 = document.createElement("div");
+              //   div1_2.setAttribute("style","color:#616161");
+              //   var txt1_2 = document.createTextNode(e.usrID);
+              //   var td2 = document.createElement("td");
+              //   var b1 = document.createElement("b");
+              //   var br = document.createElement("br");
+              //   var txt2_1 = document.createTextNode(e.type);
+              //   div1_3 = document.createElement("div");
+              //   div1_3.setAttribute("style","width:40%;");
+              //   var txt2_2 = document.createTextNode(e.inserted_txt);
+              
+              //   tr.append(th);
+              //   th.append(img);
+              //   tr.append(td1);
+              //   td1.append(div1);
+              //   div1.append(strong1);
+              //   strong1.append(div1_1);
+              //   div1_1.append(txt1_1);
+              //   strong1.append(hr);
+              //   strong1.append(div1_2);
+              //   div1_2.append(txt1_2);
+              //   tr.append(td2);
+              //   td2.append(b1);
+              //   b1.append(txt2_1);
+              //   td2.append(br);
+              //   div1_3.append(txt2_2);
+              //   td2.append(div1_3);
+              //   tbody.prepend(tr);
+              //   });
+           
+              }catch(e){
+                var emptyDiv = document.createElement("div");
+                emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+                emptyDiv.append(document.createTextNode("Opps.. something went wrong"));
+               tbody.prepend(emptyDiv);
+            }
+            }
+             }
                 
               var replObject = document.getElementById("r_attend_p_id");
               document.getElementById("r_attend_p_table_id").replaceChild(tbody,replObject);
               }
               
               function process_get_all_assigned_patients(data){
-              var tbody = document.createElement("tbody");
+              var tbody = document.createElement("div");
               tbody.setAttribute("id","asg_p_tb_id");
-              try{
-                data.forEach(e=>{
-                  if(e.assigned == "1"){
-                  }else{
-                    var tr = document.createElement("tr");
-                  tr.setAttribute("class","dr_home_s_p");
-                  tr.setAttribute("onclick","process_assigned_patients_click('"+e.usrID+"','"+e._id+"')");
-                  var th = document.createElement("th");
-                  th.setAttribute("scope","row");
-                  var img = document.createElement("img");
-                  img.setAttribute("class","rounded-circle z-depth-0");
-                  img.setAttribute("src","http://localhost:4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
-                  img.setAttribute("style","width: 30px; height: 30px;");
-                  var td1 = document.createElement("td");
-                  var txt1 = document.createTextNode(e.name);
-                  var td2 = document.createElement("td");
-                  var txt2 = document.createTextNode(e.age);
-                  var td3 = document.createElement("td");
-                  var txt3 = document.createTextNode(e.gender);
-                  tr.append(th)
-                  th.append(img);
-                  td1.append(txt1);
-                  tr.append(td1);
-                  td2.append(txt2);
-                  tr.append(td2);
-                  td3.append(txt3);
-                  tr.append(td3);
-                  tbody.prepend(tr);
-                  }
-                
-                  if(e.assigned == '1'){
-                    static_data.attended_patients++;
-                  }else{
-                    static_data.unattended_patients++;
-                  }
-                });
-              }catch{
               
+              
+              if(data.length <= 0){
+                var emptyDiv = document.createElement("div");
+                emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+                emptyDiv.append(document.createTextNode("No assigned patients"));
+               tbody.prepend(emptyDiv);
+               getE("asg_pTab_bBar_btn").style.display = "none";
+              }else{
+                if(data === "1110013"){
+                  var emptyDiv = document.createElement("div");
+                    emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+                    emptyDiv.append(document.createTextNode("Access Denied"));
+                   tbody.prepend(emptyDiv);
+                   getE("asg_pTab_bBar_btn").style.display = "none";
+                }else{
+                  
+                  try{
+  
+                    data.forEach(e=>{
+                      
+                    if(e.assigned == '1'){
+                      static_data.attended_patients++;
+                    }else{
+                      var div1 = document.createElement("div");
+                    div1.setAttribute("style","width:50%; color: white;padding-bottom: 10px; cursor:pointer");
+                    div1.setAttribute("onclick","process_assigned_patients_click('"+e.usrID+"','"+e._id+"')");
+                    var nameTxt = document.createTextNode(e.user_name);
+                    var id_span = document.createElement("span");
+                    id_span.setAttribute("style","color: #f3f1f1c9;");
+                    var idTxt = document.createTextNode(" "+e.usrID);
+                    id_span.append(idTxt);
+  
+                    div1.append(nameTxt);
+                    div1.append(id_span);
+                    tbody.prepend(div1);
+
+                      static_data.unattended_patients++;
+                    }
+                    getE("asg_pTab_bBar_btn").style.display = "block";
+                    getE("asg_pTab_bBar_btn_num_indicators").innerHTML = static_data.unattended_patients;
+                    });
+  
+                    // data.forEach(e=>{
+                    //   if(e.assigned == "1"){
+                    //   }else{
+                    //     var tr = document.createElement("tr");
+                    //   tr.setAttribute("class","dr_home_s_p");
+                    //   tr.setAttribute("onclick","process_assigned_patients_click('"+e.usrID+"','"+e._id+"')");
+                    //   var th = document.createElement("th");
+                    //   th.setAttribute("scope","row");
+                    //   var img = document.createElement("img");
+                    //   img.setAttribute("class","rounded-circle z-depth-0");
+                    //   img.setAttribute("src","http://localhost:4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
+                    //   img.setAttribute("style","width: 30px; height: 30px;");
+                    //   var td1 = document.createElement("td");
+                    //   var txt1 = document.createTextNode(e.name);
+                    //   var td2 = document.createElement("td");
+                    //   var txt2 = document.createTextNode(e.age);
+                    //   var td3 = document.createElement("td");
+                    //   var txt3 = document.createTextNode(e.gender);
+                    //   tr.append(th)
+                    //   th.append(img);
+                    //   td1.append(txt1);
+                    //   tr.append(td1);
+                    //   td2.append(txt2);
+                    //   tr.append(td2);
+                    //   td3.append(txt3);
+                    //   tr.append(td3);
+                    //   tbody.prepend(tr);
+                    //   }
+                    
+                    //   if(e.assigned == '1'){
+                    //     static_data.attended_patients++;
+                    //   }else{
+                    //     static_data.unattended_patients++;
+                    //   }
+                    // });
+                  
+                  }catch{
+                    var emptyDiv = document.createElement("div");
+                    emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+                    emptyDiv.append(document.createTextNode("Opps.. something went wrong"));
+                   tbody.prepend(emptyDiv);
+                   getE("asg_pTab_bBar_btn").style.display = "none";
+                  }
+                }
               }
+
               var replObject = document.getElementById("asg_p_tb_id");
               document.getElementById("asg_p_table_id").replaceChild(tbody,replObject);
               if(static_data.prv_unattended_patients == static_data.unattended_patients && static_data.prv_attended_patients == static_data.attended_patients){
               }else{
                 static_data.prv_unattended_patients = static_data.unattended_patients;
                 static_data.prv_attended_patients = static_data.attended_patients;
-                render_chart11();
               }
-              document.getElementById("assigned_patients_txtx").innerHTML = "Assigned Patients: "+(static_data.attended_patients+static_data.unattended_patients);
+              document.getElementById("un_attend_p_t_Num").innerHTML = static_data.prv_unattended_patients;
+              document.getElementById("attend_p_t_Num").innerHTML = static_data.prv_attended_patients;
+              // document.getElementById("assigned_patients_txtx").innerHTML = "Assigned Patients: "+(static_data.attended_patients+static_data.unattended_patients);
               static_data.attended_patients = 0;
               static_data.unattended_patients = 0;
+              }
+
+              function reset_firstTabclickFlags(){
+                static_data.rediograph_firstClickFlag = false;
+                static_data.lab_firstClickFlag = false;
+                static_data.prescription_firstClickFlag = false;
+                static_data.dispensed_firstClickFlag = false;
+                static_data.note_firstClickFlag = false;
+                static_data.fullRec_firstClickFlag = false;
               }
               
              
@@ -1476,6 +1610,7 @@ if(quantity > drug_stock_quality){
               },
               function (result){
                 if(result === "11111"){
+                reset_firstTabclickFlags();
                 startOnpatientPick();
                 insert_in_anim_for_idle_fragment();
                 reset_wkr_var_search_r();
@@ -1560,6 +1695,8 @@ if(quantity > drug_stock_quality){
                 }else{
                   insert_in_anim_for_idle_fragment();
                 }
+                
+                reset_firstTabclickFlags();
                 reset_wkr_var_search_r();
                 $.fn.getLatest_noteDwrkBar();
                 get_patient_d_f_static_vars_prd();
@@ -2154,7 +2291,9 @@ if(quantity > drug_stock_quality){
                 range2:pharmacistP_static_vars.selected_end_date
               },
               function (result){
-              if(result != null){
+              if(result === "1110013"){
+
+              }else{
                 reset_pharmacistP_static_vars();
                 result.forEach(e => {
                 pharmacistP_static_vars.total_patients_purchase = pharmacistP_static_vars.total_patients_purchase + parseInt(e.numberOfdrugs);
@@ -3013,7 +3152,7 @@ if(quantity > drug_stock_quality){
             <div id="formselectionDiv" style="display:none;">
              <div class="row" id="formselectionDivrow">
             </div>
-            <a href="formbuilder.html"><button class="btn btn-blue" style="border-radius:100px; height: 10px; padding-top:3px;padding-bottom: 21px; position:absolute; left:80%; top:0.5%;">New Form</button></a>
+            <a href="formbuilder.html"><button class="btn" style="border-radius:100px; height: 10px; padding-top:3px;padding-bottom: 21px; position:absolute; left:80%; top:0.5%; background:#243797; text-transform:initial"><b>New Form</b></button></a>
             </div>
             <div id="selectedForm_displayed" style="display:none"></div>
             </div>`,
@@ -3032,6 +3171,7 @@ if(quantity > drug_stock_quality){
           },
           function (result){
             var result_row = $("<div class='row' id='formselectionDivrow'></div>");
+            result = result.reverse();
               result.forEach(e => {
                 result_row.append(`<div class="col-md-2 formSelectionIndic" onClick="$.fn.formSelectClick('`+e._id+`','`+e.category+`')" style="text-align:center"><img src="img/formIcon.png" style="width:70px;height:100px; display:inline-block"><div style="text-align:center; font-size:13px; color:black">`+e.formName+`</div></div>`);
               });
@@ -3074,9 +3214,9 @@ if(quantity > drug_stock_quality){
   || form_disp_wkr.find("form").css("background-color") === "#ffff80" || form_disp_wkr.find("form").css("background-color") === "#ffffa6"
   || form_disp_wkr.find("form").css("background-color") === "rgb(135, 221, 250)"
   ){
-    form_disp_wkr.find(".FD_border_tag").attr("style","background-color:#ebeff3; min-height:30px; padding-left: 30px; box-shadow: 0px 0px 23px 0px #11111130;border-radius: 8px;");
+    form_disp_wkr.find(".FD_border_tag").attr("style","background-color:#ebeff3; min-height:100px; padding-left: 30px; box-shadow: 0px 0px 23px 0px #11111130;border-radius: 8px;");
   }else{
-    form_disp_wkr.find(".FD_border_tag").attr("style","border: 1px solid #f5f5f5; background-color:#ebeff3; min-height:30px; padding-left: 30px; box-shadow: 0px 0px 23px 0px #11111130;border-radius: 8px;");
+    form_disp_wkr.find(".FD_border_tag").attr("style","border: 1px solid #f5f5f5; background-color:#ebeff3; min-height:100px; padding-left: 30px; box-shadow: 0px 0px 23px 0px #11111130;border-radius: 8px;");
   }
   var wkr_disp_inputs = form_disp_wkr.find("input");
   $.each(wkr_disp_inputs, function( i, el ) {
@@ -3088,7 +3228,7 @@ if(quantity > drug_stock_quality){
       var splitArray = idvalue.split("_");
       var labelVal = $(el).attr("mlabel");
       var newLabelval = labelVal.replace(" ","_");
-      properties.value += "'"+newLabelval+"'"+":'"+el.value+"',";
+      properties.value += '"'+newLabelval+'"'+':"'+el.value+'", ';
       }
       el.disabled = true;
     }
@@ -3100,7 +3240,7 @@ if(quantity > drug_stock_quality){
       var labelVal = $("#alterdLabel_"+splitArray[1]).html();
       if(labelVal == null || labelVal === ""){}else{
       var newLabelval = labelVal.replace(" ","_");
-      properties.value += "'"+newLabelval+"'"+":'"+el.value+"',";
+      properties.value += '"'+newLabelval+'"'+':"'+el.value+'", ';
       $(el).replaceWith('');
     }}}
     else{
@@ -3111,7 +3251,7 @@ if(quantity > drug_stock_quality){
       var labelVal = $("#alterdLabel_"+splitArray[1]).html();
       if(labelVal == null || labelVal === ""){}else{
       var newLabelval = labelVal.replace(" ","_");
-      properties.value += "'"+newLabelval+"'"+":'"+el.value+"',";
+      properties.value += '"'+newLabelval+'"'+':"'+el.value+'", ';
       $(el).replaceWith('<span class="C_INP_P" id="'+el.id+'">'+el.value+'</span>');
     }}}
   });
@@ -3125,7 +3265,7 @@ if(quantity > drug_stock_quality){
     if(labelVal == null || labelVal === ""){}else{
     var labelVal = $("#alterdLabel_"+splitArray[1]).html();
     var newLabelval = labelVal.replace(" ","_");
-    properties.value += "'"+newLabelval+"'"+":'"+el.value+"',";
+    properties.value += '"'+newLabelval+'"'+':"'+el.value+'", ';
     $(el).replaceWith('<span class="C_INP_P" id="'+el.id+'">'+el.value+'</span>');
   }}});
 
@@ -3138,7 +3278,7 @@ if(quantity > drug_stock_quality){
     var labelVal = $("#alterdLabel_"+splitArray[1]).html();
     if(labelVal == null || labelVal === ""){}else{
     var newLabelval = labelVal.replace(" ","_");
-    properties.value += "'"+newLabelval+"'"+":'"+el.value+"',";
+    properties.value += '"'+newLabelval+'"'+':"'+el.value+'", ';
     var selectedValue = $(el).children("option:selected").val();
     $(el).replaceWith('<span class="C_INP_P" id="'+el.id+'">'+selectedValue+'</span>');
   }}});
@@ -3363,6 +3503,8 @@ if(quantity > drug_stock_quality){
         }
 
         $.fn.getLatest_noteDwrkBar = function(){
+          getE("rnoteDispLwNabBar_loaderDDH").style.display = "block";
+          getE("rnoteDispLwNabBar_mainDDH").style.display = "none";
           var startDate = moment().subtract(174,'days');
           var endDate = moment();
           $.get('http://localhost:3130/get_currOpratP_coll',{
@@ -3374,14 +3516,27 @@ if(quantity > drug_stock_quality){
             usrID:result_id.usrID
           },
           function (result){
+            getE("rnoteDispLwNabBar_loaderDDH").style.display = "none";
+            getE("rnoteDispLwNabBar_mainDDH").style.display = "block";
+            if(result.length <= 0){
+              $("#rnoteDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rnoteDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+            }else if(result == "90923"){
+              $("#rnoteDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rnoteDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+            }
+            else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+              $("#rnoteDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rnoteDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+            }
+            else{
             $("#rnoteDispLwNabBar").replaceWith('<div style="min-height: 200px; width: 97%;" id="rnoteDispLwNabBar"></div>');
-            if(result.date == null || result.date ===""){
-            }else{
-            var collect_o_date = result.date.split("T");
-            var date = collect_o_date[0];
+            var collect_o_date = result[0].date.split("T");
+            var date = collect_o_date[0].date;
             $("#rnoteDispLwNabBar_date_pdr").text(date);
-            $("#rnoteDispLwNabBar").append(result.disp_data);
-          }});
+            $("#rnoteDispLwNabBar").append(result[0].disp_data);
+          }}).fail(function(e){
+            getE("rnoteDispLwNabBar_loaderDDH").style.display = "none";
+            getE("rnoteDispLwNabBar_mainDDH").style.display = "block";
+            $("#rnoteDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rnoteDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+          });;
         });
         }
 
@@ -3477,6 +3632,10 @@ $.fn.process_fPic_disp = function(name){
 
 }
 
+$.fn.enterHome = function(){
+  getE("home_wut_innerLink").click();
+}
+
           // patient record display
     
           function startOnpatientPick(){
@@ -3491,20 +3650,27 @@ $.fn.process_fPic_disp = function(name){
           function radiographTabclick(){
             static_data.current_active_dispRecTab = "radiograph";
             $.fn.getRadiographSelectwithDate_dpr();
+            if(!static_data.rediograph_firstClickFlag){
             $.fn.getLatest_radiograph();
+            static_data.rediograph_firstClickFlag = true;
+            }
             
           }
           function labTabclick(){
             static_data.current_active_dispRecTab = "lab";
             $.fn.getLabSelectwithDate_dpr();
+            if(!static_data.lab_firstClickFlag){
             $.fn.getLatest_Lab();
-            
+            static_data.lab_firstClickFlag = true;
+            }
           }
           function PrescriptionTabclick(){
             static_data.current_active_dispRecTab = "prescription";
             $.fn.getPrescriptionSelectwithDate_dpr();
+            if(!static_data.prescription_firstClickFlag){
             $.fn.getLatest_Prescription();
-            
+            static_data.prescription_firstClickFlag = true;
+            }
           }
           function get_patient_d_f_static_vars_prd(){
             $.get('http://localhost:3130/get_currOpratP_coll',{
@@ -3600,26 +3766,23 @@ $.fn.process_fPic_disp = function(name){
           }
 
           $.fn.getLatest_prescription = function(){
-            var startDate = moment().subtract(174,'days');
-            var endDate = moment();
             $.get('http://localhost:3130/get_currOpratP_coll',{
           },
           function (result_id){
             $.get('http://localhost:3130/get_latest_prescription',{
-              range1:startDate.format('MM/DD/YYYY'),
-              range2:endDate.format('MM/DD/YYYY'),
               usrID:result_id.usrID
             },
             function (result){
               getE("chart_disp_div_loaderDDH").style.display = "none";
               getE("chart_disp_div_mainDDH").style.display = "block";
-              if(result.date == null || result.date ===""){
+              if(result[0].date == null || result[0].date ===""){
+                $("#r_prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="r_prescription_div_dpr"><div style="font-size:20px">Oops something went wrong</div><div>pls check your system connection to the vios network</div></div>');
               }else{
               $("#r_prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="r_prescription_div_dpr"></div>');
-              var collect_o_date = result.date.split("T");
+              var collect_o_date = result[0].date.split("T");
               var date = collect_o_date[0];
               $("#r_presc_date_pdr").text(date);
-              $("#r_prescription_div_dpr").append(result.disp_data);
+              $("#r_prescription_div_dpr").append(result[0].disp_data);
               }
             });
           });
@@ -3632,38 +3795,60 @@ $.fn.process_fPic_disp = function(name){
             function (result){
               getE("prescription_disp_div_loaderDDH").style.display = "none";
               getE("prescription_disp_div_mainDDH").style.display = "block";
-              if(result.date == null || result.date ===""){
-              }else{
+              if(result.length <= 0){
+                $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+              }else if(result == "90923"){
+                $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+              }
+              else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+                $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+              }
+              else{
               $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"></div>');
               var collect_o_date = result.date.split("T");
               var date = collect_o_date[0];
               $("#Prescription_date_pdr").text(date);
               $("#Prescription_div_dpr").append(result.disp_data);
-            }});
+            }}).fail(function(e){
+              getE("prescription_disp_div_loaderDDH").style.display = "none";
+              getE("prescription_disp_div_mainDDH").style.display = "block";
+              $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+            });
           }
 
           $.fn.getLatest_Prescription = function(){
-            var startDate = moment().subtract(174,'days');
-            var endDate = moment();
             $.get('http://localhost:3130/get_currOpratP_coll',{
           },
           function (result_id){
             $.get('http://localhost:3130/get_latest_Prescription',{
-              range1:startDate.format('MM/DD/YYYY'),
-              range2:endDate.format('MM/DD/YYYY'),
               usrID:result_id.usrID
             },
             function (result){
               getE("prescription_disp_div_loaderDDH").style.display = "none";
               getE("prescription_disp_div_mainDDH").style.display = "block";
-              if(result.date == null || result.date ===""){
-              }else{
+              if(result.length <= 0){
+                $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+              }else if(result == "90923"){
+                $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+              }
+              else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+                $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+              }
+              else{
               $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"></div>');
-              var collect_o_date = result.date.split("T");
+              var collect_o_date = result[0].date.split("T");
               var date = collect_o_date[0];
               $("#Prescription_date_pdr").text(date);
-              $("#Prescription_div_dpr").append(result.disp_data);
-            }});
+              $("#Prescription_div_dpr").append(result[0].disp_data);
+            }}).fail(function(e){
+              getE("prescription_disp_div_loaderDDH").style.display = "none";
+              getE("prescription_disp_div_mainDDH").style.display = "block";
+              $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+            });
+          }).fail(function(e){
+            getE("prescription_disp_div_loaderDDH").style.display = "none";
+            getE("prescription_disp_div_mainDDH").style.display = "block";
+            $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
           });
         }
 
@@ -3694,53 +3879,85 @@ $.fn.process_fPic_disp = function(name){
               }});
           $('#Prescription_selT_pdr').footable({
             "columns": $.post('http://localhost:4417/general_server_files/PrescriptionSelTableColuumn.json'),
-            "rows": result
+            "rows": result.reverse()
           });
+
+          setTimeout(function() { 
+            if($('#Prescription_selT_pdr').length <= 0){
+              $('#Prescription_selT_pdr_card_container').append('<table id="Prescription_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
+              $('#Prescription_selT_pdr').footable({
+                "columns": $.post('http://localhost:4417/general_server_files/PrescriptionSelTableColuumn.json'),
+                "rows": result.reverse()
+              });
+            }
+        }, 1000);
+
         });
       });
     }
 
-          $.fn.getLatest_radiograph = function(){
-            var startDate = moment().subtract(10,'days');
-            var endDate = moment();
-            $.get('http://localhost:3130/get_currOpratP_coll',{
-          },
-          function (result_id){
-            $.get('http://localhost:3130/get_latest_radiograph',{
-              range1:startDate.format('MM/DD/YYYY'),
-              range2:endDate.format('MM/DD/YYYY'),
-              usrID:static_data.usrID
-            },
-            function (result){
-              getE("radiograph_disp_div_loaderDDH").style.display = "none";
-              getE("radiograph_disp_div_mainDDH").style.display = "block";
-              if(result.date == null || result.date ===""){
-              }else{
-              $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"></div>');
-              var collect_o_date = result.date.split("T");
-              var date = collect_o_date[0];
-              $("#radiograph_date_pdr").text(date);
-              $("#radiograph_div_dpr").append(result.disp_data);
-            }});
-          });
+    $.fn.getLatest_radiograph = function(){
+      $.get('http://localhost:3130/get_currOpratP_coll',{
+    },
+    function (result_id){
+      $.get('http://localhost:3130/get_latest_radiograph',{
+        usrID:static_data.usrID
+      },
+      function (result){
+        getE("radiograph_disp_div_loaderDDH").style.display = "none";
+        getE("radiograph_disp_div_mainDDH").style.display = "block";
+        if(result.length <= 0){
+          $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+        }else if(result == "90923"){
+          $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
         }
-
-          $.fn.get_radiographBy_id = function(DocID){
-            $.get('http://localhost:3130/get_radiograph_with_id',{
-              DocID:DocID
-          },
-            function (result){
-              getE("radiograph_disp_div_loaderDDH").style.display = "none";
-              getE("radiograph_disp_div_mainDDH").style.display = "block";
-              if(result.date == null || result.date ===""){
-              }else{
-              $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"></div>');
-              var collect_o_date = result.date.split("T");
-              var date = collect_o_date[0];
-              $("#radiograph_date_pdr").text(date);
-              $("#radiograph_div_dpr").append(result.disp_data);
-            }});
-          }
+        else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+          $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+        }
+        else{
+        $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"></div>');
+        var collect_o_date = result[0].date.split("T");
+        var date = collect_o_date[0];
+        $("#radiograph_date_pdr").text(date);
+        $("#radiograph_div_dpr").append(result[0].disp_data);
+      }}).fail(function(e){
+        getE("radiograph_disp_div_loaderDDH").style.display = "none";
+        getE("radiograph_disp_div_mainDDH").style.display = "block";
+        $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+      });
+    }).fail(function(e){
+      getE("radiograph_disp_div_loaderDDH").style.display = "none";
+      getE("radiograph_disp_div_mainDDH").style.display = "block";
+      $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+    });
+  }
+  
+    $.fn.get_radiographBy_id = function(DocID){
+      $.get('http://localhost:3130/get_radiograph_with_id',{
+        DocID:DocID
+    },
+      function (result){
+        getE("radiograph_disp_div_loaderDDH").style.display = "none";
+        getE("radiograph_disp_div_mainDDH").style.display = "block";
+        if(result.length <= 0){
+          $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+        }else if(result == "90923"){
+          $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+        }
+        else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+          $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+        }else{
+        $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"></div>');
+        var collect_o_date = result.date.split("T");
+        var date = collect_o_date[0];
+        $("#radiograph_date_pdr").text(date);
+        $("#radiograph_div_dpr").append(result.disp_data);
+      }}).fail(function(e){
+        getE("radiograph_disp_div_loaderDDH").style.display = "none";
+        getE("radiograph_disp_div_mainDDH").style.display = "block";
+        $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+      });
+    }
 
           $("#radiograph_selT_pdr").on("click","td:not(.footable-first-column)",function(e){
             var row=$( this ).parent();
@@ -3767,57 +3984,93 @@ $.fn.process_fPic_disp = function(name){
               e.date = collect_o_date[0];
               e.time = collect_o_date[1];
               }});
-          $('#radiograph_selT_pdr').footable({
-            "columns": $.post('http://localhost:4417/general_server_files/radiographSelTableColuumn.json'),
-            "rows": result.reverse()
-          });
+
+              $('#radiograph_selT_pdr').footable({
+                "columns": $.post('http://localhost:4417/general_server_files/radiographSelTableColuumn.json'),
+                "rows": result.reverse()
+              });
+
+              setTimeout(function() { 
+                if($('#radiograph_selT_pdr').length <= 0){
+                  $('#radiograph_selT_pdr_card_container').append('<table id="radiograph_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
+                  $('#radiograph_selT_pdr').footable({
+                    "columns": $.post('http://localhost:4417/general_server_files/radiographSelTableColuumn.json'),
+                    "rows": result.reverse()
+                  });
+                }
+            }, 1000);
+              
+              
+          
         });
       });
     }
 
 
-      $.fn.getLatest_Lab = function(){
-        var startDate = moment().subtract(174,'days');
-        var endDate = moment();
-        $.get('http://localhost:3130/get_currOpratP_coll',{
-          },
-          function (result_id){
-        $.get('http://localhost:3130/get_latest_Lab',{
-          range1:startDate.format('MM/DD/YYYY'),
-          range2:endDate.format('MM/DD/YYYY'),
-          usrID:result_id.usrID
+    $.fn.getLatest_Lab = function(){
+      $.get('http://localhost:3130/get_currOpratP_coll',{
         },
-        function (result){
-          getE("lab_disp_div_loaderDDH").style.display = "none";
-          getE("lab_disp_div_mainDDH").style.display = "block";
-          if(result.date == null || result.date ===""){
-          }else{
-          $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"></div>');
-          var collect_o_date = result.date.split("T");
-          var date = collect_o_date[0];
-          $("#Lab_date_pdr").text(date);
-          $("#Lab_div_dpr").append(result.disp_data);
-          }
-        });
+        function (result_id){
+      $.get('http://localhost:3130/get_latest_Lab',{
+        usrID:result_id.usrID
+      },
+      function (result){
+        getE("lab_disp_div_loaderDDH").style.display = "none";
+        getE("lab_disp_div_mainDDH").style.display = "block";
+        if(result.length <= 0){
+          $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+        }else if(result == "90923"){
+          $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+        }
+        else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+          $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+        }
+        else{
+        $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"></div>');
+        var collect_o_date = result[0].date.split("T");
+        var date = collect_o_date[0];
+        $("#Lab_date_pdr").text(date);
+        $("#Lab_div_dpr").append(result[0].disp_data);
+        }
+      }).fail(function(e){
+        getE("lab_disp_div_loaderDDH").style.display = "none";
+        getE("lab_disp_div_mainDDH").style.display = "block";
+        $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+      });
+    }).fail(function(e){
+      getE("lab_disp_div_loaderDDH").style.display = "none";
+      getE("lab_disp_div_mainDDH").style.display = "block";
+      $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+    });
+  }
+  
+    $.fn.get_LabBy_id = function(DocID){
+      $.get('http://localhost:3130/get_Lab_with_id',{
+        DocID:DocID
+    },
+      function (result){
+        getE("lab_disp_div_loaderDDH").style.display = "none";
+        getE("lab_disp_div_mainDDH").style.display = "block";
+        if(result.length <= 0){
+          $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+        }else if(result == "90923"){
+          $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+        }
+        else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+          $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+        }
+        else{
+        $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"></div>');
+        var collect_o_date = result.date.split("T");
+        var date = collect_o_date[0];
+        $("#Lab_date_pdr").text(date);
+        $("#Lab_div_dpr").append(result.disp_data);
+      }}).fail(function(e){
+        getE("lab_disp_div_loaderDDH").style.display = "none";
+        getE("lab_disp_div_mainDDH").style.display = "block";
+        $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
       });
     }
-
-      $.fn.get_LabBy_id = function(DocID){
-        $.get('http://localhost:3130/get_Lab_with_id',{
-          DocID:DocID
-      },
-        function (result){
-          getE("lab_disp_div_loaderDDH").style.display = "none";
-          getE("lab_disp_div_mainDDH").style.display = "block";
-          if(result.date == null || result.date ===""){
-          }else{
-          $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"></div>');
-          var collect_o_date = result.date.split("T");
-          var date = collect_o_date[0];
-          $("#Lab_date_pdr").text(date);
-          $("#Lab_div_dpr").append(result.disp_data);
-        }});
-      }
 
       $("#Lab_selT_pdr").on("click","td:not(.footable-first-column)",function(e){
         var row=$( this ).parent();
@@ -3844,55 +4097,88 @@ $.fn.process_fPic_disp = function(name){
           e.date = collect_o_date[0];
           e.time = collect_o_date[1];
           }});
-      $('#Lab_selT_pdr').footable({
-        "columns": $.post('http://localhost:4417/general_server_files/LabSelTableColuumn.json'),
-        "rows": result
-      });
+     
+          $('#Lab_selT_pdr').footable({
+            "columns": $.post('http://localhost:4417/general_server_files/LabSelTableColuumn.json'),
+            "rows": result.reverse()
+          });
+      setTimeout(function() { 
+        if($('#Lab_selT_pdr').length <= 0){
+          $('#Lab_selT_pdr_card_container').append('<table id="Lab_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
+          $('#Lab_selT_pdr').footable({
+            "columns": $.post('http://localhost:4417/general_server_files/LabSelTableColuumn.json'),
+            "rows": result.reverse()
+          });
+        }
+    }, 1000);
+
     });
   });
 }
 
-  $.fn.getLatest_Dispensed = function(){
-    var startDate = moment().subtract(174,'days');
-    var endDate = moment();
-    $.get('http://localhost:3130/get_currOpratP_coll',{
-          },
-          function (result_id){
-    $.get('http://localhost:3130/get_latest_Dispensed',{
-      range1:startDate.format('MM/DD/YYYY'),
-      range2:endDate.format('MM/DD/YYYY'),
-      usrID:result_id.usrID
-    },
-    function (result){
-      getE("dispansed_disp_div_loaderDDH").style.display = "none";
-      getE("dispansed_disp_div_mainDDH").style.display = "block";
-      $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"></div>');
-      if(result.date == null || result.date ===""){
-      }else{
-      var collect_o_date = result.date.split("T");
-      var date = collect_o_date[0];
-      $("#Dispensed_date_pdr").text(date);
-      $("#Dispensed_div_dpr").append(result.disp_data);
-    }});
-  });
+$.fn.getLatest_Dispensed = function(){
+  $.get('http://localhost:3130/get_currOpratP_coll',{
+        },
+        function (result_id){
+  $.get('http://localhost:3130/get_latest_Dispensed',{
+    usrID:result_id.usrID
+  },
+  function (result){
+    getE("dispansed_disp_div_loaderDDH").style.display = "none";
+    getE("dispansed_disp_div_mainDDH").style.display = "block";
+    if(result.length <= 0){
+      $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+    }else if(result == "90923"){
+      $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+    }
+    else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+      $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+    }
+    else{
+    $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"></div>');
+    var collect_o_date = result[0].date.split("T");
+    var date = collect_o_date[0];
+    $("#Dispensed_date_pdr").text(date);
+    $("#Dispensed_div_dpr").append(result[0].disp_data);
+  }}).fail(function(e){
+    getE("dispansed_disp_div_loaderDDH").style.display = "none";
+    getE("dispansed_disp_div_mainDDH").style.display = "block";
+    $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+  });;
+}).fail(function(e){
+  getE("dispansed_disp_div_loaderDDH").style.display = "none";
+  getE("dispansed_disp_div_mainDDH").style.display = "block";
+  $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+});;
 }
 
-  $.fn.get_DispensedBy_id = function(DocID){
-    $.get('http://localhost:3130/get_Dispensed_with_id',{
-      DocID:DocID
-  },
-    function (result){
-      getE("dispansed_disp_div_loaderDDH").style.display = "none";
-      getE("dispansed_disp_div_mainDDH").style.display = "block";
-      $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"></div>');
-      if(result.date == null || result.date ===""){
-      }else{
-      var collect_o_date = result.date.split("T");
-      var date = collect_o_date[0];
-      $("#Dispensed_date_pdr").text(date);
-      $("#Dispensed_div_dpr").append(result.disp_data);
-    }});
-  }
+$.fn.get_DispensedBy_id = function(DocID){
+  $.get('http://localhost:3130/get_Dispensed_with_id',{
+    DocID:DocID
+},
+  function (result){
+    getE("dispansed_disp_div_loaderDDH").style.display = "none";
+    getE("dispansed_disp_div_mainDDH").style.display = "block";
+    
+    if(result.length <= 0){
+      $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+    }else if(result == "90923"){
+      $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+    }
+    else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+      $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+    }else{
+    $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"></div>');
+    var collect_o_date = result.date.split("T");
+    var date = collect_o_date[0];
+    $("#Dispensed_date_pdr").text(date);
+    $("#Dispensed_div_dpr").append(result.disp_data);
+  }}).fail(function(e){
+    getE("dispansed_disp_div_loaderDDH").style.display = "none";
+    getE("dispansed_disp_div_mainDDH").style.display = "block";
+    $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+  });
+}
 
   $("#Dispensed_selT_pdr").on("click","td:not(.footable-first-column)",function(e){
     var row=$( this ).parent();
@@ -3922,36 +4208,56 @@ $.fn.process_fPic_disp = function(name){
       });
   $('#Dispensed_selT_pdr').footable({
     "columns": $.post('http://localhost:4417/general_server_files/DispensedSelTableColuumn.json'),
-    "rows": result
+    "rows": result.reverse()
   });
+
+  setTimeout(function() { 
+    if($('#Dispensed_selT_pdr').length <= 0){
+      $('#Dispensed_selT_pdr_card_container').append('<table id="Dispensed_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
+      $('#Dispensed_selT_pdr').footable({
+        "columns": $.post('http://localhost:4417/general_server_files/DispensedSelTableColuumn.json'),
+        "rows": result.reverse()
+      });
+    }
+}, 1000);
 });
 });
   }
 
-$.fn.getLatest_Note = function(){
-  var startDate = moment().subtract(174,'days');
-  var endDate = moment();
-  $.get('http://localhost:3130/get_currOpratP_coll',{
-          },
-          function (result_id){
-  $.get('http://localhost:3130/get_latest_Note',{
-    range1:startDate.format('MM/DD/YYYY'),
-    range2:endDate.format('MM/DD/YYYY'),
-    usrID:result_id.usrID
-  },
-  function (result){
+  $.fn.getLatest_Note = function(){
+    $.get('http://localhost:3130/get_currOpratP_coll',{
+            },
+            function (result_id){
+    $.get('http://localhost:3130/get_latest_Note',{
+      usrID:result_id.usrID
+    },
+    function (result){
+      getE("note_disp_div_loaderDDH").style.display = "none";
+      getE("note_disp_div_mainDDH").style.display = "block";
+      if(result.length <= 0){
+        $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+      }else if(result == "90923"){
+        $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+      }
+      else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+        $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+      }else{
+      $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"></div>');
+      var collect_o_date = result[0].date.split("T");
+      var date = collect_o_date[0];
+      $("#Note_date_pdr").text(date);
+      $("#Note_div_dpr").append(result[0].disp_data);
+    }}).fail(function(e){
+      getE("note_disp_div_loaderDDH").style.display = "none";
+      getE("note_disp_div_mainDDH").style.display = "block";
+      $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+    });
+  }).fail(function(e){
     getE("note_disp_div_loaderDDH").style.display = "none";
     getE("note_disp_div_mainDDH").style.display = "block";
-    if(result.date == null || result.date ===""){
-    }else{
-    $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"></div>');
-    var collect_o_date = result.date.split("T");
-    var date = collect_o_date[0];
-    $("#Note_date_pdr").text(date);
-    $("#Note_div_dpr").append(result.disp_data);
-  }});
-});
-}
+    $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+  });
+  }
 
 $.fn.get_NoteBy_id = function(DocID){
   $.get('http://localhost:3130/get_Note_with_id',{
@@ -3960,14 +4266,25 @@ $.fn.get_NoteBy_id = function(DocID){
   function (result){
     getE("note_disp_div_loaderDDH").style.display = "none";
     getE("note_disp_div_mainDDH").style.display = "block";
-    if(result.date == null || result.date ===""){
-    }else{               
+    if(result.length <= 0){
+      $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+    }else if(result == "90923"){
+      $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+    }
+    else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+      $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+    }
+    else{               
     $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"></div>');
     var collect_o_date = result.date.split("T");
     var date = collect_o_date[0];
     $("#Note_date_pdr").text(date);
     $("#Note_div_dpr").append(result.disp_data);
-  }});
+  }}).fail(function(e){
+    getE("note_disp_div_loaderDDH").style.display = "none";
+    getE("note_disp_div_mainDDH").style.display = "block";
+    $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+  });
 }
 
 $("#Note_selT_pdr").on("click","td:not(.footable-first-column)",function(e){
@@ -3997,11 +4314,23 @@ $.fn.getNoteSelectwithDate_dpr = function(){
     }});
 $('#Note_selT_pdr').footable({
   "columns": $.post('http://localhost:4417/general_server_files/NoteSelTableColuumn.json'),
-  "rows": result
+  "rows": result.reverse()
 });
+
+setTimeout(function() { 
+  if($('#Note_selT_pdr').length <= 0){
+    $('#Note_selT_pdr_card_container').append('<table id="Note_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
+    $('#Note_selT_pdr').footable({
+      "columns": $.post('http://localhost:4417/general_server_files/NoteSelTableColuumn.json'),
+      "rows": result.reverse()
+    });
+  }
+}, 1000);
+
 });
 });
 }
+
 
 $.fn.get_FullrecBy_id = function(DocID,category){
   $.get('http://localhost:3130/get_Fullrec_with_id',{
@@ -4011,14 +4340,25 @@ $.fn.get_FullrecBy_id = function(DocID,category){
   function (result){
     getE("Fullrec_disp_div_loaderDDH").style.display = "none";
     getE("Fullrec_disp_div_mainDDH").style.display = "block"; 
-    if(result.date == null || result.date ===""){
-    }else{              
+    if(result.length <= 0){
+      $("#Fullrec_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+    }else if(result == "90923"){
+      $("#Fullrec_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+    }
+    else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+      $("#Fullrec_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+    }
+    else{              
     $("#Fullrec_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"></div>');
     var collect_o_date = result.date.split("T");
     var date = collect_o_date[0];
     $("#Fullrec_date_pdr").text(date);
     $("#Fullrec_div_dpr").append(result.disp_data);
-  }});
+  }}).fail(function(e){
+    getE("Fullrec_disp_div_loaderDDH").style.display = "none";
+    getE("Fullrec_disp_div_mainDDH").style.display = "block";
+    $("#Fullrec_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+  });
 }
 $("#Fullrec_selT_pdr").on("click","td:not(.footable-first-column)",function(e){
   var row=$( this ).parent();
@@ -4044,8 +4384,10 @@ $.fn.getFullrecSelectwithDate_dpr = function(){
     if(result.length <= 0){
       getE("Fullrec_disp_div_loaderDDH").style.display = "none";
   getE("Fullrec_disp_div_mainDDH").style.display = "block";               
-  $("#Fullrec_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"></div>');
-    }
+  $("#Fullrec_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');   
+}else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+  $("#Fullrec_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+}
     result.forEach(e => {
       if(e.date == null || e.date ===""){
       }else{
@@ -4055,8 +4397,19 @@ $.fn.getFullrecSelectwithDate_dpr = function(){
     }});
 $('#Fullrec_selT_pdr').footable({
   "columns": $.post('http://localhost:4417/general_server_files/FullrecSelTableColuumn.json'),
-  "rows": result
+  "rows": result.reverse()
 });
+
+setTimeout(function() { 
+  if($('#Fullrec_selT_pdr').length <= 0){
+    $('#Fullrec_selT_pdr_card_container').append('<table id="Fullrec_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
+    $('#Fullrec_selT_pdr').footable({
+      "columns": $.post('http://localhost:4417/general_server_files/FullrecSelTableColuumn.json'),
+      "rows": result.reverse()
+    });
+  }
+}, 1000);
+
 var dac = result[0].id_and_category;
 var collect_o_id_c = dac.split("|");
 id = collect_o_id_c[0];
@@ -4067,6 +4420,10 @@ if(collect_o_id_c.length >= 1){
   $.fn.get_FullrecBy_id("",category);
 }
 
+}).fail(function(e){
+  getE("Fullrec_disp_div_loaderDDH").style.display = "none";
+  getE("Fullrec_disp_div_mainDDH").style.display = "block";
+  $("#Fullrec_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="r_prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
 });
 });
 }
@@ -4074,17 +4431,26 @@ if(collect_o_id_c.length >= 1){
 function DispensedTabclick(){
   static_data.current_active_dispRecTab = "dispensed";
   $.fn.getDispensedSelectwithDate_dpr();
+  if(!static_data.dispensed_firstClickFlag){
   $.fn.getLatest_Dispensed();
+  static_data.dispensed_firstClickFlag = true;
+  }
 }
 function NoteTabclick(){
   static_data.current_active_dispRecTab = "note";
   $.fn.getNoteSelectwithDate_dpr();
+  if(!static_data.note_firstClickFlag){
   $.fn.getLatest_Note();
+  static_data.note_firstClickFlag = true;
+  }
 }
 
 function FullrecTabclick(){
   static_data.current_active_dispRecTab = "fullRec";
+  if(!static_data.fullRec_firstClickFlag){
   $.fn.getFullrecSelectwithDate_dpr();
+  static_data.fullRec_firstClickFlag = true;
+  }
 }
 
 $.fn.viewDispFormImage = function(image,ul){
@@ -4100,6 +4466,7 @@ $lg.on('onCloseAfter.lg',function(event){
 
 
 function reload_curr_PdispTab(){
+  
   if(static_data.current_active_dispRecTab === "chart"){
     chartTabclick();
   }else if(static_data.current_active_dispRecTab === "radiograph"){
@@ -4142,7 +4509,6 @@ function de_assign_a_particularP(id){
           // end patient record display
               arrange_idle_search_bar();
           arrange_drug_search();
-          render_chart11();
           $.fn.Lfocus("dde1");
          
          
