@@ -44,7 +44,9 @@ var static_data = {
   prescription_firstClickFlag: false,
   dispensed_firstClickFlag: false,
   note_firstClickFlag: false,
-  fullRec_firstClickFlag: false
+  fullRec_firstClickFlag: false,
+
+  bototom_pane_active:false
 };
 var pharmacistP_static_vars = {
   selected_start_date:"",
@@ -531,6 +533,7 @@ function set_patients_main_fragment(assignID){
 
                   $.fn.bottom_dispense_pane_up = function() {
                     $('#myClassicTabContent').show();
+                    static_data.bototom_pane_active = true;
                     var checkhasuplogo = $('#push_bottom_dispense_pane_up_id').hasClass('fa-arrow-up');
                     if(checkhasuplogo){
                       $('#push_bottom_dispense_pane_up_id').removeClass('fa-arrow-up');
@@ -541,6 +544,7 @@ function set_patients_main_fragment(assignID){
 
                   $.fn.bottom_dispense_pane_down = function() {
                     $('#myClassicTabContent').hide();
+                    static_data.bototom_pane_active = false;
                     var checkhasuplogo = $('#push_bottom_dispense_pane_up_id').hasClass('fa-arrow-down');
                     if(checkhasuplogo){
                       $('#push_bottom_dispense_pane_up_id').removeClass('fa-arrow-down');
@@ -550,21 +554,21 @@ function set_patients_main_fragment(assignID){
                   }; 
 
                   $.fn.hide_selT_pdr_tables = function() {
-                      getE("radiograph_selT_pdr").style.display = "none";
-                      getE("Lab_selT_pdr").style.display = "none";
-                      getE("Prescription_selT_pdr").style.display = "none";
-                      getE("Dispensed_selT_pdr").style.display = "none";
-                      getE("Note_selT_pdr").style.display = "none";
-                      getE("Fullrec_selT_pdr").style.display = "none";
+                      getE("radiograph_selT_pdr_card_container").style.display = "none";
+                      getE("Lab_selT_pdr_card_container").style.display = "none";
+                      getE("Prescription_selT_pdr_card_container").style.display = "none";
+                      getE("Dispensed_selT_pdr_card_container").style.display = "none";
+                      getE("Note_selT_pdr_card_container").style.display = "none";
+                      getE("Fullrec_selT_pdr_card_container").style.display = "none";
                   }
 
                   $.fn.display_selT_pdr_tables = function() {
-                    getE("radiograph_selT_pdr").style.display = "block";
-                    getE("Lab_selT_pdr").style.display = "block";
-                    getE("Prescription_selT_pdr").style.display = "block";
-                    getE("Dispensed_selT_pdr").style.display = "block";
-                    getE("Note_selT_pdr").style.display = "block";
-                    getE("Fullrec_selT_pdr").style.display = "block";
+                    getE("radiograph_selT_pdr_card_container").style.display = "block";
+                    getE("Lab_selT_pdr_card_container").style.display = "block";
+                    getE("Prescription_selT_pdr_card_container").style.display = "block";
+                    getE("Dispensed_selT_pdr_card_container").style.display = "block";
+                    getE("Note_selT_pdr_card_container").style.display = "block";
+                    getE("Fullrec_selT_pdr_card_container").style.display = "block";
                 }
 
                   
@@ -3154,7 +3158,7 @@ if(quantity > drug_stock_quality){
             </div>
             <a href="formbuilder.html"><button class="btn" style="border-radius:100px; height: 10px; padding-top:3px;padding-bottom: 21px; position:absolute; left:80%; top:0.5%; background:#243797; text-transform:initial"><b>New Form</b></button></a>
             </div>
-            <div id="selectedForm_displayed" style="display:none"></div>
+            <div id="selectedForm_displayed" style="display:none;"></div>
             </div>`,
             draggable: 'title',
             repositionOnOpen: false,
@@ -3187,7 +3191,7 @@ if(quantity > drug_stock_quality){
               formID:formID
             },
             function (result){
-              var raw_form_res_op = $('<div id="selectedForm_displayed" style="display:none"><button type="button" onclick="$.fn.displayForms_Select()" style="width:50px; background-color:#616161; padding-bottom:3px; cursor:pointer; border: 1px #616161 solid; color:white; box-shadow:0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12)"><i class="fa fa-arrow-left"></i></button><div id="formDispDiv">'+result.rawForm+'</div></div>');
+              var raw_form_res_op = $('<div id="selectedForm_displayed" style="display:none;padding-left: 20px;padding-right:10px;"><button type="button" onclick="$.fn.displayForms_Select()" style="width:50px; background-color:#616161; padding-bottom:3px; cursor:pointer; border: 1px #616161 solid; color:white; box-shadow:0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12)"><i class="fa fa-arrow-left"></i></button><div id="formDispDiv">'+result.rawForm+'</div></div>');
               $("#selectedForm_displayed").replaceWith(raw_form_res_op);
               $("#selectedForm_displayed").css({"display":"block"});
               $("#formselectionDiv").css({"display":"none"});
@@ -3466,6 +3470,31 @@ if(quantity > drug_stock_quality){
 
         }
 
+
+        $.fn.request_userPermission_to_view_doc = function (){
+          $.get('http://localhost:3130/request_userPermission_to_view_doc',{
+          },
+          function (response){
+            if(response != null){
+              if(response === "1110016"){
+                erro_notice_popup("Erro requesting permission");
+              }else if(response === "1110013" || response === "10028"){
+                erro_notice_popup("You do not have clerance for this operation");
+              }else if(response === "1110012"){
+                erro_notice_popup("Erro requesting permission");
+              }else if(response === "1110011"){
+                erro_notice_popup("Invalid node");
+              }else{
+                notice_popup('Request sent successfully');
+              }
+              
+            }
+      }).fail(function(e){
+        erro_notice_popup("Erro requesting permission");
+      });
+        }
+
+
         $.fn.postNote = function (){
           $("#noteDispProcessing_div").replaceWith('<div id="noteDispProcessing_div"></div>');
           $("#noteDispProcessing_div").append($("#noteFormHolder").html());
@@ -3521,7 +3550,7 @@ if(quantity > drug_stock_quality){
             if(result.length <= 0){
               $("#rnoteDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rnoteDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
             }else if(result == "90923"){
-              $("#rnoteDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rnoteDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+              $("#rnoteDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rnoteDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
             }
             else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
               $("#rnoteDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rnoteDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
@@ -3654,6 +3683,11 @@ $.fn.enterHome = function(){
             $.fn.getLatest_radiograph();
             static_data.rediograph_firstClickFlag = true;
             }
+            if(static_data.bototom_pane_active){
+              $.fn.hide_selT_pdr_tables();
+            }else{
+              $.fn.display_selT_pdr_tables();
+            }
             
           }
           function labTabclick(){
@@ -3663,6 +3697,11 @@ $.fn.enterHome = function(){
             $.fn.getLatest_Lab();
             static_data.lab_firstClickFlag = true;
             }
+            if(static_data.bototom_pane_active){
+              $.fn.hide_selT_pdr_tables();
+            }else{
+              $.fn.display_selT_pdr_tables();
+            }
           }
           function PrescriptionTabclick(){
             static_data.current_active_dispRecTab = "prescription";
@@ -3670,6 +3709,11 @@ $.fn.enterHome = function(){
             if(!static_data.prescription_firstClickFlag){
             $.fn.getLatest_Prescription();
             static_data.prescription_firstClickFlag = true;
+            }
+            if(static_data.bototom_pane_active){
+              $.fn.hide_selT_pdr_tables();
+            }else{
+              $.fn.display_selT_pdr_tables();
             }
           }
           function get_patient_d_f_static_vars_prd(){
@@ -3798,7 +3842,7 @@ $.fn.enterHome = function(){
               if(result.length <= 0){
                 $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
               }else if(result == "90923"){
-                $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+                $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
               }
               else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
                 $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
@@ -3829,7 +3873,7 @@ $.fn.enterHome = function(){
               if(result.length <= 0){
                 $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
               }else if(result == "90923"){
-                $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+                $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
               }
               else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
                 $("#Prescription_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
@@ -3909,7 +3953,7 @@ $.fn.enterHome = function(){
         if(result.length <= 0){
           $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
         }else if(result == "90923"){
-          $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+          $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
         }
         else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
           $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
@@ -3942,7 +3986,7 @@ $.fn.enterHome = function(){
         if(result.length <= 0){
           $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
         }else if(result == "90923"){
-          $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+          $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
         }
         else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
           $("#radiograph_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
@@ -4020,7 +4064,7 @@ $.fn.enterHome = function(){
         if(result.length <= 0){
           $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
         }else if(result == "90923"){
-          $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+          $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
         }
         else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
           $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
@@ -4054,7 +4098,7 @@ $.fn.enterHome = function(){
         if(result.length <= 0){
           $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
         }else if(result == "90923"){
-          $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+          $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
         }
         else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
           $("#Lab_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
@@ -4129,7 +4173,7 @@ $.fn.getLatest_Dispensed = function(){
     if(result.length <= 0){
       $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
     }else if(result == "90923"){
-      $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+      $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
     }
     else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
       $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
@@ -4163,7 +4207,7 @@ $.fn.get_DispensedBy_id = function(DocID){
     if(result.length <= 0){
       $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
     }else if(result == "90923"){
-      $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+      $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
     }
     else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
       $("#Dispensed_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
@@ -4237,7 +4281,7 @@ $.fn.get_DispensedBy_id = function(DocID){
       if(result.length <= 0){
         $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
       }else if(result == "90923"){
-        $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+        $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
       }
       else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
         $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
@@ -4269,7 +4313,7 @@ $.fn.get_NoteBy_id = function(DocID){
     if(result.length <= 0){
       $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
     }else if(result == "90923"){
-      $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+      $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
     }
     else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
       $("#Note_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
@@ -4343,7 +4387,7 @@ $.fn.get_FullrecBy_id = function(DocID,category){
     if(result.length <= 0){
       $("#Fullrec_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
     }else if(result == "90923"){
-      $("#Fullrec_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button">Request Permission</button></div></div>');
+      $("#Fullrec_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
     }
     else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
       $("#Fullrec_div_dpr").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
@@ -4435,6 +4479,11 @@ function DispensedTabclick(){
   $.fn.getLatest_Dispensed();
   static_data.dispensed_firstClickFlag = true;
   }
+  if(static_data.bototom_pane_active){
+    $.fn.hide_selT_pdr_tables();
+  }else{
+    $.fn.display_selT_pdr_tables();
+  }
 }
 function NoteTabclick(){
   static_data.current_active_dispRecTab = "note";
@@ -4443,6 +4492,11 @@ function NoteTabclick(){
   $.fn.getLatest_Note();
   static_data.note_firstClickFlag = true;
   }
+  if(static_data.bototom_pane_active){
+    $.fn.hide_selT_pdr_tables();
+  }else{
+    $.fn.display_selT_pdr_tables();
+  }
 }
 
 function FullrecTabclick(){
@@ -4450,6 +4504,11 @@ function FullrecTabclick(){
   if(!static_data.fullRec_firstClickFlag){
   $.fn.getFullrecSelectwithDate_dpr();
   static_data.fullRec_firstClickFlag = true;
+  }
+  if(static_data.bototom_pane_active){
+    $.fn.hide_selT_pdr_tables();
+  }else{
+    $.fn.display_selT_pdr_tables();
   }
 }
 
