@@ -1,17 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html lang="en"><head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Vios</title>
+  
+  <title>Mount Araphat</title>
+  
   <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/iso_bootstrap3.3.7min.css" rel="stylesheet">
   <link href="css/mdb.min.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
   <link href="css/dropzone.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
   <link href="css/lightgallery.css" rel="stylesheet">
   <link href="css/Vios_colors.css" rel="stylesheet">
   <link href="css/vios_style.css" rel="stylesheet">
@@ -22,20 +21,31 @@
   <link href="js/easyauto_comp/easy-autocomplete.min.css" rel="stylesheet">
   <link href="js/easyauto_comp/easy-autocomplete.themes.min.css" rel="stylesheet">
   <link href="css/jBox.all.min.css" rel="stylesheet">
-  
-</head>
+  <link href='css/opensans.css' rel='stylesheet' type='text/css'>
+<style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
+.btn.btn-default.dropdown-toggle{
+padding: 14px;
+-webkit-box-shadow:none
+}
+.btn.btn-primary{
+-webkit-box-shadow:none
+}
+a.nav-link{
+  color: white;
+}
+</style>
 
-<body onload="update()">
+<body onload="update()" style="font-family: 'Nunito', sans-serif; background-color: #0d218a;">
 
   <!-- docturs portal header start -->
   <div>
 <nav class="navbar navbar-expand-lg navbar-dark theme_color_primary" style="box-shadow: 0 0px 0px 0 rgba(0,0,0,.16),0 0px 0px 0 rgba(0,0,0,.12);">
 
-  <a class="navbar-brand" style="font-family: 'Ubuntu', sans-serif;" href="#"><b>Viostec</b></a>
+  <a class="navbar-brand" style="font-family: 'Nunito', sans-serif;" href="#"><img src="img/appIcons/favicon.png" style="width: 20px; height: 20px;"></a>
 
   <!-- Collapse button -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -43,23 +53,24 @@
   <div class="collapse navbar-collapse" id="basicExampleNav">
 
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active waves-effect waves-light" id="home_wut_id">
-        <a class="nav-link" onclick="set_home_main_fragment()"><i class="fa fa-home"></i>Home</a>
+        <li class="nav-item" id="home_wut_id">
+            <a class="nav-link" id="home_wut_innerLink" onclick="set_home_main_fragment()"><i class="fa fa-home"></i>Home</a>
+          </li>
+      <li class="nav-item active" id="patients_wut_id" onclick="set_patients_main_fragment()">
+        <a class="nav-link waves-effect waves-light" id="patients_wut_innerLink"><i class="fa fa-male"></i><b>Patient</b></a>
       </li>
-      <li class="nav-item waves-effect waves-light" id="patients_wut_id" onclick="set_patients_main_fragment()">
-        <a class="nav-link"><i class="fa fa-male"></i>Patient</a>
+      <li class="nav-item" id="add_patient" onclick="set_addpatient_main_fragment()">
       </li>
-
     </ul>
     
 
     <form class="form-inline" action="#">
-      <div class="md-form my-0 row" style="padding-right: 10px;">
+      <div class="md-form my-0 row" style="padding-right: 10px; height: 20px;">
         <div class="col-md-9">
             <input id="search_patient_input" class="form-control mr-sm-2" type="text" placeholder="Search Patient's Name or ID" aria-label="Search" style="width: 400px">
         </div>
         <div class="col-md-3">
-          <button onclick="search_patient_to_nav_s_btn_click()" class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3 waves-effect waves-light" type="button">GO</button>
+          <button onclick="search_patient_to_nav_s_btn_click()" class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3 waves-effect waves-light" type="button" style="border-radius: 20px;">GO</button>
             <div style="width: 10px; display: inline-block;"><div style="height: 19.5px;"><img src="img/loading_topnav.gif" style="width: 30px; height: 30px; display: none;" id="top_nav_loading_anim"></div></div>
         </div>
       </div>
@@ -77,19 +88,73 @@
       </li>
     </ul>
 
-
   </div>
   <!-- Collapsible content -->
 
 </nav>
   </div>
 <!-- docturs portal header start -->
-<div class="patient_fragment" id="main_patient_fragment" style="display:none;">
+
+<div id="main_home_fragment" style="display:none; min-height: 700px; background: #0d218a; padding-bottom: 40px; overflow-x: hidden;">
+ 
+ <div style="padding: 70px;">
+<div class="row">
+  <div class="col-md-6">
+    <div style="font-size: 25px; color:#f3f1f1c9">Assigned Patients</div>
+    <br>
+<div id="asg_p_table_id">
+  <div id="asg_p_tb_id">
+    
+  </div>
+</div>
+              <br>
+              <div style="font-size: 80px; color: white;">
+                <div class="row">
+                  <div class="col-md-3" style="padding:10px;">
+                  <div id="un_attend_p_t_Num">0</div>
+                  <div style="font-size: 13px;">Un-attended patients</div>
+                  </div>
+          
+                  <div class="col-md-3" style="padding:10px;">
+                    <div id="attend_p_t_Num">0</div>
+                    <div style="font-size: 13px;">Attended patients</div>
+                    </div>
+                </div>
+              </div><br>
+              <button class="btn waves-effect waves-light" onclick="$.fn.de_assign_all_patients()" style="border-radius: 30px; background-color: #243797; position: fixed; left: 20px; bottom: 20px; text-transform:initial" type="button">De-Assign all patients</button>
+  </div>
+
+  <div class="col-md-6">
+    <div style="font-size: 25px; color:#f3f1f1c9">Recently Attended Patients</div>
+    <br>
+    <div id="r_attend_p_table_id">
+  <div id="r_attend_p_id">
+    <div style="padding-bottom: 20px;">
+      <div style="width:100%; color: white; min-height: 50px; background: #11111133; padding: 20px; border-radius: 20px;">
+        <div style="font-size: 18px;">Dada chibuzor okaffor <span style="color: #f3f1f1c9; font-size: 13px;"> 12abdksdGDJSmsdndk</span></div>
+        <div style="color: #f3f1f1c9;">lsdmk sdlkm sdkln sdk k ldnk ksdj ksjd jsdn sdoij sdioj sdioj sdoij</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  
+
+    
+
+  </div>
+</div>
+ </div>
+  
+  </div>
+
+
+<div class="patient_fragment" id="main_patient_fragment" style="overflow-x: hidden;">
   <div id="patient_data_fragment" class="animated faster" style="display: none;">
-    <div style="height: 0px;"></div>
-  <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-bottom: #09c;">
-    <div style="width: 100%; height: 10px;"></div>
-      <li class="nav-item waves-effect waves-light">
+  <b>
+    <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-bottom: #243797; background: #243797;">
+      <div style="width: 100%; height: 10px;"></div>
+      <li class="nav-item waves-effect waves-light" style="display: none;">
         <a class="nav-link active v_nav_link" id="chart-tab" data-toggle="tab" href="#chart" role="tab" aria-controls="chart" aria-selected="true" onclick="chartTabclick()">Chart</a>
       </li>
       <li class="nav-item waves-effect waves-light">
@@ -102,193 +167,341 @@
             <a class="nav-link" id="Medication-tab" data-toggle="tab" href="#medication" role="tab" aria-controls="medication" aria-selected="false" onclick="PrescriptionTabclick()">Prescription</a>
           </li>
           <li class="nav-item waves-effect waves-light">
-              <a class="nav-link" id="Dispensed-tab" data-toggle="tab" href="#Dispensed" role="tab" aria-controls="Dispensed" aria-selected="false" onclick="DispensedTabclick()">Dispensed</a>
+              <a class="nav-link" id="Dispensed-tab" data-toggle="tab" href="#dispensed" role="tab" aria-controls="dispensed" aria-selected="false" onclick="DispensedTabclick()">Dispensed</a>
             </li>
             <li class="nav-item waves-effect waves-light">
-                <a class="nav-link" id="Note-tab" data-toggle="tab" href="#Note" role="tab" aria-controls="Note" aria-selected="false" onclick="NoteTabclick()">Encounter-Notes</a>
+                <a class="nav-link" id="Note-tab" data-toggle="tab" href="#note" role="tab" aria-controls="note" aria-selected="false" onclick="NoteTabclick()">Note</a>
               </li>
            <li class="nav-item waves-effect waves-light">
             <a class="nav-link" id="full-record" data-toggle="tab" href="#fullrecord" role="tab" aria-controls="fullrecord" onclick="FullrecTabclick()" aria-selected="false">Full Record</a>
           </li> 
-        
-          <div style="width: 25%;">
-            <button id="de_assign_btn_ID" class="btn btn-blue" style="border-radius:100px; height: 10px; padding-top:3px;padding-bottom: 21px; float: right;">De-assign</button>
+          <div style="width: 35%; padding-top:7px">
+            <button id="de_assign_btn_ID" class="btn btn-white" style="border-radius:100px; height: 10px; padding-top:3px;padding-bottom: 21px; float: right;">De-assign</button>
           </div>
-<div style="width: 10%;"><div style="float: right;" style="width: 20%">
-  <button type="button" id="prv_p_btn_clickVN" onclick="$.fn.prv_patient_btn_click()" class="rounded-circle z-depth-0 theme_color_secondary waves-effect waves-light white_text" style=" padding-top: 5px; padding-left: 10px; padding-right: 10px; padding-bottom: 5px; color:white; border:none; outline:none;"><i class="fa fa-arrow-left"></i></button>
-  <button type="button" id="next_p_btn_clickVN" onclick="$.fn.next_patient_btn_click()" class="rounded-circle z-depth-0 theme_color_secondary waves-effect waves-light white_text" style=" padding-top: 5px; padding-left: 10px; padding-right: 10px; padding-bottom: 5px; color:white; border:none; outline:none;"><i class="fa fa-arrow-right"></i></button>
-</div>
-</div>
-<div style="float: right; padding-left: 20px;"><button type="button" class="rounded-circle z-depth-0 waves-effect waves-light" onclick="insert_out_anim_for_idle_fragment()" style="padding-top: 5px; padding-left: 12px; padding-right: 12px; padding-bottom: 5px; color:grey; border: none; outline:none;"><i class="fa fa-close"></i></button></div>
+          <div style="width: 10%;"><div style="float: right;" style="width: 20%">
+            <button type="button" id="prv_p_btn_clickVN" onclick="$.fn.prv_patient_btn_click()" class="rounded-circle z-depth-0 theme_color_secondary waves-effect waves-light white_text" style=" padding-top: 10px; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; border:none; outline:none;"><i class="fa fa-arrow-left"></i></button>
+            <button type="button" class="rounded-circle z-depth-0 theme_color_secondary waves-effect waves-light white_text" id="next_p_btn_clickVN" onclick="$.fn.next_patient_btn_click()" style=" padding-top: 10px; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; border:none; outline:none;"><i class="fa fa-arrow-right"></i></button>
+          </div>
+          </div>
+          <div style="float: right; padding-left: 20px;"><button type="button" class="rounded-circle z-depth-0 waves-effect waves-light" onclick="insert_out_anim_for_idle_fragment()" style="padding-top: 10px; padding-left: 12px; padding-right: 12px; padding-bottom: 10px; color:grey; border: none; outline:none;"><i class="fa fa-close"></i></button></div>
+              
+    </ul>
+  </b>
 
-  </ul>
-  <div class="theme_color_secondary" style="height: 10px;"></div>
-  <div class="tab-content" id="myTabContent" style="overflow-x: hidden;">
-    <div class="tab-pane fade show active" id="chart" role="tabpanel" aria-labelledby="chart-tab">
-      <div style="background: #eee; width: 100.1%;">
-
-        <div style="width: 100%;" class="animated faster" id="chart_inner">
-    <div>
-
-            <div class="row" style=" padding: 50px;">
-
-
-                    <div class="col-md-4">
-                        <!-- Card Narrower -->
-                              <div class="card" style="min-height: 300px;">
-                                <div id="usrDetails_disp_div_loader" style="padding-top: 35%; text-align: center;">
-                                <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
-                                </div>
-                                <div id="usrDetails_disp_div" style="display:none;">
-                                <div style="padding-left: 15px;">
-                                    <div style="width: 104.5%;">
-                                        <div>
-                          
-                                            <div class="v_patient_details_module_header row">
-                                                <div class="col-md-3">
-                                                    <img id="patient_pp_pdr" src="img/working_prof/rily.jpg" class="rounded-circle z-depth-0" style="width: 70px; height: 70px" alt="avatar image">
-                                                  </div>
-                                            
-                                                  <div class="col-md-8">
-                                                      
-                                                        <div style="font-size: 20px; font-family: Arial, Helvetica, sans-serif" id="patient_name_pdr"></div>
-                                                        <div style="font-size: 13px; padding-top: 10px; color: #bdbdbd;">
-                                                          <div class="row"> <div class="col-md-4" id="patient_sex_pdr"></div> <div class="col-md-7"><span id="patient_age_pdr"></span> years old</div>  </div>
-                                                          <div class="row"> <div class="col-md-8" id="patient_prof_pdr"></div> <div class="col-md-4" id="patient_height_pdr"></div>  </div>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                </div>
-                              
-                                            
-                                          </div>
-                                    </div>
-                              
-                      
-                                </div>
-                                <div class="row" id="userProf_details_pdr" style="padding-top: 2px; padding-left: 20px; padding-right: 3px; padding-bottom: 2px; min-height: 320px;">
-                                  <div class="col-md-6" id="patient_md_sexS_pdr"><span><b>Sex:</b></span><span id="patient_sexS_pdr"></span></div>
-                                  <div class="col-md-6" id="patient_md_heightS_pdr"><span><b>Height:</b></span><span id="patient_heightS_pdr"></span></div>
-                                  <div class="col-md-6" id="patient_md_ageS_pdr"><span><b>Age:</b></span><span id="patient_ageS_pdr"></span></div>
-                                <div class="col-md-6" id="patient_md_phone_no_pdr"><span><b>Phone No:</b></span><span id="patient_phone_no_pdr"></span></div>
-                                <div class="col-md-6" id="patient_md_email_pdr"><span><b>Email:</b></span><span id="patient_email_pdr"></span></div>
-                                <div class="col-md-6" id="patient_md_prof_pdr"><span><b>Occupation:</b></span><span id="patient_prof_pdr"></span></div>
-                                <div class="col-md-6" id="patient_md_dept_pdr"><span><b>Dept:</b></span><span id="patient_dept_pdr"></span></div>
-                                <div class="col-md-6" id="patient_md_facul_pdr"><span><b>Faculty:</b></span><span id="patient_facul_pdr"></span></div>
-                                <div class="col-md-6" id="patient_md_alerg_pdr"><span><b>Allergies:</b></span><span id="patient_alerg_pdr"></span></div>
-                                </div>
-                                </div>
-                      
-                              </div>
-                              <!-- Card Narrower -->
-                      
-                      </div>
-                
-                
-                      <div class="col-md-8" style="">
+    <div class="theme_color_secondary" style="height: 10px; background: #243797;"></div>
+    <div style="background: #eee;">
+      <div style="background: #243797; padding-bottom: 10px; color: white;">
+        <div class="row" style="padding-top: 5px; padding-left: 30px;">
+          <div class="col-md-2">
+            <img id="patient_pp_pdr" src="img/user.png" class="rounded-circle z-depth-0" style="width: 40px; height: 40px" alt="avatar image"><span> </span><span style="font-size: 17px; font-family: 'Nunito', sans-serif; " id="patient_name_pdr"></span>
+          </div>
+          <div class="col-md-1" style="padding-top: 8px;">Sex: <span id="patient_sex_pdr"></span></div> 
+          <div class="col-md-1" style="padding-top: 8px;">Age: <span id="patient_age_pdr"></span></div>
+          <div class="col-md-1" style="padding-top: 8px;">Height: <span id="patient_heightS_pdr"></span></div>
+          <div class="col-md-3" style="padding-top: 8px;">Email: <span id="patient_email_pdr"></span></div> 
+          <div class="col-md-2" style="padding-top: 8px;">PhoneNo: <span id="patient_phone_no_pdr"></span></div>
+          <div class="col-md-2" style="padding-top: 8px;">Occupation: <span id="patient_prof_pdr"></span></div> 
+        </div>
+        </div>
+    </div>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">
+        <div style="background: #eee; width: 100.1%;">
+  
+          <div style="width: 100%;" class="animated faster" id="chart_inner">
+      <div>
+  
+              <div class="row" style=" padding: 50px;">
+  
+  
+                      <div class="col-md-4">
                           <!-- Card Narrower -->
-                                <div class="card card-cascade narrower animated" style="min-height: 500px;" id="lab-test-O-main-container">
-                                  <div id="chart_disp_div_loaderDDH" style="padding-top: 30%; text-align: center;">
-                                    <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
-                                    </div>
-                                  <div id="chart_disp_div_mainDDH" style="display: none;">
-                                  <!-- Card image -->
-                                  <div style="width: 100%;">
-                                  <div style="width: 100%;" align="center">
-                                  <div class="view view-cascade overlay" style="width: 80%">
-                                   <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5>RECENT PRESCRIPTION (<span id="r_presc_date_pdr"></span>)</h5></div>
-                                    <a>
-                                      <div class="mask rgba-white-slight waves-effect waves-light"></div>
-                                    </a>
+                                <div class="card" style="min-height: 300px;">
+                                  <div id="usrDetails_disp_div_loader" style="padding-top: 35%; text-align: center;">
+                                  <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
                                   </div>
-                                  </div>
-                                  </div>
+                                  <div id="usrDetails_disp_div" style="display:none;">
+                                  <div style="padding-left: 15px;">
+                                      <div style="width: 104.5%;">
+                                          <div>
+                            
+                                              <div class="v_patient_details_module_header row">
+                                                  
+                                              
+                                                    <div class="col-md-8">
+                                                        
+                                                          <div style="font-size: 13px; padding-top: 10px; color: #bdbdbd;">
+                                                            
+                                                          </div>
+                                                          
+                                                      </div>
+                                                  </div>
+                                
+                                              
+                                            </div>
+                                      </div>
+                                
                         
-                                  <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="r_prescription_div_dpr">
-                             
                                   </div>
-                                </div>
+                                  <!-- <div class="row" id="userProf_details_pdr" style="padding-top: 2px; padding-left: 20px; padding-right: 3px; padding-bottom: 2px; min-height: 320px;">
+                                        <div class="col-md-6" id="patient_md_sexS_pdr"><span><b>Sex:</b></span><span id="patient_sexS_pdr"></span></div>
+                                        <div class="col-md-6" id="patient_md_heightS_pdr"><span><b>Height:</b></span><span id="patient_heightS_pdr"></span></div>
+                                        <div class="col-md-6" id="patient_md_ageS_pdr"><span><b>Age:</b></span><span id="patient_ageS_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_phone_no_pdr"><span><b>No:</b></span><span id="patient_phone_no_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_email_pdr"><span><b>Email:</b></span><span id="patient_email_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_prof_pdr"><span><b>Occupation:</b></span><span id="patient_prof_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_dept_pdr"><span><b>Dept:</b></span><span id="patient_dept_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_facul_pdr"><span><b>Faculty:</b></span><span id="patient_facul_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_alerg_pdr"><span><b>Allergies:</b></span><span id="patient_alerg_pdr"></span></div>
+                                      </div> -->
+                                  </div>
                         
                                 </div>
                                 <!-- Card Narrower -->
                         
                         </div>
-                
-                
-                      
-                
-                </div>
-
-    </div>
-
-         
-        </div>
-
-
-      </div>
-    </div>
-   
-    <div class="tab-pane fade" id="radiograph" role="tabpanel" aria-labelledby="Radiograph-tab">
-    
-        <div style="background: #eee; width: 100%;">
-<div class="row v_Main_tab_padding_o">
-
-    <div class="col-md-9">
-        <!-- Card Narrower -->
-              <div class="card card-cascade narrower animated faster" style="min-height: 500px;" id="Radiograph-main-container">
-                <div id="radiograph_disp_div_loaderDDH" class="disp_loader_div">
-                  <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                  
+                  
+                        <div class="col-md-8" style="">
+                            <!-- Card Narrower -->
+                                  <div class="card card-cascade narrower animated" style="min-height: 500px;" id="lab-test-O-main-container">
+                                    <div id="chart_disp_div_loaderDDH" style="padding-top: 30%; text-align: center;">
+                                      <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                      </div>
+                                    <div id="chart_disp_div_mainDDH" style="display: none;">
+                                    <!-- Card image -->
+                                    <div style="width: 100%;">
+                                    <div style="width: 100%;" align="center">
+                                    <div class="view view-cascade overlay" style="width: 80%">
+                                     <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5>RECENT PRESCRIPTION (<span id="r_presc_date_pdr"></span>)</h5></div>
+                                      <a>
+                                        <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                                      </a>
+                                    </div>
+                                    </div>
+                                    </div>
+                          
+                                    <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="r_prescription_div_dpr">
+                               
+                                    </div>
+                                  </div>
+                          
+                                  </div>
+                                  <!-- Card Narrower -->
+                          
+                          </div>
+                  
+                  
+                        
+                  
                   </div>
-                <div style="display: none;" id="radiograph_disp_div_mainDDH">
-                <!-- Card image -->
-                <div style="width: 100%;">
-                <div style="width: 100%;" align="center">
-                <div class="view view-cascade overlay" style="width: 80%">
-                 <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="radiograph_date_pdr"></span></h5></div>
-                  <a>
-                    <div class="mask rgba-white-slight waves-effect waves-light"></div>
-                  </a>
-                </div>
-                </div>
-                </div>
-      
-                <!-- Card content -->
-               <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"></div>
-      
-              </div>
-              <!-- Card Narrower -->
-              </div>
+  
       </div>
-
-<div class="col-md-3">
-    <div class="card" style="min-height: 200px;">
-        <table id="radiograph_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
-          </table>
+  
+           
+          </div>
+  
+  
+        </div>
+      </div>
+     
+      <div class="tab-pane fade show active" id="radiograph" role="tabpanel" aria-labelledby="Radiograph-tab">
+      
+          <div style="background: #eee; width: 100%;">
+  <div class="row v_Main_tab_padding_o">
+  
+      <div class="col-md-9" style="padding-left: 30px; padding-right: 30px;">
+          <!-- Card Narrower -->
+                <div class="card card-cascade narrower animated faster" style="min-height: 500px;border-radius: 30px;" id="Radiograph-main-container">
+                  <div id="radiograph_disp_div_loaderDDH" class="disp_loader_div">
+                    <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                    </div>
+                  <div style="display: none;" id="radiograph_disp_div_mainDDH">
+                  <!-- Card image -->
+                  <div style="width: 100%;">
+                  <div style="width: 100%;" align="center">
+                  <div class="view view-cascade overlay" style="width: 80%">
+                   <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="radiograph_date_pdr"></span></h5></div>
+                    <a>
+                      <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                    </a>
+                  </div>
+                  </div>
+                  </div>
+        
+                  <!-- Card content -->
+                 <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"></div>
+        
+                </div>
+                <!-- Card Narrower -->
+                </div>
+        </div>
+  
+  <div class="col-md-3">
+      <div class="card" id="radiograph_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
+          <table id="radiograph_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record">
+            </table>
+      </div>
     </div>
   </div>
-</div>
-<br>
-</div>
-
-    </div>
-    <div class="tab-pane fade" id="lab" role="tabpanel" aria-labelledby="Lab-tab">
-
-
+  <br>
+  </div>
+  
+      </div>
+      <div class="tab-pane fade" id="lab" role="tabpanel" aria-labelledby="Radiograph-tab">
+  
+  
+          <div style="background: #eee; width: 100%;">
+              <div class="row v_Main_tab_padding_o">
+              
+                  <div class="col-md-9">
+                      <!-- Card Narrower -->
+                            <div class="card card-cascade narrower animated faster" id="Lab-main-container" style="min-height: 500px;border-radius: 30px;">
+                              <div id="lab_disp_div_loaderDDH" class="disp_loader_div">
+                                <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                </div>
+                              <div id="lab_disp_div_mainDDH" style="display: none;">
+                              <!-- Card image -->
+                              <div style="width: 100%;">
+                              <div style="width: 100%;" align="center">
+                              <div class="view view-cascade overlay" style="width: 80%">
+                               <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Lab_date_pdr"></span></h5></div>
+                                <a>
+                                  <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                                </a>
+                              </div>
+                              </div>
+                              </div>
+                    
+                              <!-- Card content -->
+                             <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"></div>
+                              </div>
+                            </div>
+                            <!-- Card Narrower -->
+                    
+                    </div>
+              
+              <div class="col-md-3">
+                  <div class="card" id="Lab_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
+                      <table id="Lab_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                        </table>
+                  </div>
+                </div>
+              </div>
+              <br>
+              </div>
+  
+  
+      </div>
+      <div class="tab-pane fade" id="medication" role="tabpanel" aria-labelledby="Medication-tab">
+  
+  
+          <div style="background: #eee; width: 100%;">
+              <div class="row v_Main_tab_padding_o">
+              
+                  <div class="col-md-9">
+                      <!-- Card Narrower -->
+                            <div class="card card-cascade narrower animated faster" id="Prescription-main-container" style="min-height: 500px; border-radius: 30px;">
+                              <div id="prescription_disp_div_loaderDDH" class="disp_loader_div">
+                                <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                </div>
+                              <div id="prescription_disp_div_mainDDH" style="display: none;">
+                              <!-- Card image -->
+                              <div style="width: 100%;">
+                              <div style="width: 100%;" align="center">
+                              <div class="view view-cascade overlay" style="width: 80%">
+                               <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Prescription_date_pdr"></span></h5></div>
+                                <a>
+                                  <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                                </a>
+                              </div>
+                              </div>
+                              </div>
+                    
+                              <!-- Card content -->
+                             <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"></div>
+                    
+                            </div>
+                            <!-- Card Narrower -->
+                    </div>
+                    </div>
+              
+              <div class="col-md-3">
+                  <div class="card" id="Prescription_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
+                      <table id="Prescription_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                        </table>
+                  </div>
+                </div>
+              </div>
+              <br>
+              </div>
+  
+  
+  
+      </div>
+      <div class="tab-pane fade" id="Dispensed" role="tabpanel"  aria-labelledby="Radiograph-tab">
+  
+  
+          <div style="background: #eee; width: 100%;">
+              <div class="row v_Main_tab_padding_o">
+              
+                  <div class="col-md-9">
+                      <!-- Card Narrower -->
+                            <div class="card card-cascade narrower animated faster" id="Dispensed-main-container" style="min-height: 500px; border-radius: 30px;">
+                              <div id="dispansed_disp_div_loaderDDH" class="disp_loader_div">
+                                <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                </div>
+                              <div id="dispansed_disp_div_mainDDH" style="display: none;">
+                              <!-- Card image -->
+                              <div style="width: 100%;">
+                              <div style="width: 100%;" align="center">
+                              <div class="view view-cascade overlay" style="width: 80%">
+                               <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Dispensed_date_pdr"></span></h5></div>
+                                <a>
+                                  <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                                </a>
+                              </div>
+                              </div>
+                              </div>
+                    
+                              <!-- Card content -->
+                             <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"></div>
+                              </div>
+                            </div>
+                            <!-- Card Narrower -->
+                    
+                    </div>
+              
+              <div class="col-md-3">
+                  <div class="card" id="Dispensed_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
+                      <table id="Dispensed_selT_pdr" style="cursor: pointer;" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                        </table>
+                  </div>
+                </div>
+              </div>
+              <br>
+              </div>
+  
+  
+      </div>
+      <div class="tab-pane fade" id="Note" role="tabpanel" aria-Noteelledby="Radiograph-tab">
+  
+  
         <div style="background: #eee; width: 100%;">
             <div class="row v_Main_tab_padding_o">
             
                 <div class="col-md-9">
                     <!-- Card Narrower -->
-                          <div class="card card-cascade narrower animated faster" id="Lab-main-container" style="min-height: 500px;">
-                            <div id="lab_disp_div_loaderDDH" class="disp_loader_div">
+                          <div class="card card-cascade narrower animated faster" id="Note-main-container" style="min-height: 500px; border-radius: 30px;">
+                            <div id="note_disp_div_loaderDDH" class="disp_loader_div">
                               <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
                               </div>
-                            <div id="lab_disp_div_mainDDH" style="display: none;">
+                            <div id="note_disp_div_mainDDH" style="display: none;">
                             <!-- Card image -->
                             <div style="width: 100%;">
                             <div style="width: 100%;" align="center">
                             <div class="view view-cascade overlay" style="width: 80%">
-                             <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Lab_date_pdr"></span></h5></div>
+                             <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Note_date_pdr"></span></h5></div>
                               <a>
                                 <div class="mask rgba-white-slight waves-effect waves-light"></div>
                               </a>
@@ -297,7 +510,7 @@
                             </div>
                   
                             <!-- Card content -->
-                           <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"></div>
+                           <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"></div>
                             </div>
                           </div>
                           <!-- Card Narrower -->
@@ -305,8 +518,8 @@
                   </div>
             
             <div class="col-md-3">
-                <div class="card" style="min-height: 200px;">
-                    <table id="Lab_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                <div class="card" id="Note_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
+                    <table id="Note_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
                       </table>
                 </div>
               </div>
@@ -316,115 +529,26 @@
 
 
     </div>
-    <div class="tab-pane fade" id="medication" role="tabpanel" aria-labelledby="Medication-tab">
-
-
+      <div class="tab-pane fade" id="fullrecord" role="tabpanel" aria-labelledby="full-record">
+  
+  
+  
+  
         <div style="background: #eee; width: 100%;">
-            <div class="row v_Main_tab_padding_o">
-            
-                <div class="col-md-9">
-                    <!-- Card Narrower -->
-                          <div class="card card-cascade narrower animated faster" id="Prescription-main-container" style="min-height: 500px;">
-                            <div id="prescription_disp_div_loaderDDH" class="disp_loader_div">
-                              <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
-                              </div>
-                            <div id="prescription_disp_div_mainDDH" style="display: none;">
-                            <!-- Card image -->
-                            <div style="width: 100%;">
-                            <div style="width: 100%;" align="center">
-                            <div class="view view-cascade overlay" style="width: 80%">
-                             <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Prescription_date_pdr"></span></h5></div>
-                              <a>
-                                <div class="mask rgba-white-slight waves-effect waves-light"></div>
-                              </a>
-                            </div>
-                            </div>
-                            </div>
-                  
-                            <!-- Card content -->
-                           <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"></div>
-                  
-                          </div>
-                          <!-- Card Narrower -->
-                  </div>
-                  </div>
-            
-            <div class="col-md-3">
-                <div class="card" style="min-height: 200px;">
-                    <table id="Prescription_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
-                      </table>
-                </div>
-              </div>
-            </div>
-            <br>
-            </div>
-
-
-
-    </div>
-    <div class="tab-pane fade" id="Dispensed" role="tabpanel"  aria-labelledby="Dispensed-tab">
-
-
-        <div style="background: #eee; width: 100%;">
-            <div class="row v_Main_tab_padding_o">
-            
-                <div class="col-md-9">
-                    <!-- Card Narrower -->
-                          <div class="card card-cascade narrower animated faster" id="Dispensed-main-container" style="min-height: 500px;">
-                            <div id="dispansed_disp_div_loaderDDH" class="disp_loader_div">
-                              <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
-                              </div>
-                            <div id="dispansed_disp_div_mainDDH" style="display: none;">
-                            <!-- Card image -->
-                            <div style="width: 100%;">
-                            <div style="width: 100%;" align="center">
-                            <div class="view view-cascade overlay" style="width: 80%">
-                             <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Dispensed_date_pdr"></span></h5></div>
-                              <a>
-                                <div class="mask rgba-white-slight waves-effect waves-light"></div>
-                              </a>
-                            </div>
-                            </div>
-                            </div>
-                  
-                            <!-- Card content -->
-                           <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"></div>
-                            </div>
-                          </div>
-                          <!-- Card Narrower -->
-                  
-                  </div>
-            
-            <div class="col-md-3">
-                <div class="card" style="min-height: 200px;">
-                    <table id="Dispensed_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
-                      </table>
-                </div>
-              </div>
-            </div>
-            <br>
-            </div>
-
-
-    </div>
-    <div class="tab-pane fade" id="Note" role="tabpanel" aria-labelledby="Note-tab">
-
-
-      <div style="background: #eee; width: 100%;">
           <div class="row v_Main_tab_padding_o">
           
               <div class="col-md-9">
                   <!-- Card Narrower -->
-                        <div class="card card-cascade narrower animated faster" id="Note-main-container" style="min-height: 500px;">
-                          <div id="note_disp_div_loaderDDH" class="disp_loader_div">
+                        <div class="card card-cascade narrower animated faster" id="Fullrec-main-container" style="min-height: 500px; border-radius: 30px;">
+                          <div id="Fullrec_disp_div_loaderDDH" class="disp_loader_div">
                             <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
                             </div>
-                          <div id="note_disp_div_mainDDH" style="display: none;">
+                          <div id="Fullrec_disp_div_mainDDH" style="display: none;">
                           <!-- Card image -->
                           <div style="width: 100%;">
                           <div style="width: 100%;" align="center">
                           <div class="view view-cascade overlay" style="width: 80%">
-                           <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Note_date_pdr"></span></h5></div>
+                           <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Fullrec_date_pdr"></span></h5></div>
                             <a>
                               <div class="mask rgba-white-slight waves-effect waves-light"></div>
                             </a>
@@ -433,7 +557,7 @@
                           </div>
                 
                           <!-- Card content -->
-                         <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"></div>
+                         <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"></div>
                           </div>
                         </div>
                         <!-- Card Narrower -->
@@ -441,129 +565,100 @@
                 </div>
           
           <div class="col-md-3">
-              <div class="card" style="min-height: 200px;">
-                  <table id="Note_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+              <div class="card" id="Fullrec_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
+                  <table id="Fullrec_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
                     </table>
               </div>
             </div>
           </div>
           <br>
           </div>
-
-
-  </div>
-    <div class="tab-pane fade" id="fullrecord" role="tabpanel" aria-labelledby="full-record">
-
-
-
-
-      <div style="background: #eee; width: 100%;">
-        <div class="row v_Main_tab_padding_o">
-        
-            <div class="col-md-9">
-                <!-- Card Narrower -->
-                      <div class="card card-cascade narrower animated faster" id="Fullrec-main-container" style="min-height: 500px;">
-                        <div id="Fullrec_disp_div_loaderDDH" class="disp_loader_div">
-                          <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
-                          </div>
-                        <div id="Fullrec_disp_div_mainDDH" style="display: none;">
-                        <!-- Card image -->
-                        <div style="width: 100%;">
-                        <div style="width: 100%;" align="center">
-                        <div class="view view-cascade overlay" style="width: 80%">
-                         <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Fullrec_date_pdr"></span></h5></div>
-                          <a>
-                            <div class="mask rgba-white-slight waves-effect waves-light"></div>
-                          </a>
-                        </div>
-                        </div>
-                        </div>
-              
-                        <!-- Card content -->
-                       <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"></div>
-                        </div>
-                      </div>
-                      <!-- Card Narrower -->
-              
-              </div>
-        
-        <div class="col-md-3">
-            <div class="card" style="min-height: 200px;">
-                <table id="Fullrec_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
-                  </table>
-            </div>
-          </div>
-        </div>
-        <br>
-        </div>
-
-
-
-
-
-
+  
+  
+  
+  
+  
+  
+      </div>
     </div>
-  </div>
+    
+  
+  
+  <div class="v_prescription_form_container animated faster" id="v_pr_form_container">
+      <div class="classic-tabs">
+  
+          <ul class="nav" id="myClassicTab" role="tablist" style="width: 98.9%; background: #232323; border-top-right-radius: 30px; border-top-left-radius: 30px;">
+            <li class="nav-item v_lower_tab_cell_hw">
+              <a class="waves-light waves-effect dispenseTabInitialTxtColor active show" onclick="tab_pane1ClickAction()" id="profile-tab-classic" data-toggle="tab" href="#profile-classic" role="tab" aria-controls="profile-classic" aria-selected="true" style="border-top-left-radius: 30px;"><div style="padding: 2px; padding-left: 10px; width: 100px; text-align: center;"><b>Prescription</b></div></a>
+            </li>
+            
+                    <li class="nav-item v_lower_tab_cell_hw">
+                      <a class="v_lower_tab_cell waves-light waves-effect  v_text_whiteFF" onclick="tab_pane2ClickAction()" id="follow-tab-classic" data-toggle="tab" href="#follow-classic" role="tab" aria-controls="follow-classic" aria-selected="false"><div style="padding: 2px; width: 100px; text-align: center;"><b>Lab test</b></div></a>
+                    </li>
+                    <li class="nav-item v_lower_tab_cell_hw">
+                      <a class="v_lower_tab_cell waves-light waves-effect v_text_whiteFF" onclick="tab_pane3ClickAction()" id="contact-tab-classic" data-toggle="tab" href="#contact-classic" role="tab" aria-controls="contact-classic" aria-selected="false"><div style="padding: 2px; width: 100px; text-align: center;"><b>Image test</b></div></a>
+                    </li>
+                    <li class="nav-item v_lower_tab_cell_hw">
+                      <a class="v_lower_tab_cell waves-light v_text_whiteFF waves-effect" onclick="tab_pane5ClickAction()" id="note-btn" data-toggle="tab" href="#contact-classic3" role="tab" aria-controls="contact-classic3" aria-selected="false"><div style="padding: 2px; width: 100px; text-align: center; color: #ffd180;"><b>NOTE</b></div></a>
+                    </li>
+                    <li class="nav-item v_lower_tab_cell_hw" style="padding-left:27%;">
+                      <a class="v_lower_tab_cell waves-light waves-effect " style="background: #09c;" id="forms_btn_id" onclick="$.fn.openFormSelector()"><div style="padding: 2px; width: 130px; text-align: center;" class="v_text_whiteFF"><b>Forms</b></div></a>
+                    </li>
+                    <li class="nav-item v_lower_tab_cell_hw" style="padding-left:10%;">
+                      <a class="v_lower_tab_cell waves-light waves-effect " style="background: #09c;" id="encNotebtnId" onclick="start_EncounterN_uploadMM()"><div style="padding: 2px; width: 130px; text-align: center;" class="v_text_whiteFF"><b>EncounterNote</b></div></a>
+                    </li>
+                    <li class="nav-item">
+                      <div style="padding-left: 130px;"><div class=" waves-effect waves-light fa fa-arrow-up" id="push_bottom_dispense_pane_up_id" onclick="$.fn.bottom_dispense_pane_button_press()" style="padding-left: 10px; padding-right: 10px; padding-top: 8px; padding-bottom: 10px; height: 13px; font-size: 10px; color: white;"></div> </div>
+                    </li>
 
-<div class="v_prescription_form_container animated faster" id="v_pr_form_container">
-    <div class="classic-tabs" style="">
-
-        <ul class="nav" id="myClassicTab" role="tablist" style=" background: #424242;">
-          <li class="nav-item v_lower_tab_cell_hw">
-            <a class="waves-light waves-effect active show v_lower_pane_active" onclick="tab_pane1ClickAction()" id="profile-tab-classic" data-toggle="tab" href="#profile-classic" role="tab" aria-controls="profile-classic" aria-selected="true"><div style="padding: 2px; width: 100px; text-align: center;"><b>Prescription</b></div></a>
-          </li>
-          <li class="nav-item v_lower_tab_cell_hw">
-            <a class="v_lower_tab_cell waves-light waves-effect  v_text_whiteFF" onclick="tab_pane2ClickAction()" id="follow-tab-classic" data-toggle="tab" href="#follow-classic" role="tab" aria-controls="follow-classic" aria-selected="false"><div style="padding: 2px; width: 100px; text-align: center;"><b>Lab test</b></div></a>
-          </li>
-          <li class="nav-item v_lower_tab_cell_hw">
-            <a class="v_lower_tab_cell waves-light waves-effect v_text_whiteFF" onclick="tab_pane3ClickAction()" id="contact-tab-classic" data-toggle="tab" href="#contact-classic" role="tab" aria-controls="contact-classic" aria-selected="false"><div style="padding: 2px; width: 100px; text-align: center;"><b>Image test</b></div></a>
-          </li>
-          <li class="nav-item v_lower_tab_cell_hw" style="padding-left:39%;">
-            <a class="v_lower_tab_cell waves-light waves-effect " style="background: #09c;" id="forms_btn_id" onclick="$.fn.openFormSelector()"><div style="padding: 2px; width: 130px; text-align: center;" class="v_text_whiteFF"><b>Forms</b></div></a>
-          </li>
-          <li class="nav-item v_lower_tab_cell_hw" style="padding-left:10%;">
-            <a class="v_lower_tab_cell waves-light waves-effect " style="background: #09c;" id="encNotebtnId" onclick="start_EncounterN_uploadMM()"><div style="padding: 2px; width: 130px; text-align: center;" class="v_text_whiteFF"><b>EncounterNote</b></div></a>
-          </li>
-          <li class="nav-item">
-            <div style="padding-left: 130px;"><div class=" waves-effect waves-light fa fa-arrow-up" id="push_bottom_dispense_pane_up_id" onclick="$.fn.bottom_dispense_pane_button_press()" style="padding-left: 10px; padding-right: 10px; padding-top: 8px; padding-bottom: 10px; height: 13px; font-size: 10px; color: white;"></div> </div>
-          </li>
-        </ul>
-        <div class="tab-content" id="myClassicTabContent" style="display:none;">
-          <div class="tab-pane active show" id="profile-classic" role="tabpanel" aria-labelledby="profile-tab-classic">
-            <div style="width: 100%;">
-
-
+                    
+                    
+          </ul>
+          <div class="tab-content" id="myClassicTabContent" style="display: none;">
+  
+            <div class="tab-pane active show" id="profile-classic" style="height: 470px;" role="tabpanel" aria-labelledby="profile-tab-classic">
+              <div style="width: 100%;">
+        
+        
                 <div class="row" style="width: 100%;">
                     <div style="width: 55%; padding-left: 15px;">
                         
-                    <div class="v_prescription_form">
+                    <div class="records_portal_bottom_pane">
                       <div style="height: 10px;"></div>
                     <div class="prform_body">
-                      <div class="row">
-                    <div class="col-md-8">
-                      <form id="paper" method="get" action="">
-                        <textarea class="card mb-1" placeholder="Enter patient's Prescription." id="text" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 160px; "></textarea>
-                      </form>
-                    </div>
-                    <div class="col-md-3" style="padding-left: 70px;">
-                      <button onclick="start_prescription_upload()" id="submitPresc_btn" class="btn btn-outline-white waves-effect waves-light" style="text-align: center;">Send to Pharmacy</button>
-                               </div>
-                    </div>
+                      <a href="#ex1" rel="modal:open" id="prescription_modal_activator"></a>
+                        <div>
+                          <div style="padding-bottom: 60px;">
+                            <button class="btn btn-outline-black waves-effect waves-light" id="submitPresc_btn" style="text-align: center; padding-right: 20px; padding-left: 20px; border-radius: 10px; float: right;" onclick="start_prescription_upload()">Save</button>
+                          </div>
+                            <div>
+                              <form id="paper" method="get" action="">
+                                <textarea class="card mb-1" placeholder="Enter Prescription." id="text2" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 380px; width: 98%;"></textarea>
+                              </form>
+                            </div>
+                            
+                            
+                            </div>
                     </div>
                     
                     </div>
                     </div>
                     
                     <div style="width: 45%;">
-                    <div class="v_prescription_form" style="border-left: dashed 1px gray;">
+                    <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray;">
                       <div style="height: 10px;"></div>
-                      <div class="prform_body" style="color: white;">
-                        <div style="height: 165px; overflow-y: auto; overflow-x: hidden">
-                       <div style="font-size: 20px; color: grey;"><b>Lastest Prescription</b></div>
-                       <div style="font-size: 17px; color: grey;"><b>Date: <span id="rPrescriptionDispLwNabBar_date_pdr"></span></b></div>
-                       <div style="min-height: 200px; width: 97%;" id="rPrescriptionDispLwNabBar"></div>
-                        </div>
+                    <div class="">
+                      <div style="height: 450px; overflow-y: auto; overflow-x: hidden">
+                     <div style="font-size: 20px; color: #333333;"><b>Lastest Prescription</b></div>
+                     <div style="font-size: 17px; color: #333333;"><b>Date: <span id="rPrescriptionDispLwNabBar_date_pdr"></span></b></div>
+                     <div id="rPrescriptionDispLwNabBar_loaderDDH" class="disp_loader_div">
+                      <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
                       </div>
+                     <div id="rPrescriptionDispLwNabBar_mainDDH" style="display: none;">
+                      <div style="min-height: 200px; width: 97%;" id="rPrescriptionDispLwNabBar"></div>
+                     </div>
+                      </div>
+                    </div>
                     
                     </div>
                     </div>
@@ -571,119 +666,213 @@
 
               
             </div>
-          </div>
-          <div class="tab-pane" id="follow-classic" role="tabpanel" aria-labelledby="follow-tab-classic">
-            
-
+            </div>
+  
+            <div class="tab-pane" id="follow-classic" style="height: 470px;" role="tabpanel" aria-labelledby="follow-tab-classic">
               <div style="width: 100%;">
+        
+        
+                <div class="row" style="width: 100%;">
+                    <div style="width: 55%; padding-left: 15px;">
+                        
+                    <div class="records_portal_bottom_pane">
+                      <div style="height: 10px;"></div>
+                    <div class="prform_body">
+                      <a id="submitLabPresc_btn_modal_activator"></a>
+                        <div>
+                          <div style="padding-bottom: 60px;">
+                            <button class="btn btn-outline-black waves-effect waves-light" id="submitLabPresc_btn" style="text-align: center; padding-right: 20px; padding-left: 20px; border-radius: 10px; float: right;" onclick="start_labtest_upload()">Save</button>
+                          </div>
+                            <div>
+                              <form id="paper" method="get" action="">
+                                <textarea class="card mb-1" placeholder="Enter LabTest." id="text3" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 380px; width: 98%;"></textarea>
+                              </form>
+                            </div>
+                            
+                            
+                            </div>
+                    </div>
+                    
+                    </div>
+                    </div>
+                    
+                    <div style="width: 45%;">
+                    <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray;">
+                      <div style="height: 10px;"></div>
+                    <div class="">
+                      <div style="height: 450px; overflow-y: auto; overflow-x: hidden">
+                     <div style="font-size: 20px; color: #333333;"><b>Lastest Lab-Test</b></div>
+                     <div style="font-size: 17px; color: #333333;"><b>Date: <span id="rLabDispLwNabBardate_pdr"></span></b></div>
+                     <div id="rLabDispLwNabBardisp_div_loaderDDH" class="disp_loader_div">
+                      <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                      </div>
+                     <div id="rLabDispLwNabBardisp_div_mainDDH" style="display: none;">
+                      <div style="min-height: 200px; width: 97%;" id="rLabDispLwNabBar"></div>
+                     </div>
+                      </div>
+                    </div>
+                    
+                    </div>
+                    </div>
+                    </div>
 
+              
+            </div>
+            </div>
 
-                  <div class="row" style="width: 100%;">
-                      <div style="width: 55%; padding-left: 15px;">
-                          
-                      <div class="v_prescription_form">
+            <div class="tab-pane" id="contact-classic" style="height: 470px;" role="tabpanel" aria-labelledby="contact-tab-classic">
+              <div style="width: 100%;">
+        
+        
+                <div class="row" style="width: 100%;">
+                    <div style="width: 55%; padding-left: 15px;">
+                        
+                    <div class="records_portal_bottom_pane">
+                      <div style="height: 10px;"></div>
+                    <div class="prform_body">
+                      <a id="submitImagePresc_btn_modal_activator"></a>
+                        <div>
+                          <div style="padding-bottom: 60px;">
+                            <button class="btn btn-outline-black waves-effect waves-light" id="submitImagePresc_btn" style="text-align: center; padding-right: 20px; padding-left: 20px; border-radius: 10px; float: right;" onclick="start_imageTest_upload()">Save</button>
+                          </div>
+                            <div>
+                              <form id="paper" method="get" action="">
+                                <textarea class="card mb-1" placeholder="Enter Image Test." id="text4" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 380px; width: 98%;"></textarea>
+                              </form>
+                            </div>
+                            
+                            
+                            </div>
+                    </div>
+                    
+                    </div>
+                    </div>
+                    
+                    <div style="width: 45%;">
+                      <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray;">
                         <div style="height: 10px;"></div>
-                      <div class="prform_body">
-                          <div class="row">
-                              <div class="col-md-8">
-                                <form id="paper" method="get" action="">
-                                  <textarea class="card mb-1" placeholder="Enter Lab test." id="text2" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 160px; "></textarea>
-                                </form>
+                      <div class="">
+                        <div style="height: 450px; overflow-y: auto; overflow-x: hidden">
+                       <div style="font-size: 20px; color: #333333;"><b>Lastest Radiograph-Test</b></div>
+                       <div style="font-size: 17px; color: #333333;"><b>Date: <span id="radiographDwrkBar_date_pdr"></span></b></div>
+                       <div id="radiographDwrkBar_loaderDDH" class="disp_loader_div">
+                        <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                        </div>
+                       <div id="radiographDwrkBar_mainDDH" style="display: none;">
+                        <div style="min-height: 200px; width: 97%;" id="radiographDwrkBar"></div>
+                       </div>
+                        </div>
+                      </div>
+                      
+                      </div>
+                      </div>
+                    </div>
+
+              
+            </div>
+            </div>
+
+            <div class="tab-pane" id="contact-classic2" role="tabpanel" aria-labelledby="contact-tab-classic2"></div>
+            <div class="tab-pane" id="note-btn" role="tabpanel" aria-labelledby="contact-tab-classic">
+                  </div>
+  
+  
+  
+  
+              <div class="tab-pane" id="contact-classic3" style="height: 470px;" role="tabpanel" aria-labelledby="contact-tab-classic3">
+                      <div style="width: 100%;">
+        
+        
+                          <div class="row" style="width: 100%;">
+                              <div style="width: 55%; padding-left: 15px;">
+                                  
+                              <div class="records_portal_bottom_pane">
+                                <div style="height: 10px;"></div>
+                              <div class="prform_body">
+                                  <div>
+                                    <div style="padding-bottom: 60px;">
+                                      <button class="btn btn-outline-black waves-effect waves-light" onclick="$.fn.startNoteSubmission()" id="sNotebtn" style="text-align: center; padding-right: 20px; padding-left: 20px; border-radius: 10px; float: right;">Save</button>
+                                    </div>
+                                      <div>
+                                        <form id="paper" method="get" action="">
+                                          <textarea class="card mb-1" placeholder="Enter Note." id="text" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 380px; "></textarea>
+                                        </form>
+                                      </div>
+                                      
+                                      
+                                      </div>
                               </div>
-                              <div class="col-md-3" style="padding-left: 70px;">
-                                <button onclick="start_labtest_upload()" class="btn btn-outline-white waves-effect waves-light" style="text-align: center; padding-right: 20px; padding-left: 20px;" id="submitLabPresc_btn">Send to Laboratory</button>
+                              
+                              </div>
+                              </div>
+                              
+                              <div style="width: 45%;">
+                              <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray;">
+                                <div style="height: 10px;"></div>
+                              <div class="">
+                                <div style="height: 450px; overflow-y: auto; overflow-x: hidden">
+                               <div style="font-size: 20px; color: #333333;"><b>Lastest Note</b></div>
+                               <div style="font-size: 17px; color: #333333;"><b>Date: <span id="rnoteDispLwNabBar_date_pdr"></span></b></div>
+                               <div id="rnoteDispLwNabBar_loaderDDH" class="disp_loader_div">
+                                <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                </div>
+                               <div id="rnoteDispLwNabBar_mainDDH" style="display: none;">
+                                <div style="min-height: 200px; width: 97%;" id="rnoteDispLwNabBar"></div>
+                               </div>
                                 </div>
                               </div>
-                      </div>
-                      
-                      </div>
-                      </div>
-                      
-                      <div style="width: 45%;">
-                        <div class="v_prescription_form" style="border-left: dashed 1px gray;">
-                          <div style="height: 10px;"></div>
-                          <div class="prform_body" style="color: white;">
-                            <div style="height: 165px; overflow-y: auto; overflow-x: hidden">
-                           <div style="font-size: 20px; color: grey;"><b>Lastest Lab-test</b></div>
-                           <div style="font-size: 17px; color: grey;"><b>Date: <span id="rLabDispLwNabBar_date_pdr"></span></b></div>
-                           <div style="min-height: 200px; width: 97%;" id="rLabDispLwNabBar"></div>
-                            </div>
-                          </div>
-                        
-                        </div>
-                        </div>
-                      </div>
-  
-                
-              </div>
-
-
-
-          </div>
-          <div class="tab-pane" id="contact-classic" role="tabpanel" aria-labelledby="contact-tab-classic">
-              <div style="width: 100%;">
-
-
-                  <div class="row" style="width: 100%;">
-                      <div style="width: 55%; padding-left: 15px;">
-                          
-                      <div class="v_prescription_form">
-                        <div style="height: 10px;"></div>
-                      <div class="prform_body">
-                          <div class="row">
-                              <div class="col-md-8">
-                                <form id="paper" method="get" action="">
-                                  <textarea class="card mb-1" placeholder="Enter Image test." id="text3" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 160px; "></textarea>
-                                </form>
+                              
                               </div>
-                              <div class="col-md-3" style="padding-left: 70px;">
-                                <button onclick="start_imageTest_upload()" class="btn btn-outline-white waves-effect waves-light" style="text-align: center; padding-right: 20px; padding-left: 20px;" id="submitImagePresc_btn">Send to Radiography</button>
-                                   </div>
                               </div>
-                      </div>
-                      
-                      </div>
-                      </div>
-                      
-                        <div style="width: 45%;">
-                          <div class="v_prescription_form" style="border-left: dashed 1px gray;">
-                            <div style="height: 10px;"></div>
-                            <div class="prform_body" style="color: white;">
-                              <div style="height: 165px; overflow-y: auto; overflow-x: hidden">
-                             <div style="font-size: 20px; color: grey;"><b>Lastest Image-test</b></div>
-                             <div style="font-size: 17px; color: grey;"><b>Date: <span id="rRadiographDispLwNabBar_date_pdr"></span></b></div>
-                             <div style="min-height: 200px; width: 97%;" id="rRadiographDispLwNabBar"></div>
                               </div>
-                            </div>
-                          
-                          </div>
-                          </div>
-                      </div>
-  
-                
-              </div>
-          </div>
           
+                        
+                      </div>
+                  </div>
+  
+              
+  
+            
+          </div>
+
+        
         </div>
-      
-      </div>
-</div>
   </div>
-  <div id="idle_fragment" style="min-height: 1000px; text-align: center; display: block;" class="animated faster">
-    <div class="animated faster" id="idle_fragment_sub" style="display: block; padding-top: 13%;">
-        <div style="display: inline-block;">
-            <img src="img/appIcons/dextop_icon.png" style="width: 70px; height: 70px;" ><span style="font-size: 35px; padding-top: 30px; font-family: 'Ubuntu', sans-serif;"><b> Viostec</b></span>
-          </div><br><br>
+  
+  </div>
+  <div id="idle_fragment" style="min-height: 1000px; background-color: #0d218a; text-align: center; display: block;" class="animated faster">
+    <div class="animated faster" id="idle_fragment_sub" style="display: block; padding-top: 7%;">
+      <div style="display: inline-block;">
+        <img src="img/appIcons/viosLogoWhiteTransparent.png" style="width: 150px; height: 70px;" >
+      </div>
+      <div>
+        <h1 style="color: white;">A Better Way to Manage Medical Data</h1>
+        <p style="color: rgb(235, 234, 253);">Our simple, all-in-one electronic health records and hospital management system makes your practice easier and more efficient.</p>
+      </div>
+        <br>
          <div>
       
             <div style="display: inline-block; text-align: left; padding-top: 10px;">
-                <input class="form-control" type="text" id="idle_searchBar" placeholder="Search" aria-label="Search" style="width: 450px;">
+                <input class="form-control" type="text" id="idle_searchBar" placeholder="Search" aria-label="Search" style="width: 450px; padding: 14px 20px;
+               opacity: 0.85;
+                color: #3c4858 !important;
+                outline: none !important;
+                padding-right: 160px;
+                padding-left: 30px;
+                background-color: #fff!important;
+                border: 1px solid #e9ecef !important;
+                border-radius: 30px !important;
+                
+                ">
                     </div>
                     <div style="display: inline-block;">
-                        <button class="btn btn-blue" type="button" onclick="search_patient_s_btn_click()"><i class="fa fa-search"></i></button>
+                        <button class="btn" style="border-radius: 30px; background-color: #243797;" type="button" onclick="search_patient_s_btn_click()"><i id="searchBTNsearchIcon" class="fa fa-search"></i><img src="img/loading.gif" style="width: 20px; height: 20px; display: none;" id="loading_anim"></button>
                               </div>
-            <div style="width: 10px; display: inline-block;"><div style="height: 19.5px;"><img src="img/loading.gif" style="width: 30px; height: 30px; display: none;" id="loading_anim"></div></div>
+            
       
+         </div><br>
+         <div>
+           <img src="img/indexIllustration.png" style="width: 500px; height: 350px;">
          </div>
     </div>
     <div class="animated faster" id="search_result_fragment" style="display: none;"><br>
@@ -691,98 +880,60 @@
             <button type="button" id="prv_serach_r_btn" class="rounded-circle z-depth-0 theme_color_secondary waves-effect waves-light" style=" padding-top: 8px; padding-left: 10px; padding-right: 10px; padding-bottom: 8px; color:white; border:none; outline:none; float: left;" onclick="process_prv_search_r_click()"><i class="fa fa-arrow-left"></i></button>
         </div>
         <div style="display: inline-block; width: 10%;"><button type="button" class="rounded-circle z-depth-0 waves-effect waves-light" onclick="search_result_cancel()" style="padding-top: 10px; padding-left: 12px; padding-right: 12px; padding-bottom: 10px; color:grey; border: none; outline:none; float: right;"><i class="fa fa-close"></i></button></div>
-      <div id="search_txt_wkr_txt" style="font-size: 15px; color: #545454; text-align: left; padding-left: 200px;"></div>
+      <div id="search_txt_wkr_txt" style="font-size: 15px; color: white; text-align: left; padding-left: 200px;"></div>
       <div id="idle_ps_r">
     
   </div>
     </div>
-   
+    <button class="btn waves-effect waves-light " id="asg_pTab_bBar_btn" onclick="$.fn.enterHome()" style="border-radius: 30px; background-color: #243797; position: fixed; right: 20px; bottom: 20px; text-transform:initial" type="button">Assign patients <span class="badge bg-danger" style="border-radius: 15px;" id="asg_pTab_bBar_btn_num_indicators"></span></button>
+
   </div>
 
 </div>
-<div id="main_home_fragment" style="background: #eee; padding-bottom: 40px; overflow-x: hidden;">
-  <div style="width: 100%;" id="m_home_fregment_main">
-  
-  <div class="row">
-  
-    <div class="col-md-4" style="padding: 10px; padding-left: 40px; padding-right: 10px; padding-top: 40px; padding-bottom: 30px;"> <div class="card" style="height: 450px; background: white; padding: 10px; "> <div style="font-size: 18px; color: #616161; text-align: center; " id="assigned_patients_txtx"></div> 
-  <div><canvas id="doughnutChart"> </canvas></div>
-  <div style="text-align:center; width:100%;">
-    <br><br><br><br><br><hr><div class=""><button class="btn btn-blue" style="float:right" onclick="$.fn.de_assign_all_patients()">De-Assign all patients</button></div>
-  </div>
-  
-  
-  </div> </div>
-  <div class="col-md-4" style="padding: 10px; padding-left: 10px; padding-right: 40px; padding-top: 40px; padding-bottom: 30px;"> <div class="card" style="height: 450px; overflow-x: hidden; overflow-y: auto;">
-  <div style="padding:10px; color:#616161">Recently Attended Patients</div>
-    <table class="table" style="color: black;" id="r_attend_p_table_id">
-        <thead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody id="r_attend_p_id">
-        </tbody>
-      </table>
-  
-  </div> </div>
-    <div class="col-md-4" style="padding: 10px; padding-left: 10px; padding-right: 40px; padding-top: 40px; padding-bottom: 30px;"> <div class="card" style="height: 450px; overflow-x: hidden; overflow-y: auto;">
-        <div style="padding:10px; color:#616161; text-align:center;">Assigned Patients</div>
-        <table class="table" style="color: black;" id="asg_p_table_id">
-            <thead>
-              <tr>
-                <th scope="col">img</th>
-                <th scope="col">Name</th>
-                <th scope="col">Age</th>
-                <th scope="col">Sex</th>
-              </tr>
-            </thead>
-            <tbody id="asg_p_tb_id">
-              
-            </tbody>
-          </table>
-  
-    </div> </div>
-  
-  </div>
-  
-  
-  </div>
-  
-  
-  </div>
 
-  <div style="display: none;">
-    <div id="f_file_collector" action="http://localhost:3130/uploadfile" class="dropzone dz-clickable" style="height: 140px; padding: 1px 1px; border: none;">
-    </div>
-    </div>
 
+
+<div id="main_addpatient_wut_fragment" style="display: none;">
+
+</div>
+
+<div class="animated faster" id="rp_details_modal" style="background: black; opacity: 0.8; width: 30%; height: 600px; position: absolute; right: 0px; bottom: 0px; overflow: auto; display: none;">
+  
+</div>
+
+<!-- modals -->
+<div style="display: none;"><div id="dispanseDispProcess"></div></div>
+<div style="display: none;"><div id="noteDispProcessing_div"></div></div>
+<div style="display: none;">
+<div id="f_file_collector" action="http://localhost:3130/uploadfile" class="dropzone dz-clickable" style="height: 140px; padding: 1px 1px; border: none;">
+</div>
+</div>
+
+
+</div>
+
+  <script type="text/javascript" src="config/institution_info.js"></script>
   <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="js/popper.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/jBox.all.min.js"></script>
-   <script type="text/javascript" src="js/mdb.js"></script>
-   <script type="text/javascript" src="js/moment.min.js"></script>
-   <script type="text/javascript" src="js/easyauto_comp/jquery.easy-autocomplete.min.js"></script>
+  <script type="text/javascript" src="js/mdb.js"></script>
   <script type="text/javascript" src="js/general_controller.js"></script>
+  <script type="text/javascript" src="js/moment.min.js"></script>
+  <script type="text/javascript" src="js/daterangepicker.js"></script>
+  <script type="text/javascript" src="js/easyauto_comp/jquery.easy-autocomplete.min.js"></script>
   <script type="text/javascript" src="js/footable.js"></script>
   <script type="text/javascript" src="js/lightgallery-all.min.js"></script>
   <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
   <script type="text/javascript" src="js/doctors_portal_controller.js"></script>
   <script type="text/javascript" src="js/dropzone.js"></script>
   <script>
-   function autoStartFocus(){
-    document.getElementById("text").focus();
-   }
 
 
-
-   var options = {
+var options = {
 
 url: function(phrase){
-  return "http://localhost:4417/general_server_files/patient_sugestions.json";
+  return "http://"+local_server+":3130/patients_suggestions";
 },
 
 categories: [{
@@ -801,7 +952,7 @@ getValue: function(element) {
 
 ajaxSettings:{
   dataType: "json",
-  method: "POST",
+  method: "GET",
   data:{
     dataType: "json"
   }
@@ -841,17 +992,14 @@ list: {
     },
     onClickEvent: function(){
       var id_value = $("#search_patient_input").getSelectedItemData().id;
-      static_data.usrID = id_value;
-
-      $.get('http://localhost:3130/set_currOpratP_coll',{
+      $.get("http://"+local_server+":3130/set_currOpratP_coll",{
     usrID:id_value
   },
   function (result){
     if(result === "11111"){
       process_normal_search_p_click(id_value);
     }
-    });
-
+  });
     }
 },
 
@@ -861,7 +1009,7 @@ theme: "square"
 var options2 = {
 
 url: function(phrase){
-  return "http://localhost:4417/general_server_files/patient_sugestions.json";
+  return "http://"+local_server+":3130/patients_suggestions";
 },
 
 categories: [{
@@ -880,7 +1028,7 @@ getValue: function(element) {
 
 ajaxSettings:{
   dataType: "json",
-  method: "POST",
+  method: "GET",
   data:{
     dataType: "json"
   }
@@ -920,15 +1068,15 @@ list: {
     },
     onClickEvent: function(){
       var id_value = $("#idle_searchBar").getSelectedItemData().id;
-      $.get('http://localhost:3130/set_currOpratP_coll',{
+      $.get("http://"+local_server+":3130/set_currOpratP_coll",{
     usrID:id_value
   },
   function (result){
     if(result === "11111"){
       process_idle_search_p_click(id_value);
+      $("#Radiograph-tab").click();
     }
-    });
-      
+  });
     },
 },
 
@@ -940,7 +1088,10 @@ $("#search_patient_input").easyAutocomplete(options);
 
 $("#idle_searchBar").easyAutocomplete(options2);
 
-  </script>
-</body>
 
-</html>
+
+  </script>
+
+
+
+</body></html>

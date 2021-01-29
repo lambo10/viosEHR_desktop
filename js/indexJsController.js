@@ -32,7 +32,7 @@ $('#tipSlider').slick({
       var profession = static_var.profession;
       getE("loginBtnTXT").style.display = "none";
       getE("loginBtnLoader").style.display = "inline-block";
-    $.post('http://localhost:5000/login_professional',{
+    $.get('http://localhost:3130/login_professional',{
         email_c:$("#loginEmail").val(),
         password_c:$("#loginPassword").val()
     },

@@ -1,4 +1,4 @@
-var local_server = 'http://127.0.0.1:5000';
+var local_server = 'http://'+local_server+':5000';
 var wk_inserted_id = '';
 function disp_active_pane_QQWER(id){
   var count = 0;
@@ -336,7 +336,7 @@ function disp_active_pane_QQWER(id){
                     function submit_employee_reg(first_name,last_name,middle_name,primary_phone_no,secondary_phone_no,email,job,address,age){
     var http = new XMLHttpRequest();
     var params = 'first_name='+first_name+'&last_name='+last_name+'&middle_name='+middle_name+'&primary_phone_no='+primary_phone_no+'&secondary_phone_no='+secondary_phone_no+'&email='+email+'&address='+address+'&job='+job+'&empl_age='+age;
-    var url = local_server+'/register_employee?'+params;
+    var url = 'http://'+local_server+':5000/register_employee?'+params;
     http.open('GET',url,true);
     http.setRequestHeader('Content-type','application/x-www-form-urlencoded');
     http.onreadystatechange = function(){
@@ -362,7 +362,7 @@ alert('Email already exisit');
     }
 
                     $.fn.pass_record_id = function(id){
-                      $.get("http://localhost:3130/w_passed_usrID",
+                      $.get("http://"+local_server+":3130/w_passed_usrID",
     {
       empID: id
     },
@@ -464,7 +464,7 @@ var ctx = document.getElementById("profitExamin_A_month").getContext('2d');
 
 
   $.fn.get_employees_00 = function(){
-    $.post("http://localhost:5000/get_employee",
+    $.post("http://"+local_server+":5000/get_employee",
 {},
 function(result){
 var dec_data = decrypt_data(result);
@@ -522,7 +522,7 @@ function process_goten_employee(data){
   for (i in jsonData.employee) {
     var ta_row = document.createElement("tr");
   var pimage = document.createElement("img");
-  pimage.setAttribute("src","http://localhost:4417/employee/"+jsonData.employee[i]._id.$oid+"/profile/usr_profile.jpg");
+  pimage.setAttribute("src","http://"+local_server+":4417/employee/"+jsonData.employee[i]._id.$oid+"/profile/usr_profile.jpg");
   pimage.style.width = "50px";
   pimage.style.height = "50px";
   var td1 = document.createElement("td");
@@ -588,7 +588,7 @@ function process_goten_employee(data){
 }
 
 $.fn.get_employee_doc_f_display = function(id){
-  $.get("http://localhost:5000/get_employee_doc",
+  $.get("http://"+local_server+":5000/get_employee_doc",
 {
   r_empl_id:id
 },
@@ -599,7 +599,7 @@ process_get_employee_doc_f_display(dec_data);
 }
 
 $.fn.delete_employee = function(id,job){
-  $.get("http://localhost:5000/delet_employee",
+  $.get("http://"+local_server+":5000/delet_employee",
 {
   r_empl_id:id,
   category:job
@@ -610,7 +610,7 @@ function(result){
 }
 
 $.fn.check_professional_loged_in = function(){
-  $.get("http://localhost:5000/get_professional_logedin_id",
+  $.get("http://"+local_server+":5000/get_professional_logedin_id",
 {},
 function(result){
   process_check_professional_loged_in(result);
@@ -618,7 +618,7 @@ function(result){
 }
 
 $.fn.logoutHSD = function(){
-  $.get("http://localhost:5000/logout_professional",
+  $.get("http://"+local_server+":5000/logout_professional",
 {},
 function(result){
   process_logoutHSD();
@@ -653,7 +653,7 @@ var div1 = document.createElement("div");
 div1.setAttribute("class","col-md-3");
 div1.setAttribute("style","padding:10px");
 var a = document.createElement("a");
-a.setAttribute("href","http://localhost:4417/employee/"+jsonData.doc[i].employee_id+"/doc/"+jsonData.doc[i].file_name);
+a.setAttribute("href","http://"+local_server+":4417/employee/"+jsonData.doc[i].employee_id+"/doc/"+jsonData.doc[i].file_name);
 a.setAttribute("download","true");
 var div2 = document.createElement("div");
 div2.setAttribute("class","view overlay border border-light rounded mb-0 waves-effect waves-light");
@@ -695,7 +695,7 @@ document.getElementById("modal_body").replaceChild(modal_body_row,pr_modal_body_
 function process_check_professional_loged_in(id){
   var jsondata = JSON.parse(id);
   var jsonid = jsondata.$oid
-  document.getElementById('pr_profile_picSSG').src = 'http://localhost:4417/employee/'+jsonid+'/profile/usr_profile.jpg';
+  document.getElementById('pr_profile_picSSG').src = 'http://'+local_server+':4417/employee/'+jsonid+'/profile/usr_profile.jpg';
 }
 
 function process_logoutHSD(){

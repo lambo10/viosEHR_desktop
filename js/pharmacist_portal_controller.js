@@ -665,7 +665,7 @@ function set_patients_main_fragment(assignID){
                   
                   $.fn.dispen_drug_search = function(){
                     var stext = $('#dispen_drug_search').val();
-                    $.post("http://localhost:5000/search_drugs",
+                    $.post("http://"+local_server+":5000/search_drugs",
                   {
                     'text':stext
                   },
@@ -674,7 +674,7 @@ function set_patients_main_fragment(assignID){
                   });
                   }
                   $.fn.dispen_drug_find = function(data,text){
-                    $.post("http://localhost:5000/find_drugs",
+                    $.post("http://"+local_server+":5000/find_drugs",
                   {
                     'drug_id':data
                   },
@@ -687,7 +687,7 @@ function set_patients_main_fragment(assignID){
 
                   $.fn.submit_add_drug = function(name,type,price,quantity,batch_price,brand,drug_shortage_point,strength,expDate,category){
                     
-                    $.post("http://localhost:5000/add_new_drug",
+                    $.post("http://"+local_server+":5000/add_new_drug",
                   {
                     'name':name,
                     'type':type,
@@ -714,7 +714,7 @@ function set_patients_main_fragment(assignID){
 
                     $.fn.select_soh_tab_transfer = function(category){
                       pharmacistP_static_vars.selected_drug_category = category;
-                      $.post('http://localhost:5000/get_drug',{
+                      $.post("http://"+local_server+":5000/get_drug",{
                         'category':category
                       },function(result){
                         var collected_data = JSON.parse(result);
@@ -725,7 +725,7 @@ function set_patients_main_fragment(assignID){
                           e._id = e._id.$oid;
                         });
                         $('#sohTable').footable({
-                          "columns": $.post('http://localhost:4417/general_server_files/SOH_columns.json'),
+                          "columns": $.post("http://"+local_server+":4417/general_server_files/SOH_columns.json"),
                           "rows": row_data
                         });
                       })
@@ -744,7 +744,7 @@ function set_patients_main_fragment(assignID){
                   }
 
                   $.fn.submit_dispensed_drug = function(){
-                    $.get('http://localhost:3130/get_currOpratP_coll',{
+                    $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
                     if(dispensed_drug_array.length <= 0){
@@ -755,7 +755,7 @@ function set_patients_main_fragment(assignID){
                     getE("dispensed_loading").style.display = "block";
                     getE("dispense_btn_oo").disabled = true;
                     getE("dispense_btn_oo").style.cursor = "progress";
-                    $.get("http://localhost:3130/dispense_drug",
+                    $.get("http://"+local_server+":3130/dispense_drug",
                     {
                       'data':drug_i_string,
                       'patient_id':result_id.usrID
@@ -779,7 +779,7 @@ function set_patients_main_fragment(assignID){
                     var month = currentDate.getMonth();
                     var year = currentDate.getFullYear();
                     var dateString = year+"/"+(month +1)+"/"+date;
-                    $.get("http://localhost:3130/get_prof_and_institu_name",{
+                    $.get("http://"+local_server+":3130/get_prof_and_institu_name",{
 
           },function (result){
            
@@ -854,11 +854,11 @@ function set_patients_main_fragment(assignID){
                   }
 
                   $.fn.postDispanseDispform = function (){
-                    $.get('http://localhost:3130/get_currOpratP_coll',{
+                    $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
                     $.ajax({
-                      url: 'http://localhost:3130/add_dispenseD_disp_data',
+                      url: 'http://"+local_server+":3130/add_dispenseD_disp_data',
                       type:'POST',
                       contentType:'application/json',
                       data: JSON.stringify({
@@ -1141,7 +1141,7 @@ if(quantity > drug_stock_quality){
                 }
 
                 $.fn.check_professional_loged_in = function(){
-                  $.get("http://localhost:5000/get_professional_logedin_id",
+                  $.get("http://"+local_server+":5000/get_professional_logedin_id",
                 {},
                 function(result){
                   process_check_professional_loged_in(result);
@@ -1149,7 +1149,7 @@ if(quantity > drug_stock_quality){
                 }
 
                 $.fn.get_all_assigned_patients = function(){
-                  $.get("http://localhost:3130/get_assigned_patients",
+                  $.get("http://"+local_server+":3130/get_assigned_patients",
                 {},
                 function(result){
                   static_data.assigned_patients = result;
@@ -1158,7 +1158,7 @@ if(quantity > drug_stock_quality){
                 });
                 };
                 $.fn.get_r_attended_patients = function(){
-                  $.get("http://localhost:3130/get_r_attended_patients",
+                  $.get("http://"+local_server+":3130/get_r_attended_patients",
                 {},
                 function(result){
                    process_get_r_attended_patients(result);
@@ -1166,7 +1166,7 @@ if(quantity > drug_stock_quality){
                 };
               
                 $.fn.de_assign_all_patients = function(){
-                  $.get("http://localhost:3130/de_assign_all_patients",
+                  $.get("http://"+local_server+":3130/de_assign_all_patients",
                 {},
                 function(result){
                   var resultInt = parseInt(result);
@@ -1239,7 +1239,7 @@ if(quantity > drug_stock_quality){
                 };
 
                 $.fn.logoutHSD = function(){
-                  $.get("http://localhost:5000/logout_professional",
+                  $.get("http://"+local_server+":5000/logout_professional",
                 {},
                 function(result){
                   process_logoutHSD();
@@ -1252,7 +1252,7 @@ if(quantity > drug_stock_quality){
                 function process_check_professional_loged_in(id){
                   var jsondata = JSON.parse(id);
                   var jsonid = jsondata.$oid;
-                  document.getElementById('pr_profile_picSSG').src = 'http://localhost:4417/employee/'+jsonid+'/profile/usr_profile.jpg';
+                  document.getElementById('pr_profile_picSSG').src = 'http://"+local_server+":4417/employee/'+jsonid+'/profile/usr_profile.jpg';
                 }
                 $.fn.get_r_attended_patients();
                 $.fn.check_professional_loged_in();
@@ -1298,7 +1298,7 @@ if(quantity > drug_stock_quality){
 
               function process_recent_attended_a_assigned_p_click(id){
                 static_data.usrID = id;
-                $.get('http://localhost:3130/set_currOpratP_coll',{
+                $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                 usrID:id
               },
               function (result){
@@ -1319,7 +1319,7 @@ if(quantity > drug_stock_quality){
 
               function process_assigned_patients_click(id,assignID){
                 static_data.usrID = id;
-                $.get('http://localhost:3130/set_currOpratP_coll',{
+                $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                 usrID:id
               },
               function (result){
@@ -1395,7 +1395,7 @@ if(quantity > drug_stock_quality){
               //   th.setAttribute("scope","row");
               //   var img = document.createElement("img");
               //   img.setAttribute("class","rounded-circle z-depth-0");
-              //   img.setAttribute("src","http://localhost:4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
+              //   img.setAttribute("src","http://"+local_server+":4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
               //   img.setAttribute("style","width: 70px; height: 70px;");
               //   var td1 = document.createElement("td");
               //   var div1 = document.createElement("div");
@@ -1504,7 +1504,7 @@ if(quantity > drug_stock_quality){
                     //   th.setAttribute("scope","row");
                     //   var img = document.createElement("img");
                     //   img.setAttribute("class","rounded-circle z-depth-0");
-                    //   img.setAttribute("src","http://localhost:4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
+                    //   img.setAttribute("src","http://"+local_server+":4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
                     //   img.setAttribute("style","width: 30px; height: 30px;");
                     //   var td1 = document.createElement("td");
                     //   var txt1 = document.createTextNode(e.name);
@@ -1566,10 +1566,10 @@ if(quantity > drug_stock_quality){
              
               
               function get_patient_d_f_static_vars(){
-                $.get('http://localhost:3130/get_currOpratP_coll',{
+                $.get("http://"+local_server+":3130/get_currOpratP_coll",{
                 },
                 function (result_id){
-                $.get("http://localhost:3130/get_patient_d_f_static_vars",
+                $.get("http://"+local_server+":3130/get_patient_d_f_static_vars",
                 {
                   usrID:result_id.usrID
                 },
@@ -1609,7 +1609,7 @@ if(quantity > drug_stock_quality){
               
               function process_idle_search_p_click(id_value){
                 static_data.usrID = id_value;
-                $.get('http://localhost:3130/set_currOpratP_coll',{
+                $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                 usrID:id_value
               },
               function (result){
@@ -1625,7 +1625,7 @@ if(quantity > drug_stock_quality){
               function process_idle_search_hitEnter_re_click(id_value){
                 $("#Radiograph-tab").click();
                 static_data.usrID = id_value;
-                $.get('http://localhost:3130/set_currOpratP_coll',{
+                $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                 usrID:id_value
               },
               function (result){
@@ -1677,7 +1677,7 @@ if(quantity > drug_stock_quality){
               
               function process_normal_search_p_click(id){
                 static_data.usrID = id;
-                $.get('http://localhost:3130/set_currOpratP_coll',{
+                $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                 usrID:id
               },
               function (result){
@@ -1826,7 +1826,7 @@ if(quantity > drug_stock_quality){
               $.fn.search_Patient_idleF = function(skip){
                 var tosearch = $('#idle_searchBar').val();
                 document.getElementById('search_txt_wkr_txt').innerHTML = "Search results for "+tosearch;
-                $.get("http://localhost:3130/search_patient",
+                $.get("http://"+local_server+":3130/search_patient",
               {
                 tosearch:tosearch,
                 skip:skip
@@ -1839,7 +1839,7 @@ if(quantity > drug_stock_quality){
               $.fn.search_Patient_top_nav = function(skip){
                 var tosearch = $('#search_patient_input').val();
                 document.getElementById('search_txt_wkr_txt').innerHTML = "Search results for "+tosearch;
-                $.get("http://localhost:3130/search_patient",
+                $.get("http://"+local_server+":3130/search_patient",
               {
                 tosearch:tosearch,
                 skip:skip
@@ -1852,7 +1852,7 @@ if(quantity > drug_stock_quality){
               $.fn.search_Patient_idleF_next = function(skip){
                 var tosearch = $('#idle_searchBar').val();
                 document.getElementById('search_txt_wkr_txt').innerHTML = "Search results for "+tosearch;
-                $.get("http://localhost:3130/search_patient",
+                $.get("http://"+local_server+":3130/search_patient",
               {
                 tosearch:tosearch,
                 skip:skip
@@ -1865,7 +1865,7 @@ if(quantity > drug_stock_quality){
               $.fn.search_Patient_idleF_next_top_nav = function(skip){
                 var tosearch = $('#search_patient_input').val();
                 document.getElementById('search_txt_wkr_txt').innerHTML = "Search results for "+tosearch;
-                $.get("http://localhost:3130/search_patient",
+                $.get("http://"+local_server+":3130/search_patient",
               {
                 tosearch:tosearch,
                 skip:skip
@@ -1884,7 +1884,7 @@ if(quantity > drug_stock_quality){
                 }
                 
                 document.getElementById('search_txt_wkr_txt').innerHTML = "Search results for "+tosearch;
-                $.get("http://localhost:3130/search_patient",
+                $.get("http://"+local_server+":3130/search_patient",
               {
                 tosearch:tosearch,
                 skip:skip
@@ -1911,7 +1911,7 @@ if(quantity > drug_stock_quality){
                   dv2.setAttribute("style","padding-right: 100px;");
                   var img = document.createElement("img");
                   img.setAttribute("style","height: 100px; width: 100px;");
-                  img.setAttribute("src","http://localhost:4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                  img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
                   var dv3 = document.createElement("div");
                   dv3.setAttribute("class","col-md-7");
                   dv3.setAttribute("style","text-align: left;");
@@ -1993,7 +1993,7 @@ if(quantity > drug_stock_quality){
                   dv2.setAttribute("style","padding-right: 100px;");
                   var img = document.createElement("img");
                   img.setAttribute("style","height: 100px; width: 100px;");
-                  img.setAttribute("src","http://localhost:4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                  img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
                   var dv3 = document.createElement("div");
                   dv3.setAttribute("class","col-md-7");
                   dv3.setAttribute("style","text-align: left;");
@@ -2063,7 +2063,7 @@ if(quantity > drug_stock_quality){
               
               function process_search_Patient_r_prvbtn(e){
                 static_data.usrID = e._id;
-                $.get('http://localhost:3130/set_currOpratP_coll',{
+                $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                 usrID:e._id
               },
               function (result){
@@ -2083,7 +2083,7 @@ if(quantity > drug_stock_quality){
                   dv2.setAttribute("style","padding-right: 100px;");
                   var img = document.createElement("img");
                   img.setAttribute("style","height: 100px; width: 100px;");
-                  img.setAttribute("src","http://localhost:4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                  img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
                   var dv3 = document.createElement("div");
                   dv3.setAttribute("class","col-md-7");
                   dv3.setAttribute("style","text-align: left;");
@@ -2157,7 +2157,7 @@ if(quantity > drug_stock_quality){
               
               function process_search_Patient_idleF_next(e){
                 static_data.usrID = e._id;
-                $.get('http://localhost:3130/set_currOpratP_coll',{
+                $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                 usrID:id
               },
               function (result){
@@ -2177,7 +2177,7 @@ if(quantity > drug_stock_quality){
                   dv2.setAttribute("style","padding-right: 100px;");
                   var img = document.createElement("img");
                   img.setAttribute("style","height: 100px; width: 100px;");
-                  img.setAttribute("src","http://localhost:4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                  img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
                   var dv3 = document.createElement("div");
                   dv3.setAttribute("class","col-md-7");
                   dv3.setAttribute("style","text-align: left;");
@@ -2290,7 +2290,7 @@ if(quantity > drug_stock_quality){
               $('#dispLDate').html(startDateVHJ.format('MM/DD/YYYY')+' - '+endVHJ.format('MM/DD/YYYY'));
               pharmacistP_static_vars.selected_start_date = startDateVHJ.format('MM/DD/YYYY');
               pharmacistP_static_vars.selected_end_date = endVHJ.format('MM/DD/YYYY');
-              $.get('http://localhost:3130/get_dispense_log',{
+              $.get("http://"+local_server+":3130/get_dispense_log",{
                 range1:pharmacistP_static_vars.selected_start_date,
                 range2:pharmacistP_static_vars.selected_end_date
               },
@@ -2306,7 +2306,7 @@ if(quantity > drug_stock_quality){
                 pharmacistP_static_vars.total_number_drugs++;
                 });
                 $('#costingTable').footable({
-                  "columns": $.post('http://localhost:4417/general_server_files/costing_columns.json'),
+                  "columns": $.post("http://"+local_server+":4417/general_server_files/costing_columns.json"),
                   "rows": result
                 });
                 getE('dispensing_log_total_price_div').innerHTML = 'TOTAL COST: '+pharmacistP_static_vars.total_price+' Naira';
@@ -2335,7 +2335,7 @@ if(quantity > drug_stock_quality){
             $('#dispLDate').html(startDate+' - '+endDate)
               pharmacistP_static_vars.selected_start_date = startDate;
               pharmacistP_static_vars.selected_end_date = endDate;
-              $.get('http://localhost:3130/get_dispense_log',{
+              $.get("http://"+local_server+":3130/get_dispense_log",{
                 range1:pharmacistP_static_vars.selected_start_date,
                 range2:pharmacistP_static_vars.selected_end_date
               },
@@ -2349,7 +2349,7 @@ if(quantity > drug_stock_quality){
                 pharmacistP_static_vars.total_number_drugs++;
                 });
                 $('#costingTable').footable({
-                  "columns": $.post('http://localhost:4417/general_server_files/costing_columns.json'),
+                  "columns": $.post("http://"+local_server+":4417/general_server_files/costing_columns.json"),
                   "rows": result
                 });
                 getE('dispensing_log_total_price_div').innerHTML = 'TOTAL COST: '+pharmacistP_static_vars.total_price+' Naira';
@@ -2361,7 +2361,7 @@ if(quantity > drug_stock_quality){
             };
 
             $.fn.get_dispense_log_with_id = function(id){
-            $.get('http://localhost:3130/get_dispense_log_with_id',{
+            $.get("http://"+local_server+":3130/get_dispense_log_with_id",{
                 range1:pharmacistP_static_vars.selected_start_date,
                 range2:pharmacistP_static_vars.selected_end_date,
                 DrugID:id
@@ -2384,7 +2384,7 @@ if(quantity > drug_stock_quality){
                 });
                 getE('costing_t_m_title').innerHTML = result[0].DrugName;
                 $('#costingTable_modal').footable({
-                  "columns": $.post('http://localhost:4417/general_server_files/costing_columns_modal.json'),
+                  "columns": $.post("http://"+local_server+":4417/general_server_files/costing_columns_modal.json"),
                   "rows": result
                 });
                 getE('dispensing_log_modal_total_price_div').innerHTML = 'TOTAL COST: '+pharmacistP_static_vars.total_price+' Naira';
@@ -2413,7 +2413,7 @@ if(quantity > drug_stock_quality){
             $('#dde11').val(picker.startDate.format('MM/DD/YYYY'));
           });
           $.fn.getDrugShortage = function (){
-          $.get('http://localhost:3130/get_drug_shortage',{},
+          $.get("http://"+local_server+":3130/get_drug_shortage",{},
           function (result){
             if(result != null){
               reset_pharmacistP_static_vars();
@@ -2423,7 +2423,7 @@ if(quantity > drug_stock_quality){
                 pharmacistP_static_vars.modal_total_number_drugs++;
               });
               $('#shortageTableACV').footable({
-                "columns": $.post('http://localhost:4417/general_server_files/drugShortage_columns.json'),
+                "columns": $.post("http://"+local_server+":4417/general_server_files/drugShortage_columns.json"),
                 "rows": result
               });
               getE('drugShortage_modal_total_price_div').innerHTML = 'TOTAL COST: '+pharmacistP_static_vars.total_price+' Naira';
@@ -2436,7 +2436,7 @@ if(quantity > drug_stock_quality){
 
         $.fn.expiredDrugs = function (startDate,endDate){
           $('#exp_dispLDate').html(startDate+' - '+endDate)
-          $.get('http://localhost:3130/get_expired_drugs',{
+          $.get("http://"+local_server+":3130/get_expired_drugs",{
             range1:startDate,
             range2:endDate
           },
@@ -2458,7 +2458,7 @@ if(quantity > drug_stock_quality){
                 pharmacistP_static_vars.modal_total_number_drugs++;
               });
               $('#expiredTableACV').footable({
-                "columns": $.post('http://localhost:4417/general_server_files/expiredDrug_columns.json'),
+                "columns": $.post("http://"+local_server+":4417/general_server_files/expiredDrug_columns.json"),
                 "rows": result
               });
               getE('expired_modal_total_price_div').innerHTML = 'TOTAL COST: '+pharmacistP_static_vars.total_price+' Naira';
@@ -2712,7 +2712,7 @@ if(quantity > drug_stock_quality){
 
         $.fn.getDrugInfo = function (){
           getE("add_batch_form").reset();
-          $.get('http://localhost:3130/get_drug_with_id',{
+          $.get("http://"+local_server+":3130/get_drug_with_id",{
             DrugID:pharmacistP_static_vars.selected_drug_id
           },
           function (result){
@@ -2747,7 +2747,7 @@ if(quantity > drug_stock_quality){
         }
         $.fn.adjustD_getDrugInfo = function (){
           getE("adjust_drug_form_id").reset();
-          $.get('http://localhost:3130/get_drug_with_id',{
+          $.get("http://"+local_server+":3130/get_drug_with_id",{
             DrugID:pharmacistP_static_vars.selected_drug_id
           },
           function (result){
@@ -2779,7 +2779,7 @@ if(quantity > drug_stock_quality){
         }
         $.fn.add_losses_getDrugInfo = function (){
           getE("add_loss_formID").reset();
-          $.get('http://localhost:3130/get_drug_with_id',{
+          $.get("http://"+local_server+":3130/get_drug_with_id",{
             DrugID:pharmacistP_static_vars.selected_drug_id
           },
           function (result){
@@ -2836,7 +2836,7 @@ if(quantity > drug_stock_quality){
           pharmacistP_static_vars.selected_drug_strength =  ($("#newBatch_input6").val()) == ""?pharmacistP_static_vars.selected_drug_strength:$("#newBatch_input6").val();
           pharmacistP_static_vars.selected_drug_expDate =  ($("#newBatch_input7").val()) == ""?pharmacistP_static_vars.selected_drug_expDate:$("#newBatch_input7").val();
 
-          $.get('http://localhost:3130/add_new_batch',{
+          $.get("http://"+local_server+":3130/add_new_batch",{
             price:pharmacistP_static_vars.selected_drug_price,
             quantity:pharmacistP_static_vars.selected_drug_quantity,
             drug_shortage_point:pharmacistP_static_vars.selected_drug_drugShortage_point,
@@ -2868,7 +2868,7 @@ if(quantity > drug_stock_quality){
           pharmacistP_static_vars.selected_drug_category =  ($("#adjDI9").val()) == ""?pharmacistP_static_vars.selected_drug_category:$("#adjDI9").val();
           
 
-          $.get('http://localhost:3130/add_drug_adjustment',{
+          $.get("http://"+local_server+":3130/add_drug_adjustment",{
             name:pharmacistP_static_vars.selected_drug_name,
             type:pharmacistP_static_vars.selected_drug_type,
             category:pharmacistP_static_vars.selected_drug_category,
@@ -2892,7 +2892,7 @@ if(quantity > drug_stock_quality){
         $.fn.add_losses = function (){
           var collected_causes = $("#ad_Loss_DI1").val();
           collected_causes = collected_causes.replace(/•/g,"<br>•");
-          $.get('http://localhost:3130/add_losses',{
+          $.get("http://"+local_server+":3130/add_losses",{
             no_of_losses:$("#ad_Loss_DI0").val(),
             causes:collected_causes,
             DrugID:pharmacistP_static_vars.selected_drug_id
@@ -2931,7 +2931,7 @@ if(quantity > drug_stock_quality){
         });
 
         $.fn.remove_expired_drugs = function (){
-          $.get('http://localhost:3130/remove_expired_drug',{
+          $.get("http://"+local_server+":3130/remove_expired_drug",{
             batchID:pharmacistP_static_vars.selected_drug_id
           },
           function (result){
@@ -2960,7 +2960,7 @@ if(quantity > drug_stock_quality){
           confirm_remove.open();
         }
         $.fn.add_to_poison_log = function (){
-          $.get('http://localhost:3130/add_to_poision_log',{
+          $.get("http://"+local_server+":3130/add_to_poision_log",{
             DrugID:pharmacistP_static_vars.selected_drug_id
           },
           function (result){
@@ -2978,7 +2978,7 @@ if(quantity > drug_stock_quality){
           });
         }
         $.fn.get_poison_log = function (){
-        $.get('http://localhost:3130/get_poision_log',{
+        $.get("http://"+local_server+":3130/get_poision_log",{
         },
         function (result){
         if(result != null){
@@ -2989,7 +2989,7 @@ if(quantity > drug_stock_quality){
           pharmacistP_static_vars.total_number_drugs++;
           });
           $('#poision_log_Table').footable({
-            "columns": $.post('http://localhost:4417/general_server_files/poison_log_columns.json'),
+            "columns": $.post("http://"+local_server+":4417/general_server_files/poison_log_columns.json"),
             "rows": result
           });
           getE('poision_log_total_price_div').innerHTML = 'TOTAL COST: '+pharmacistP_static_vars.total_price+' Naira';
@@ -3000,21 +3000,21 @@ if(quantity > drug_stock_quality){
         });
       }
       $.fn.get_drug_batches = function (){
-        $.get('http://localhost:3130/get_drug_batches',{
+        $.get("http://"+local_server+":3130/get_drug_batches",{
           DrugID:pharmacistP_static_vars.selected_drug_id
         },
         function (result){
         if(result != null){
           reset_pharmacistP_static_vars();
           $('#batchesTable').footable({
-            "columns": $.post('http://localhost:4417/general_server_files/drug_batchesColumn.json'),
+            "columns": $.post("http://"+local_server+":4417/general_server_files/drug_batchesColumn.json"),
             "rows": result
           });
         }
         });
       }
       $.fn.get_losses = function (){
-        $.get('http://localhost:3130/get_drug_losses',{
+        $.get("http://"+local_server+":3130/get_drug_losses",{
         },
         function (result){
         if(result != null){
@@ -3025,7 +3025,7 @@ if(quantity > drug_stock_quality){
           pharmacistP_static_vars.total_number_drugs++;
           });
           $('#poision_log_Table').footable({
-            "columns": $.post('http://localhost:4417/general_server_files/losses_columns.json'),
+            "columns": $.post("http://"+local_server+":4417/general_server_files/losses_columns.json"),
             "rows": result
           });
           getE('poision_log_total_price_div').innerHTML = 'TOTAL COST: '+pharmacistP_static_vars.total_price+' Naira';
@@ -3071,7 +3071,7 @@ if(quantity > drug_stock_quality){
 
   $.fn.get_losses = function (startDate,endDate){
     $('#losses_dispLDate').html(startDate+' - '+endDate);
-    $.get('http://localhost:3130/get_drug_losses',{
+    $.get("http://"+local_server+":3130/get_drug_losses",{
       range1:startDate,
       range2:endDate
     },
@@ -3093,7 +3093,7 @@ if(quantity > drug_stock_quality){
           pharmacistP_static_vars.modal_total_number_drugs++;
         });
         $('#losses_Table').footable({
-          "columns": $.post('http://localhost:4417/general_server_files/losses_columns.json'),
+          "columns": $.post("http://"+local_server+":4417/general_server_files/losses_columns.json"),
           "rows": result
         });
         getE('losses_total_price_div').innerHTML = 'TOTAL COST: '+pharmacistP_static_vars.total_price+' Naira';
@@ -3125,7 +3125,7 @@ if(quantity > drug_stock_quality){
   });
 
   $.fn.remove_poison_log = function (){
-    $.get('http://localhost:3130/remove_from_poision_log',{
+    $.get("http://"+local_server+":3130/remove_from_poision_log",{
       DrugID:pharmacistP_static_vars.selected_drug_id
     },
     function (result){
@@ -3171,7 +3171,7 @@ if(quantity > drug_stock_quality){
           });
           $.fn.openFormSelector = function () {
             $("#formSelectLoaderImg").css({"display":"block"});
-            $.get('http://localhost:3130/get_formsName_ID',{
+            $.get("http://"+local_server+":3130/get_formsName_ID",{
           },
           function (result){
             var result_row = $("<div class='row' id='formselectionDivrow'></div>");
@@ -3187,7 +3187,7 @@ if(quantity > drug_stock_quality){
           $.fn.formSelectClick = function(formID,category){
             static_data.formID = formID;
             static_data.formCategory = category;
-            $.get('http://localhost:3130/get_raw_form',{
+            $.get("http://"+local_server+":3130/get_raw_form",{
               formID:formID
             },
             function (result){
@@ -3218,9 +3218,9 @@ if(quantity > drug_stock_quality){
   || form_disp_wkr.find("form").css("background-color") === "#ffff80" || form_disp_wkr.find("form").css("background-color") === "#ffffa6"
   || form_disp_wkr.find("form").css("background-color") === "rgb(135, 221, 250)"
   ){
-    form_disp_wkr.find(".FD_border_tag").attr("style","background-color:#ebeff3; min-height:100px; padding-left: 30px; box-shadow: 0px 0px 23px 0px #11111130;border-radius: 8px;");
+    form_disp_wkr.find(".FD_border_tag").attr("style","background-color:#ebeff3; min-height:30px; padding-left: 30px; box-shadow: 0px 0px 23px 0px #11111130;border-radius: 8px;");
   }else{
-    form_disp_wkr.find(".FD_border_tag").attr("style","border: 1px solid #f5f5f5; background-color:#ebeff3; min-height:100px; padding-left: 30px; box-shadow: 0px 0px 23px 0px #11111130;border-radius: 8px;");
+    form_disp_wkr.find(".FD_border_tag").attr("style","border: 1px solid #f5f5f5; background-color:#ebeff3; min-height:30px; padding-left: 30px; box-shadow: 0px 0px 23px 0px #11111130;border-radius: 8px;");
   }
   var wkr_disp_inputs = form_disp_wkr.find("input");
   $.each(wkr_disp_inputs, function( i, el ) {
@@ -3287,11 +3287,11 @@ if(quantity > drug_stock_quality){
     $(el).replaceWith('<span class="C_INP_P" id="'+el.id+'">'+selectedValue+'</span>');
   }}});
   
-  $.get('http://localhost:3130/get_currOpratP_coll',{
+  $.get("http://"+local_server+":3130/get_currOpratP_coll",{
   },
   function (result_id){
   $.ajax({
-    url: 'http://localhost:3130/add_form_op_data',
+    url: 'http://"+local_server+":3130/add_form_op_data',
     type:'POST',
     contentType:'application/json',
     data: JSON.stringify({
@@ -3312,7 +3312,7 @@ if(quantity > drug_stock_quality){
           erro_notice_popup("Invalid node");
         }else{
           $.ajax({
-            url: 'http://localhost:3130/add_form_disp_data',
+            url: 'http://"+local_server+":3130/add_form_disp_data',
             type:'POST',
             contentType:'application/json',
             data: JSON.stringify({
@@ -3376,7 +3376,7 @@ if(quantity > drug_stock_quality){
           createOnInit: true,
           
           content: `<div id="noteFormHolder">
-          <div style="text-align:center; font-size:25px;" id="InstiTutName"></div>
+          <div style="text-align:center"><div style="font-size:25px">`+institutionInfo.name+`</div></div>
           <div style="text-align:center; font-size:20px;">Note</div><hr>
 
           <div class="bootstrap row" style="display: inline-block; width: 90%;">
@@ -3441,7 +3441,7 @@ if(quantity > drug_stock_quality){
         });
 
         $.fn.getProfandInstiDetails = function(){
-          $.get("http://localhost:3130/get_prof_and_institu_name",{
+          $.get("http://"+local_server+":3130/get_prof_and_institu_name",{
 
           },function (result){
             static_data.pharmName = result.fullName;
@@ -3452,8 +3452,8 @@ if(quantity > drug_stock_quality){
         $.fn.getProfandInstiDetails();
 
         $.fn.startNoteSubmission = function (){
+          
           var note_txt = $("#text").val();
-          $("#InstiTutName").text(static_data.instiName);
           $("#nt_name").text(static_data.usrName);
           $("#nt_Pid").text(static_data.usrPatientId);
           $("nt_sex").text(static_data.usrSex);
@@ -3472,7 +3472,7 @@ if(quantity > drug_stock_quality){
 
 
         $.fn.request_userPermission_to_view_doc = function (){
-          $.get('http://localhost:3130/request_userPermission_to_view_doc',{
+          $.get("http://"+local_server+":3130/request_userPermission_to_view_doc",{
           },
           function (response){
             if(response != null){
@@ -3499,11 +3499,11 @@ if(quantity > drug_stock_quality){
           $("#noteDispProcessing_div").replaceWith('<div id="noteDispProcessing_div"></div>');
           $("#noteDispProcessing_div").append($("#noteFormHolder").html());
           $("#noteDispProcessing_div").find("button").replaceWith("");
-          $.get('http://localhost:3130/get_currOpratP_coll',{
+          $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
           $.ajax({
-            url: 'http://localhost:3130/add_note_disp_data',
+            url: 'http://"+local_server+":3130/add_note_disp_data',
             type:'POST',
             contentType:'application/json',
             data: JSON.stringify({
@@ -3536,10 +3536,10 @@ if(quantity > drug_stock_quality){
           getE("rnoteDispLwNabBar_mainDDH").style.display = "none";
           var startDate = moment().subtract(174,'days');
           var endDate = moment();
-          $.get('http://localhost:3130/get_currOpratP_coll',{
+          $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
-          $.get('http://localhost:3130/get_latest_prescription',{
+          $.get("http://"+local_server+":3130/get_latest_Note",{
             range1:startDate.format('MM/DD/YYYY'),
             range2:endDate.format('MM/DD/YYYY'),
             usrID:result_id.usrID
@@ -3650,14 +3650,14 @@ $.fn.submitFormFileInput = function(id_index){
 $.fn.process_fPic_disp = function(name){
   $("#imageInputLoader_"+static_data.file_input_lf_index).attr("style","width: 49px; height: 50px; border: none; display: none;");
   $("#imageInputLoaderDiv_"+static_data.file_input_lf_index).attr("style","width: 210px; height: 170px; border: dashed 1px; text-align: center; padding-top: 60px;display:none");
-  $("#imageInputDispVM_"+static_data.file_input_lf_index).attr("src","http://localhost:4417/formFiles/"+name);
-  $("#imageInputLI_"+static_data.file_input_lf_index).attr("data-src","http://localhost:4417/formFiles/"+name);
+  $("#imageInputDispVM_"+static_data.file_input_lf_index).attr("src","http://"+local_server+":4417/formFiles/"+name);
+  $("#imageInputLI_"+static_data.file_input_lf_index).attr("data-src","http://"+local_server+":4417/formFiles/"+name);
   $("#imageInputUL_"+static_data.file_input_lf_index).attr("style","padding:0px; list-style: none; display: block;");
 
   $("#imageInputfileIconDiv_"+static_data.file_input_lf_index).attr("style","width: 80px; height: 100px; text-align: center; display: block;");
   $("#f_fileNameVB_"+static_data.file_input_lf_index).attr("style","text-align: center; width: 80px;");
   $("#f_fileNameVB_"+static_data.file_input_lf_index).html(name);
-  $("#fileViewBtn_Z_"+static_data.file_input_lf_index).attr("href","http://localhost:4417/formFiles/"+name);
+  $("#fileViewBtn_Z_"+static_data.file_input_lf_index).attr("href","http://"+local_server+":4417/formFiles/"+name);
 
 }
 
@@ -3717,11 +3717,11 @@ $.fn.enterHome = function(){
             }
           }
           function get_patient_d_f_static_vars_prd(){
-            $.get('http://localhost:3130/get_currOpratP_coll',{
+            $.get("http://"+local_server+":3130/get_currOpratP_coll",{
             },
             function (result_id){
-              $("#patient_pp_pdr").attr("src","http://localhost:4417/patient/"+result_id.usrID+"/profile/usr_profile.jpg");
-            $.get("http://localhost:3130/get_patient_d_f_static_vars",
+              $("#patient_pp_pdr").attr("src","http://"+local_server+":4417/patient/"+result_id.usrID+"/profile/usr_profile.jpg");
+            $.get("http://"+local_server+":3130/get_patient_d_f_static_vars",
             {
               usrID:result_id.usrID
             },
@@ -3810,10 +3810,10 @@ $.fn.enterHome = function(){
           }
 
           $.fn.getLatest_prescription = function(){
-            $.get('http://localhost:3130/get_currOpratP_coll',{
+            $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
-            $.get('http://localhost:3130/get_latest_prescription',{
+            $.get("http://"+local_server+":3130/get_latest_prescription",{
               usrID:result_id.usrID
             },
             function (result){
@@ -3833,7 +3833,7 @@ $.fn.enterHome = function(){
         }
 
           $.fn.get_PrescriptionBy_id = function(DocID){
-            $.get('http://localhost:3130/get_Prescription_with_id',{
+            $.get("http://"+local_server+":3130/get_Prescription_with_id",{
               DocID:DocID
           },
             function (result){
@@ -3861,10 +3861,10 @@ $.fn.enterHome = function(){
           }
 
           $.fn.getLatest_Prescription = function(){
-            $.get('http://localhost:3130/get_currOpratP_coll',{
+            $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
-            $.get('http://localhost:3130/get_latest_Prescription',{
+            $.get("http://"+local_server+":3130/get_latest_Prescription",{
               usrID:result_id.usrID
             },
             function (result){
@@ -3907,10 +3907,10 @@ $.fn.enterHome = function(){
           });
 
           $.fn.getPrescriptionSelectwithDate_dpr = function(){
-            $.get('http://localhost:3130/get_currOpratP_coll',{
+            $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
-            $.get('http://localhost:3130/get_disp_Prescription_dateTime',{
+            $.get("http://"+local_server+":3130/get_disp_Prescription_dateTime",{
               usrID:result_id.usrID
             },
             function (result){
@@ -3922,7 +3922,7 @@ $.fn.enterHome = function(){
               e.time = collect_o_date[1];
               }});
           $('#Prescription_selT_pdr').footable({
-            "columns": $.post('http://localhost:4417/general_server_files/PrescriptionSelTableColuumn.json'),
+            "columns": $.post("http://"+local_server+":4417/general_server_files/PrescriptionSelTableColuumn.json"),
             "rows": result.reverse()
           });
 
@@ -3930,7 +3930,7 @@ $.fn.enterHome = function(){
             if($('#Prescription_selT_pdr').length <= 0){
               $('#Prescription_selT_pdr_card_container').append('<table id="Prescription_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
               $('#Prescription_selT_pdr').footable({
-                "columns": $.post('http://localhost:4417/general_server_files/PrescriptionSelTableColuumn.json'),
+                "columns": $.post("http://"+local_server+":4417/general_server_files/PrescriptionSelTableColuumn.json"),
                 "rows": result.reverse()
               });
             }
@@ -3941,10 +3941,10 @@ $.fn.enterHome = function(){
     }
 
     $.fn.getLatest_radiograph = function(){
-      $.get('http://localhost:3130/get_currOpratP_coll',{
+      $.get("http://"+local_server+":3130/get_currOpratP_coll",{
     },
     function (result_id){
-      $.get('http://localhost:3130/get_latest_radiograph',{
+      $.get("http://"+local_server+":3130/get_latest_radiograph",{
         usrID:static_data.usrID
       },
       function (result){
@@ -3977,7 +3977,7 @@ $.fn.enterHome = function(){
   }
   
     $.fn.get_radiographBy_id = function(DocID){
-      $.get('http://localhost:3130/get_radiograph_with_id',{
+      $.get("http://"+local_server+":3130/get_radiograph_with_id",{
         DocID:DocID
     },
       function (result){
@@ -4014,10 +4014,10 @@ $.fn.enterHome = function(){
           });
 
           $.fn.getRadiographSelectwithDate_dpr = function(){
-            $.get('http://localhost:3130/get_currOpratP_coll',{
+            $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
-            $.get('http://localhost:3130/get_disp_radiograph_dateTime',{
+            $.get("http://"+local_server+":3130/get_disp_radiograph_dateTime",{
               usrID:result_id.usrID
             },
             function (result){
@@ -4030,7 +4030,7 @@ $.fn.enterHome = function(){
               }});
 
               $('#radiograph_selT_pdr').footable({
-                "columns": $.post('http://localhost:4417/general_server_files/radiographSelTableColuumn.json'),
+                "columns": $.post("http://"+local_server+":4417/general_server_files/radiographSelTableColuumn.json"),
                 "rows": result.reverse()
               });
 
@@ -4038,7 +4038,7 @@ $.fn.enterHome = function(){
                 if($('#radiograph_selT_pdr').length <= 0){
                   $('#radiograph_selT_pdr_card_container').append('<table id="radiograph_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
                   $('#radiograph_selT_pdr').footable({
-                    "columns": $.post('http://localhost:4417/general_server_files/radiographSelTableColuumn.json'),
+                    "columns": $.post("http://"+local_server+":4417/general_server_files/radiographSelTableColuumn.json"),
                     "rows": result.reverse()
                   });
                 }
@@ -4052,10 +4052,10 @@ $.fn.enterHome = function(){
 
 
     $.fn.getLatest_Lab = function(){
-      $.get('http://localhost:3130/get_currOpratP_coll',{
+      $.get("http://"+local_server+":3130/get_currOpratP_coll",{
         },
         function (result_id){
-      $.get('http://localhost:3130/get_latest_Lab',{
+      $.get("http://"+local_server+":3130/get_latest_Lab",{
         usrID:result_id.usrID
       },
       function (result){
@@ -4089,7 +4089,7 @@ $.fn.enterHome = function(){
   }
   
     $.fn.get_LabBy_id = function(DocID){
-      $.get('http://localhost:3130/get_Lab_with_id',{
+      $.get("http://"+local_server+":3130/get_Lab_with_id",{
         DocID:DocID
     },
       function (result){
@@ -4127,10 +4127,10 @@ $.fn.enterHome = function(){
       });
 
       $.fn.getLabSelectwithDate_dpr = function(){
-        $.get('http://localhost:3130/get_currOpratP_coll',{
+        $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
-        $.get('http://localhost:3130/get_disp_Lab_dateTime',{
+        $.get("http://"+local_server+":3130/get_disp_Lab_dateTime",{
           usrID:result_id.usrID
         },
         function (result){
@@ -4143,14 +4143,14 @@ $.fn.enterHome = function(){
           }});
      
           $('#Lab_selT_pdr').footable({
-            "columns": $.post('http://localhost:4417/general_server_files/LabSelTableColuumn.json'),
+            "columns": $.post("http://"+local_server+":4417/general_server_files/LabSelTableColuumn.json"),
             "rows": result.reverse()
           });
       setTimeout(function() { 
         if($('#Lab_selT_pdr').length <= 0){
           $('#Lab_selT_pdr_card_container').append('<table id="Lab_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
           $('#Lab_selT_pdr').footable({
-            "columns": $.post('http://localhost:4417/general_server_files/LabSelTableColuumn.json'),
+            "columns": $.post("http://"+local_server+":4417/general_server_files/LabSelTableColuumn.json"),
             "rows": result.reverse()
           });
         }
@@ -4161,10 +4161,10 @@ $.fn.enterHome = function(){
 }
 
 $.fn.getLatest_Dispensed = function(){
-  $.get('http://localhost:3130/get_currOpratP_coll',{
+  $.get("http://"+local_server+":3130/get_currOpratP_coll",{
         },
         function (result_id){
-  $.get('http://localhost:3130/get_latest_Dispensed',{
+  $.get("http://"+local_server+":3130/get_latest_Dispensed",{
     usrID:result_id.usrID
   },
   function (result){
@@ -4197,7 +4197,7 @@ $.fn.getLatest_Dispensed = function(){
 }
 
 $.fn.get_DispensedBy_id = function(DocID){
-  $.get('http://localhost:3130/get_Dispensed_with_id',{
+  $.get("http://"+local_server+":3130/get_Dispensed_with_id",{
     DocID:DocID
 },
   function (result){
@@ -4235,10 +4235,10 @@ $.fn.get_DispensedBy_id = function(DocID){
   });
 
   $.fn.getDispensedSelectwithDate_dpr = function(){
-    $.get('http://localhost:3130/get_currOpratP_coll',{
+    $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
-    $.get('http://localhost:3130/get_disp_Dispensed_dateTime',{
+    $.get("http://"+local_server+":3130/get_disp_Dispensed_dateTime",{
       usrID:result_id.usrID
     },
     function (result){
@@ -4251,7 +4251,7 @@ $.fn.get_DispensedBy_id = function(DocID){
         }
       });
   $('#Dispensed_selT_pdr').footable({
-    "columns": $.post('http://localhost:4417/general_server_files/DispensedSelTableColuumn.json'),
+    "columns": $.post("http://"+local_server+":4417/general_server_files/DispensedSelTableColuumn.json"),
     "rows": result.reverse()
   });
 
@@ -4259,7 +4259,7 @@ $.fn.get_DispensedBy_id = function(DocID){
     if($('#Dispensed_selT_pdr').length <= 0){
       $('#Dispensed_selT_pdr_card_container').append('<table id="Dispensed_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
       $('#Dispensed_selT_pdr').footable({
-        "columns": $.post('http://localhost:4417/general_server_files/DispensedSelTableColuumn.json'),
+        "columns": $.post("http://"+local_server+":4417/general_server_files/DispensedSelTableColuumn.json"),
         "rows": result.reverse()
       });
     }
@@ -4269,10 +4269,10 @@ $.fn.get_DispensedBy_id = function(DocID){
   }
 
   $.fn.getLatest_Note = function(){
-    $.get('http://localhost:3130/get_currOpratP_coll',{
+    $.get("http://"+local_server+":3130/get_currOpratP_coll",{
             },
             function (result_id){
-    $.get('http://localhost:3130/get_latest_Note',{
+    $.get("http://"+local_server+":3130/get_latest_Note",{
       usrID:result_id.usrID
     },
     function (result){
@@ -4304,7 +4304,7 @@ $.fn.get_DispensedBy_id = function(DocID){
   }
 
 $.fn.get_NoteBy_id = function(DocID){
-  $.get('http://localhost:3130/get_Note_with_id',{
+  $.get("http://"+local_server+":3130/get_Note_with_id",{
     DocID:DocID
 },
   function (result){
@@ -4342,10 +4342,10 @@ $("#Note_selT_pdr").on("click","td:not(.footable-first-column)",function(e){
 });
 
 $.fn.getNoteSelectwithDate_dpr = function(){
-  $.get('http://localhost:3130/get_currOpratP_coll',{
+  $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
-  $.get('http://localhost:3130/get_disp_Note_dateTime',{
+  $.get("http://"+local_server+":3130/get_disp_Note_dateTime",{
     usrID:result_id.usrID
   },
   function (result){
@@ -4357,7 +4357,7 @@ $.fn.getNoteSelectwithDate_dpr = function(){
     e.time = collect_o_date[1];
     }});
 $('#Note_selT_pdr').footable({
-  "columns": $.post('http://localhost:4417/general_server_files/NoteSelTableColuumn.json'),
+  "columns": $.post("http://"+local_server+":4417/general_server_files/NoteSelTableColuumn.json"),
   "rows": result.reverse()
 });
 
@@ -4365,7 +4365,7 @@ setTimeout(function() {
   if($('#Note_selT_pdr').length <= 0){
     $('#Note_selT_pdr_card_container').append('<table id="Note_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
     $('#Note_selT_pdr').footable({
-      "columns": $.post('http://localhost:4417/general_server_files/NoteSelTableColuumn.json'),
+      "columns": $.post("http://"+local_server+":4417/general_server_files/NoteSelTableColuumn.json"),
       "rows": result.reverse()
     });
   }
@@ -4377,7 +4377,7 @@ setTimeout(function() {
 
 
 $.fn.get_FullrecBy_id = function(DocID,category){
-  $.get('http://localhost:3130/get_Fullrec_with_id',{
+  $.get("http://"+local_server+":3130/get_Fullrec_with_id",{
     DocID:DocID,
     category:category
 },
@@ -4418,10 +4418,10 @@ $("#Fullrec_selT_pdr").on("click","td:not(.footable-first-column)",function(e){
   return false;
 });
 $.fn.getFullrecSelectwithDate_dpr = function(){
-  $.get('http://localhost:3130/get_currOpratP_coll',{
+  $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
-  $.get('http://localhost:3130/get_disp_Fullrec_dateTime',{
+  $.get("http://"+local_server+":3130/get_disp_Fullrec_dateTime",{
     usrID:result_id.usrID
   },
   function (result){
@@ -4440,7 +4440,7 @@ $.fn.getFullrecSelectwithDate_dpr = function(){
     e.time = collect_o_date[1];
     }});
 $('#Fullrec_selT_pdr').footable({
-  "columns": $.post('http://localhost:4417/general_server_files/FullrecSelTableColuumn.json'),
+  "columns": $.post("http://"+local_server+":4417/general_server_files/FullrecSelTableColuumn.json"),
   "rows": result.reverse()
 });
 
@@ -4448,7 +4448,7 @@ setTimeout(function() {
   if($('#Fullrec_selT_pdr').length <= 0){
     $('#Fullrec_selT_pdr_card_container').append('<table id="Fullrec_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
     $('#Fullrec_selT_pdr').footable({
-      "columns": $.post('http://localhost:4417/general_server_files/FullrecSelTableColuumn.json'),
+      "columns": $.post("http://"+local_server+":4417/general_server_files/FullrecSelTableColuumn.json"),
       "rows": result.reverse()
     });
   }
@@ -4544,7 +4544,7 @@ function reload_curr_PdispTab(){
 }
 
 function de_assign_a_particularP(id){
-  $.get('http://localhost:3130/de_assign_particular_patient',{
+  $.get("http://"+local_server+":3130/de_assign_particular_patient",{
     assignID:id
   },
   function (result){

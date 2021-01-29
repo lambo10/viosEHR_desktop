@@ -22,6 +22,9 @@
             padding-top: 4px;
             padding-bottom: 4px;
         }
+        a{
+          color: #555;
+        }
         </style>
 </head>
 
@@ -84,6 +87,9 @@
                             <div style="display: inline;"><span> Form-Name </span>
                             <input type="text" placeholder="Enter Name" id="formName_inp">
                             </div>
+                            <div style="display: inline;"><span> Cost(Naira) </span>
+                              <input type="number" placeholder="Enter Name" id="formcost_inp">
+                              </div>
                             <div style="display: inline;"><button type="button" onclick="$.fn.saveForm()" class="bootstrap btn btn-blue" style="border-radius:50px; float:right; font-size: 10px;"><b>Save</b></button></div>
                     </div>
                         
@@ -941,7 +947,32 @@
                                 <br><br>
                                 </div>
                               </div>
-                              
+                              <div class="bootstrap form-group component" style="background-color:inherit; padding-left:20px;padding-right:20px;" id="input_componentInitialID" rel="popover" title="File Upload" trigger="manual"
+                                data-content="
+                                <form class='form'>
+                                  <div class='form-group col-md-12'>
+                                    <label class='control-label'>Label Text</label> <input class='form-control' type='text' name='label' id='label'>
+                                    <hr/>
+                                    <button class='btn btn-info' style='font-size: 11px'>Save</button><button class='btn btn-danger' style='font-size: 11px'>Cancel</button>
+                                  </div>
+                                </form>" data-html="true"
+                                >
+                                <label class="bootstrap control-label valtype"  style="text-align:right" id="mainLabelFI" data-valtype="label">File Button</label>
+          
+                                <!-- File Upload -->
+                                <div class="bootstrap">
+                                 
+                                    <input class="bootstrap input-file" id="input_textInputInitialID" type="button" value="choose file" onclick="$.fn.submitFormFileInput('1')" fileType="image" component_type = "file">
+                                  <div id="imageInputLoaderDiv" style="width: 100%; min-height: 450px; border: dashed 1px; text-align: center; padding-top: 60px;"><img src="img/loading.gif" id="imageInputLoader" style="width: 49px; height: 50px; border: none; display: none;"></div>
+                                   <ul id="imageInputUL" style="padding:0px; list-style: none; display: none;">
+                                    <li data-src="img/Radiographs/f.jpg" id="imageInputLI">
+                                      <img src="img/Radiographs/f.jpg" style="width: 100%; min-height: 450px;" id="imageInputDispVM">
+                                    </li>
+                                  </ul>
+                                  <button class="btn" style="margin: 0px; font-size: 12px; background: rgb(85, 137, 248); color: white; border: 0px;" id="imageViewBtn_Z" onclick="$.fn.viewDispFormImage('../img/lg_br.jpg')" type="button">View</button>
+                                <br><br>
+                                </div>
+                              </div>
                               
           
                             </div>

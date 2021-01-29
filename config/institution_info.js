@@ -4,3 +4,4 @@ const institutionInfo = {
     node_name:"UNN-MED--NODE1",
     card_print:false
 };
+const local_server = "localhost";

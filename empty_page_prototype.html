@@ -1,31 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html lang="en"><head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Vios</title>
+  
+  <title>Mount Araphat</title>
+  
   <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/iso_bootstrap3.3.7min.css" rel="stylesheet">
   <link href="css/mdb.min.css" rel="stylesheet">
+  <link href="css/dropzone.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
+  <link href="css/lightgallery.css" rel="stylesheet">
   <link href="css/Vios_colors.css" rel="stylesheet">
   <link href="css/vios_style.css" rel="stylesheet">
+  <link href="css/popper.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" media="all" href="css/daterangepicker.css" />
+  <link href="css/footable.standalone.css" rel="stylesheet">
   <link href="css/scroll_bar_style.css" rel="stylesheet">
-</head>
+  <link href="js/easyauto_comp/easy-autocomplete.min.css" rel="stylesheet">
+  <link href="js/easyauto_comp/easy-autocomplete.themes.min.css" rel="stylesheet">
+  <link href="css/jBox.all.min.css" rel="stylesheet">
+  <link href='css/opensans.css' rel='stylesheet' type='text/css'>
+<style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
+.btn.btn-default.dropdown-toggle{
+padding: 14px;
+-webkit-box-shadow:none
+}
+.btn.btn-primary{
+-webkit-box-shadow:none
+}
+a.nav-link{
+  color: white;
+}
+</style>
 
-<body onload="autoStartFocus()">
+<body onload="update()" style="font-family: 'Nunito', sans-serif; background-color: #0d218a;">
 
   <!-- docturs portal header start -->
   <div>
 <nav class="navbar navbar-expand-lg navbar-dark theme_color_primary" style="box-shadow: 0 0px 0px 0 rgba(0,0,0,.16),0 0px 0px 0 rgba(0,0,0,.12);">
 
-  <a class="navbar-brand" href="#"><b>VIOSTEC</b></a>
+  <a class="navbar-brand" style="font-family: 'Nunito', sans-serif;" href="#"><img src="img/appIcons/favicon.png" style="width: 20px; height: 20px;"></a>
 
   <!-- Collapse button -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
@@ -33,39 +53,40 @@
   <div class="collapse navbar-collapse" id="basicExampleNav">
 
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active waves-effect waves-light" id="patients_wut_id" onclick="set_patients_main_fragment()">
-        <a class="nav-link"><i class="fa fa-male"></i>Patient</a>
+        <li class="nav-item" id="home_wut_id">
+            <a class="nav-link" id="home_wut_innerLink" onclick="set_home_main_fragment()"><i class="fa fa-home"></i>Home</a>
+          </li>
+      <li class="nav-item active" id="patients_wut_id" onclick="set_patients_main_fragment()">
+        <a class="nav-link waves-effect waves-light" id="patients_wut_innerLink"><i class="fa fa-male"></i><b>Patient</b></a>
       </li>
-
+      <li class="nav-item" id="add_patient" onclick="set_addpatient_main_fragment()">
+      </li>
     </ul>
     
 
-    <form class="form-inline">
-      <div class="md-form my-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search Patient's Name" aria-label="Search" style="width: 400px">
-        <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit">GO</button>
+    <form class="form-inline" action="#">
+      <div class="md-form my-0 row" style="padding-right: 10px; height: 20px;">
+        <div class="col-md-9">
+            <input id="search_patient_input" class="form-control mr-sm-2" type="text" placeholder="Search Patient's Name or ID" aria-label="Search" style="width: 400px">
+        </div>
+        <div class="col-md-3">
+          <button onclick="search_patient_to_nav_s_btn_click()" class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3 waves-effect waves-light" type="button" style="border-radius: 20px;">GO</button>
+            <div style="width: 10px; display: inline-block;"><div style="height: 19.5px;"><img src="img/loading_topnav.gif" style="width: 30px; height: 30px; display: none;" id="top_nav_loading_anim"></div></div>
+        </div>
       </div>
     </form>
 
 
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link waves-effect waves-light">1
-          <i class="fa fa-envelope"></i>
-        </a>
-      </li>
       <li class="nav-item avatar dropdown">
         <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          <img src="img/working_prof/profile_pic.jpg" class="rounded-circle z-depth-0" style="width: 30px; height: 30px" alt="avatar image">
+          <img src="img/working_prof/profile_pic.jpg" id="pr_profile_picSSG" class="rounded-circle z-depth-0" style="width: 30px; height: 30px" alt="avatar image">
         </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
-          <a class="dropdown-item waves-effect waves-light" href="#"><i class="fa fa-user theme_text_colored_primary"></i> Profiles</a>
-          <a class="dropdown-item waves-effect waves-light" href="#"><i class="fa fa-cog theme_text_colored_primary"></i> Settings</a>
-          <a class="dropdown-item waves-effect waves-light" href="index.html"><svg height="15px" class="theme_text_colored_primary" aria-hidden="true" data-prefix="far" data-icon="sign-in-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-sign-in-alt fa-w-16 fa-fw fa-lg"><path fill="currentColor" d="M144 112v51.6H48c-26.5 0-48 21.5-48 48v88.6c0 26.5 21.5 48 48 48h96v51.6c0 42.6 51.7 64.2 81.9 33.9l144-143.9c18.7-18.7 18.7-49.1 0-67.9l-144-144C195.8 48 144 69.3 144 112zm192 144L192 400v-99.7H48v-88.6h144V112l144 144zm80 192h-84c-6.6 0-12-5.4-12-12v-24c0-6.6 5.4-12 12-12h84c26.5 0 48-21.5 48-48V160c0-26.5-21.5-48-48-48h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96z" class=""></path></svg> Logout</a>
+          <a class="dropdown-item waves-effect waves-light" onclick="$.fn.logoutHSD()"><svg height="15px" class="theme_text_colored_primary" aria-hidden="true" data-prefix="far" data-icon="sign-in-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-sign-in-alt fa-w-16 fa-fw fa-lg"><path fill="currentColor" d="M144 112v51.6H48c-26.5 0-48 21.5-48 48v88.6c0 26.5 21.5 48 48 48h96v51.6c0 42.6 51.7 64.2 81.9 33.9l144-143.9c18.7-18.7 18.7-49.1 0-67.9l-144-144C195.8 48 144 69.3 144 112zm192 144L192 400v-99.7H48v-88.6h144V112l144 144zm80 192h-84c-6.6 0-12-5.4-12-12v-24c0-6.6 5.4-12 12-12h84c26.5 0 48-21.5 48-48V160c0-26.5-21.5-48-48-48h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96z" class=""></path></svg> Logout</a>
         </div>
       </li>
     </ul>
-
 
   </div>
   <!-- Collapsible content -->
@@ -73,924 +94,919 @@
 </nav>
   </div>
 <!-- docturs portal header start -->
-<div class="patient_fragment" id="main_patient_fragment">
-  <div style="height: 10px;"></div>
-  <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-bottom: #09c;">
-    <li class="nav-item">
-      <a class="nav-link active v_nav_link" id="chart-tab" data-toggle="tab" href="#chart" role="tab" aria-controls="chart"
-        aria-selected="true">Chart</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="Radiograph-tab" data-toggle="tab" href="#radiograph" role="tab" aria-controls="radiograph"
-        aria-selected="false">Radiograph</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="Lab-tab" data-toggle="tab" href="#lab" role="tab" aria-controls="lab"
-          aria-selected="false">Lab</a>
+
+<div id="main_home_fragment" style="display:none; min-height: 700px; background: #0d218a; padding-bottom: 40px; overflow-x: hidden;">
+ 
+ <div style="padding: 70px;">
+<div class="row">
+  <div class="col-md-6">
+    <div style="font-size: 25px; color:#f3f1f1c9">Assigned Patients</div>
+    <br>
+<div id="asg_p_table_id">
+  <div id="asg_p_tb_id">
+    
+  </div>
+</div>
+              <br>
+              <div style="font-size: 80px; color: white;">
+                <div class="row">
+                  <div class="col-md-3" style="padding:10px;">
+                  <div id="un_attend_p_t_Num">0</div>
+                  <div style="font-size: 13px;">Un-attended patients</div>
+                  </div>
+          
+                  <div class="col-md-3" style="padding:10px;">
+                    <div id="attend_p_t_Num">0</div>
+                    <div style="font-size: 13px;">Attended patients</div>
+                    </div>
+                </div>
+              </div><br>
+              <button class="btn waves-effect waves-light" onclick="$.fn.de_assign_all_patients()" style="border-radius: 30px; background-color: #243797; position: fixed; left: 20px; bottom: 20px; text-transform:initial" type="button">De-Assign all patients</button>
+  </div>
+
+  <div class="col-md-6">
+    <div style="font-size: 25px; color:#f3f1f1c9">Recently Attended Patients</div>
+    <br>
+    <div id="r_attend_p_table_id">
+  <div id="r_attend_p_id">
+    <div style="padding-bottom: 20px;">
+      <div style="width:100%; color: white; min-height: 50px; background: #11111133; padding: 20px; border-radius: 20px;">
+        <div style="font-size: 18px;">Dada chibuzor okaffor <span style="color: #f3f1f1c9; font-size: 13px;"> 12abdksdGDJSmsdndk</span></div>
+        <div style="color: #f3f1f1c9;">lsdmk sdlkm sdkln sdk k ldnk ksdj ksjd jsdn sdoij sdioj sdioj sdoij</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  
+
+    
+
+  </div>
+</div>
+ </div>
+  
+  </div>
+
+
+<div class="patient_fragment" id="main_patient_fragment" style="overflow-x: hidden;">
+  <div id="patient_data_fragment" class="animated faster" style="display: none;">
+  <b>
+    <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-bottom: #243797; background: #243797;">
+      <div style="width: 100%; height: 10px;"></div>
+      <li class="nav-item waves-effect waves-light" style="display: none;">
+        <a class="nav-link active v_nav_link" id="chart-tab" data-toggle="tab" href="#chart" role="tab" aria-controls="chart" aria-selected="true" onclick="chartTabclick()">Chart</a>
       </li>
-      <li class="nav-item">
-          <a class="nav-link" id="Medication-tab" data-toggle="tab" href="#medication" role="tab" aria-controls="medication"
-            aria-selected="false">Medication</a>
+      <li class="nav-item waves-effect waves-light">
+        <a class="nav-link" id="Radiograph-tab" data-toggle="tab" href="#radiograph" role="tab" aria-controls="radiograph" aria-selected="false" onclick="radiographTabclick()">Radiograph</a>
+      </li>
+      <li class="nav-item waves-effect waves-light">
+          <a class="nav-link" id="Lab-tab" data-toggle="tab" href="#lab" role="tab" aria-controls="lab" aria-selected="false" onclick="labTabclick()">Lab</a>
         </li>
-         <li class="nav-item">
-          <a class="nav-link" id="full-record" data-toggle="tab" href="#fullrecord" role="tab" aria-controls="fullrecord"
-            aria-selected="false">Full Record</a>
-        </li>
-<div class="v_right_nav_small"><div style="float: right;" style="width: 20%"><button type="button" class="btn btn-success waves-effect waves-light" style=" padding-top: 5px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px;"><i class="fa fa-arrow-left"></i>Prev</button>
-  <button type="button" class="btn btn-success waves-effect waves-light" style=" padding-top: 5px; padding-left: 5px; padding-right: 5px; padding-bottom: 5px;">Next<i class="fa fa-arrow-right"></i></button>
-<div style="float: right; padding-top: 1px; font-size: 25px;">30</div>
-</div></div>        
-  </ul>
-  <div class="theme_color_secondary" style="height: 10px;"></div>
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="chart" role="tabpanel" aria-labelledby="chart-tab">
-      <div style="background: #eee; width: 100%; height: 800px;">
+        <li class="nav-item waves-effect waves-light">
+            <a class="nav-link" id="Medication-tab" data-toggle="tab" href="#medication" role="tab" aria-controls="medication" aria-selected="false" onclick="PrescriptionTabclick()">Prescription</a>
+          </li>
+          <li class="nav-item waves-effect waves-light">
+              <a class="nav-link" id="Dispensed-tab" data-toggle="tab" href="#dispensed" role="tab" aria-controls="dispensed" aria-selected="false" onclick="DispensedTabclick()">Dispensed</a>
+            </li>
+            <li class="nav-item waves-effect waves-light">
+                <a class="nav-link" id="Note-tab" data-toggle="tab" href="#note" role="tab" aria-controls="note" aria-selected="false" onclick="NoteTabclick()">Note</a>
+              </li>
+           <li class="nav-item waves-effect waves-light">
+            <a class="nav-link" id="full-record" data-toggle="tab" href="#fullrecord" role="tab" aria-controls="fullrecord" onclick="FullrecTabclick()" aria-selected="false">Full Record</a>
+          </li> 
+          <div style="width: 35%; padding-top:7px">
+            <button id="de_assign_btn_ID" class="btn btn-white" style="border-radius:100px; height: 10px; padding-top:3px;padding-bottom: 21px; float: right;">De-assign</button>
+          </div>
+          <div style="width: 10%;"><div style="float: right;" style="width: 20%">
+            <button type="button" id="prv_p_btn_clickVN" onclick="$.fn.prv_patient_btn_click()" class="rounded-circle z-depth-0 theme_color_secondary waves-effect waves-light white_text" style=" padding-top: 10px; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; border:none; outline:none;"><i class="fa fa-arrow-left"></i></button>
+            <button type="button" class="rounded-circle z-depth-0 theme_color_secondary waves-effect waves-light white_text" id="next_p_btn_clickVN" onclick="$.fn.next_patient_btn_click()" style=" padding-top: 10px; padding-left: 10px; padding-right: 10px; padding-bottom: 10px; border:none; outline:none;"><i class="fa fa-arrow-right"></i></button>
+          </div>
+          </div>
+          <div style="float: right; padding-left: 20px;"><button type="button" class="rounded-circle z-depth-0 waves-effect waves-light" onclick="insert_out_anim_for_idle_fragment()" style="padding-top: 10px; padding-left: 12px; padding-right: 12px; padding-bottom: 10px; color:grey; border: none; outline:none;"><i class="fa fa-close"></i></button></div>
+              
+    </ul>
+  </b>
 
-        <div style="width: 100%;">
-          <div style="float: left; padding-left: 50px; padding-top: 20px;">
-<div>
-  <div class="container">
-    <div class="row" style="width: 100%;">
-      
-<div class="col-md-4">
-  <!-- Card Narrower -->
-        <div class="card">
-
-          <div>
-          <div style="padding-left: 15px;">
-              <div style="width: 104.5%;">
-                  <div>
-    
-                      <div class="v_patient_details_module_header row">
-                          <div class="col-md-3">
-                              <img src="img/working_prof/rily.jpg" class="rounded-circle z-depth-0" style="width: 70px; height: 70px" alt="avatar image">
-                            </div>
-                      
-                            <div class="col-md-8">
+    <div class="theme_color_secondary" style="height: 10px; background: #243797;"></div>
+    <div style="background: #eee;">
+      <div style="background: #243797; padding-bottom: 10px; color: white;">
+        <div class="row" style="padding-top: 5px; padding-left: 30px;">
+          <div class="col-md-2">
+            <img id="patient_pp_pdr" src="img/user.png" class="rounded-circle z-depth-0" style="width: 40px; height: 40px" alt="avatar image"><span> </span><span style="font-size: 17px; font-family: 'Nunito', sans-serif; " id="patient_name_pdr"></span>
+          </div>
+          <div class="col-md-1" style="padding-top: 8px;">Sex: <span id="patient_sex_pdr"></span></div> 
+          <div class="col-md-1" style="padding-top: 8px;">Age: <span id="patient_age_pdr"></span></div>
+          <div class="col-md-1" style="padding-top: 8px;">Height: <span id="patient_heightS_pdr"></span></div>
+          <div class="col-md-3" style="padding-top: 8px;">Email: <span id="patient_email_pdr"></span></div> 
+          <div class="col-md-2" style="padding-top: 8px;">PhoneNo: <span id="patient_phone_no_pdr"></span></div>
+          <div class="col-md-2" style="padding-top: 8px;">Occupation: <span id="patient_prof_pdr"></span></div> 
+        </div>
+        </div>
+    </div>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">
+        <div style="background: #eee; width: 100.1%;">
+  
+          <div style="width: 100%;" class="animated faster" id="chart_inner">
+      <div>
+  
+              <div class="row" style=" padding: 50px;">
+  
+  
+                      <div class="col-md-4">
+                          <!-- Card Narrower -->
+                                <div class="card" style="min-height: 300px;">
+                                  <div id="usrDetails_disp_div_loader" style="padding-top: 35%; text-align: center;">
+                                  <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                  </div>
+                                  <div id="usrDetails_disp_div" style="display:none;">
+                                  <div style="padding-left: 15px;">
+                                      <div style="width: 104.5%;">
+                                          <div>
+                            
+                                              <div class="v_patient_details_module_header row">
+                                                  
+                                              
+                                                    <div class="col-md-8">
+                                                        
+                                                          <div style="font-size: 13px; padding-top: 10px; color: #bdbdbd;">
+                                                            
+                                                          </div>
+                                                          
+                                                      </div>
+                                                  </div>
                                 
-                                  <div style="font-size: 20px; font-family: Arial, Helvetica, sans-serif">NNADI LAMBERT</div>
-                                  <div style="font-size: 13px; padding-top: 10px; color: #bdbdbd;">
-                                    <div class="row"> <div class="col-md-4">Male</div> <div class="col-md-7">20 years old</div>  </div>
-                                    <div class="row"> <div class="col-md-8">Student</div> <div class="col-md-4">5.5ft</div>  </div>
-                                  </div>
-                                  
-                              </div>
-                          </div>
-        
-                      
-                    </div>
-              </div>
-        
-
-          </div>
-          <div class="row" style="padding-top: 2px; padding-left: 20px; padding-right: 3px; padding-bottom: 2px;">
-                <div class="col-md-6"><div><b>Sex:</b></div><div>Male</div></div>
-                <div class="col-md-6"><div><b>Height:</b></div><div>5.5ft</div></div>
-                <div class="col-md-6"><div><b>Age:</b></div><div>20</div></div>
-              <div class="col-md-6"><div><b>No:</b></div><div>07068497582</div></div>
-              <div class="col-md-6"><div><b>Email:</b></div><div>Nnadi406@gmail.com</div></div>
-              <div class="col-md-6"><div><b>Occupation:</b></div><div>Student</div></div>
-              <div class="col-md-6"><div><b>Dept:</b></div><div>Computer Science</div></div>
-              <div class="col-md-6"><div><b>Faculty:</b></div><div>Physical Science</div></div>
-              </div>
-          </div>
-
-        </div>
-        <!-- Card Narrower -->
-
-</div>
-
-
-<div class="col-md-7">
-  <!-- Card Narrower -->
-        <div class="card card-cascade narrower">
-
-          <!-- Card image -->
-          <div style="width: 100%;">
-          <div style="width: 100%;" align="center">
-          <div class="view view-cascade overlay" style="width: 80%">
-           <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary animated bounce"><h5>Recent Lab Test</h5></div>
-            <a>
-              <div class="mask rgba-white-slight"></div>
-            </a>
-          </div>
-          </div>
-          </div>
-
-          <!-- Card content -->
-          <div>
-          <div class="card-body card-body-cascade">
-<div><h5><b>MICROSCOPY &amp; SENSITIVITY</b></h5></div>
-           <div class="row">
-             <div class="col-md-3">
-               <div>
-                 <b>Widal test</b>
-               </div>
-               <div class="row" style="padding-left: 15px;">    
-                    <table class="table">
-                      <thead class="grey lighten-2">
-                        <tr>
-                          <th scope="col">O</th>
-                          <th scope="col">H</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>160</td>
-                          <td>40</td>
-                        </tr>
-                        <tr>
-                          <td>40</td>
-                          <td>40</td>
-                        </tr>
-                        <tr>
-                          <td>20</td>
-                          <td>40</td>
-                        </tr>
-                      </tbody>
-                    </table>
-
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div>
-                 <b>Stool Analysis</b>
-               </div>
-               <div style="">Brown and soft.  No ova, parasite or cyst found. Culture yielded mordrate growth of Samonella spp after 24hr at 37oc</div>
-             </div>
-             <div class="col-md-3">
-               <div>
-                 <b>Drug chart</b>
-               </div>
-               <div style="">Cyproflox(+++), <br>Pefloxacin(+++), <br>Gentanicin(+++), <br>Septrin(++), <br>Resist. to Erythlomycin, Ampiclox, Amoxil, Rocephin &amp; Streptomycin</div>
-             </div>
-             <div class="col-md-3">
-                <div>
-                  <b>Drug chart</b>
-                </div>
-                <div style="">Culture - yeilded moderate growth of Staph. spp after 24hrs at 37oc.</div>
-              </div>
-            
-           </div> 
-            
-        <div>
-          
-        </div>
-
-          </div>
-          </div>
-
-        </div>
-        <!-- Card Narrower -->
-
-</div>
-
-<div style="float: right;">
-              <div style="width: 98%;"><div style="float: right;"> <div class="waves-effect" style="width: 75px; padding: 1px; border: #455a64 solid 2px"> <div class="row"> <div class="col-md-3"><img src="img/svg/printer.svg" style="width: 15px; height: 15px;"></div>  <div class="col-md-3" style="color: #455a64;">Print</div> </div></div> </div></div>
-                        </div>
-
-    </div>
-  </div>
-</div>
-          </div>
-
-         
-        </div>
-
-
-      </div>
-    </div>
-   
-    <div class="tab-pane fade" id="radiograph" role="tabpanel" aria-labelledby="Radiograph-tab">
-    
-        <div style="background: #eee; width: 100%;">
-<div class="row v_Main_tab_padding_o">
-
-    <div class="col-md-9">
-        <!-- Card Narrower -->
-              <div class="card card-cascade narrower animated faster" id="Radiograph-main-container">
-      
-                <!-- Card image -->
-                <div style="width: 100%;">
-                <div style="width: 100%;" align="center">
-                <div class="view view-cascade overlay" style="width: 80%">
-                 <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary animated bounce"><h5>26-03-2018</h5></div>
-                  <a>
-                    <div class="mask rgba-white-slight"></div>
-                  </a>
-                </div>
-                </div>
-                </div>
-      
-                <!-- Card content -->
-                <div>
-                <div class="card-body card-body-cascade">     
-              <div class="row">
-                <div class="col-md-6">
-                    <div style="text-align: center;"><h5><b>OBSTERICS ULTRA SOUND REPORT</b></h5></div>
-                    <div style="text-align: left">
-                      <div><b>Name:</b> Nnadi Lambert</div>
-                      <div><b>Age:</b> 20yrs</div>
-                      <div><b>Sex:</b> Male</div>
-                      <div><b>LMP:</b> 04/08/2018</div>
-                      <div><b>EDD:</b> 23/03/2019</div>
-                      <div><b>Clinical History:</b> Normal</div>
-                    </div>
-                    <div style="text-align: left;">
-                      <b><div style="text-align: center;">SONOGRAPHERS REPORT</div></b>
-                      <div><b>Gestations:</b> 6months</div>
-                      <div><b>Placentation:</b>...........................</div>
-                      <div><b>Fetal life:</b>...........................</div>
-                      <div><b>Placenta position:</b>...........................</div>
-                      <div><b>Liquor volume:</b>...........................</div>
-                      <div><b>Fetal Movement:</b>...........................</div>
-                      <div><b>Cardiac activity:</b>...........................</div>
-                    </div>
-                    <div style="text-align: left;">
-                      <b><div style="text-align: center;">MATURITY</div></b>
-                      <div class="row">
-                        <div class="col-md-6">
-                            <div><b>BPD:</b>..........................</div>
-                            <div><b>AC:</b>...........................</div>
-                            <div><b>FL:</b>...........................</div>
-                            <div><b>GA:</b>...........................</div>
-                        </div>
-                        <div class="col-md-6">
-                            <div><b>EDD:</b>..........................</div>
-                            <div><b>AFL:</b>...........................</div>
-                            <div><b>EFW:</b>...........................</div>
-                            <div><b>FHR:</b>...........................</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div style="text-align: left">
-                      <b><div style="text-align: center;">IMPRESSION</div></b>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div style="text-align: center;"><h5><b>Images</b></h5></div>
-                    <div class="row">
-                        <div class="col-md-6" style="padding: 20px;"><img src="img/Radiographs/f.jpg" style="width: 100%; height: 150px; box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); border: solid 2px white"></div>
-                        <div class="col-md-6" style="padding: 20px;"><img src="img/Radiographs/g.jpg" style="width: 100%; height: 150px; box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); border: solid 2px white"></div>
-                        <div class="col-md-6" style="padding: 20px;"><img src="img/Radiographs/h.jpg" style="width: 100%; height: 150px; box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); border: solid 2px white"></div>
-                        <div class="col-md-6" style="padding: 20px;"><img src="img/Radiographs/i.jpg" style="width: 100%; height: 150px; box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); border: solid 2px white"></div>
-                      </div>
-                </div>
-              </div>
-      
-                </div>
-                </div>
-      
-              </div>
-              <!-- Card Narrower -->
-      
-      </div>
-
-<div class="col-md-3">
-    <div class="card">
-        <div class="view view-cascade py-3 gradient-card-header info-color-dark mx-4 d-flex justify-content-between align-items-center">
-            
-            <div>
-                <button onclick="Radiofraphs_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
-                    First
-                </button>
-            </div>
-
-            <a href="" class="white-text mx-3">Radiographs</a>
-
-            <div>
-                <button onclick="Radiofraphs_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
-                    Last
-                </button>
-            </div>
-
-        </div>
-        <div style="text-align: center">
-          <div style="display: inline-block">
-            <ul class="pagination pagination-circle pg-blue mb-0">
-                <li class="page-item">
-                    <a class="page-link waves-effect waves-effect"><<</a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link waves-effect waves-effect">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link waves-effect waves-effect">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link waves-effect waves-effect">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link waves-effect waves-effect">>></a>
-                </li>
-            </ul>
-            </div>
-        </div>
-        <table class="table animated faster" id="radiograph_table">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="v_row_as_btn" onclick="on_row_as_btn_click()">
-                <th scope="row">13:45</th>
-                <td>09-09-2018</td>
-              </tr>
-              <tr class="v_row_as_btn" onclick="on_row_as_btn_click()">
-                <th scope="row">15:00</th>
-                <td>07-08-2018</td>
-              </tr>
-              <tr class="v_row_as_btn" onclick="on_row_as_btn_click()">
-                <th scope="row">09:15</th>
-                <td>19-05-2018</td>
-              </tr>
-              <tr class="v_row_as_btn" onclick="on_row_as_btn_click()">
-                  <th scope="row">8:03</th>
-                  <td>25-03-2018</td>
-                </tr>
-                <tr class="v_row_as_btn" onclick="on_row_as_btn_click()">
-                    <th scope="row">14:11</th>
-                    <td>19-07-2017</td>
-                  </tr>
-                  <tr class="v_row_as_btn" onclick="on_row_as_btn_click()">
-                      <th scope="row">12:11</th>
-                      <td>19-05-2017</td>
-                    </tr>
-                    <tr class="v_row_as_btn" onclick="on_row_as_btn_click()">
-                        <th scope="row">14:02</th>
-                        <td>19-03-2017</td>
-                      </tr>
-            </tbody>
-          </table>
-    </div>
-  </div>
-</div>
-<br><br><br><br><br><br><br><br><br><br><br><br>
-</div>
-
-    </div>
-    <div class="tab-pane fade" id="lab" role="tabpanel" aria-labelledby="Radiograph-tab">
-
-
-<div style="background: #eee; width: 100%;">
-<div class="row v_Main_tab_padding_o">
-
-    <div class="col-md-9">
-        <!-- Card Narrower -->
-              <div class="card card-cascade narrower animated faster" id="lab-test-O-main-container">
-      
-                <!-- Card image -->
-                <div style="width: 100%;">
-                <div style="width: 100%;" align="center">
-                <div class="view view-cascade overlay" style="width: 80%">
-                 <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary animated bounce"><h5>26-03-2018</h5></div>
-                  <a>
-                    <div class="mask rgba-white-slight"></div>
-                  </a>
-                </div>
-                </div>
-                </div>
-      
-                <div style="padding: 30px;">
-                    <div><h5><b>MICROSCOPY &amp; SENSITIVITY</b></h5></div>
-           <div class="row">
-             <div class="col-md-3">
-               <div>
-                 <b>Widal test</b>
-               </div>
-               <div class="row" style="padding-left: 15px;">    
-                    <table class="table">
-                      <thead class="grey lighten-2">
-                        <tr>
-                          <th scope="col">O</th>
-                          <th scope="col">H</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>160</td>
-                          <td>40</td>
-                        </tr>
-                        <tr>
-                          <td>40</td>
-                          <td>40</td>
-                        </tr>
-                        <tr>
-                          <td>20</td>
-                          <td>40</td>
-                        </tr>
-                      </tbody>
-                    </table>
-
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div>
-                 <b>Stool Analysis</b>
-               </div>
-               <div style="">Brown and soft.  No ova, parasite or cyst found. Culture yielded mordrate growth of Samonella spp after 24hr at 37oc</div>
-             </div>
-             <div class="col-md-3">
-               <div>
-                 <b>Drug chart</b>
-               </div>
-               <div style="">Cyproflox(+++), <br>Pefloxacin(+++), <br>Gentanicin(+++), <br>Septrin(++), <br>Resist. to Erythlomycin, Ampiclox, Amoxil, Rocephin &amp; Streptomycin</div>
-             </div>
-             <div class="col-md-3">
-                <div>
-                  <b>Drug chart</b>
-                </div>
-                <div style="">Culture - yeilded moderate growth of Staph. spp after 24hrs at 37oc.</div>
-              </div>
-            
-           </div> 
-            
-        <div>
-          
-        </div>
-                </div>
-      
-              </div>
-              <!-- Card Narrower -->
-      
-      </div>
-
-<div class="col-md-3">
-    <div class="card">
-        <div class="view view-cascade py-3 gradient-card-header info-color-dark mx-4 d-flex justify-content-between align-items-center">
-            
-            <div>
-                <button onclick="lab_test_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
-                    First
-                </button>
-            </div>
-
-            <a href="" class="white-text mx-3">Lab test</a>
-
-            <div>
-                <button onclick="lab_test_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
-                    Last
-                </button>
-            </div>
-
-        </div>
-        <div style="text-align: center">
-          <div style="display: inline-block">
-            <ul class="pagination pagination-circle pg-blue mb-0">
-                <li class="page-item">
-                    <a class="page-link waves-effect waves-effect"><<</a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link waves-effect waves-effect">1</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link waves-effect waves-effect">2</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link waves-effect waves-effect">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link waves-effect waves-effect">>></a>
-                </li>
-            </ul>
-            </div>
-        </div>
-        <table class="table animated faster" id="lab_test_O_table">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="v_row_as_btn" onclick="lab_test_on_row_as_btn_click()">
-                <th scope="row">13:45</th>
-                <td>09-09-2018</td>
-              </tr>
-              <tr class="v_row_as_btn" onclick="lab_test_on_row_as_btn_click()">
-                <th scope="row">15:00</th>
-                <td>07-08-2018</td>
-              </tr>
-              <tr class="v_row_as_btn" onclick="lab_test_on_row_as_btn_click()">
-                <th scope="row">09:15</th>
-                <td>19-05-2018</td>
-              </tr>
-              <tr class="v_row_as_btn" onclick="lab_test_on_row_as_btn_click()">
-                  <th scope="row">8:03</th>
-                  <td>25-03-2018</td>
-                </tr>
-                <tr class="v_row_as_btn" onclick="lab_test_on_row_as_btn_click()">
-                    <th scope="row">14:11</th>
-                    <td>19-07-2017</td>
-                  </tr>
-                  <tr class="v_row_as_btn" onclick="lab_test_on_row_as_btn_click()">
-                      <th scope="row">12:11</th>
-                      <td>19-05-2017</td>
-                    </tr>
-                    <tr class="v_row_as_btn" onclick="lab_test_on_row_as_btn_click()">
-                        <th scope="row">14:02</th>
-                        <td>19-03-2017</td>
-                      </tr>
-            </tbody>
-          </table>
-    </div>
-  </div>
-</div>
-<br><br><br><br><br><br><br><br><br><br><br><br>
-</div>
-
-
-    </div>
-    <div class="tab-pane fade" id="medication" role="tabpanel" aria-labelledby="Medication-tab">
-
-
-        <div style="background: #eee; width: 100%;">
-            <div class="row v_Main_tab_padding_o">
-            
-                <div class="col-md-9">
-                    <!-- Card Narrower -->
-                          <div class="card card-cascade narrower animated faster" id="medications-O-main-container">
-                  
-                            <!-- Card image -->
-                            <div style="width: 100%;">
-                            <div style="width: 100%;" align="center">
-                            <div class="view view-cascade overlay" style="width: 80%">
-                             <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary animated bounce"><h5>26-03-2018</h5></div>
-                              <a>
-                                <div class="mask rgba-white-slight"></div>
-                              </a>
-                            </div>
-                            </div>
-                            </div>
-                  
-                            <div style="padding: 30px;">
-                                <div><h5><b>MEDICATION</b></h5></div>
-                                <div class="row">
-                                  <div class="col-md-2">
-                                    <div>
-                                      <b>S/N</b>
-                                    </div>
-                                    <div class="row" style="padding-left: 15px;"><div>1.</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>2.</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>3.</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>4.</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>5.</div></div>
-                                  </div>
-                                  <div class="col-md-2">
-                                    <div>
-                                      <b>Date</b>
-                                    </div>
-                                    <div class="row" style="padding-left: 15px;"><div>19-05-2017</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>19-05-2018</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>19-07-2018</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>19-07-2018</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>19-07-2018</div></div>
+                                              
+                                            </div>
+                                      </div>
                                 
+                        
                                   </div>
-                                  <div class="col-md-2">
-                                    <div>
-                                      <b>Medication</b>
+                                  <!-- <div class="row" id="userProf_details_pdr" style="padding-top: 2px; padding-left: 20px; padding-right: 3px; padding-bottom: 2px; min-height: 320px;">
+                                        <div class="col-md-6" id="patient_md_sexS_pdr"><span><b>Sex:</b></span><span id="patient_sexS_pdr"></span></div>
+                                        <div class="col-md-6" id="patient_md_heightS_pdr"><span><b>Height:</b></span><span id="patient_heightS_pdr"></span></div>
+                                        <div class="col-md-6" id="patient_md_ageS_pdr"><span><b>Age:</b></span><span id="patient_ageS_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_phone_no_pdr"><span><b>No:</b></span><span id="patient_phone_no_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_email_pdr"><span><b>Email:</b></span><span id="patient_email_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_prof_pdr"><span><b>Occupation:</b></span><span id="patient_prof_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_dept_pdr"><span><b>Dept:</b></span><span id="patient_dept_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_facul_pdr"><span><b>Faculty:</b></span><span id="patient_facul_pdr"></span></div>
+                                      <div class="col-md-6" id="patient_md_alerg_pdr"><span><b>Allergies:</b></span><span id="patient_alerg_pdr"></span></div>
+                                      </div> -->
+                                  </div>
+                        
+                                </div>
+                                <!-- Card Narrower -->
+                        
+                        </div>
+                  
+                  
+                        <div class="col-md-8" style="">
+                            <!-- Card Narrower -->
+                                  <div class="card card-cascade narrower animated" style="min-height: 500px;" id="lab-test-O-main-container">
+                                    <div id="chart_disp_div_loaderDDH" style="padding-top: 30%; text-align: center;">
+                                      <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                      </div>
+                                    <div id="chart_disp_div_mainDDH" style="display: none;">
+                                    <!-- Card image -->
+                                    <div style="width: 100%;">
+                                    <div style="width: 100%;" align="center">
+                                    <div class="view view-cascade overlay" style="width: 80%">
+                                     <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5>RECENT PRESCRIPTION (<span id="r_presc_date_pdr"></span>)</h5></div>
+                                      <a>
+                                        <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                                      </a>
                                     </div>
-                                    <div class="row" style="padding-left: 15px;"><div>HCTZ 25mg</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>Metformin 500mg</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>Atorvastatin 20mg</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>Atenolol 50mg</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>Cloxacillin 500mg</div></div>
-                                    
-                                  </div>
-                                  <div class="col-md-2">
-                                    <div>
-                                      <b>Presciption</b>
                                     </div>
-                                    <div class="row" style="padding-left: 15px;"><div>1 tab at breakfast</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>2 tabs twice daily</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>1 tab at supper</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>1 tab at breakfast</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>Discontinued</div></div>
-                                    
-                                  </div>
-                                  <div class="col-md-2">
-                                    <div>
-                                      <b>Last filled</b>
                                     </div>
-                                    <div class="row" style="padding-left: 15px;"><div>01-02-2017</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>05-02-2017</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>07-04-2018</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>07-04-2018</div></div>
-                                    <div class="row" style="padding-left: 15px;"><div>07-04-2018</div></div>
-                                  </div>
-                                </div> 
-                                 
-                             <div>
+                          
+                                    <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="r_prescription_div_dpr">
                                
-                             </div>
-                            </div>
-                  
+                                    </div>
+                                  </div>
+                          
+                                  </div>
+                                  <!-- Card Narrower -->
+                          
                           </div>
-                          <!-- Card Narrower -->
+                  
+                  
+                        
                   
                   </div>
-            
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="view view-cascade py-3 gradient-card-header info-color-dark mx-4 d-flex justify-content-between align-items-center">
-                        
-                        <div>
-                            <button onclick="medications_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
-                                First
-                            </button>
-                        </div>
-            
-                        <a href="" class="white-text mx-3">Medications</a>
-            
-                        <div>
-                            <button onclick="medications_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
-                                Last
-                            </button>
-                        </div>
-            
+  
+      </div>
+  
+           
+          </div>
+  
+  
+        </div>
+      </div>
+     
+      <div class="tab-pane fade show active" id="radiograph" role="tabpanel" aria-labelledby="Radiograph-tab">
+      
+          <div style="background: #eee; width: 100%;">
+  <div class="row v_Main_tab_padding_o">
+  
+      <div class="col-md-9" style="padding-left: 30px; padding-right: 30px;">
+          <!-- Card Narrower -->
+                <div class="card card-cascade narrower animated faster" style="min-height: 500px;border-radius: 30px;" id="Radiograph-main-container">
+                  <div id="radiograph_disp_div_loaderDDH" class="disp_loader_div">
+                    <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
                     </div>
-                    <div style="text-align: center">
-                      <div style="display: inline-block">
-                        <ul class="pagination pagination-circle pg-blue mb-0">
-                            <li class="page-item">
-                                <a class="page-link waves-effect waves-effect"><<</a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link waves-effect waves-effect">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link waves-effect waves-effect">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link waves-effect waves-effect">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link waves-effect waves-effect">>></a>
-                            </li>
-                        </ul>
-                        </div>
+                  <div style="display: none;" id="radiograph_disp_div_mainDDH">
+                  <!-- Card image -->
+                  <div style="width: 100%;">
+                  <div style="width: 100%;" align="center">
+                  <div class="view view-cascade overlay" style="width: 80%">
+                   <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="radiograph_date_pdr"></span></h5></div>
+                    <a>
+                      <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                    </a>
+                  </div>
+                  </div>
+                  </div>
+        
+                  <!-- Card content -->
+                 <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiograph_div_dpr"></div>
+        
+                </div>
+                <!-- Card Narrower -->
+                </div>
+        </div>
+  
+  <div class="col-md-3">
+      <div class="card" id="radiograph_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
+          <table id="radiograph_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record">
+            </table>
+      </div>
+    </div>
+  </div>
+  <br>
+  </div>
+  
+      </div>
+      <div class="tab-pane fade" id="lab" role="tabpanel" aria-labelledby="Radiograph-tab">
+  
+  
+          <div style="background: #eee; width: 100%;">
+              <div class="row v_Main_tab_padding_o">
+              
+                  <div class="col-md-9">
+                      <!-- Card Narrower -->
+                            <div class="card card-cascade narrower animated faster" id="Lab-main-container" style="min-height: 500px;border-radius: 30px;">
+                              <div id="lab_disp_div_loaderDDH" class="disp_loader_div">
+                                <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                </div>
+                              <div id="lab_disp_div_mainDDH" style="display: none;">
+                              <!-- Card image -->
+                              <div style="width: 100%;">
+                              <div style="width: 100%;" align="center">
+                              <div class="view view-cascade overlay" style="width: 80%">
+                               <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Lab_date_pdr"></span></h5></div>
+                                <a>
+                                  <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                                </a>
+                              </div>
+                              </div>
+                              </div>
+                    
+                              <!-- Card content -->
+                             <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Lab_div_dpr"></div>
+                              </div>
+                            </div>
+                            <!-- Card Narrower -->
+                    
                     </div>
-                    <table class="table animated faster" id="medications_O_table">
-                        <thead>
-                          <tr>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="v_row_as_btn" onclick="medications_on_row_as_btn_click()">
-                            <th scope="row">13:45</th>
-                            <td>09-09-2018</td>
-                          </tr>
-                          <tr class="v_row_as_btn" onclick="medications_on_row_as_btn_click()">
-                            <th scope="row">15:00</th>
-                            <td>07-08-2018</td>
-                          </tr>
-                          <tr class="v_row_as_btn" onclick="medications_on_row_as_btn_click()">
-                            <th scope="row">09:15</th>
-                            <td>19-05-2018</td>
-                          </tr>
-                          <tr class="v_row_as_btn" onclick="medications_on_row_as_btn_click()">
-                              <th scope="row">8:03</th>
-                              <td>25-03-2018</td>
-                            </tr>
-                            <tr class="v_row_as_btn" onclick="medications_on_row_as_btn_click()">
-                                <th scope="row">14:11</th>
-                                <td>19-07-2017</td>
-                              </tr>
-                              <tr class="v_row_as_btn" onclick="medications_on_row_as_btn_click()">
-                                  <th scope="row">12:11</th>
-                                  <td>19-05-2017</td>
-                                </tr>
-                                <tr class="v_row_as_btn" onclick="medications_on_row_as_btn_click()">
-                                    <th scope="row">14:02</th>
-                                    <td>19-03-2017</td>
-                                  </tr>
-                        </tbody>
-                      </table>
+              
+              <div class="col-md-3">
+                  <div class="card" id="Lab_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
+                      <table id="Lab_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                        </table>
+                  </div>
                 </div>
               </div>
-            </div>
-            <br><br><br><br><br><br><br><br><br><br><br><br>
-            </div>
-            
-
-
-
-
-    </div>
-    <div class="tab-pane fade" id="fullrecord" role="tabpanel" aria-labelledby="full-record">
-
-
-
-
+              <br>
+              </div>
+  
+  
+      </div>
+      <div class="tab-pane fade" id="medication" role="tabpanel" aria-labelledby="Medication-tab">
+  
+  
+          <div style="background: #eee; width: 100%;">
+              <div class="row v_Main_tab_padding_o">
+              
+                  <div class="col-md-9">
+                      <!-- Card Narrower -->
+                            <div class="card card-cascade narrower animated faster" id="Prescription-main-container" style="min-height: 500px; border-radius: 30px;">
+                              <div id="prescription_disp_div_loaderDDH" class="disp_loader_div">
+                                <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                </div>
+                              <div id="prescription_disp_div_mainDDH" style="display: none;">
+                              <!-- Card image -->
+                              <div style="width: 100%;">
+                              <div style="width: 100%;" align="center">
+                              <div class="view view-cascade overlay" style="width: 80%">
+                               <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Prescription_date_pdr"></span></h5></div>
+                                <a>
+                                  <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                                </a>
+                              </div>
+                              </div>
+                              </div>
+                    
+                              <!-- Card content -->
+                             <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Prescription_div_dpr"></div>
+                    
+                            </div>
+                            <!-- Card Narrower -->
+                    </div>
+                    </div>
+              
+              <div class="col-md-3">
+                  <div class="card" id="Prescription_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
+                      <table id="Prescription_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                        </table>
+                  </div>
+                </div>
+              </div>
+              <br>
+              </div>
+  
+  
+  
+      </div>
+      <div class="tab-pane fade" id="Dispensed" role="tabpanel"  aria-labelledby="Radiograph-tab">
+  
+  
+          <div style="background: #eee; width: 100%;">
+              <div class="row v_Main_tab_padding_o">
+              
+                  <div class="col-md-9">
+                      <!-- Card Narrower -->
+                            <div class="card card-cascade narrower animated faster" id="Dispensed-main-container" style="min-height: 500px; border-radius: 30px;">
+                              <div id="dispansed_disp_div_loaderDDH" class="disp_loader_div">
+                                <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                </div>
+                              <div id="dispansed_disp_div_mainDDH" style="display: none;">
+                              <!-- Card image -->
+                              <div style="width: 100%;">
+                              <div style="width: 100%;" align="center">
+                              <div class="view view-cascade overlay" style="width: 80%">
+                               <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Dispensed_date_pdr"></span></h5></div>
+                                <a>
+                                  <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                                </a>
+                              </div>
+                              </div>
+                              </div>
+                    
+                              <!-- Card content -->
+                             <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Dispensed_div_dpr"></div>
+                              </div>
+                            </div>
+                            <!-- Card Narrower -->
+                    
+                    </div>
+              
+              <div class="col-md-3">
+                  <div class="card" id="Dispensed_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
+                      <table id="Dispensed_selT_pdr" style="cursor: pointer;" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                        </table>
+                  </div>
+                </div>
+              </div>
+              <br>
+              </div>
+  
+  
+      </div>
+      <div class="tab-pane fade" id="Note" role="tabpanel" aria-Noteelledby="Radiograph-tab">
+  
+  
         <div style="background: #eee; width: 100%;">
             <div class="row v_Main_tab_padding_o">
             
                 <div class="col-md-9">
                     <!-- Card Narrower -->
-                          <div class="card card-cascade narrower animated faster" id="full-record-O-main-container">
-                  
+                          <div class="card card-cascade narrower animated faster" id="Note-main-container" style="min-height: 500px; border-radius: 30px;">
+                            <div id="note_disp_div_loaderDDH" class="disp_loader_div">
+                              <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                              </div>
+                            <div id="note_disp_div_mainDDH" style="display: none;">
                             <!-- Card image -->
                             <div style="width: 100%;">
                             <div style="width: 100%;" align="center">
                             <div class="view view-cascade overlay" style="width: 80%">
-                             <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary animated bounce"><h5>26-03-2018</h5></div>
+                             <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Note_date_pdr"></span></h5></div>
                               <a>
-                                <div class="mask rgba-white-slight"></div>
+                                <div class="mask rgba-white-slight waves-effect waves-light"></div>
                               </a>
                             </div>
                             </div>
                             </div>
                   
-                            <div style="padding: 30px;">
-                                <div><h5><b>MICROSCOPY &amp; SENSITIVITY</b></h5></div>
-           <div class="row">
-             <div class="col-md-3">
-               <div>
-                 <b>Widal test</b>
-               </div>
-               <div class="row" style="padding-left: 15px;">    
-                    <table class="table">
-                      <thead class="grey lighten-2">
-                        <tr>
-                          <th scope="col">O</th>
-                          <th scope="col">H</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>160</td>
-                          <td>40</td>
-                        </tr>
-                        <tr>
-                          <td>40</td>
-                          <td>40</td>
-                        </tr>
-                        <tr>
-                          <td>20</td>
-                          <td>40</td>
-                        </tr>
-                      </tbody>
-                    </table>
-
-               </div>
-             </div>
-             <div class="col-md-3">
-               <div>
-                 <b>Stool Analysis</b>
-               </div>
-               <div style="">Brown and soft.  No ova, parasite or cyst found. Culture yielded mordrate growth of Samonella spp after 24hr at 37oc</div>
-             </div>
-             <div class="col-md-3">
-               <div>
-                 <b>Drug chart</b>
-               </div>
-               <div style="">Cyproflox(+++), <br>Pefloxacin(+++), <br>Gentanicin(+++), <br>Septrin(++), <br>Resist. to Erythlomycin, Ampiclox, Amoxil, Rocephin &amp; Streptomycin</div>
-             </div>
-             <div class="col-md-3">
-                <div>
-                  <b>Drug chart</b>
-                </div>
-                <div style="">Culture - yeilded moderate growth of Staph. spp after 24hrs at 37oc.</div>
-              </div>
-            
-           </div> 
-            
-        <div>
-          
-        </div>
+                            <!-- Card content -->
+                           <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Note_div_dpr"></div>
                             </div>
-                  
                           </div>
                           <!-- Card Narrower -->
                   
                   </div>
             
             <div class="col-md-3">
-                <div class="card">
-                    <div class="view view-cascade py-3 gradient-card-header info-color-dark mx-4 d-flex justify-content-between align-items-center">
-                        
-                        <div>
-                            <button onclick="full_record_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
-                                First
-                            </button>
-                        </div>
-            
-                        <a href="" class="white-text mx-3">Full Record</a>
-            
-                        <div>
-                            <button onclick="full_record_table_btn_click()" type="button" class="btn btn-outline-white btn-rounded btn-sm px-2 waves-effect waves-light">
-                                Last
-                            </button>
-                        </div>
-            
-                    </div>
-                    <div style="text-align: center">
-                      <div style="display: inline-block">
-                        <ul class="pagination pagination-circle pg-blue mb-0">
-                            <li class="page-item">
-                                <a class="page-link waves-effect waves-effect"><<</a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link waves-effect waves-effect">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link waves-effect waves-effect">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link waves-effect waves-effect">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link waves-effect waves-effect">>></a>
-                            </li>
-                        </ul>
-                        </div>
-                    </div>
-                    <table class="table animated faster" id="full_record_O_table">
-                        <thead>
-                          <tr style="border-bottom: none; border-top: none;">
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr class="v_row_as_btn" style="border: solid grey 1px" onclick="full_record_on_row_as_btn_click()">
-                            <th scope="row">Lab test</th>
-                            <td>13:45</td>
-                            <td>09-09-2018</td>
-                          </tr>
-                          <tr class="v_row_as_btn" style="border: solid grey 1px" onclick="full_record_on_row_as_btn_click()">
-                              <th scope="row">Lab test</th>
-                              <td>13:45</td>
-                              <td>09-09-2018</td>
-                            </tr>
-                            <tr class="v_row_as_btn" style="border: solid grey 1px" onclick="full_record_on_row_as_btn_click()">
-                                <th scope="row">Lab test</th>
-                                <td>13:45</td>
-                                <td>09-09-2018</td>
-                              </tr>
-                              <tr class="v_row_as_btn" style="border: solid grey 1px" onclick="full_record_on_row_as_btn_click()">
-                                  <th scope="row">Lab test</th>
-                                  <td>13:45</td>
-                                  <td>09-09-2018</td>
-                                </tr>
-                                <tr class="v_row_as_btn" style="border: solid grey 1px" onclick="full_record_on_row_as_btn_click()">
-                                    <th scope="row">Lab test</th>
-                                    <td>13:45</td>
-                                    <td>09-09-2018</td>
-                                  </tr>
-                                  <tr class="v_row_as_btn" style="border: solid grey 1px" onclick="full_record_on_row_as_btn_click()">
-                                      <th scope="row">Lab test</th>
-                                      <td>13:45</td>
-                                      <td>09-09-2018</td>
-                                    </tr>
-                                    <tr class="v_row_as_btn" style="border-left: solid grey 1px; border-right: solid grey 1px" onclick="full_record_on_row_as_btn_click()">
-                                        <th scope="row">Lab test</th>
-                                        <td>13:45</td>
-                                        <td>09-09-2018</td>
-                                      </tr>
-                        </tbody>
+                <div class="card" id="Note_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
+                    <table id="Note_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
                       </table>
                 </div>
               </div>
             </div>
-            <br><br><br><br><br><br><br><br><br><br><br><br>
+            <br>
             </div>
-            
-
-
-
-
-
-
 
 
     </div>
-  </div>
-
-<div class="v_prescription_form_container animated faster" id="v_pr_form_container">
-</div>
-
-</div>
-<div id="main_home_fragment" style="background: #eee; height: 800px; display:none;">
-</div>
-<div id="main_sheduling_fragment">
-</div>
-    <div id="main_reports_fragment" style="background: #eee;">
-        <div style="width: 100%;" style="">
+      <div class="tab-pane fade" id="fullrecord" role="tabpanel" aria-labelledby="full-record">
+  
+  
+  
+  
+        <div style="background: #eee; width: 100%;">
+          <div class="row v_Main_tab_padding_o">
+          
+              <div class="col-md-9">
+                  <!-- Card Narrower -->
+                        <div class="card card-cascade narrower animated faster" id="Fullrec-main-container" style="min-height: 500px; border-radius: 30px;">
+                          <div id="Fullrec_disp_div_loaderDDH" class="disp_loader_div">
+                            <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                            </div>
+                          <div id="Fullrec_disp_div_mainDDH" style="display: none;">
+                          <!-- Card image -->
+                          <div style="width: 100%;">
+                          <div style="width: 100%;" align="center">
+                          <div class="view view-cascade overlay" style="width: 80%">
+                           <div style=" padding: 10px; color: white;" align="center" class="theme_color_secondary"><h5><span id="Fullrec_date_pdr"></span></h5></div>
+                            <a>
+                              <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                            </a>
+                          </div>
+                          </div>
+                          </div>
+                
+                          <!-- Card content -->
+                         <div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="Fullrec_div_dpr"></div>
+                          </div>
+                        </div>
+                        <!-- Card Narrower -->
+                
+                </div>
+          
+          <div class="col-md-3">
+              <div class="card" id="Fullrec_selT_pdr_card_container" style="min-height: 200px; border-radius: 30px; padding-top: 30px;padding-left: 7px; padding-right: 5px;">
+                  <table id="Fullrec_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5">
+                    </table>
+              </div>
+            </div>
+          </div>
+          <br>
+          </div>
+  
+  
+  
+  
+  
+  
+      </div>
+    </div>
+    
+  
+  
+  <div class="v_prescription_form_container animated faster" id="v_pr_form_container">
+      <div class="classic-tabs">
+  
+          <ul class="nav" id="myClassicTab" role="tablist" style="width: 98.9%; background: #232323; border-top-right-radius: 30px; border-top-left-radius: 30px;">
+            <li class="nav-item v_lower_tab_cell_hw">
+              <a class="waves-light waves-effect dispenseTabInitialTxtColor active show" onclick="tab_pane1ClickAction()" id="profile-tab-classic" data-toggle="tab" href="#profile-classic" role="tab" aria-controls="profile-classic" aria-selected="true" style="border-top-left-radius: 30px;"><div style="padding: 2px; width: 100px; text-align: center;"><b>Dispense</b></div></a>
+            </li>
+            
+            
+            
+                <li class="nav-item v_lower_tab_cell_hw">
+                      <a class="v_lower_tab_cell waves-light v_text_whiteFF waves-effect" onclick="tab_pane5ClickAction()" id="note-btn" data-toggle="tab" href="#contact-classic3" role="tab" aria-controls="contact-classic3" aria-selected="false"><div style="padding: 2px; width: 100px; text-align: center; color: #ffd180;"><b>NOTE</b></div></a>
+                    </li>
+                <li class="nav-item" style="width: 60%;">
+                      <div class="row"> <div class="col-md-11"></div> <div class="col-md-1" style="padding-left: 0px; padding-top: 2px;"></div> </div>
+                    </li>
+                    <li class="nav-item v_lower_tab_cell_hw">
+                      <a class="v_lower_tab_cell waves-light waves-effect " style="background: #09c;" id="forms_btn_id" onclick="$.fn.openFormSelector()"><div style="padding: 2px; width: 130px; text-align: center;" class="v_text_whiteFF"><b>Forms</b></div></a>
+                    </li>
+                    <li class="nav-item">
+                      <div style="padding-top: 1.8px;"><div class=" waves-effect waves-light fa fa-arrow-up" id="push_bottom_dispense_pane_up_id" onclick="$.fn.bottom_dispense_pane_button_press()" style="padding-left: 10px; padding-right: 10px; padding-top: 8px; padding-bottom: 10px; height: 13px; font-size: 10px; color: white;"></div> </div>
+                    </li>
+                    
+          </ul>
+          <div class="tab-content" id="myClassicTabContent" style="display: none;">
+  
+            <div class="tab-pane active show" id="profile-classic" role="tabpanel" aria-labelledby="profile-tab-classic">
+              <div style="width: 100%;">
+  
+  
+                  <div class="row" style="width: 100%;">
+                      <div style="width: 55%; padding-left: 15px;">
+                          
+                      <div class="records_portal_bottom_pane" style="background: #f2f2f2; height: 470px;">
+                        <div style="height: 10px;"></div>
+                      <div class="prform_body">
+                        <div class="row" style="height: 470px; overflow: auto; color: white;">
+                            <table class="table table-striped" id="dispense_table_tablemain">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Brand</th>
+                                    <th scope="col">Qantity</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col"></th>
+                                  </tr>
+                                </thead>
+                                <tbody id="dispense_table_tablebody" style="min-height: 300px;">
+                                 
+                                </tbody>
+                              </table>
+                              
+                              <div class="row">
+                                    <div class="col-md-6">
+                                        <div style="padding-right: 30px; padding-left: 10px; padding-bottom: 30px; width: 100%; text-align: left; color: #333333">
+                                            <div style="font-size: 15px;">
+                                              <b>Total Price:</b>
+                                            </div>
+                                            <b><div style="font-size: 30px; width:200px;" id="total_price_of_drugs_tb_dispn_id">
+                                                0 Naira
+                                              </div></b>
+                                            </div>
+                                    </div>
+  
+                                    <div class="col-md-6" style="padding-left: 300px;">
+                                      <button id="dispense_btn_oo" class="btn waves-effect waves-light" style="text-align: center; float:right; width: 140px; cursor:pointer;background: #232323;margin: .375rem;" onclick="$.fn.submit_dispensed_drug()"><span id="dispensed_btn_txt">Dispense </span> <span style="display: none;" id="dispensed_loading"><img src="img/loading_topnav.gif" style="width: 20px; height: 20px;" ></span></button>
+                                      </div>
+                              
+  
+                              
+                            </div>
+                      </div>
+                      </div>
+                      
+                      </div>
+                      </div>
+                      
+                      <div style="width: 45%;">
+                      <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray; background: #f2f2f2; height: 470px; overflow-y: 
+                      auto; overflow-x: none; ">
+                        <div style="height: 10px;"></div>
+                      <div style="padding-right: 30px; padding-left: 20px;padding-bottom: 10px;" id="dispen_drug_search_table_div">
+                      <div id="dispen_drug_search_table_label"></div>
+                      <table class="table" id="dispen_drug_search_table">
+                        <thead> <tr><td>Drug</td><td>Price(Naira)</td><td>Strength(mg)</td><td>Quantity in Stock</td><td>Dispense Quantity</td><td>Option</td> </tr> </thead> 
+                      </table>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+  
+                
+              </div>
+            </div>
+  
+  
+  
+  
+            <div class="tab-pane" id="follow-classic" role="tabpanel" aria-labelledby="follow-tab-classic">
+            </div>
+            <div class="tab-pane" id="contact-classic" role="tabpanel" aria-labelledby="contact-tab-classic">
+            </div>
+            <div class="tab-pane" id="contact-classic2" role="tabpanel" aria-labelledby="contact-tab-classic2"></div>
+            <div class="tab-pane" id="note-btn" role="tabpanel" aria-labelledby="contact-tab-classic">
+                  </div>
+  
+  
+  
+  
+              <div class="tab-pane" id="contact-classic3" style="height: 470px;" role="tabpanel" aria-labelledby="contact-tab-classic3">
+                      <div style="width: 100%;">
+        
+        
+                          <div class="row" style="width: 100%;">
+                              <div style="width: 55%; padding-left: 15px;">
+                                  
+                              <div class="records_portal_bottom_pane">
+                                <div style="height: 10px;"></div>
+                              <div class="prform_body">
+                                  <div>
+                                    <div style="padding-bottom: 60px;">
+                                      <button class="btn btn-outline-black waves-effect waves-light" onclick="$.fn.startNoteSubmission()" id="sNotebtn" style="text-align: center; padding-right: 20px; padding-left: 20px; border-radius: 10px; float: right;">Save</button>
+                                    </div>
+                                      <div>
+                                        <form id="paper" method="get" action="">
+                                          <textarea class="card mb-1" placeholder="Enter Note." id="text" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 380px; "></textarea>
+                                        </form>
+                                      </div>
+                                      
+                                      
+                                      </div>
+                              </div>
+                              
+                              </div>
+                              </div>
+                              
+                              <div style="width: 45%;">
+                              <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray;">
+                                <div style="height: 10px;"></div>
+                              <div class="">
+                                <div style="height: 450px; overflow-y: auto; overflow-x: hidden">
+                               <div style="font-size: 20px; color: #333333;"><b>Lastest Note</b></div>
+                               <div style="font-size: 17px; color: #333333;"><b>Date: <span id="rnoteDispLwNabBar_date_pdr"></span></b></div>
+                               <div id="rnoteDispLwNabBar_loaderDDH" class="disp_loader_div">
+                                <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                                </div>
+                               <div id="rnoteDispLwNabBar_mainDDH" style="display: none;">
+                                <div style="min-height: 200px; width: 97%;" id="rnoteDispLwNabBar"></div>
+                               </div>
+                                </div>
+                              </div>
+                              
+                              </div>
+                              </div>
+                              </div>
+          
+                        
+                      </div>
+                  </div>
+  
+              
+  
+            
+          </div>
         
         </div>
+  </div>
+  
+  </div>
+  <div id="idle_fragment" style="min-height: 1000px; background-color: #0d218a; text-align: center; display: block;" class="animated faster">
+    <div class="animated faster" id="idle_fragment_sub" style="display: block; padding-top: 7%;">
+      <div style="display: inline-block;">
+        <img src="img/appIcons/viosLogoWhiteTransparent.png" style="width: 150px; height: 70px;" >
+      </div>
+      <div>
+        <h1 style="color: white;">A Better Way to Manage Medical Data</h1>
+        <p style="color: rgb(235, 234, 253);">Our simple, all-in-one electronic health records and hospital management system makes your practice easier and more efficient.</p>
+      </div>
+        <br>
+         <div>
+      
+            <div style="display: inline-block; text-align: left; padding-top: 10px;">
+                <input class="form-control" type="text" id="idle_searchBar" placeholder="Search" aria-label="Search" style="width: 450px; padding: 14px 20px;
+               opacity: 0.85;
+                color: #3c4858 !important;
+                outline: none !important;
+                padding-right: 160px;
+                padding-left: 30px;
+                background-color: #fff!important;
+                border: 1px solid #e9ecef !important;
+                border-radius: 30px !important;
+                
+                ">
+                    </div>
+                    <div style="display: inline-block;">
+                        <button class="btn" style="border-radius: 30px; background-color: #243797;" type="button" onclick="search_patient_s_btn_click()"><i id="searchBTNsearchIcon" class="fa fa-search"></i><img src="img/loading.gif" style="width: 20px; height: 20px; display: none;" id="loading_anim"></button>
+                              </div>
+            
+      
+         </div><br>
+         <div>
+           <img src="img/indexIllustration.png" style="width: 500px; height: 350px;">
+         </div>
+    </div>
+    <div class="animated faster" id="search_result_fragment" style="display: none;"><br>
+        <div style="display: inline-block; width: 80%;">
+            <button type="button" id="prv_serach_r_btn" class="rounded-circle z-depth-0 theme_color_secondary waves-effect waves-light" style=" padding-top: 8px; padding-left: 10px; padding-right: 10px; padding-bottom: 8px; color:white; border:none; outline:none; float: left;" onclick="process_prv_search_r_click()"><i class="fa fa-arrow-left"></i></button>
         </div>
+        <div style="display: inline-block; width: 10%;"><button type="button" class="rounded-circle z-depth-0 waves-effect waves-light" onclick="search_result_cancel()" style="padding-top: 10px; padding-left: 12px; padding-right: 12px; padding-bottom: 10px; color:grey; border: none; outline:none; float: right;"><i class="fa fa-close"></i></button></div>
+      <div id="search_txt_wkr_txt" style="font-size: 15px; color: white; text-align: left; padding-left: 200px;"></div>
+      <div id="idle_ps_r">
+    
+  </div>
+    </div>
+    <button class="btn waves-effect waves-light " id="asg_pTab_bBar_btn" onclick="$.fn.enterHome()" style="border-radius: 30px; background-color: #243797; position: fixed; right: 20px; bottom: 20px; text-transform:initial" type="button">Assign patients <span class="badge bg-danger" style="border-radius: 15px;" id="asg_pTab_bBar_btn_num_indicators"></span></button>
+
+  </div>
+
+</div>
+
+
+
+<div id="main_addpatient_wut_fragment" style="display: none;">
+
+
+</div>
+
+<div class="animated faster" id="rp_details_modal" style="background: black; opacity: 0.8; width: 30%; height: 600px; position: absolute; right: 0px; bottom: 0px; overflow: auto; display: none;">
+  
+</div>
+
+<!-- modals -->
+
+
+<div style="display: none;"><div id="dispanseDispProcess"></div></div>
+<div style="display: none;"><div id="noteDispProcessing_div"></div></div>
+<div style="display: none;">
+<div id="f_file_collector" action="http://localhost:3130/uploadfile" class="dropzone dz-clickable" style="height: 140px; padding: 1px 1px; border: none;">
+</div>
+</div>
+</div>
+
+  <script type="text/javascript" src="config/institution_info.js"></script>
   <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="js/popper.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/jBox.all.min.js"></script>
   <script type="text/javascript" src="js/mdb.js"></script>
   <script type="text/javascript" src="js/general_controller.js"></script>
-  <script type="text/javascript" src="js/empty_page_prototype.js"></script>
-</body>
+  <script type="text/javascript" src="js/moment.min.js"></script>
+  <script type="text/javascript" src="js/daterangepicker.js"></script>
+  <script type="text/javascript" src="js/easyauto_comp/jquery.easy-autocomplete.min.js"></script>
+  <script type="text/javascript" src="js/footable.js"></script>
+  <script type="text/javascript" src="js/lightgallery-all.min.js"></script>
+  <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
+  <script type="text/javascript" src="js/doctors_portal_controller.js"></script>
+  <script type="text/javascript" src="js/dropzone.js"></script>
+  <script>
 
-</html>
+
+var options = {
+
+url: function(phrase){
+  return "http://localhost:4417/general_server_files/patient_sugestions.json";
+},
+
+categories: [{
+    listLocation: "name_based",
+    maxNumberOfElements: 4,
+    header: "By Names"
+}, {
+    listLocation: "id_based",
+    maxNumberOfElements: 4,
+    header: "By ID"
+}],
+
+getValue: function(element) {
+    return element.character;
+},
+
+ajaxSettings:{
+  dataType: "json",
+  method: "POST",
+  data:{
+    dataType: "json"
+  }
+},
+
+preparePostData: function(data){
+data.phrase = $("#search_patient_input").val();
+return data;
+},
+
+requestDelay: 400,
+
+template: {
+    type: "custom",
+    method: function(value,item){
+      return "<img src='"+item.icon+"' style='width:30px; height:30px;' class='rounded-circle' /> "+value+" <span style='color: #aaa; font-style: italic; font-size: 0.9em'>"+item.patientno+"</span>";
+    }
+},
+
+list: {
+    maxNumberOfElements: 8,
+    match: {
+        enabled: true
+    },
+    sort: {
+        enabled: true
+    },
+    showAnimation:{
+      type: "fade",
+      time: 400,
+      callback: function(){}
+    },
+    hideAnimation:{
+      type: "slide",
+      time: 400,
+      callback: function(){}
+    },
+    onClickEvent: function(){
+      var id_value = $("#search_patient_input").getSelectedItemData().id;
+      $.get('http://localhost:3130/set_currOpratP_coll',{
+    usrID:id_value
+  },
+  function (result){
+    if(result === "11111"){
+      process_normal_search_p_click(id_value);
+    }
+  });
+    }
+},
+
+theme: "square"
+};
+
+var options2 = {
+
+url: function(phrase){
+  return "http://localhost:4417/general_server_files/patient_sugestions.json";
+},
+
+categories: [{
+    listLocation: "name_based",
+    maxNumberOfElements: 4,
+    header: "By Names"
+}, {
+    listLocation: "id_based",
+    maxNumberOfElements: 4,
+    header: "By ID"
+}],
+
+getValue: function(element) {
+    return element.character;
+},
+
+ajaxSettings:{
+  dataType: "json",
+  method: "POST",
+  data:{
+    dataType: "json"
+  }
+},
+
+preparePostData: function(data){
+data.phrase = $("#idle_searchBar").val();
+return data;
+},
+
+requestDelay: 400,
+
+template: {
+    type: "custom",
+    method: function(value,item){
+      return "<img src='"+item.icon+"' style='width:30px; height:30px;' class='rounded-circle' /> "+value+" <span style='color: #aaa; font-style: italic; font-size: 0.9em'>"+item.patientno+"</span>";
+    }
+},
+
+list: {
+    maxNumberOfElements: 8,
+    match: {
+        enabled: true
+    },
+    sort: {
+        enabled: true
+    },
+    showAnimation:{
+      type: "fade",
+      time: 400,
+      callback: function(){}
+    },
+    hideAnimation:{
+      type: "slide",
+      time: 400,
+      callback: function(){}
+    },
+    onClickEvent: function(){
+      var id_value = $("#idle_searchBar").getSelectedItemData().id;
+      $.get('http://localhost:3130/set_currOpratP_coll',{
+    usrID:id_value
+  },
+  function (result){
+    if(result === "11111"){
+      process_idle_search_p_click(id_value);
+      $("#Radiograph-tab").click();
+    }
+  });
+    },
+},
+
+theme: "square"
+};
+
+$("#search_patient_input").easyAutocomplete(options);
+
+
+$("#idle_searchBar").easyAutocomplete(options2);
+
+
+
+  </script>
+
+
+
+</body></html>
