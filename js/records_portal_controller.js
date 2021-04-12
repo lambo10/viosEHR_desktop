@@ -427,7 +427,7 @@ var static_data = {
                 
   
                   $.fn.check_professional_loged_in = function(){
-                    $.get("http://localhost:5000/get_professional_logedin_id",
+                    $.get("http://"+local_server+":3130/get_professional_logedin_id",
                   {},
                   function(result){
                     process_check_professional_loged_in(result);
@@ -435,7 +435,7 @@ var static_data = {
                   }
   
                   $.fn.get_all_assigned_patients = function(){
-                    $.get("http://localhost:3130/get_assigned_patients",
+                    $.get("http://"+local_server+":3130/get_assigned_patients",
                   {},
                   function(result){
                     static_data.assigned_patients = result;
@@ -444,7 +444,7 @@ var static_data = {
                   });
                   };
                   $.fn.get_r_attended_patients = function(){
-                    $.get("http://localhost:3130/get_r_attended_patients",
+                    $.get("http://"+local_server+":3130/get_r_attended_patients",
                   {},
                   function(result){
                      process_get_r_attended_patients(result);
@@ -452,7 +452,7 @@ var static_data = {
                   };
                 
                   $.fn.de_assign_all_patients = function(){
-                    $.get("http://localhost:3130/de_assign_all_patients",
+                    $.get("http://"+local_server+":3130/de_assign_all_patients",
                   {},
                   function(result){
                     var resultInt = parseInt(result);
@@ -525,7 +525,7 @@ var static_data = {
                   };
   
                   $.fn.logoutHSD = function(){
-                    $.get("http://localhost:5000/logout_professional",
+                    $.get("http://"+local_server+":3130/logout_professional",
                   {},
                   function(result){
                     process_logoutHSD();
@@ -538,7 +538,7 @@ var static_data = {
                   function process_check_professional_loged_in(id){
                     var jsondata = JSON.parse(id);
                     var jsonid = jsondata.$oid;
-                    document.getElementById('pr_profile_picSSG').src = 'http://localhost:4417/employee/'+jsonid+'/profile/usr_profile.jpg';
+                    document.getElementById('pr_profile_picSSG').src = 'http://'+local_server+':4417/employee?path='+jsonid+'/profile/usr_profile.jpg';
                   }
                   $.fn.get_r_attended_patients();
                   $.fn.check_professional_loged_in();
@@ -584,7 +584,7 @@ var static_data = {
   
                 function process_recent_attended_a_assigned_p_click(id){
                   static_data.usrID = id;
-                  $.get('http://localhost:3130/set_currOpratP_coll',{
+                  $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                   usrID:id
                 },
                 function (result){
@@ -605,7 +605,7 @@ var static_data = {
   
                 function process_assigned_patients_click(id,assignID){
                   static_data.usrID = id;
-                  $.get('http://localhost:3130/set_currOpratP_coll',{
+                  $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                   usrID:id
                 },
                 function (result){
@@ -623,221 +623,221 @@ var static_data = {
                 }
                 
                 function process_get_r_attended_patients(data){
-                  var tbody = document.createElement("div");
-                  tbody.setAttribute("id","r_attend_p_id");
+              //     var tbody = document.createElement("div");
+              //     tbody.setAttribute("id","r_attend_p_id");
                   
-                  if(data.length <= 0){
-                    var emptyDiv = document.createElement("div");
-                    emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
-                    emptyDiv.append(document.createTextNode("You have not attended to any patient today"));
-                   tbody.prepend(emptyDiv);
-                   getE("asg_pTab_bBar_btn").style.display = "none";
-                  }else{
-                if(data === "1110013"){
-                  var emptyDiv = document.createElement("div");
-                  emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
-                  emptyDiv.append(document.createTextNode("Access Denied"));
-                 tbody.prepend(emptyDiv);
-              }else{
+              //     if(data.length <= 0){
+              //       var emptyDiv = document.createElement("div");
+              //       emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+              //       emptyDiv.append(document.createTextNode("You have not attended to any patient today"));
+              //      tbody.prepend(emptyDiv);
+              //      getE("asg_pTab_bBar_btn").style.display = "none";
+              //     }else{
+              //   if(data === "1110013"){
+              //     var emptyDiv = document.createElement("div");
+              //     emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+              //     emptyDiv.append(document.createTextNode("Access Denied"));
+              //    tbody.prepend(emptyDiv);
+              // }else{
   
-               try{
+              //  try{
   
                  
-                data.forEach(e=>{
-                  var div1 = document.createElement("div");
-                  div1.setAttribute("id","r_attend_p_table_id");
-                  var div2 = document.createElement("div");
-                  div2.setAttribute("style","padding-bottom: 20px; cursor:pointer");
-                  div2.setAttribute("onclick","process_recent_attended_a_assigned_p_click('"+e.usrID+"')");
-                  var div3 = document.createElement("div");
-                  div3.setAttribute("style","width:100%; color: white; min-height: 50px; background: #11111133; padding: 20px; border-radius: 20px;");
-                  var div4 = document.createElement("div");
-                  div4.setAttribute("style","font-size: 18px;");
-                  var pnameTXT = document.createTextNode(e.user_name);
-                  var id_span = document.createElement("span");
-                  id_span.setAttribute("style","color: #f3f1f1c9; font-size: 13px;");
-                  var idTxt = document.createTextNode(e.usrID);
-                  id_span.append(idTxt);
-                  div4.append(pnameTXT);
-                  div4.append(id_span);
-                  var div5 = document.createElement("div");
-                  div5.setAttribute("style","color: #f3f1f1c9;");
-                  var opTXT = document.createTextNode(e.inserted_txt);
-                  div5.append(opTXT);
+              //   data.forEach(e=>{
+              //     var div1 = document.createElement("div");
+              //     div1.setAttribute("id","r_attend_p_table_id");
+              //     var div2 = document.createElement("div");
+              //     div2.setAttribute("style","padding-bottom: 20px; cursor:pointer");
+              //     div2.setAttribute("onclick","process_recent_attended_a_assigned_p_click('"+e.usrID+"')");
+              //     var div3 = document.createElement("div");
+              //     div3.setAttribute("style","width:100%; color: white; min-height: 50px; background: #11111133; padding: 20px; border-radius: 20px;");
+              //     var div4 = document.createElement("div");
+              //     div4.setAttribute("style","font-size: 18px;");
+              //     var pnameTXT = document.createTextNode(e.user_name);
+              //     var id_span = document.createElement("span");
+              //     id_span.setAttribute("style","color: #f3f1f1c9; font-size: 13px;");
+              //     var idTxt = document.createTextNode(e.usrID);
+              //     id_span.append(idTxt);
+              //     div4.append(pnameTXT);
+              //     div4.append(id_span);
+              //     var div5 = document.createElement("div");
+              //     div5.setAttribute("style","color: #f3f1f1c9;");
+              //     var opTXT = document.createTextNode(e.inserted_txt);
+              //     div5.append(opTXT);
   
-                  div3.append(div4);
-                  div3.append(div5);
-                  div2.append(div3);
-                  div1.append(div2);
-                  tbody.prepend(div1);
-                });
+              //     div3.append(div4);
+              //     div3.append(div5);
+              //     div2.append(div3);
+              //     div1.append(div2);
+              //     tbody.prepend(div1);
+              //   });
               
   
-                // data.forEach(e=>{
-                //   var tr = document.createElement("tr");
-                //   tr.setAttribute("class","dr_home_s_p");
-                //   tr.setAttribute("onclick","process_recent_attended_a_assigned_p_click('"+e.usrID+"')");
-                //   var th = document.createElement("th");
-                //   th.setAttribute("scope","row");
-                //   var img = document.createElement("img");
-                //   img.setAttribute("class","rounded-circle z-depth-0");
-                //   img.setAttribute("src","http://localhost:4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
-                //   img.setAttribute("style","width: 70px; height: 70px;");
-                //   var td1 = document.createElement("td");
-                //   var div1 = document.createElement("div");
-                //   div1.setAttribute("style","width:50px;");
-                //   var strong1 = document.createElement("strong");
-                //   div1_1 = document.createElement("div");
-                //   div1_1.setAttribute("style","color:#616161");
-                //   var txt1_1 = document.createTextNode(e.user_name);
-                //   var hr = document.createElement("hr");
-                //   div1_2 = document.createElement("div");
-                //   div1_2.setAttribute("style","color:#616161");
-                //   var txt1_2 = document.createTextNode(e.usrID);
-                //   var td2 = document.createElement("td");
-                //   var b1 = document.createElement("b");
-                //   var br = document.createElement("br");
-                //   var txt2_1 = document.createTextNode(e.type);
-                //   div1_3 = document.createElement("div");
-                //   div1_3.setAttribute("style","width:40%;");
-                //   var txt2_2 = document.createTextNode(e.inserted_txt);
+              //   // data.forEach(e=>{
+              //   //   var tr = document.createElement("tr");
+              //   //   tr.setAttribute("class","dr_home_s_p");
+              //   //   tr.setAttribute("onclick","process_recent_attended_a_assigned_p_click('"+e.usrID+"')");
+              //   //   var th = document.createElement("th");
+              //   //   th.setAttribute("scope","row");
+              //   //   var img = document.createElement("img");
+              //   //   img.setAttribute("class","rounded-circle z-depth-0");
+              //   //   img.setAttribute("src","http://"+local_server+":4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
+              //   //   img.setAttribute("style","width: 70px; height: 70px;");
+              //   //   var td1 = document.createElement("td");
+              //   //   var div1 = document.createElement("div");
+              //   //   div1.setAttribute("style","width:50px;");
+              //   //   var strong1 = document.createElement("strong");
+              //   //   div1_1 = document.createElement("div");
+              //   //   div1_1.setAttribute("style","color:#616161");
+              //   //   var txt1_1 = document.createTextNode(e.user_name);
+              //   //   var hr = document.createElement("hr");
+              //   //   div1_2 = document.createElement("div");
+              //   //   div1_2.setAttribute("style","color:#616161");
+              //   //   var txt1_2 = document.createTextNode(e.usrID);
+              //   //   var td2 = document.createElement("td");
+              //   //   var b1 = document.createElement("b");
+              //   //   var br = document.createElement("br");
+              //   //   var txt2_1 = document.createTextNode(e.type);
+              //   //   div1_3 = document.createElement("div");
+              //   //   div1_3.setAttribute("style","width:40%;");
+              //   //   var txt2_2 = document.createTextNode(e.inserted_txt);
                 
-                //   tr.append(th);
-                //   th.append(img);
-                //   tr.append(td1);
-                //   td1.append(div1);
-                //   div1.append(strong1);
-                //   strong1.append(div1_1);
-                //   div1_1.append(txt1_1);
-                //   strong1.append(hr);
-                //   strong1.append(div1_2);
-                //   div1_2.append(txt1_2);
-                //   tr.append(td2);
-                //   td2.append(b1);
-                //   b1.append(txt2_1);
-                //   td2.append(br);
-                //   div1_3.append(txt2_2);
-                //   td2.append(div1_3);
-                //   tbody.prepend(tr);
-                //   });
+              //   //   tr.append(th);
+              //   //   th.append(img);
+              //   //   tr.append(td1);
+              //   //   td1.append(div1);
+              //   //   div1.append(strong1);
+              //   //   strong1.append(div1_1);
+              //   //   div1_1.append(txt1_1);
+              //   //   strong1.append(hr);
+              //   //   strong1.append(div1_2);
+              //   //   div1_2.append(txt1_2);
+              //   //   tr.append(td2);
+              //   //   td2.append(b1);
+              //   //   b1.append(txt2_1);
+              //   //   td2.append(br);
+              //   //   div1_3.append(txt2_2);
+              //   //   td2.append(div1_3);
+              //   //   tbody.prepend(tr);
+              //   //   });
              
-                }catch(e){
-                  var emptyDiv = document.createElement("div");
-                  emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
-                  emptyDiv.append(document.createTextNode("Opps.. something went wrong"));
-                 tbody.prepend(emptyDiv);
-              }
-              }
-               }
+              //   }catch(e){
+              //     var emptyDiv = document.createElement("div");
+              //     emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+              //     emptyDiv.append(document.createTextNode("Opps.. something went wrong"));
+              //    tbody.prepend(emptyDiv);
+              // }
+              // }
+              //  }
                   
-                var replObject = document.getElementById("r_attend_p_id");
-                document.getElementById("r_attend_p_table_id").replaceChild(tbody,replObject);
+              //   var replObject = document.getElementById("r_attend_p_id");
+              //   document.getElementById("r_attend_p_table_id").replaceChild(tbody,replObject);
                 }
                 
                 function process_get_all_assigned_patients(data){
-                var tbody = document.createElement("div");
-                tbody.setAttribute("id","asg_p_tb_id");
+                // var tbody = document.createElement("div");
+                // tbody.setAttribute("id","asg_p_tb_id");
                 
                 
-                if(data.length <= 0){
-                  var emptyDiv = document.createElement("div");
-                  emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
-                  emptyDiv.append(document.createTextNode("No assigned patients"));
-                 tbody.prepend(emptyDiv);
-                 getE("asg_pTab_bBar_btn").style.display = "none";
-                }else{
-                  if(data === "1110013"){
-                    var emptyDiv = document.createElement("div");
-                      emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
-                      emptyDiv.append(document.createTextNode("Access Denied"));
-                     tbody.prepend(emptyDiv);
-                     getE("asg_pTab_bBar_btn").style.display = "none";
-                  }else{
+                // if(data.length <= 0){
+                //   var emptyDiv = document.createElement("div");
+                //   emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+                //   emptyDiv.append(document.createTextNode("No assigned patients"));
+                //  tbody.prepend(emptyDiv);
+                //  getE("asg_pTab_bBar_btn").style.display = "none";
+                // }else{
+                //   if(data === "1110013"){
+                //     var emptyDiv = document.createElement("div");
+                //       emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+                //       emptyDiv.append(document.createTextNode("Access Denied"));
+                //      tbody.prepend(emptyDiv);
+                //      getE("asg_pTab_bBar_btn").style.display = "none";
+                //   }else{
                     
-                    try{
+                //     try{
     
-                      data.forEach(e=>{
+                //       data.forEach(e=>{
                         
-                      if(e.assigned == '1'){
-                        static_data.attended_patients++;
-                      }else{
-                        var div1 = document.createElement("div");
-                      div1.setAttribute("style","width:50%; color: white;padding-bottom: 10px; cursor:pointer");
-                      div1.setAttribute("onclick","process_assigned_patients_click('"+e.usrID+"','"+e._id+"')");
-                      var nameTxt = document.createTextNode(e.user_name);
-                      var id_span = document.createElement("span");
-                      id_span.setAttribute("style","color: #f3f1f1c9;");
-                      var idTxt = document.createTextNode(" "+e.usrID);
-                      id_span.append(idTxt);
+                //       if(e.assigned == '1'){
+                //         static_data.attended_patients++;
+                //       }else{
+                //         var div1 = document.createElement("div");
+                //       div1.setAttribute("style","width:50%; color: white;padding-bottom: 10px; cursor:pointer");
+                //       div1.setAttribute("onclick","process_assigned_patients_click('"+e.usrID+"','"+e._id+"')");
+                //       var nameTxt = document.createTextNode(e.user_name);
+                //       var id_span = document.createElement("span");
+                //       id_span.setAttribute("style","color: #f3f1f1c9;");
+                //       var idTxt = document.createTextNode(" "+e.usrID);
+                //       id_span.append(idTxt);
     
-                      div1.append(nameTxt);
-                      div1.append(id_span);
-                      tbody.prepend(div1);
+                //       div1.append(nameTxt);
+                //       div1.append(id_span);
+                //       tbody.prepend(div1);
   
-                        static_data.unattended_patients++;
-                      }
-                      getE("asg_pTab_bBar_btn").style.display = "block";
-                      getE("asg_pTab_bBar_btn_num_indicators").innerHTML = static_data.unattended_patients;
-                      });
+                //         static_data.unattended_patients++;
+                //       }
+                //       getE("asg_pTab_bBar_btn").style.display = "block";
+                //       getE("asg_pTab_bBar_btn_num_indicators").innerHTML = static_data.unattended_patients;
+                //       });
     
-                      // data.forEach(e=>{
-                      //   if(e.assigned == "1"){
-                      //   }else{
-                      //     var tr = document.createElement("tr");
-                      //   tr.setAttribute("class","dr_home_s_p");
-                      //   tr.setAttribute("onclick","process_assigned_patients_click('"+e.usrID+"','"+e._id+"')");
-                      //   var th = document.createElement("th");
-                      //   th.setAttribute("scope","row");
-                      //   var img = document.createElement("img");
-                      //   img.setAttribute("class","rounded-circle z-depth-0");
-                      //   img.setAttribute("src","http://localhost:4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
-                      //   img.setAttribute("style","width: 30px; height: 30px;");
-                      //   var td1 = document.createElement("td");
-                      //   var txt1 = document.createTextNode(e.name);
-                      //   var td2 = document.createElement("td");
-                      //   var txt2 = document.createTextNode(e.age);
-                      //   var td3 = document.createElement("td");
-                      //   var txt3 = document.createTextNode(e.gender);
-                      //   tr.append(th)
-                      //   th.append(img);
-                      //   td1.append(txt1);
-                      //   tr.append(td1);
-                      //   td2.append(txt2);
-                      //   tr.append(td2);
-                      //   td3.append(txt3);
-                      //   tr.append(td3);
-                      //   tbody.prepend(tr);
-                      //   }
+                //       // data.forEach(e=>{
+                //       //   if(e.assigned == "1"){
+                //       //   }else{
+                //       //     var tr = document.createElement("tr");
+                //       //   tr.setAttribute("class","dr_home_s_p");
+                //       //   tr.setAttribute("onclick","process_assigned_patients_click('"+e.usrID+"','"+e._id+"')");
+                //       //   var th = document.createElement("th");
+                //       //   th.setAttribute("scope","row");
+                //       //   var img = document.createElement("img");
+                //       //   img.setAttribute("class","rounded-circle z-depth-0");
+                //       //   img.setAttribute("src","http://"+local_server+":4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
+                //       //   img.setAttribute("style","width: 30px; height: 30px;");
+                //       //   var td1 = document.createElement("td");
+                //       //   var txt1 = document.createTextNode(e.name);
+                //       //   var td2 = document.createElement("td");
+                //       //   var txt2 = document.createTextNode(e.age);
+                //       //   var td3 = document.createElement("td");
+                //       //   var txt3 = document.createTextNode(e.gender);
+                //       //   tr.append(th)
+                //       //   th.append(img);
+                //       //   td1.append(txt1);
+                //       //   tr.append(td1);
+                //       //   td2.append(txt2);
+                //       //   tr.append(td2);
+                //       //   td3.append(txt3);
+                //       //   tr.append(td3);
+                //       //   tbody.prepend(tr);
+                //       //   }
                       
-                      //   if(e.assigned == '1'){
-                      //     static_data.attended_patients++;
-                      //   }else{
-                      //     static_data.unattended_patients++;
-                      //   }
-                      // });
+                //       //   if(e.assigned == '1'){
+                //       //     static_data.attended_patients++;
+                //       //   }else{
+                //       //     static_data.unattended_patients++;
+                //       //   }
+                //       // });
                     
-                    }catch{
-                      var emptyDiv = document.createElement("div");
-                      emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
-                      emptyDiv.append(document.createTextNode("Opps.. something went wrong"));
-                     tbody.prepend(emptyDiv);
-                     getE("asg_pTab_bBar_btn").style.display = "none";
-                    }
-                  }
-                }
+                //     }catch{
+                //       var emptyDiv = document.createElement("div");
+                //       emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+                //       emptyDiv.append(document.createTextNode("Opps.. something went wrong"));
+                //      tbody.prepend(emptyDiv);
+                //      getE("asg_pTab_bBar_btn").style.display = "none";
+                //     }
+                //   }
+                // }
   
-                var replObject = document.getElementById("asg_p_tb_id");
-                document.getElementById("asg_p_table_id").replaceChild(tbody,replObject);
-                if(static_data.prv_unattended_patients == static_data.unattended_patients && static_data.prv_attended_patients == static_data.attended_patients){
-                }else{
-                  static_data.prv_unattended_patients = static_data.unattended_patients;
-                  static_data.prv_attended_patients = static_data.attended_patients;
-                }
-                document.getElementById("un_attend_p_t_Num").innerHTML = static_data.prv_unattended_patients;
-                document.getElementById("attend_p_t_Num").innerHTML = static_data.prv_attended_patients;
-                // document.getElementById("assigned_patients_txtx").innerHTML = "Assigned Patients: "+(static_data.attended_patients+static_data.unattended_patients);
-                static_data.attended_patients = 0;
-                static_data.unattended_patients = 0;
+                // var replObject = document.getElementById("asg_p_tb_id");
+                // document.getElementById("asg_p_table_id").replaceChild(tbody,replObject);
+                // if(static_data.prv_unattended_patients == static_data.unattended_patients && static_data.prv_attended_patients == static_data.attended_patients){
+                // }else{
+                //   static_data.prv_unattended_patients = static_data.unattended_patients;
+                //   static_data.prv_attended_patients = static_data.attended_patients;
+                // }
+                // document.getElementById("un_attend_p_t_Num").innerHTML = static_data.prv_unattended_patients;
+                // document.getElementById("attend_p_t_Num").innerHTML = static_data.prv_attended_patients;
+                // // document.getElementById("assigned_patients_txtx").innerHTML = "Assigned Patients: "+(static_data.attended_patients+static_data.unattended_patients);
+                // static_data.attended_patients = 0;
+                // static_data.unattended_patients = 0;
                 }
   
                 function reset_firstTabclickFlags(){
@@ -852,10 +852,10 @@ var static_data = {
                
                 
                 function get_patient_d_f_static_vars(){
-                  $.get('http://localhost:3130/get_currOpratP_coll',{
+                  $.get("http://"+local_server+":3130/get_currOpratP_coll",{
                   },
                   function (result_id){
-                  $.get("http://localhost:3130/get_patient_d_f_static_vars",
+                  $.get("http://"+local_server+":3130/get_patient_d_f_static_vars",
                   {
                     usrID:result_id.usrID
                   },
@@ -895,7 +895,7 @@ var static_data = {
                 
                 function process_idle_search_p_click(id_value){
                   static_data.usrID = id_value;
-                  $.get('http://localhost:3130/set_currOpratP_coll',{
+                  $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                   usrID:id_value
                 },
                 function (result){
@@ -911,7 +911,7 @@ var static_data = {
                 function process_idle_search_hitEnter_re_click(id_value){
                   $("#Radiograph-tab").click();
                   static_data.usrID = id_value;
-                  $.get('http://localhost:3130/set_currOpratP_coll',{
+                  $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                   usrID:id_value
                 },
                 function (result){
@@ -963,7 +963,7 @@ var static_data = {
                 
                 function process_normal_search_p_click(id){
                   static_data.usrID = id;
-                  $.get('http://localhost:3130/set_currOpratP_coll',{
+                  $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                   usrID:id
                 },
                 function (result){
@@ -1112,7 +1112,7 @@ var static_data = {
                 $.fn.search_Patient_idleF = function(skip){
                   var tosearch = $('#idle_searchBar').val();
                   document.getElementById('search_txt_wkr_txt').innerHTML = "Search results for "+tosearch;
-                  $.get("http://localhost:3130/search_patient",
+                  $.get("http://"+local_server+":3130/search_patient",
                 {
                   tosearch:tosearch,
                   skip:skip
@@ -1125,7 +1125,7 @@ var static_data = {
                 $.fn.search_Patient_top_nav = function(skip){
                   var tosearch = $('#search_patient_input').val();
                   document.getElementById('search_txt_wkr_txt').innerHTML = "Search results for "+tosearch;
-                  $.get("http://localhost:3130/search_patient",
+                  $.get("http://"+local_server+":3130/search_patient",
                 {
                   tosearch:tosearch,
                   skip:skip
@@ -1138,7 +1138,7 @@ var static_data = {
                 $.fn.search_Patient_idleF_next = function(skip){
                   var tosearch = $('#idle_searchBar').val();
                   document.getElementById('search_txt_wkr_txt').innerHTML = "Search results for "+tosearch;
-                  $.get("http://localhost:3130/search_patient",
+                  $.get("http://"+local_server+":3130/search_patient",
                 {
                   tosearch:tosearch,
                   skip:skip
@@ -1151,7 +1151,7 @@ var static_data = {
                 $.fn.search_Patient_idleF_next_top_nav = function(skip){
                   var tosearch = $('#search_patient_input').val();
                   document.getElementById('search_txt_wkr_txt').innerHTML = "Search results for "+tosearch;
-                  $.get("http://localhost:3130/search_patient",
+                  $.get("http://"+local_server+":3130/search_patient",
                 {
                   tosearch:tosearch,
                   skip:skip
@@ -1170,7 +1170,7 @@ var static_data = {
                   }
                   
                   document.getElementById('search_txt_wkr_txt').innerHTML = "Search results for "+tosearch;
-                  $.get("http://localhost:3130/search_patient",
+                  $.get("http://"+local_server+":3130/search_patient",
                 {
                   tosearch:tosearch,
                   skip:skip
@@ -1197,7 +1197,7 @@ var static_data = {
                     dv2.setAttribute("style","padding-right: 100px;");
                     var img = document.createElement("img");
                     img.setAttribute("style","height: 100px; width: 100px;");
-                    img.setAttribute("src","http://localhost:4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                    img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
                     var dv3 = document.createElement("div");
                     dv3.setAttribute("class","col-md-7");
                     dv3.setAttribute("style","text-align: left;");
@@ -1279,7 +1279,7 @@ var static_data = {
                     dv2.setAttribute("style","padding-right: 100px;");
                     var img = document.createElement("img");
                     img.setAttribute("style","height: 100px; width: 100px;");
-                    img.setAttribute("src","http://localhost:4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                    img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
                     var dv3 = document.createElement("div");
                     dv3.setAttribute("class","col-md-7");
                     dv3.setAttribute("style","text-align: left;");
@@ -1349,7 +1349,7 @@ var static_data = {
                 
                 function process_search_Patient_r_prvbtn(e){
                   static_data.usrID = e._id;
-                  $.get('http://localhost:3130/set_currOpratP_coll',{
+                  $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                   usrID:e._id
                 },
                 function (result){
@@ -1369,7 +1369,7 @@ var static_data = {
                     dv2.setAttribute("style","padding-right: 100px;");
                     var img = document.createElement("img");
                     img.setAttribute("style","height: 100px; width: 100px;");
-                    img.setAttribute("src","http://localhost:4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                    img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
                     var dv3 = document.createElement("div");
                     dv3.setAttribute("class","col-md-7");
                     dv3.setAttribute("style","text-align: left;");
@@ -1443,7 +1443,7 @@ var static_data = {
                 
                 function process_search_Patient_idleF_next(e){
                   static_data.usrID = e._id;
-                  $.get('http://localhost:3130/set_currOpratP_coll',{
+                  $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                   usrID:id
                 },
                 function (result){
@@ -1463,7 +1463,7 @@ var static_data = {
                     dv2.setAttribute("style","padding-right: 100px;");
                     var img = document.createElement("img");
                     img.setAttribute("style","height: 100px; width: 100px;");
-                    img.setAttribute("src","http://localhost:4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                    img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
                     var dv3 = document.createElement("div");
                     dv3.setAttribute("class","col-md-7");
                     dv3.setAttribute("style","text-align: left;");
@@ -1600,7 +1600,7 @@ var static_data = {
                   });
                   confirm_remove.open();
                 }else{
-                  $.get("http://localhost:3130/check_patient_exsistence",
+                  $.get("http://"+local_server+":3130/check_patient_exsistence",
                 {
                   email:email,
                   phoneNo:phoneNo
@@ -2007,7 +2007,7 @@ var static_data = {
 
 
               $.fn.get_doctors_logedIn = function(){
-                $.get("http://localhost:3130/get_doctors_logedin_id",
+                $.get("http://"+local_server+":3130/get_doctors_logedin_id",
               {},
               function(result){
                 
@@ -2025,7 +2025,7 @@ var static_data = {
               }
     
               $.fn.get_pharmacist_logedIn = function(){
-                $.get("http://localhost:3130/get_pharmacist_logedin_id",
+                $.get("http://"+local_server+":3130/get_pharmacist_logedin_id",
               {},
               function(result){
                 
@@ -2043,7 +2043,7 @@ var static_data = {
               }
     
               $.fn.get_lab_logedIn = function(){
-                $.get("http://localhost:3130/get_lab_logedin_id",
+                $.get("http://"+local_server+":3130/get_lab_logedin_id",
               {},
               function(result){
                 
@@ -2061,7 +2061,7 @@ var static_data = {
               }
     
               $.fn.get_radiologist_logedIn = function(){
-                $.get("http://localhost:3130/get_radiologist_logedin_id",
+                $.get("http://"+local_server+":3130/get_radiologist_logedin_id",
               {},
               function(result){
                 
@@ -2079,7 +2079,7 @@ var static_data = {
               }
     
               $.fn.assigne_patients_to = function(prof_id){
-                $.get("http://localhost:3130/assign_patient",
+                $.get("http://"+local_server+":3130/assign_patient",
               {
                 professional_ID:prof_id,
                 usrID:static_data.usrID
@@ -2136,7 +2136,7 @@ var static_data = {
     
               $.fn.submit_employee_reg = function(first_name,last_name,middle_name,email,phone_no,h_address,date_of_birth,
                 occupation,next_of_kin,age,height,sex,allergies,department,patientno){
-                $.get("http://localhost:3130/register_patient",
+                $.get("http://"+local_server+":3130/register_patient",
               {
                 'first_name':first_name,
                 'last_name':last_name,
@@ -2239,11 +2239,11 @@ var static_data = {
                         var newPrintPage = window.open('','PRINT','height=500,width=600');
                         newPrintPage.document.write('<html><head><title>'+institutionInfo.name+' Card</title></head><body>');
                         newPrintPage.document.write('<div style="text-align:center;"><h1>'+institutionInfo.name+'</h1></div>');
-                        newPrintPage.document.write('<div style="text-align:center;"><img src="http://localhost:4417/institution_logo" style="width:100px;height:100px;"></div><br>');                  
+                        newPrintPage.document.write('<div style="text-align:center;"><img src="http://'+local_server+':4417/institution_logo" style="width:100px;height:100px;"></div><br>');                  
                         newPrintPage.document.write('<div style="text-align:left;"><h3>Name: '+result.ops[0].first_name+' '+result.ops[0].first_name+' '+result.ops[0].middle_name+'</h3></div>');
                         newPrintPage.document.write('<div style="text-align:left; color:#eafa07;"><h3>ID:'+result.ops[0].patientno+'</h3></div>');
                         newPrintPage.document.write('<div style="text-align:left;"><h3>Date:'+result.ops[0].date_registerd+'</h3></div><br><br>');
-                        newPrintPage.document.write('<div style="text-align:right;"><img src="http://localhost:4417/vios_logo" style="width:20px;height:20px;">Viostec</div><br>');
+                        newPrintPage.document.write('<div style="text-align:right;"><img src="http://'+local_server+':4417/vios_logo" style="width:20px;height:20px;">Viostec</div><br>');
                         newPrintPage.document.write('<div style="text-align:right;"><h5>visit us @ viostec.com </h5></div>');
                         newPrintPage.document.write('<div style="text-align:right;"><h5>Email - viosconnect@gmail.com</h5></div>');
                         newPrintPage.document.write('</body></html>');
@@ -2258,9 +2258,8 @@ var static_data = {
                 document.getElementById("employee_reg_form2").style.display = "none";
               }
               function process_check_professional_loged_in(id){
-                var jsondata = JSON.parse(id);
-                var jsonid = jsondata.$oid
-                document.getElementById('pr_profile_picSSG').src = 'http://localhost:4417/employee/'+jsonid+'/profile/usr_profile.jpg';
+                var jsonid = id;
+                document.getElementById('pr_profile_picSSG').src = 'http://'+local_server+':4417/employee/'+jsonid+'/profile/usr_profile.jpg';
               }
               function process_logoutHSD(){
                 window.location.href="index.html";
@@ -2442,10 +2441,10 @@ var static_data = {
               $.fn.getLatest_PrescriptionDwrkBar = function(){
                 var startDate = moment().subtract(174,'days');
                 var endDate = moment();
-                $.get('http://localhost:3130/get_currOpratP_coll',{
+                $.get("http://"+local_server+":3130/get_currOpratP_coll",{
                 },
                 function (result_id){
-              $.get('http://localhost:3130/get_latest_prescription',{
+              $.get("http://"+local_server+":3130/get_latest_prescription",{
                 range1:startDate.format('MM/DD/YYYY'),
                 range2:endDate.format('MM/DD/YYYY'),
                 usrID:result_id.usrID
@@ -2483,10 +2482,10 @@ var static_data = {
 
               $.fn.getLatest_LabDwrkBar = function(){
               
-                $.get('http://localhost:3130/get_currOpratP_coll',{
+                $.get("http://"+local_server+":3130/get_currOpratP_coll",{
                 },
                 function (result_id){
-              $.get('http://localhost:3130/get_latest_Lab',{
+              $.get("http://"+local_server+":3130/get_latest_Lab",{
                 usrID:result_id.usrID
               },
               function (result){
@@ -2523,10 +2522,10 @@ var static_data = {
                       $.fn.getLatest_RadiographDwrkBar = function(){
                         var startDate = moment().subtract(174,'days');
                         var endDate = moment();
-                        $.get('http://localhost:3130/get_currOpratP_coll',{
+                        $.get("http://"+local_server+":3130/get_currOpratP_coll",{
                         },
                         function (result_id){
-                      $.get('http://localhost:3130/get_latest_prescription',{
+                      $.get("http://"+local_server+":3130/get_latest_prescription",{
                         range1:startDate.format('MM/DD/YYYY'),
                         range2:endDate.format('MM/DD/YYYY'),
                         usrID:result_id.usrID
@@ -2563,10 +2562,10 @@ var static_data = {
                       }
 
                       $.fn.getLatest_DispDwrkBar = function(){
-                        $.get('http://localhost:3130/get_currOpratP_coll',{
+                        $.get("http://"+local_server+":3130/get_currOpratP_coll",{
                               },
                               function (result_id){
-                        $.get('http://localhost:3130/get_latest_Dispensed',{
+                        $.get("http://"+local_server+":3130/get_latest_Dispensed",{
                           usrID:result_id.usrID
                         },
                         function (result){
@@ -2750,7 +2749,7 @@ var static_data = {
             });
             $.fn.openFormSelector = function () {
               $("#formSelectLoaderImg").css({"display":"block"});
-              $.get('http://localhost:3130/get_formsName_ID',{
+              $.get("http://"+local_server+":3130/get_formsName_ID",{
             },
             function (result){
               var result_row = $("<div class='row' id='formselectionDivrow'></div>");
@@ -2766,7 +2765,7 @@ var static_data = {
             $.fn.formSelectClick = function(formID,category){
               static_data.formID = formID;
               static_data.formCategory = category;
-              $.get('http://localhost:3130/get_raw_form',{
+              $.get("http://"+local_server+":3130/get_raw_form",{
                 formID:formID
               },
               function (result){
@@ -2866,11 +2865,11 @@ var static_data = {
       $(el).replaceWith('<span class="C_INP_P" id="'+el.id+'">'+selectedValue+'</span>');
     }}});
     
-    $.get('http://localhost:3130/get_currOpratP_coll',{
+    $.get("http://"+local_server+":3130/get_currOpratP_coll",{
     },
     function (result_id){
     $.ajax({
-      url: 'http://localhost:3130/add_form_op_data',
+      url: 'http://'+local_server+':3130/add_form_op_data',
       type:'POST',
       contentType:'application/json',
       data: JSON.stringify({
@@ -2891,7 +2890,7 @@ var static_data = {
             erro_notice_popup("Invalid node");
           }else{
             $.ajax({
-              url: 'http://localhost:3130/add_form_disp_data',
+              url: 'http://'+local_server+':3130/add_form_disp_data',
               type:'POST',
               contentType:'application/json',
               data: JSON.stringify({
@@ -3020,7 +3019,7 @@ var static_data = {
           });
   
           $.fn.getProfandInstiDetails = function(){
-            $.get("http://localhost:3130/get_prof_and_institu_name",{
+            $.get("http://"+local_server+":3130/get_prof_and_institu_name",{
   
             },function (result){
               static_data.pharmName = result.fullName;
@@ -3051,7 +3050,7 @@ var static_data = {
   
   
           $.fn.request_userPermission_to_view_doc = function (){
-            $.get('http://localhost:3130/request_userPermission_to_view_doc',{
+            $.get("http://"+local_server+":3130/request_userPermission_to_view_doc",{
             },
             function (response){
               if(response != null){
@@ -3078,11 +3077,11 @@ var static_data = {
             $("#noteDispProcessing_div").replaceWith('<div id="noteDispProcessing_div"></div>');
             $("#noteDispProcessing_div").append($("#noteFormHolder").html());
             $("#noteDispProcessing_div").find("button").replaceWith("");
-            $.get('http://localhost:3130/get_currOpratP_coll',{
+            $.get("http://"+local_server+":3130/get_currOpratP_coll",{
             },
             function (result_id){
             $.ajax({
-              url: 'http://localhost:3130/add_note_disp_data',
+              url: 'http://'+local_server+':3130/add_note_disp_data',
               type:'POST',
               contentType:'application/json',
               data: JSON.stringify({
@@ -3115,10 +3114,10 @@ var static_data = {
             getE("rnoteDispLwNabBar_mainDDH").style.display = "none";
             var startDate = moment().subtract(174,'days');
             var endDate = moment();
-            $.get('http://localhost:3130/get_currOpratP_coll',{
+            $.get("http://"+local_server+":3130/get_currOpratP_coll",{
             },
             function (result_id){
-            $.get('http://localhost:3130/get_latest_Note',{
+            $.get("http://"+local_server+":3130/get_latest_Note",{
               range1:startDate.format('MM/DD/YYYY'),
               range2:endDate.format('MM/DD/YYYY'),
               usrID:result_id.usrID
@@ -3229,14 +3228,14 @@ var static_data = {
   $.fn.process_fPic_disp = function(name){
     $("#imageInputLoader_"+static_data.file_input_lf_index).attr("style","width: 49px; height: 50px; border: none; display: none;");
     $("#imageInputLoaderDiv_"+static_data.file_input_lf_index).attr("style","width: 210px; height: 170px; border: dashed 1px; text-align: center; padding-top: 60px;display:none");
-    $("#imageInputDispVM_"+static_data.file_input_lf_index).attr("src","http://localhost:4417/formFiles/"+name);
-    $("#imageInputLI_"+static_data.file_input_lf_index).attr("data-src","http://localhost:4417/formFiles/"+name);
+    $("#imageInputDispVM_"+static_data.file_input_lf_index).attr("src","http://"+local_server+":4417/formFiles/"+name);
+    $("#imageInputLI_"+static_data.file_input_lf_index).attr("data-src","http://"+local_server+":4417/formFiles/"+name);
     $("#imageInputUL_"+static_data.file_input_lf_index).attr("style","padding:0px; list-style: none; display: block;");
   
     $("#imageInputfileIconDiv_"+static_data.file_input_lf_index).attr("style","width: 80px; height: 100px; text-align: center; display: block;");
     $("#f_fileNameVB_"+static_data.file_input_lf_index).attr("style","text-align: center; width: 80px;");
     $("#f_fileNameVB_"+static_data.file_input_lf_index).html(name);
-    $("#fileViewBtn_Z_"+static_data.file_input_lf_index).attr("href","http://localhost:4417/formFiles/"+name);
+    $("#fileViewBtn_Z_"+static_data.file_input_lf_index).attr("href","http://"+local_server+":4417/formFiles/"+name);
   
   }
   
@@ -3296,11 +3295,11 @@ var static_data = {
               }
             }
             function get_patient_d_f_static_vars_prd(){
-              $.get('http://localhost:3130/get_currOpratP_coll',{
+              $.get("http://"+local_server+":3130/get_currOpratP_coll",{
               },
               function (result_id){
-                $("#patient_pp_pdr").attr("src","http://localhost:4417/patient/"+result_id.usrID+"/profile/usr_profile.jpg");
-              $.get("http://localhost:3130/get_patient_d_f_static_vars",
+                $("#patient_pp_pdr").attr("src","http://"+local_server+":4417/patient?path="+result_id.usrID+"/profile/usr_profile.jpg");
+              $.get("http://"+local_server+":3130/get_patient_d_f_static_vars",
               {
                 usrID:result_id.usrID
               },
@@ -3389,10 +3388,10 @@ var static_data = {
             }
   
             $.fn.getLatest_prescription = function(){
-              $.get('http://localhost:3130/get_currOpratP_coll',{
+              $.get("http://"+local_server+":3130/get_currOpratP_coll",{
             },
             function (result_id){
-              $.get('http://localhost:3130/get_latest_prescription',{
+              $.get("http://"+local_server+":3130/get_latest_prescription",{
                 usrID:result_id.usrID
               },
               function (result){
@@ -3412,7 +3411,7 @@ var static_data = {
           }
   
             $.fn.get_PrescriptionBy_id = function(DocID){
-              $.get('http://localhost:3130/get_Prescription_with_id',{
+              $.get("http://"+local_server+":3130/get_Prescription_with_id",{
                 DocID:DocID
             },
               function (result){
@@ -3440,10 +3439,10 @@ var static_data = {
             }
   
             $.fn.getLatest_Prescription = function(){
-              $.get('http://localhost:3130/get_currOpratP_coll',{
+              $.get("http://"+local_server+":3130/get_currOpratP_coll",{
             },
             function (result_id){
-              $.get('http://localhost:3130/get_latest_Prescription',{
+              $.get("http://"+local_server+":3130/get_latest_Prescription",{
                 usrID:result_id.usrID
               },
               function (result){
@@ -3486,10 +3485,10 @@ var static_data = {
             });
   
             $.fn.getPrescriptionSelectwithDate_dpr = function(){
-              $.get('http://localhost:3130/get_currOpratP_coll',{
+              $.get("http://"+local_server+":3130/get_currOpratP_coll",{
             },
             function (result_id){
-              $.get('http://localhost:3130/get_disp_Prescription_dateTime',{
+              $.get("http://"+local_server+":3130/get_disp_Prescription_dateTime",{
                 usrID:result_id.usrID
               },
               function (result){
@@ -3501,7 +3500,7 @@ var static_data = {
                 e.time = collect_o_date[1];
                 }});
             $('#Prescription_selT_pdr').footable({
-              "columns": $.post('http://localhost:4417/general_server_files/PrescriptionSelTableColuumn.json'),
+              "columns": $.get("http://"+local_server+":4417/general_server_files/?path=PrescriptionSelTableColuumn.json"),
               "rows": result.reverse()
             });
   
@@ -3509,7 +3508,7 @@ var static_data = {
               if($('#Prescription_selT_pdr').length <= 0){
                 $('#Prescription_selT_pdr_card_container').append('<table id="Prescription_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
                 $('#Prescription_selT_pdr').footable({
-                  "columns": $.post('http://localhost:4417/general_server_files/PrescriptionSelTableColuumn.json'),
+                  "columns": $.get("http://"+local_server+":4417/general_server_files/?path=PrescriptionSelTableColuumn.json"),
                   "rows": result.reverse()
                 });
               }
@@ -3520,10 +3519,10 @@ var static_data = {
       }
   
       $.fn.getLatest_radiograph = function(){
-        $.get('http://localhost:3130/get_currOpratP_coll',{
+        $.get("http://"+local_server+":3130/get_currOpratP_coll",{
       },
       function (result_id){
-        $.get('http://localhost:3130/get_latest_radiograph',{
+        $.get("http://"+local_server+":3130/get_latest_radiograph",{
           usrID:static_data.usrID
         },
         function (result){
@@ -3556,7 +3555,7 @@ var static_data = {
     }
     
       $.fn.get_radiographBy_id = function(DocID){
-        $.get('http://localhost:3130/get_radiograph_with_id',{
+        $.get("http://"+local_server+":3130/get_radiograph_with_id",{
           DocID:DocID
       },
         function (result){
@@ -3593,10 +3592,10 @@ var static_data = {
             });
   
             $.fn.getRadiographSelectwithDate_dpr = function(){
-              $.get('http://localhost:3130/get_currOpratP_coll',{
+              $.get("http://"+local_server+":3130/get_currOpratP_coll",{
             },
             function (result_id){
-              $.get('http://localhost:3130/get_disp_radiograph_dateTime',{
+              $.get("http://"+local_server+":3130/get_disp_radiograph_dateTime",{
                 usrID:result_id.usrID
               },
               function (result){
@@ -3609,7 +3608,7 @@ var static_data = {
                 }});
   
                 $('#radiograph_selT_pdr').footable({
-                  "columns": $.post('http://localhost:4417/general_server_files/radiographSelTableColuumn.json'),
+                  "columns": $.get("http://"+local_server+":4417/general_server_files/?path=radiographSelTableColuumn.json"),
                   "rows": result.reverse()
                 });
   
@@ -3617,7 +3616,7 @@ var static_data = {
                   if($('#radiograph_selT_pdr').length <= 0){
                     $('#radiograph_selT_pdr_card_container').append('<table id="radiograph_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
                     $('#radiograph_selT_pdr').footable({
-                      "columns": $.post('http://localhost:4417/general_server_files/radiographSelTableColuumn.json'),
+                      "columns": $.get("http://"+local_server+":4417/general_server_files/?path=radiographSelTableColuumn.json"),
                       "rows": result.reverse()
                     });
                   }
@@ -3631,10 +3630,10 @@ var static_data = {
   
   
       $.fn.getLatest_Lab = function(){
-        $.get('http://localhost:3130/get_currOpratP_coll',{
+        $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
-        $.get('http://localhost:3130/get_latest_Lab',{
+        $.get("http://"+local_server+":3130/get_latest_Lab",{
           usrID:result_id.usrID
         },
         function (result){
@@ -3668,7 +3667,7 @@ var static_data = {
     }
     
       $.fn.get_LabBy_id = function(DocID){
-        $.get('http://localhost:3130/get_Lab_with_id',{
+        $.get("http://"+local_server+":3130/get_Lab_with_id",{
           DocID:DocID
       },
         function (result){
@@ -3706,10 +3705,10 @@ var static_data = {
         });
   
         $.fn.getLabSelectwithDate_dpr = function(){
-          $.get('http://localhost:3130/get_currOpratP_coll',{
+          $.get("http://"+local_server+":3130/get_currOpratP_coll",{
             },
             function (result_id){
-          $.get('http://localhost:3130/get_disp_Lab_dateTime',{
+          $.get("http://"+local_server+":3130/get_disp_Lab_dateTime",{
             usrID:result_id.usrID
           },
           function (result){
@@ -3722,14 +3721,14 @@ var static_data = {
             }});
        
             $('#Lab_selT_pdr').footable({
-              "columns": $.post('http://localhost:4417/general_server_files/LabSelTableColuumn.json'),
+              "columns": $.get("http://"+local_server+":4417/general_server_files/?path=LabSelTableColuumn.json"),
               "rows": result.reverse()
             });
         setTimeout(function() { 
           if($('#Lab_selT_pdr').length <= 0){
             $('#Lab_selT_pdr_card_container').append('<table id="Lab_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
             $('#Lab_selT_pdr').footable({
-              "columns": $.post('http://localhost:4417/general_server_files/LabSelTableColuumn.json'),
+              "columns": $.get("http://"+local_server+":4417/general_server_files/?path=LabSelTableColuumn.json"),
               "rows": result.reverse()
             });
           }
@@ -3740,10 +3739,10 @@ var static_data = {
   }
   
   $.fn.getLatest_Dispensed = function(){
-    $.get('http://localhost:3130/get_currOpratP_coll',{
+    $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
-    $.get('http://localhost:3130/get_latest_Dispensed',{
+    $.get("http://"+local_server+":3130/get_latest_Dispensed",{
       usrID:result_id.usrID
     },
     function (result){
@@ -3776,7 +3775,7 @@ var static_data = {
   }
   
   $.fn.get_DispensedBy_id = function(DocID){
-    $.get('http://localhost:3130/get_Dispensed_with_id',{
+    $.get("http://"+local_server+":3130/get_Dispensed_with_id",{
       DocID:DocID
   },
     function (result){
@@ -3814,10 +3813,10 @@ var static_data = {
     });
   
     $.fn.getDispensedSelectwithDate_dpr = function(){
-      $.get('http://localhost:3130/get_currOpratP_coll',{
+      $.get("http://"+local_server+":3130/get_currOpratP_coll",{
             },
             function (result_id){
-      $.get('http://localhost:3130/get_disp_Dispensed_dateTime',{
+      $.get("http://"+local_server+":3130/get_disp_Dispensed_dateTime",{
         usrID:result_id.usrID
       },
       function (result){
@@ -3830,7 +3829,7 @@ var static_data = {
           }
         });
     $('#Dispensed_selT_pdr').footable({
-      "columns": $.post('http://localhost:4417/general_server_files/DispensedSelTableColuumn.json'),
+      "columns": $.get("http://"+local_server+":4417/general_server_files/?path=DispensedSelTableColuumn.json"),
       "rows": result.reverse()
     });
   
@@ -3838,7 +3837,7 @@ var static_data = {
       if($('#Dispensed_selT_pdr').length <= 0){
         $('#Dispensed_selT_pdr_card_container').append('<table id="Dispensed_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
         $('#Dispensed_selT_pdr').footable({
-          "columns": $.post('http://localhost:4417/general_server_files/DispensedSelTableColuumn.json'),
+          "columns": $.get("http://"+local_server+":4417/general_server_files/?path=DispensedSelTableColuumn.json"),
           "rows": result.reverse()
         });
       }
@@ -3848,10 +3847,10 @@ var static_data = {
     }
   
     $.fn.getLatest_Note = function(){
-      $.get('http://localhost:3130/get_currOpratP_coll',{
+      $.get("http://"+local_server+":3130/get_currOpratP_coll",{
               },
               function (result_id){
-      $.get('http://localhost:3130/get_latest_Note',{
+      $.get("http://"+local_server+":3130/get_latest_Note",{
         usrID:result_id.usrID
       },
       function (result){
@@ -3883,7 +3882,7 @@ var static_data = {
     }
   
   $.fn.get_NoteBy_id = function(DocID){
-    $.get('http://localhost:3130/get_Note_with_id',{
+    $.get("http://"+local_server+":3130/get_Note_with_id",{
       DocID:DocID
   },
     function (result){
@@ -3921,10 +3920,10 @@ var static_data = {
   });
   
   $.fn.getNoteSelectwithDate_dpr = function(){
-    $.get('http://localhost:3130/get_currOpratP_coll',{
+    $.get("http://"+local_server+":3130/get_currOpratP_coll",{
             },
             function (result_id){
-    $.get('http://localhost:3130/get_disp_Note_dateTime',{
+    $.get("http://"+local_server+":3130/get_disp_Note_dateTime",{
       usrID:result_id.usrID
     },
     function (result){
@@ -3936,7 +3935,7 @@ var static_data = {
       e.time = collect_o_date[1];
       }});
   $('#Note_selT_pdr').footable({
-    "columns": $.post('http://localhost:4417/general_server_files/NoteSelTableColuumn.json'),
+    "columns": $.get("http://"+local_server+":4417/general_server_files/?path=NoteSelTableColuumn.json"),
     "rows": result.reverse()
   });
   
@@ -3944,7 +3943,7 @@ var static_data = {
     if($('#Note_selT_pdr').length <= 0){
       $('#Note_selT_pdr_card_container').append('<table id="Note_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
       $('#Note_selT_pdr').footable({
-        "columns": $.post('http://localhost:4417/general_server_files/NoteSelTableColuumn.json'),
+        "columns": $.get("http://"+local_server+":4417/general_server_files/?path=NoteSelTableColuumn.json"),
         "rows": result.reverse()
       });
     }
@@ -3956,7 +3955,7 @@ var static_data = {
   
   
   $.fn.get_FullrecBy_id = function(DocID,category){
-    $.get('http://localhost:3130/get_Fullrec_with_id',{
+    $.get("http://"+local_server+":3130/get_Fullrec_with_id",{
       DocID:DocID,
       category:category
   },
@@ -3997,10 +3996,10 @@ var static_data = {
     return false;
   });
   $.fn.getFullrecSelectwithDate_dpr = function(){
-    $.get('http://localhost:3130/get_currOpratP_coll',{
+    $.get("http://"+local_server+":3130/get_currOpratP_coll",{
             },
             function (result_id){
-    $.get('http://localhost:3130/get_disp_Fullrec_dateTime',{
+    $.get("http://"+local_server+":3130/get_disp_Fullrec_dateTime",{
       usrID:result_id.usrID
     },
     function (result){
@@ -4019,7 +4018,7 @@ var static_data = {
       e.time = collect_o_date[1];
       }});
   $('#Fullrec_selT_pdr').footable({
-    "columns": $.post('http://localhost:4417/general_server_files/FullrecSelTableColuumn.json'),
+    "columns": $.get("http://"+local_server+":4417/general_server_files/?path=FullrecSelTableColuumn.json"),
     "rows": result.reverse()
   });
   
@@ -4027,7 +4026,7 @@ var static_data = {
     if($('#Fullrec_selT_pdr').length <= 0){
       $('#Fullrec_selT_pdr_card_container').append('<table id="Fullrec_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
       $('#Fullrec_selT_pdr').footable({
-        "columns": $.post('http://localhost:4417/general_server_files/FullrecSelTableColuumn.json'),
+        "columns": $.get("http://"+local_server+":4417/general_server_files/?path=FullrecSelTableColuumn.json"),
         "rows": result.reverse()
       });
     }
@@ -4123,7 +4122,7 @@ var static_data = {
   }
   
   function de_assign_a_particularP(id){
-    $.get('http://localhost:3130/de_assign_particular_patient',{
+    $.get("http://"+local_server+":3130/de_assign_particular_patient",{
       assignID:id
     },
     function (result){

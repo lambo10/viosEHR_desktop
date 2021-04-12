@@ -594,7 +594,7 @@ function set_patients_main_fragment(assignID){
 
               function process_recent_attended_a_assigned_p_click(id){
                 static_data.usrID = id;
-                $.get("http://'+local_server+':3130/set_currOpratP_coll",{
+                $.get("http://"+local_server+":3130/set_currOpratP_coll",{
                 usrID:id
               },
               function (result){
@@ -2896,7 +2896,7 @@ $.fn.enterHome = function(){
               e.time = collect_o_date[1];
               }});
           $('#Prescription_selT_pdr').footable({
-            "columns": $.get("http://"+local_server+":4417/general_server_files/PrescriptionSelTableColuumn.json"),
+            "columns": $.get("http://"+local_server+":4417/general_server_files/?path=PrescriptionSelTableColuumn.json"),
             "rows": result.reverse()
           });
 
@@ -2904,7 +2904,7 @@ $.fn.enterHome = function(){
             if($('#Prescription_selT_pdr').length <= 0){
               $('#Prescription_selT_pdr_card_container').append('<table id="Prescription_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
               $('#Prescription_selT_pdr').footable({
-                "columns": $.get("http://"+local_server+":4417/general_server_files/PrescriptionSelTableColuumn.json"),
+                "columns": $.get("http://"+local_server+":4417/general_server_files/?path=PrescriptionSelTableColuumn.json"),
                 "rows": result.reverse()
               });
             }
@@ -3005,7 +3005,7 @@ $.fn.enterHome = function(){
               }});
 
               $('#radiograph_selT_pdr').footable({
-                "columns": $.get("http://"+local_server+":4417/general_server_files/radiographSelTableColuumn.json"),
+                "columns": $.get("http://"+local_server+":4417/general_server_files/?path=radiographSelTableColuumn.json"),
                 "rows": result.reverse()
               });
 
@@ -3013,7 +3013,7 @@ $.fn.enterHome = function(){
                 if($('#radiograph_selT_pdr').length <= 0){
                   $('#radiograph_selT_pdr_card_container').append('<table id="radiograph_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
                   $('#radiograph_selT_pdr').footable({
-                    "columns": $.get("http://"+local_server+":4417/general_server_files/radiographSelTableColuumn.json"),
+                    "columns": $.get("http://"+local_server+":4417/general_server_files/?path=radiographSelTableColuumn.json"),
                     "rows": result.reverse()
                   });
                 }
@@ -3118,14 +3118,14 @@ $.fn.enterHome = function(){
           }});
      
           $('#Lab_selT_pdr').footable({
-            "columns": $.get("http://"+local_server+":4417/general_server_files/LabSelTableColuumn.json"),
+            "columns": $.get("http://"+local_server+":4417/general_server_files/?path=LabSelTableColuumn.json"),
             "rows": result.reverse()
           });
       setTimeout(function() { 
         if($('#Lab_selT_pdr').length <= 0){
           $('#Lab_selT_pdr_card_container').append('<table id="Lab_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
           $('#Lab_selT_pdr').footable({
-            "columns": $.get("http://"+local_server+":4417/general_server_files/LabSelTableColuumn.json"),
+            "columns": $.get("http://"+local_server+":4417/general_server_files/?path=LabSelTableColuumn.json"),
             "rows": result.reverse()
           });
         }
@@ -3226,7 +3226,7 @@ $.fn.get_DispensedBy_id = function(DocID){
         }
       });
   $('#Dispensed_selT_pdr').footable({
-    "columns": $.get("http://"+local_server+":4417/general_server_files/DispensedSelTableColuumn.json"),
+    "columns": $.get("http://"+local_server+":4417/general_server_files/?path=DispensedSelTableColuumn.json"),
     "rows": result.reverse()
   });
 
@@ -3234,7 +3234,7 @@ $.fn.get_DispensedBy_id = function(DocID){
     if($('#Dispensed_selT_pdr').length <= 0){
       $('#Dispensed_selT_pdr_card_container').append('<table id="Dispensed_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
       $('#Dispensed_selT_pdr').footable({
-        "columns": $.get("http://"+local_server+":4417/general_server_files/DispensedSelTableColuumn.json"),
+        "columns": $.get("http://"+local_server+":4417/general_server_files/?path=DispensedSelTableColuumn.json"),
         "rows": result.reverse()
       });
     }
@@ -3334,7 +3334,7 @@ $.fn.getNoteSelectwithDate_dpr = function(){
     e.time = collect_o_date[1];
     }});
 $('#Note_selT_pdr').footable({
-  "columns": $.get("http://"+local_server+":4417/general_server_files/NoteSelTableColuumn.json"),
+  "columns": $.get("http://"+local_server+":4417/general_server_files/?path=NoteSelTableColuumn.json"),
   "rows": result.reverse()
 });
 
@@ -3342,7 +3342,7 @@ setTimeout(function() {
   if($('#Note_selT_pdr').length <= 0){
     $('#Note_selT_pdr_card_container').append('<table id="Note_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
     $('#Note_selT_pdr').footable({
-      "columns": $.get("http://"+local_server+":4417/general_server_files/NoteSelTableColuumn.json"),
+      "columns": $.get("http://"+local_server+":4417/general_server_files/?path=NoteSelTableColuumn.json"),
       "rows": result.reverse()
     });
   }
@@ -3417,7 +3417,7 @@ $.fn.getFullrecSelectwithDate_dpr = function(){
     e.time = collect_o_date[1];
     }});
 $('#Fullrec_selT_pdr').footable({
-  "columns": $.get("http://"+local_server+":4417/general_server_files/FullrecSelTableColuumn.json"),
+  "columns": $.get("http://"+local_server+":4417/general_server_files/?path=FullrecSelTableColuumn.json"),
   "rows": result.reverse()
 });
 
@@ -3425,7 +3425,7 @@ setTimeout(function() {
   if($('#Fullrec_selT_pdr').length <= 0){
     $('#Fullrec_selT_pdr_card_container').append('<table id="Fullrec_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
     $('#Fullrec_selT_pdr').footable({
-      "columns": $.get("http://"+local_server+":4417/general_server_files/FullrecSelTableColuumn.json"),
+      "columns": $.get("http://"+local_server+":4417/general_server_files/?path=FullrecSelTableColuumn.json"),
       "rows": result.reverse()
     });
   }

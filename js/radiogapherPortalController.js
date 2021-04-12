@@ -48,42 +48,90 @@ var static_data = {
 
   bototom_pane_active:false
 };
-// var pharmacistP_static_vars = {
-//   selected_start_date:"",
-//   selected_end_date:"",
-//   selected_drug_id:"",
-//   selected_drug_name:"",
-//   selected_drug_type:"",
-//   selected_drug_price:"",
-//   selected_drug_quantity:"",
-//   selected_drug_batchPrice:"",
-//   selected_drug_brand:"",
-//   selected_drug_drugShortage_point:"",
-//   selected_drug_strength:"",
-//   selected_drug_expDate:"",
-//   selected_drug_category:"",
-//   last_popperInstance:null,
 
-//   total_price:0,
-//   total_number_drugs:0,
-//   modal_total_number_drugs:0,
-//   total_quantity:0,
-//   total_patients_purchase:0
-// }
-// var dispensed_drug_array = [];
-// var physical_dispensediv_index = [];
-// var total_price_of_drugs_to_be_dispensed = 0;
+var doc_portal_operation_data = {
+  encounterNote_instance:null
+}
+
+var doctor_var = {
+  prescription_txt:""
+}
+
 function tab_pane1ClickAction (){
   $.fn.bottom_dispense_pane_up();
 if(document.getElementById("profile-tab-classic").classList.contains("v_text_whiteFF")){
     document.getElementById("profile-tab-classic").classList.remove("v_text_whiteFF");
 }
-
+if(document.getElementById("follow-tab-classic").classList.contains("v_text_whiteFF")){
+  document.getElementById("follow-tab-classic").classList.remove("records_lower_pane_active");
+}
 if(document.getElementById("note-btn").classList.contains("v_text_whiteFF")){
     document.getElementById("note-btn").classList.remove("records_lower_pane_active");
 }
+if(document.getElementById("contact-tab-classic").classList.contains("v_text_whiteFF")){
+  document.getElementById("contact-tab-classic").classList.remove("records_lower_pane_active");
+}
+document.getElementById("follow-tab-classic").classList.add("v_text_whiteFF");
+document.getElementById("note-btn").classList.add("v_text_whiteFF");
+document.getElementById("contact-tab-classic").classList.add("v_text_whiteFF");
 document.getElementById("profile-tab-classic").classList.add("records_lower_pane_active");
+$.fn.getLatest_PrescriptionDwrkBar();
 };
+
+function tab_pane2ClickAction (){
+
+$.fn.bottom_dispense_pane_up();
+if(document.getElementById("profile-tab-classic").classList.contains("records_lower_pane_active")){
+    document.getElementById("profile-tab-classic").classList.remove("records_lower_pane_active");
+}
+
+if(document.getElementById("note-btn").classList.contains("records_lower_pane_active")){
+  document.getElementById("note-btn").classList.remove("records_lower_pane_active");
+}
+
+if(document.getElementById("contact-tab-classic").classList.contains("v_text_whiteFF")){
+  document.getElementById("contact-tab-classic").classList.remove("records_lower_pane_active");
+}
+
+if(document.getElementById("follow-tab-classic").classList.contains("v_text_whiteFF")){
+    document.getElementById("follow-tab-classic").classList.remove("records_lower_pane_active");
+}
+
+document.getElementById("profile-tab-classic").classList.add("v_text_whiteFF");
+document.getElementById("note-btn").classList.add("v_text_whiteFF");
+document.getElementById("contact-tab-classic").classList.add("v_text_whiteFF");
+document.getElementById("follow-tab-classic").classList.add("records_lower_pane_active"); 
+
+$.fn.getLatest_LabDwrkBar();
+};
+
+function tab_pane3ClickAction (){
+
+  $.fn.bottom_dispense_pane_up();
+  if(document.getElementById("contact-tab-classic").classList.contains("records_lower_pane_active")){
+      document.getElementById("contact-tab-classic").classList.remove("records_lower_pane_active");
+  }
+  
+  if(document.getElementById("note-btn").classList.contains("records_lower_pane_active")){
+    document.getElementById("note-btn").classList.remove("records_lower_pane_active");
+  }
+  
+  if(document.getElementById("profile-tab-classic").classList.contains("v_text_whiteFF")){
+    document.getElementById("profile-tab-classic").classList.remove("records_lower_pane_active");
+  }
+  
+  if(document.getElementById("follow-tab-classic").classList.contains("v_text_whiteFF")){
+      document.getElementById("follow-tab-classic").classList.remove("records_lower_pane_active");
+  }
+  
+  document.getElementById("profile-tab-classic").classList.add("v_text_whiteFF");
+  document.getElementById("note-btn").classList.add("v_text_whiteFF");
+  document.getElementById("follow-tab-classic").classList.add("v_text_whiteFF");
+  document.getElementById("contact-tab-classic").classList.add("records_lower_pane_active"); 
+  
+  $.fn.getLatest_RadiographDwrkBar();
+  };
+
 
 
 
@@ -96,8 +144,18 @@ document.getElementById("profile-tab-classic").classList.add("records_lower_pane
                 if(document.getElementById("note-btn").classList.contains("v_text_whiteFF")){
                     document.getElementById("note-btn").classList.remove("records_lower_pane_active");
                 }
+
+                if(document.getElementById("contact-tab-classic").classList.contains("v_text_whiteFF")){
+                  document.getElementById("contact-tab-classic").classList.remove("records_lower_pane_active");
+                }
+
+                if(document.getElementById("follow-tab-classic").classList.contains("v_text_whiteFF")){
+                  document.getElementById("follow-tab-classic").classList.remove("records_lower_pane_active");
+                }
             
             document.getElementById("profile-tab-classic").classList.add("v_text_whiteFF");
+            document.getElementById("follow-tab-classic").classList.add("v_text_whiteFF");
+            document.getElementById("contact-tab-classic").classList.add("v_text_whiteFF");
             document.getElementById("note-btn").classList.add("records_lower_pane_active");       
         }        
 
@@ -380,7 +438,7 @@ function set_patients_main_fragment(assignID){
               
 
                 $.fn.check_professional_loged_in = function(){
-                  $.get("http://"+local_server+":5000/get_professional_logedin_id",
+                  $.get("http://"+local_server+":3130/get_professional_logedin_id",
                 {},
                 function(result){
                   process_check_professional_loged_in(result);
@@ -478,7 +536,7 @@ function set_patients_main_fragment(assignID){
                 };
 
                 $.fn.logoutHSD = function(){
-                  $.get("http://"+local_server+":5000/logout_professional",
+                  $.get("http://"+local_server+":3130/logout_professional",
                 {},
                 function(result){
                   process_logoutHSD();
@@ -489,9 +547,8 @@ function set_patients_main_fragment(assignID){
                 }
 
                 function process_check_professional_loged_in(id){
-                  var jsondata = JSON.parse(id);
-                  var jsonid = jsondata.$oid;
-                  document.getElementById('pr_profile_picSSG').src = 'http://"+local_server+":4417/employee/'+jsonid+'/profile/usr_profile.jpg';
+                  var jsonid = id;
+                  document.getElementById('pr_profile_picSSG').src = "http://"+local_server+":4417/employee?path="+jsonid+"/profile/usr_profile.jpg";
                 }
                 $.fn.get_r_attended_patients();
                 $.fn.check_professional_loged_in();
@@ -634,7 +691,7 @@ function set_patients_main_fragment(assignID){
               //   th.setAttribute("scope","row");
               //   var img = document.createElement("img");
               //   img.setAttribute("class","rounded-circle z-depth-0");
-              //   img.setAttribute("src","http://"+local_server+":4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
+              //   img.setAttribute("src","http://"+local_server+":4417/patient?path="+e.usrID+"/profile/usr_profile.jpg");
               //   img.setAttribute("style","width: 70px; height: 70px;");
               //   var td1 = document.createElement("td");
               //   var div1 = document.createElement("div");
@@ -743,7 +800,7 @@ function set_patients_main_fragment(assignID){
                     //   th.setAttribute("scope","row");
                     //   var img = document.createElement("img");
                     //   img.setAttribute("class","rounded-circle z-depth-0");
-                    //   img.setAttribute("src","http://"+local_server+":4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
+                    //   img.setAttribute("src","http://"+local_server+":4417/patient?path="+e.usrID+"/profile/usr_profile.jpg");
                     //   img.setAttribute("style","width: 30px; height: 30px;");
                     //   var td1 = document.createElement("td");
                     //   var txt1 = document.createTextNode(e.name);
@@ -1150,7 +1207,7 @@ function set_patients_main_fragment(assignID){
                   dv2.setAttribute("style","padding-right: 100px;");
                   var img = document.createElement("img");
                   img.setAttribute("style","height: 100px; width: 100px;");
-                  img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                  img.setAttribute("src","http://"+local_server+":4417/patient?path="+e._id+"/profile/usr_profile.jpg")
                   var dv3 = document.createElement("div");
                   dv3.setAttribute("class","col-md-7");
                   dv3.setAttribute("style","text-align: left;");
@@ -1232,7 +1289,7 @@ function set_patients_main_fragment(assignID){
                   dv2.setAttribute("style","padding-right: 100px;");
                   var img = document.createElement("img");
                   img.setAttribute("style","height: 100px; width: 100px;");
-                  img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                  img.setAttribute("src","http://"+local_server+":4417/patient?path="+e._id+"/profile/usr_profile.jpg")
                   var dv3 = document.createElement("div");
                   dv3.setAttribute("class","col-md-7");
                   dv3.setAttribute("style","text-align: left;");
@@ -1322,7 +1379,7 @@ function set_patients_main_fragment(assignID){
                   dv2.setAttribute("style","padding-right: 100px;");
                   var img = document.createElement("img");
                   img.setAttribute("style","height: 100px; width: 100px;");
-                  img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                  img.setAttribute("src","http://"+local_server+":4417/patient?path="+e._id+"/profile/usr_profile.jpg")
                   var dv3 = document.createElement("div");
                   dv3.setAttribute("class","col-md-7");
                   dv3.setAttribute("style","text-align: left;");
@@ -1416,7 +1473,7 @@ function set_patients_main_fragment(assignID){
                   dv2.setAttribute("style","padding-right: 100px;");
                   var img = document.createElement("img");
                   img.setAttribute("style","height: 100px; width: 100px;");
-                  img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                  img.setAttribute("src","http://"+local_server+":4417/patient?path="+e._id+"/profile/usr_profile.jpg")
                   var dv3 = document.createElement("div");
                   dv3.setAttribute("class","col-md-7");
                   dv3.setAttribute("style","text-align: left;");
@@ -1523,10 +1580,533 @@ function set_patients_main_fragment(assignID){
                 }
               });
 
-              // only for phamacy
+              // only for doctor
    
+              $.fn.getLatest_PrescriptionDwrkBar = function(){
+                var startDate = moment().subtract(174,'days');
+                var endDate = moment();
+                $.get("http://"+local_server+":3130/get_currOpratP_coll",{
+                },
+                function (result_id){
+              $.get("http://"+local_server+":3130/get_latest_prescription",{
+                range1:startDate.format('MM/DD/YYYY'),
+                range2:endDate.format('MM/DD/YYYY'),
+                usrID:result_id.usrID
+              },
+              function (result){
+                getE("rPrescriptionDispLwNabBar_loaderDDH").style.display = "none";
+                getE("rPrescriptionDispLwNabBar_mainDDH").style.display = "block";
+                if(result.length <= 0){
+                  $("#rPrescriptionDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rPrescriptionDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+                }else if(result == "90923"){
+                  $("#rPrescriptionDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rPrescriptionDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
+                }
+                else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+                  $("#rPrescriptionDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rPrescriptionDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+                }
+                else{
+                $("#rPrescriptionDispLwNabBar").replaceWith('<div style="min-height: 200px; width: 97%;" id="rPrescriptionDispLwNabBar"></div>');
+                var collect_o_date = result[0].date.split("T");
+                var date = collect_o_date[0].date;
+                $("#rPrescriptionDispLwNabBar_date_pdr").text(date);
+                $("#rPrescriptionDispLwNabBar").append(result[0].disp_data);
+                $("#rPrescriptionDispLwNabBar").find("div").attr("id","");
+              }}).fail(function(e){
+                getE("rPrescriptionDispLwNabBar_loaderDDH").style.display = "none";
+                getE("rPrescriptionDispLwNabBar_mainDDH").style.display = "block";
+                $("#rPrescriptionDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rPrescriptionDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+              })
+          }).fail(function(e){
+            getE("rPrescriptionDispLwNabBar_loaderDDH").style.display = "none";
+            getE("rPrescriptionDispLwNabBar_mainDDH").style.display = "block";
+            $("#rPrescriptionDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rPrescriptionDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+          });
+            
+              }
+
+              function start_prescription_upload(){
+                
+                $("#prescription_modal_activator").click();
+
+                setTimeout(function (){
+                  var prescription_txt = $("#text2").val();
+                  var replace_p_txt = prescription_txt.replace(/•/g,"<br>• ");
+                  $("#presc_data_cxvDDFGH").html(replace_p_txt);
+              
+                  $("#pres_usrName_cxvDDFGH").html(static_data.usrName);
+                  $("#pres_usrH_cxvDDFGH").html(static_data.usrH_NHIS_NO);
+                  $("#pres_usrAdd_cxvDDFGH").html(static_data.usrAddress);
+                  $("#pres_usrAge_cxvDDFGH").html(static_data.usrAge);
+                  $("#pres_usrSex_cxvDDFGH").html(static_data.usrSex);
+                  $("#pres_usrPhone_cxvDDFGH").html(static_data.usrPhoneNo);
+                  $("#pres_usrPID_cxvDDFGH").html(static_data.usrPatientId);
+                  $("#pres_serverDate_cxvDDFGH").html(static_data.serverDate);
+                  $("#pres_usrHName_cxvDDFGH").html(static_data.usrH_Name);
+                  $("#pres_serverD_cxvDDFGH").html(static_data.serverDate);
+                  $("#pres_usrH_add_cxvDDFGH").html(static_data.usrH_Address);
+                  $("#pres_usrH_NHIS_cxvDDFGH").html(static_data.usrH_NHIS_NO);
+                  $("#pres_usrH_HMO_cxvDDFGH").html(static_data.usrH_HMO_NO);
+                  $("#pres_usrH_TEL_cxvDDFGH").html(static_data.usrH_TEL_FAX);
+                  $("#pres_docName_cxvDDFGH").html(static_data.docName);
+                  $("#pres_usrSeDate_cxvDDFGH").html(static_data.serverDate);
+                },500);
+                         
+              }
+
+              new jBox('Modal', {
+                attach:"#prescription_modal_activator",
+                width:'700px',
+                 title: 'Prescription',
+                 content: '<div class=" card-cascade narrower" id="prescription_modal_r_div"><div style="width: 100%;"><div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px;"><div style="text-align:center"><div style="font-size:25px">'+institutionInfo.name+'</div><div style="font-size:18px">Prescription form</div></div><div class="row" style="min-height: 358px;"><div style="width: 100%;"><div class="card" style="border: 1px solid #ced4da; padding: 20px;"><div><b>A.</b><span>PATIENTS IDENTIFICATION</span></div><br><div class="row"><div class="col-md-6"><b>NAME:</b> <div id="pres_usrName_cxvDDFGH"></div></div><div class="col-md-6"><b>NHIS ID NO:</b> <div id="pres_usrH_cxvDDFGH"></div></div></div><div class="row"><div class="col-md-6"><b>ADDRESS:</b> <div id="pres_usrAdd_cxvDDFGH"></div></div><div class="col-md-6"> <div class="row"> <div class="col-md-4"><b>AGE:</b> <div id="pres_usrAge_cxvDDFGH"></div></div> <div class="col-md-6"><b>SEX:</b> <div id="pres_usrSex_cxvDDFGH"></div></div> </div> </div></div> <div class="row"><div class="col-md-6"><b>PHONE NO:</b> <div id="pres_usrPhone_cxvDDFGH"></div></div><div class="col-md-6"><b>PATIENT ID:</b> <div id="pres_usrPID_cxvDDFGH"></div></div></div><div class="row"><div class="col-md-6"><b>DATE:</b> <div id="pres_serverDate_cxvDDFGH"></div></div></div></div><br><div class="card" style="border: 1px solid #ced4da; padding: 20px;"><div><b>B.</b><span>HEALTH CARE PROVIDERS IDENTIFICATION</span></div><div class="row"><div class="col-md-6"><b>NAME:</b> <div id="pres_usrHName_cxvDDFGH"></div></div><div class="col-md-6"><b>DATE:</b> <div id="pres_serverD_cxvDDFGH"></div></div></div><div class="row"><div class="col-md-6"><b>ADDRESS:</b> <div id="pres_usrH_add_cxvDDFGH"></div></div><div class="col-md-6"> <div class="row"> <div class="col-md-6"><b>NHIS NO:</b> <div id="pres_usrH_NHIS_cxvDDFGH"></div></div> <div class="col-md-6"><b>HMO NO:</b> <div id="pres_usrH_HMO_cxvDDFGH"></div></div> </div> </div></div><div class="row"><div class="col-md-6"></div><div class="col-md-6"><b>TEL/FAX:</b> <div id="pres_usrH_TEL_cxvDDFGH"></div></div></div></div></div><div style="width: 100%;"><br><div class="card" style="border: 1px solid #ced4da; padding: 20px; min-height: 300px;"><div><b>R/X</b><br><div id = "presc_data_cxvDDFGH"></div></div></div></div><div style="width: 100%;"><br><div class="card" style="border: 1px solid #ced4da; padding: 20px;"><div><b>C.</b><span>DOCTORS IDENTIFICATION</span></div><div class="row"><div class="col-md-6"><b>NAME:</b> <div id="pres_docName_cxvDDFGH"></div></div><div class="col-md-6"><b>DATE:</b> <div id="pres_usrSeDate_cxvDDFGH"></div></div></div> </div> <br><div style="width:100%;text-align:center"><button class="btn btn-blue" style="display:inline-block" onclick="$.fn.submit_prescription()">SEND</button><div></div></div>'
+               });
+             
+
+              $("#text2").focus(function() {
+                if(document.getElementById('text2').value === ''){
+                    document.getElementById('text2').value +='• ';
+              }
+            });
+            $("#text2").keyup(function(event){
+              var keycode = (event.keyCode ? event.keyCode : event.which);
+                if(keycode == '13'){
+                    document.getElementById('text2').value +='• ';
+              }
+              var txtval = document.getElementById('text2').value;
+              if(txtval.substr(txtval.length - 1) == '\n'){
+                document.getElementById('text2').value = txtval.substring(0,txtval.length - 1);
+              }
+            });
+
+
+            function start_labtest_upload(){
+              $("#submitLabPresc_btn_modal_activator").click();
+
+              setTimeout(function (){
+                var prescription_txt = $("#text3").val();
+                var replace_p_txt = prescription_txt.replace(/•/g,"<br>• ");
+                $("#lab_presc_data_cxvDDFGH").html(replace_p_txt);
+            
+                $("#lab_pres_usrName_cxvDDFGH").html(static_data.usrName);
+                $("#lab_pres_usrH_cxvDDFGH").html(static_data.usrH_NHIS_NO);
+                $("#lab_pres_usrAdd_cxvDDFGH").html(static_data.usrAddress);
+                $("#lab_pres_usrAge_cxvDDFGH").html(static_data.usrAge);
+                $("#lab_pres_usrSex_cxvDDFGH").html(static_data.usrSex);
+                $("#lab_pres_usrPhone_cxvDDFGH").html(static_data.usrPhoneNo);
+                $("#lab_pres_usrPID_cxvDDFGH").html(static_data.usrPatientId);
+                $("#lab_pres_serverDate_cxvDDFGH").html(static_data.serverDate);
+                $("#lab_pres_usrHName_cxvDDFGH").html(static_data.usrH_Name);
+                $("#lab_pres_serverD_cxvDDFGH").html(static_data.serverDate);
+                $("#lab_pres_usrH_add_cxvDDFGH").html(static_data.usrH_Address);
+                $("#lab_pres_usrH_NHIS_cxvDDFGH").html(static_data.usrH_NHIS_NO);
+                $("#lab_pres_usrH_HMO_cxvDDFGH").html(static_data.usrH_HMO_NO);
+                $("#lab_pres_usrH_TEL_cxvDDFGH").html(static_data.usrH_TEL_FAX);
+                $("#lab_pres_docName_cxvDDFGH").html(static_data.docName);
+                $("#lab_pres_usrSeDate_cxvDDFGH").html(static_data.serverDate);
+              },500)
+            }
+
+            new jBox('Modal', {
+              attach:"#submitLabPresc_btn_modal_activator",
+              width:'700px',
+               title: 'LabTest',
+               content: '<div class=" card-cascade narrower" id="lab_prescription_modal_r_div"><div style="width: 100%;"><div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px;"><div style="text-align:center"><div style="font-size:25px">'+institutionInfo.name+'</div><div style="font-size:18px">Lab-Test Prescription form</div></div><div class="row" style="min-height: 358px;"><div style="width: 100%;"><div class="card" style="border: 1px solid #ced4da; padding: 20px;"><div><b>A.</b><span>PATIENTS IDENTIFICATION</span></div><br><div class="row"><div class="col-md-6"><b>NAME:</b> <div id="lab_pres_usrName_cxvDDFGH"></div></div><div class="col-md-6"><b>NHIS ID NO:</b> <div id="lab_pres_usrH_cxvDDFGH"></div></div></div><div class="row"><div class="col-md-6"><b>ADDRESS:</b> <div id="lab_pres_usrAdd_cxvDDFGH"></div></div><div class="col-md-6"> <div class="row"> <div class="col-md-4"><b>AGE:</b> <div id="lab_pres_usrAge_cxvDDFGH"></div></div> <div class="col-md-6"><b>SEX:</b> <div id="lab_pres_usrSex_cxvDDFGH"></div></div> </div> </div></div> <div class="row"><div class="col-md-6"><b>PHONE NO:</b> <div id="lab_pres_usrPhone_cxvDDFGH"></div></div><div class="col-md-6"><b>PATIENT ID:</b> <div id="lab_pres_usrPID_cxvDDFGH"></div></div></div><div class="row"><div class="col-md-6"><b>DATE:</b> <div id="lab_pres_serverDate_cxvDDFGH"></div></div></div></div><br><div class="card" style="border: 1px solid #ced4da; padding: 20px;"><div><b>B.</b><span>HEALTH CARE PROVIDERS IDENTIFICATION</span></div><div class="row"><div class="col-md-6"><b>NAME:</b> <div id="lab_pres_usrHName_cxvDDFGH"></div></div><div class="col-md-6"><b>DATE:</b> <div id="lab_pres_serverD_cxvDDFGH"></div></div></div><div class="row"><div class="col-md-6"><b>ADDRESS:</b> <div id="lab_pres_usrH_add_cxvDDFGH"></div></div><div class="col-md-6"> <div class="row"> <div class="col-md-6"><b>NHIS NO:</b> <div id="lab_pres_usrH_NHIS_cxvDDFGH"></div></div> <div class="col-md-6"><b>HMO NO:</b> <div id="lab_pres_usrH_HMO_cxvDDFGH"></div></div> </div> </div></div><div class="row"><div class="col-md-6"></div><div class="col-md-6"><b>TEL/FAX:</b> <div id="lab_pres_usrH_TEL_cxvDDFGH"></div></div></div></div></div><div style="width: 100%;"><br><div class="card" style="border: 1px solid #ced4da; padding: 20px; min-height: 300px;"><div><b>R/X</b><br><div id = "lab_presc_data_cxvDDFGH"></div></div></div></div><div style="width: 100%;"><br><div class="card" style="border: 1px solid #ced4da; padding: 20px;"><div><b>C.</b><span>DOCTORS IDENTIFICATION</span></div><div class="row"><div class="col-md-6"><b>NAME:</b> <div id="lab_pres_docName_cxvDDFGH"></div></div><div class="col-md-6"><b>DATE:</b> <div id="lab_pres_usrSeDate_cxvDDFGH"></div></div></div> </div> <br><button class="btn btn-blue" style="float:right" onclick="$.fn.submit_labTest()">SEND</button></div></div>'
+             });
+
+             $("#text3").focus(function() {
+              if(document.getElementById('text3').value === ''){
+                  document.getElementById('text3').value +='• ';
+            }
+          });
+          $("#text3").keyup(function(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+              if(keycode == '13'){
+                  document.getElementById('text3').value +='• ';
+            }
+            var txtval = document.getElementById('text3').value;
+            if(txtval.substr(txtval.length - 1) == '\n'){
+              document.getElementById('text3').value = txtval.substring(0,txtval.length - 1);
+            }
+          });
+
+          function start_imageTest_upload(){
+            $("#submitImagePresc_btn_modal_activator").click();
+
+            setTimeout(function (){
+              var prescription_txt = $("#text4").val();
+              var replace_p_txt = prescription_txt.replace(/•/g,"<br>• ");
+              $("#image_presc_data_cxvDDFGH").html(replace_p_txt);
+          
+              $("#image_pres_usrName_cxvDDFGH").html(static_data.usrName);
+              $("#image_pres_usrH_cxvDDFGH").html(static_data.usrH_NHIS_NO);
+              $("#image_pres_usrAdd_cxvDDFGH").html(static_data.usrAddress);
+              $("#image_pres_usrAge_cxvDDFGH").html(static_data.usrAge);
+              $("#image_pres_usrSex_cxvDDFGH").html(static_data.usrSex);
+              $("#image_pres_usrPhone_cxvDDFGH").html(static_data.usrPhoneNo);
+              $("#image_pres_usrPID_cxvDDFGH").html(static_data.usrPatientId);
+              $("#image_pres_serverDate_cxvDDFGH").html(static_data.serverDate);
+              $("#image_pres_usrHName_cxvDDFGH").html(static_data.usrH_Name);
+              $("#image_pres_serverD_cxvDDFGH").html(static_data.serverDate);
+              $("#image_pres_usrH_add_cxvDDFGH").html(static_data.usrH_Address);
+              $("#image_pres_usrH_NHIS_cxvDDFGH").html(static_data.usrH_NHIS_NO);
+              $("#image_pres_usrH_HMO_cxvDDFGH").html(static_data.usrH_HMO_NO);
+              $("#image_pres_usrH_TEL_cxvDDFGH").html(static_data.usrH_TEL_FAX);
+              $("#image_pres_docName_cxvDDFGH").html(static_data.docName);
+              $("#image_pres_usrSeDate_cxvDDFGH").html(static_data.serverDate);
+            },500)
+          }
+
+          new jBox('Modal', {
+            attach:"#submitImagePresc_btn_modal_activator",
+            width:'700px',
+             title: 'imageTest',
+             content: '<div class=" card-cascade narrower" id="image_prescription_modal_r_div"><div style="width: 100%;"><div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px;"><div style="text-align:center"><div style="font-size:25px">'+institutionInfo.name+'</div><div style="font-size:18px">Image-Test Prescription form</div></div><div class="row" style="min-height: 358px;"><div style="width: 100%;"><div class="card" style="border: 1px solid #ced4da; padding: 20px;"><div><b>A.</b><span>PATIENTS IDENTIFICATION</span></div><br><div class="row"><div class="col-md-6"><b>NAME:</b> <div id="image_pres_usrName_cxvDDFGH"></div></div><div class="col-md-6"><b>NHIS ID NO:</b> <div id="image_pres_usrH_cxvDDFGH"></div></div></div><div class="row"><div class="col-md-6"><b>ADDRESS:</b> <div id="image_pres_usrAdd_cxvDDFGH"></div></div><div class="col-md-6"> <div class="row"> <div class="col-md-4"><b>AGE:</b> <div id="image_pres_usrAge_cxvDDFGH"></div></div> <div class="col-md-6"><b>SEX:</b> <div id="image_pres_usrSex_cxvDDFGH"></div></div> </div> </div></div> <div class="row"><div class="col-md-6"><b>PHONE NO:</b> <div id="image_pres_usrPhone_cxvDDFGH"></div></div><div class="col-md-6"><b>PATIENT ID:</b> <div id="image_pres_usrPID_cxvDDFGH"></div></div></div><div class="row"><div class="col-md-6"><b>DATE:</b> <div id="image_pres_serverDate_cxvDDFGH"></div></div></div></div><br><div class="card" style="border: 1px solid #ced4da; padding: 20px;"><div><b>B.</b><span>HEALTH CARE PROVIDERS IDENTIFICATION</span></div><div class="row"><div class="col-md-6"><b>NAME:</b> <div id="image_pres_usrHName_cxvDDFGH"></div></div><div class="col-md-6"><b>DATE:</b> <div id="image_pres_serverD_cxvDDFGH"></div></div></div><div class="row"><div class="col-md-6"><b>ADDRESS:</b> <div id="image_pres_usrH_add_cxvDDFGH"></div></div><div class="col-md-6"> <div class="row"> <div class="col-md-6"><b>NHIS NO:</b> <div id="image_pres_usrH_NHIS_cxvDDFGH"></div></div> <div class="col-md-6"><b>HMO NO:</b> <div id="image_pres_usrH_HMO_cxvDDFGH"></div></div> </div> </div></div><div class="row"><div class="col-md-6"></div><div class="col-md-6"><b>TEL/FAX:</b> <div id="image_pres_usrH_TEL_cxvDDFGH"></div></div></div></div></div><div style="width: 100%;"><br><div class="card" style="border: 1px solid #ced4da; padding: 20px; min-height: 300px;"><div><b>R/X</b><br><div id = "image_presc_data_cxvDDFGH"></div></div></div></div><div style="width: 100%;"><br><div class="card" style="border: 1px solid #ced4da; padding: 20px;"><div><b>C.</b><span>DOCTORS IDENTIFICATION</span></div><div class="row"><div class="col-md-6"><b>NAME:</b> <div id="image_pres_docName_cxvDDFGH"></div></div><div class="col-md-6"><b>DATE:</b> <div id="image_pres_usrSeDate_cxvDDFGH"></div></div></div> </div> <br><button class="btn btn-blue" style="float:right" onclick="$.fn.submit_imageTest()">SEND</button></div></div>'
+           });
+
+           $("#text4").focus(function() {
+            if(document.getElementById('text4').value === ''){
+                document.getElementById('text4').value +='• ';
+          }
+        });
+        $("#text4").keyup(function(event){
+          var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13'){
+                document.getElementById('text4').value +='• ';
+          }
+          var txtval = document.getElementById('text4').value;
+          if(txtval.substr(txtval.length - 1) == '\n'){
+            document.getElementById('text4').value = txtval.substring(0,txtval.length - 1);
+          }
+        });
+
+          $.fn.submit_imageTest = function(){
+            $.get("http://"+local_server+":3130/get_currOpratP_coll",{
+          },
+          function (ID){
+            var formData = "'usrName':'"+static_data.usrName+
+            "','usrAddress':'"+static_data.usrAddress+
+            "','usrAge':'"+static_data.usrAge+
+            "','usrSex':'"+static_data.usrSex+
+            "','usrPhoneNo':'"+static_data.usrPhoneNo+
+            "','usrPatientId':'"+static_data.usrPatientId+
+            "','serverDate':'"+static_data.serverDate+
+            "','usrH_Name':'"+static_data.usrH_Name+
+            "','usrH_Address':'"+static_data.usrH_Address+
+            "','usrH_NHIS_NO':'"+static_data.usrH_NHIS_NO+
+            "','usrH_HMO_NO':'"+static_data.usrH_HMO_NO+
+            "','usrH_TEL_FAX':'"+static_data.usrH_TEL_FAX+
+            "','prescription':'"+$('#text3').val()+
+            "','prescription_category':'Prescription'";
+            var usrID = ID.usrID;
+            // var category = "Image_Prescription";
+            var category = "Prescription";
         
-          //End -- only for phamacy
+            static_data.formCategory = category;
+            static_data.formID = "11111";
+            static_data.usrID = usrID;
+            var rForm = $("#image_prescription_modal_r_div").html();
+            var prForm = $(rForm);
+            prForm.find("button").replaceWith("");
+            $.fn.submit_opData(formData,prForm.html());
+          });
+          };
+
+          $.fn.submit_labTest = function(){
+            $.get("http://"+local_server+":3130/get_currOpratP_coll",{
+            },
+            function (ID){
+              var formData = "'usrName':'"+static_data.usrName+
+              "','usrAddress':'"+static_data.usrAddress+
+              "','usrAge':'"+static_data.usrAge+
+              "','usrSex':'"+static_data.usrSex+
+              "','usrPhoneNo':'"+static_data.usrPhoneNo+
+              "','usrPatientId':'"+static_data.usrPatientId+
+              "','serverDate':'"+static_data.serverDate+
+              "','usrH_Name':'"+static_data.usrH_Name+
+              "','usrH_Address':'"+static_data.usrH_Address+
+              "','usrH_NHIS_NO':'"+static_data.usrH_NHIS_NO+
+              "','usrH_HMO_NO':'"+static_data.usrH_HMO_NO+
+              "','usrH_TEL_FAX':'"+static_data.usrH_TEL_FAX+
+              "','prescription':'"+$('#text2').val()+
+              "','prescription_category':'Prescription'";
+              var usrID = ID.usrID;
+              // var category = "Lab_Prescription";
+              var category = "Prescription";
+          
+              static_data.formCategory = category;
+              static_data.formID = "11111";
+              static_data.usrID = usrID;
+              var rForm = $("#lab_prescription_modal_r_div").html();
+              var prForm = $(rForm);
+              prForm.find("button").replaceWith("");
+              $.fn.submit_opData(formData,prForm.html());
+            });
+           
+          };
+
+            $.fn.submit_prescription = function(){
+              $.get("http://"+local_server+":3130/get_currOpratP_coll",{
+            },
+            function (ID){
+              var formData = "'usrName':'"+static_data.usrName+
+              "','usrAddress':'"+static_data.usrAddress+
+              "','usrAge':'"+static_data.usrAge+
+              "','usrSex':'"+static_data.usrSex+
+              "','usrPhoneNo':'"+static_data.usrPhoneNo+
+              "','usrPatientId':'"+static_data.usrPatientId+
+              "','serverDate':'"+static_data.serverDate+
+              "','usrH_Name':'"+static_data.usrH_Name+
+              "','usrH_Address':'"+static_data.usrH_Address+
+              "','usrH_NHIS_NO':'"+static_data.usrH_NHIS_NO+
+              "','usrH_HMO_NO':'"+static_data.usrH_HMO_NO+
+              "','usrH_TEL_FAX':'"+static_data.usrH_TEL_FAX+
+              "','prescription':'"+$('#text').val()+
+              "','prescription_category':'Prescription'";
+              var usrID = ID.usrID;
+              var category = "Prescription";
+          
+              static_data.formCategory = category;
+              static_data.formID = "11111";
+              static_data.usrID = usrID;
+              var rForm = $("#prescription_modal_r_div").html();
+              var prForm = $(rForm);
+              prForm.find("button").replaceWith("");
+              $.fn.submit_opData(formData,prForm.html());
+              $.fn.getLatest_PrescriptionDwrkBar();
+              $.fn.getLatest_prescriptionDwrkBar();
+            });
+              
+            };
+            
+            $.fn.getLatest_LabDwrkBar = function(){
+              
+              $.get("http://"+local_server+":3130/get_currOpratP_coll",{
+              },
+              function (result_id){
+            $.get("http://"+local_server+":3130/get_latest_Lab",{
+              usrID:result_id.usrID
+            },
+            function (result){
+              getE("rLabDispLwNabBardisp_div_loaderDDH").style.display = "none";
+              getE("rLabDispLwNabBardisp_div_mainDDH").style.display = "block";
+              if(result.length <= 0){
+                $("#rLabDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rLabDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+              }else if(result == "90923"){
+                $("#rLabDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rLabDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
+              }
+              else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+                $("#rLabDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rLabDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+              }
+              else{
+              $("#rLabDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rLabDispLwNabBar"></div>');
+              var collect_o_date = result[0].date.split("T");
+              var date = collect_o_date[0];
+              $("#rLabDispLwNabBardate_pdr").text(date);
+              $("#rLabDispLwNabBar").append(result[0].disp_data);
+              }
+            }).fail(function(e){
+              getE("rLabDispLwNabBardisp_div_loaderDDH").style.display = "none";
+              getE("rLabDispLwNabBardisp_div_mainDDH").style.display = "block";
+              $("#rLabDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rLabDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+            });
+          }).fail(function(e){
+            getE("rLabDispLwNabBardisp_div_loaderDDH").style.display = "none";
+            getE("rLabDispLwNabBardisp_div_mainDDH").style.display = "block";
+            $("#rLabDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rLabDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+          });
+          
+                    }
+
+                    $.fn.getLatest_RadiographDwrkBar = function(){
+                      var startDate = moment().subtract(174,'days');
+                      var endDate = moment();
+                      $.get("http://"+local_server+":3130/get_currOpratP_coll",{
+                      },
+                      function (result_id){
+                    $.get("http://"+local_server+":3130/get_latest_prescription",{
+                      range1:startDate.format('MM/DD/YYYY'),
+                      range2:endDate.format('MM/DD/YYYY'),
+                      usrID:result_id.usrID
+                    },
+                    function (result){
+                      getE("radiographDwrkBar_loaderDDH").style.display = "none";
+                      getE("radiographDwrkBar_mainDDH").style.display = "block";
+                      if(result.length <= 0){
+                        $("#radiographDwrkBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiographDwrkBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/emptyIcon.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Empty</b></div><div style="text-align:center;color:#6f6f6f;">Hmm.. looks like this record is blank</div></div>');
+                      }else if(result == "90923"){
+                        $("#radiographDwrkBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiographDwrkBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f"><img style="width:230px;height:200px;" src="img/document-security.PNG" ></div><div style="text-align:center;color:#6f6f6f;"><b>Record Locked</b></div><div style="text-align:center;color:#6f6f6f;">Patients permission is required to view this record</div><div style="text-align:center; padding-top:10px;"><button class="btn waves-effect waves-light" style="border-radius: 30px; background-color: #243797; display:inline-block; text-transform:initial" type="button" onclick="$.fn.request_userPermission_to_view_doc()">Request Permission</button></div></div>');
+                      }
+                      else if(result == "1110011" || result == "1110012" || result == "1100101" || result == "1110013"){
+                        $("#radiographDwrkBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiographDwrkBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+                      }
+                      else{
+                      $("#radiographDwrkBar").replaceWith('<div style="min-height: 200px; width: 97%;" id="radiographDwrkBar"></div>');
+                      var collect_o_date = result[0].date.split("T");
+                      var date = collect_o_date[0].date;
+                      $("#radiographDwrkBar_date_pdr").text(date);
+                      $("#radiographDwrkBar").append(result[0].disp_data);
+                      $("#radiographDwrkBar").find("div").attr("id","");
+                    }}).fail(function(e){
+                      getE("radiographDwrkBar_loaderDDH").style.display = "none";
+                      getE("radiographDwrkBar_mainDDH").style.display = "block";
+                      $("#radiographDwrkBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiographDwrkBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+                    })
+                  }).fail(function(e){
+                  getE("radiographDwrkBar_loaderDDH").style.display = "none";
+                  getE("radiographDwrkBar_mainDDH").style.display = "block";
+                  $("#radiographDwrkBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="radiographDwrkBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
+                  });
+                  
+                    }
+
+                    $.fn.submit_encounterNote = function(){
+                      $.get("http://"+local_server+":3130/get_currOpratP_coll",{
+                    },
+                    function (result_id){
+                      formData = `usrName:`+static_data.usrName+`,`+`
+                      usrAddress:`+static_data.usrAddress+`,`+`
+                      usrAge:`+static_data.usrAge+`,`+`
+                      usrSex:`+static_data.usrSex+`,`+`
+                      usrPhoneNo:`+static_data.usrPhoneNo+`,`+`
+                      usrPatientId:`+static_data.usrPatientId+`,`+`
+                      serverDate:`+static_data.serverDate+`,`+`
+                      cc:`+$('#cc_encN_id').val()+`,`+`
+                      hpi:`+$('#hpi_encN_id').val()+`,`+`
+                      pmh:`+$('#pmh_encN_id').val()+`,`+`
+                      sh:`+$('#sh_encN_id').val()+`,`+`
+                      fh:`+$('#fh_encN_id').val()+`,`+`
+                      ros:`+$('#ros_encN_id').val()+`,`+`
+                      vs:`+$('#vs_encN_id').val()+`,`+`
+                      pe:`+$('#pe_encN_id').val()+`,`+`
+                      labInv:`+$('#labInv_encN_id').val()+`,`+`
+                      currMed:`+$('#currMed_encN_id').val()+`,`+`
+                      bodyWeight:`+$('#bodyWeight_encN_id').val()+`,`+`
+                      height:`+$('#height_encN_id').val()+`,`+`
+                      bmi:`+$('#bmi_encN_id').val()+`,`+`
+                      assesment:`+$('#assesment_encN_id').val()+`,`+`
+                      plan:`+$('#plan_encN_id').val()+`,`+`
+                      education:`+$('#education_encN_id').val()+`,`+`
+                      usrID:`+result_id.usrID;
+                  
+                    var usrID = result_id.usrID;
+                      var category = "Encounter_Note";
+                  
+                      static_data.formCategory = category;
+                      static_data.formID = "11111";
+                      static_data.usrID = usrID;
+                      var rForm = $("#med_enc_note_modal_inp");
+                      rForm.find("#med_enc_note_modal_Title").html(static_data.instiName);
+                      rForm.find("#med_enc_note_modal_subTitle").html("Encounter-Note");
+                      var prftxtarea = rForm.find("textarea");
+                      $.each(prftxtarea, function( i, e ) {
+                        $(e).replaceWith('<div class="card" style="width:100%; min-height:200px; border:1px solid #ced4da; border-radius:3px; padding:10px">'+$(e).val()+'</div>')
+                      });
+                      var prfinputs = rForm.find("input");
+                      $.each(prfinputs, function( i, e ) {
+                        $(e).replaceWith('<div class="card" style="width:50%; min-height:70px; border:1px solid #ced4da; border-radius:3px; padding:10px">'+$(e).val()+'</div>')
+                      });
+                      rForm.find("button").replaceWith("");
+                      $.fn.submit_opData(formData,rForm.html());
+                      
+                      doc_portal_operation_data.encounterNote_instance.close();
+                      doc_portal_operation_data.encounterNote_instance.destroy();
+                      reload_curr_PdispTab();
+                    });
+                    };
+
+                    function start_EncounterN_uploadMM(){
+                      if(doc_portal_operation_data.encounterNote_instance == null){
+                        doc_portal_operation_data.encounterNote_instance = new jBox('Modal', {
+                          width: 530,
+                          title: 'Medical Encounter Note',
+                          overlay: false,
+                          createOnInit: true,
+                          
+                      
+                          content: '<div id="med_enc_note_modal_inp"><div id="med_enc_note_modal_Title" style="font-size:25px; text-align:center"></div><div id="med_enc_note_modal_subTitle" style="font-size:21px; text-align:center"></div> <div style="fontsize:20px;"><b>Subjective Data</b><div><div style="padding-left:20px;"><div>Chief Complaints(CC)</div> <div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="cc_encN_id" rows="3" placeholder="Enter Complaints and use commer(,) to seprate each complaint"></textarea></div></div> <div>History of present illness(HPI)</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="hpi_encN_id" rows="3"></textarea></div><div>Past Medical History(PMH)</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="pmh_encN_id" rows="3"></textarea></div><div>Social History(SH)</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="sh_encN_id" rows="3"></textarea></div><div>Family History(FH)</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="fh_encN_id" rows="3"></textarea></div><div>Review of Systems(ROS)</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="ros_encN_id" rows="3"></textarea></div></div><div style="fontsize:20px;"><b>Objective Data</b></div><div><div style="padding-left:20px;"><div>Vital Signs(VS)</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="vs_encN_id" rows="3"></textarea></div>  <div>Physical Examination(PE)</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="pe_encN_id" rows="3"></textarea></div><div>Laboratory Investigation</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="labInv_encN_id" rows="3"></textarea></div><div>Current Medication</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="currMed_encN_id" rows="3"></textarea></div><div>Measurements</div><div><div class="row" style="padding-bottom:10px"><div class="col-md-3">Body weigth</div><div class="col-md-6"><input type="text" class="form-control" id="bodyWeight_encN_id"></div></div></div><div><div class="row" style="padding-bottom:10px"><div class="col-md-3">Height</div><div class="col-md-6"><input type="text" class="form-control" id="height_encN_id"></div></div></div><div><div class="row" style="padding-bottom:10px"><div class="col-md-3">BMI</div><div class="col-md-6"><input type="text" id="bmi_encN_id" class="form-control"></div></div></div><div>Assessment</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="assesment_encN_id" rows="3"></textarea></div> <div>Plan</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="plan_encN_id" rows="3"></textarea></div><div>Education</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="education_encN_id" rows="3"></textarea></div>  </div> <button style="float:right;" class="btn btn-blue" onclick="$.fn.submit_encounterNote()">Save</button> </div>',
+                          draggable: 'title',
+                          repositionOnOpen: false,
+                          repositionOnContent: false
+                        });
+                        doc_portal_operation_data.encounterNote_instance.open();
+                      }else{
+                        doc_portal_operation_data.encounterNote_instance.destroy();
+                        doc_portal_operation_data.encounterNote_instance = new jBox('Modal', {
+                          width: 530,
+                          title: 'Medical Encounter Note',
+                          overlay: false,
+                          createOnInit: true,
+                          
+                      
+                          content: '<div id="med_enc_note_modal_inp"><div id="med_enc_note_modal_Title" style="font-size:25px; text-align:center"></div><div id="med_enc_note_modal_subTitle" style="font-size:21px; text-align:center"></div> <div style="fontsize:20px;"><b>Subjective Data</b><div><div style="padding-left:20px;"><div>Chief Complaints(CC)</div> <div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="cc_encN_id" rows="3" placeholder="Enter Complaints and use commer(,) to seprate each complaint"></textarea></div></div> <div>History of present illness(HPI)</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="hpi_encN_id" rows="3"></textarea></div><div>Past Medical History(PMH)</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="pmh_encN_id" rows="3"></textarea></div><div>Social History(SH)</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="sh_encN_id" rows="3"></textarea></div><div>Family History(FH)</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="fh_encN_id" rows="3"></textarea></div><div>Review of Systems(ROS)</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="ros_encN_id" rows="3"></textarea></div></div><div style="fontsize:20px;"><b>Objective Data</b></div><div><div style="padding-left:20px;"><div>Vital Signs(VS)</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="vs_encN_id" rows="3"></textarea></div>  <div>Physical Examination(PE)</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="pe_encN_id" rows="3"></textarea></div><div>Laboratory Investigation</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="labInv_encN_id" rows="3"></textarea></div><div>Current Medication</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="currMed_encN_id" rows="3"></textarea></div><div>Measurements</div><div><div class="row" style="padding-bottom:10px"><div class="col-md-3">Body weigth</div><div class="col-md-6"><input type="text" class="form-control" id="bodyWeight_encN_id"></div></div></div><div><div class="row" style="padding-bottom:10px"><div class="col-md-3">Height</div><div class="col-md-6"><input type="text" class="form-control" id="height_encN_id"></div></div></div><div><div class="row" style="padding-bottom:10px"><div class="col-md-3">BMI</div><div class="col-md-6"><input type="text" id="bmi_encN_id" class="form-control"></div></div></div><div>Assessment</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="assesment_encN_id" rows="3"></textarea></div> <div>Plan</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="plan_encN_id" rows="3"></textarea></div><div>Education</div><div class="form-group basic-textarea rounded-corners" ><textarea class="form-control z-depth-1" id="education_encN_id" rows="3"></textarea></div>  </div> <button style="float:right;" class="btn btn-blue" onclick="$.fn.submit_encounterNote()">Save</button> </div>',
+                          draggable: 'title',
+                          repositionOnOpen: false,
+                          repositionOnContent: false
+                        });
+                        doc_portal_operation_data.encounterNote_instance.open();
+                      }
+                      
+                    }
+
+          //End -- only for doctor
+
+          $.fn.submit_opData = function(data,Disp){
+            $.ajax({
+              url: "http://"+local_server+":3130/add_form_op_data",
+              type:'POST',
+              contentType:'application/json',
+              data: JSON.stringify({
+              "category":static_data.formCategory,
+              "data":data,
+              "formID":static_data.formID,
+              "usrID":static_data.usrID
+              }),
+              success: function(response){
+                if(response != null){
+                  if(response === "1110016"){
+                    erro_notice_popup("Erro occured while saving form");
+                  }else if(response === "1110013" || response === "10028"){
+                    erro_notice_popup("You do not have clerance for this operation");
+                  }else if(response === "1110012"){
+                    erro_notice_popup("Erro occured while saving form");
+                  }else if(response === "1110011"){
+                    erro_notice_popup("Invalid node");
+                  }else{
+                    $.ajax({
+                      url: "http://"+local_server+":3130/add_form_disp_data",
+                      type:'POST',
+                      contentType:'application/json',
+                      data: JSON.stringify({
+                      "category":static_data.formCategory,
+                      "disp_data":Disp,
+                      "formID":static_data.formID,
+                      "usrID":static_data.usrID
+                      }),
+                      success: function(response){
+                        if(response != null){
+                          if(response === "1110016"){
+                            erro_notice_popup("Erro occured while saving form");
+                          }else if(response === "1110013" || response === "10028"){
+                            erro_notice_popup("You do not have clerance for this operation");
+                          }else if(response === "1110012"){
+                            erro_notice_popup("Erro occured while saving form");
+                          }else if(response === "1110011"){
+                            erro_notice_popup("Invalid node");
+                          }else{
+                            notice_popup('Saved Successfully');
+                          }
+                          
+                        }
+                      }
+                  });
+          
+          
+          
+                  }
+                  
+                }
+              }
+          });
+          }
 
           new jBox('Modal', {
             attach:"#forms_btn_id",
@@ -1676,7 +2256,7 @@ function set_patients_main_fragment(assignID){
   },
   function (result_id){
   $.ajax({
-    url: 'http://"+local_server+":3130/add_form_op_data',
+    url: "http://"+local_server+":3130/add_form_op_data",
     type:'POST',
     contentType:'application/json',
     data: JSON.stringify({
@@ -1697,7 +2277,7 @@ function set_patients_main_fragment(assignID){
           erro_notice_popup("Invalid node");
         }else{
           $.ajax({
-            url: 'http://"+local_server+":3130/add_form_disp_data',
+            url: "http://"+local_server+":3130/add_form_disp_data",
             type:'POST',
             contentType:'application/json',
             data: JSON.stringify({
@@ -1837,7 +2417,7 @@ function set_patients_main_fragment(assignID){
         $.fn.getProfandInstiDetails();
 
         $.fn.startNoteSubmission = function (){
-        
+          
           var note_txt = $("#text").val();
           $("#nt_name").text(static_data.usrName);
           $("#nt_Pid").text(static_data.usrPatientId);
@@ -1883,12 +2463,13 @@ function set_patients_main_fragment(assignID){
         $.fn.postNote = function (){
           $("#noteDispProcessing_div").replaceWith('<div id="noteDispProcessing_div"></div>');
           $("#noteDispProcessing_div").append($("#noteFormHolder").html());
+          $("#noteDispProcessing_div").find("div").attr("id","");
           $("#noteDispProcessing_div").find("button").replaceWith("");
           $.get("http://"+local_server+":3130/get_currOpratP_coll",{
           },
           function (result_id){
           $.ajax({
-            url: 'http://"+local_server+":3130/add_note_disp_data',
+            url: "http://"+local_server+":3130/add_note_disp_data",
             type:'POST',
             contentType:'application/json',
             data: JSON.stringify({
@@ -1946,11 +2527,16 @@ function set_patients_main_fragment(assignID){
             var date = collect_o_date[0].date;
             $("#rnoteDispLwNabBar_date_pdr").text(date);
             $("#rnoteDispLwNabBar").append(result[0].disp_data);
+            $("#rnoteDispLwNabBar").find("div").attr("id","");
           }}).fail(function(e){
             getE("rnoteDispLwNabBar_loaderDDH").style.display = "none";
             getE("rnoteDispLwNabBar_mainDDH").style.display = "block";
             $("#rnoteDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rnoteDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
-          });;
+          });
+        }).fail(function(e){
+          getE("rnoteDispLwNabBar_loaderDDH").style.display = "none";
+          getE("rnoteDispLwNabBar_mainDDH").style.display = "block";
+          $("#rnoteDispLwNabBar").replaceWith('<div style="padding-right: 30px; padding-left: 30px; padding-top: 30px; padding-bottom: 30px; min-height: 400px;" id="rnoteDispLwNabBar"><br><br><div style="font-size:35px; text-align:center; color:#6f6f6f">Oops.. something went wrong</div><div style="text-align:center;color:#6f6f6f;">Your institutions network connection or server is currently down. please check your connection to the vios network and try again or contact <a style="color:#243797"><b>help@vioshealth.com</b></a></div><div style="text-align:center;color:#6f6f6f;">Erro code:'+result+'</div></div>');
         });
         }
 
@@ -2105,7 +2691,7 @@ $.fn.enterHome = function(){
             $.get("http://"+local_server+":3130/get_currOpratP_coll",{
             },
             function (result_id){
-              $("#patient_pp_pdr").attr("src","http://"+local_server+":4417/patient/"+result_id.usrID+"/profile/usr_profile.jpg");
+              $("#patient_pp_pdr").attr("src","http://"+local_server+":4417/patient?path="+result_id.usrID+"/profile/usr_profile.jpg");
             $.get("http://"+local_server+":3130/get_patient_d_f_static_vars",
             {
               usrID:result_id.usrID
@@ -2212,6 +2798,7 @@ $.fn.enterHome = function(){
               var date = collect_o_date[0];
               $("#r_presc_date_pdr").text(date);
               $("#r_prescription_div_dpr").append(result[0].disp_data);
+              $("#r_prescription_div_dpr").find("div").attr("id","");
               }
             });
           });
@@ -2238,6 +2825,7 @@ $.fn.enterHome = function(){
               var date = collect_o_date[0];
               $("#Prescription_date_pdr").text(date);
               $("#Prescription_div_dpr").append(result.disp_data);
+              $("#Prescription_div_dpr").find("div").attr("id","");
             }}).fail(function(e){
               getE("prescription_disp_div_loaderDDH").style.display = "none";
               getE("prescription_disp_div_mainDDH").style.display = "block";
@@ -2269,6 +2857,7 @@ $.fn.enterHome = function(){
               var date = collect_o_date[0];
               $("#Prescription_date_pdr").text(date);
               $("#Prescription_div_dpr").append(result[0].disp_data);
+              $("#Prescription_div_dpr").find("div").attr("id","");
             }}).fail(function(e){
               getE("prescription_disp_div_loaderDDH").style.display = "none";
               getE("prescription_disp_div_mainDDH").style.display = "block";
@@ -2307,7 +2896,7 @@ $.fn.enterHome = function(){
               e.time = collect_o_date[1];
               }});
           $('#Prescription_selT_pdr').footable({
-            "columns": $.post("http://"+local_server+":4417/general_server_files/PrescriptionSelTableColuumn.json"),
+            "columns": $.get("http://"+local_server+":4417/general_server_files/?path=PrescriptionSelTableColuumn.json"),
             "rows": result.reverse()
           });
 
@@ -2315,7 +2904,7 @@ $.fn.enterHome = function(){
             if($('#Prescription_selT_pdr').length <= 0){
               $('#Prescription_selT_pdr_card_container').append('<table id="Prescription_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
               $('#Prescription_selT_pdr').footable({
-                "columns": $.post("http://"+local_server+":4417/general_server_files/PrescriptionSelTableColuumn.json"),
+                "columns": $.get("http://"+local_server+":4417/general_server_files/?path=PrescriptionSelTableColuumn.json"),
                 "rows": result.reverse()
               });
             }
@@ -2349,6 +2938,7 @@ $.fn.enterHome = function(){
         var date = collect_o_date[0];
         $("#radiograph_date_pdr").text(date);
         $("#radiograph_div_dpr").append(result[0].disp_data);
+        $("#radiograph_div_dpr").find("div").attr("id","");
       }}).fail(function(e){
         getE("radiograph_disp_div_loaderDDH").style.display = "none";
         getE("radiograph_disp_div_mainDDH").style.display = "block";
@@ -2415,7 +3005,7 @@ $.fn.enterHome = function(){
               }});
 
               $('#radiograph_selT_pdr').footable({
-                "columns": $.post("http://"+local_server+":4417/general_server_files/radiographSelTableColuumn.json"),
+                "columns": $.get("http://"+local_server+":4417/general_server_files/?path=radiographSelTableColuumn.json"),
                 "rows": result.reverse()
               });
 
@@ -2423,7 +3013,7 @@ $.fn.enterHome = function(){
                 if($('#radiograph_selT_pdr').length <= 0){
                   $('#radiograph_selT_pdr_card_container').append('<table id="radiograph_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
                   $('#radiograph_selT_pdr').footable({
-                    "columns": $.post("http://"+local_server+":4417/general_server_files/radiographSelTableColuumn.json"),
+                    "columns": $.get("http://"+local_server+":4417/general_server_files/?path=radiographSelTableColuumn.json"),
                     "rows": result.reverse()
                   });
                 }
@@ -2528,14 +3118,14 @@ $.fn.enterHome = function(){
           }});
      
           $('#Lab_selT_pdr').footable({
-            "columns": $.post("http://"+local_server+":4417/general_server_files/LabSelTableColuumn.json"),
+            "columns": $.get("http://"+local_server+":4417/general_server_files/?path=LabSelTableColuumn.json"),
             "rows": result.reverse()
           });
       setTimeout(function() { 
         if($('#Lab_selT_pdr').length <= 0){
           $('#Lab_selT_pdr_card_container').append('<table id="Lab_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
           $('#Lab_selT_pdr').footable({
-            "columns": $.post("http://"+local_server+":4417/general_server_files/LabSelTableColuumn.json"),
+            "columns": $.get("http://"+local_server+":4417/general_server_files/?path=LabSelTableColuumn.json"),
             "rows": result.reverse()
           });
         }
@@ -2636,7 +3226,7 @@ $.fn.get_DispensedBy_id = function(DocID){
         }
       });
   $('#Dispensed_selT_pdr').footable({
-    "columns": $.post("http://"+local_server+":4417/general_server_files/DispensedSelTableColuumn.json"),
+    "columns": $.get("http://"+local_server+":4417/general_server_files/?path=DispensedSelTableColuumn.json"),
     "rows": result.reverse()
   });
 
@@ -2644,7 +3234,7 @@ $.fn.get_DispensedBy_id = function(DocID){
     if($('#Dispensed_selT_pdr').length <= 0){
       $('#Dispensed_selT_pdr_card_container').append('<table id="Dispensed_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
       $('#Dispensed_selT_pdr').footable({
-        "columns": $.post("http://"+local_server+":4417/general_server_files/DispensedSelTableColuumn.json"),
+        "columns": $.get("http://"+local_server+":4417/general_server_files/?path=DispensedSelTableColuumn.json"),
         "rows": result.reverse()
       });
     }
@@ -2676,6 +3266,7 @@ $.fn.get_DispensedBy_id = function(DocID){
       var date = collect_o_date[0];
       $("#Note_date_pdr").text(date);
       $("#Note_div_dpr").append(result[0].disp_data);
+      $("#Note_div_dpr").find("div").attr("id","");
     }}).fail(function(e){
       getE("note_disp_div_loaderDDH").style.display = "none";
       getE("note_disp_div_mainDDH").style.display = "block";
@@ -2709,6 +3300,7 @@ $.fn.get_NoteBy_id = function(DocID){
     var date = collect_o_date[0];
     $("#Note_date_pdr").text(date);
     $("#Note_div_dpr").append(result.disp_data);
+    $("#Note_div_dpr").find("div").attr("id","");
   }}).fail(function(e){
     getE("note_disp_div_loaderDDH").style.display = "none";
     getE("note_disp_div_mainDDH").style.display = "block";
@@ -2742,7 +3334,7 @@ $.fn.getNoteSelectwithDate_dpr = function(){
     e.time = collect_o_date[1];
     }});
 $('#Note_selT_pdr').footable({
-  "columns": $.post("http://"+local_server+":4417/general_server_files/NoteSelTableColuumn.json"),
+  "columns": $.get("http://"+local_server+":4417/general_server_files/?path=NoteSelTableColuumn.json"),
   "rows": result.reverse()
 });
 
@@ -2750,7 +3342,7 @@ setTimeout(function() {
   if($('#Note_selT_pdr').length <= 0){
     $('#Note_selT_pdr_card_container').append('<table id="Note_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
     $('#Note_selT_pdr').footable({
-      "columns": $.post("http://"+local_server+":4417/general_server_files/NoteSelTableColuumn.json"),
+      "columns": $.get("http://"+local_server+":4417/general_server_files/?path=NoteSelTableColuumn.json"),
       "rows": result.reverse()
     });
   }
@@ -2825,7 +3417,7 @@ $.fn.getFullrecSelectwithDate_dpr = function(){
     e.time = collect_o_date[1];
     }});
 $('#Fullrec_selT_pdr').footable({
-  "columns": $.post("http://"+local_server+":4417/general_server_files/FullrecSelTableColuumn.json"),
+  "columns": $.get("http://"+local_server+":4417/general_server_files/?path=FullrecSelTableColuumn.json"),
   "rows": result.reverse()
 });
 
@@ -2833,7 +3425,7 @@ setTimeout(function() {
   if($('#Fullrec_selT_pdr').length <= 0){
     $('#Fullrec_selT_pdr_card_container').append('<table id="Fullrec_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
     $('#Fullrec_selT_pdr').footable({
-      "columns": $.post("http://"+local_server+":4417/general_server_files/FullrecSelTableColuumn.json"),
+      "columns": $.get("http://"+local_server+":4417/general_server_files/?path=FullrecSelTableColuumn.json"),
       "rows": result.reverse()
     });
   }
@@ -2886,6 +3478,7 @@ function NoteTabclick(){
 
 function FullrecTabclick(){
   static_data.current_active_dispRecTab = "fullRec";
+  $.fn.getFullrecSelectwithDate_dpr();
   if(!static_data.fullRec_firstClickFlag){
   $.fn.getFullrecSelectwithDate_dpr();
   static_data.fullRec_firstClickFlag = true;
@@ -2906,6 +3499,26 @@ $lg.on('onCloseAfter.lg',function(event){
   getE("jBox1").style.display = "block";
 });
   
+}
+
+function lab_workspace_tab_tabClick(){
+  getE("lab_workspace_tab").style.display = "block";
+  getE("lab_workspace_tab_btn_list").style.color = "white";
+  getE("lab_workspace_tab_btn_list").style.background = "#0d218a";
+  getE("medical_rec_tab").style.display = "none";
+  getE("medical_rec_tab_btn_list").style.color = "white";
+  getE("medical_rec_tab_btn_list").style.background = "#243797";
+}
+
+lab_workspace_tab_tabClick();
+
+function medical_rec_tab_tabClick(){
+  getE("lab_workspace_tab").style.display = "none";
+  getE("lab_workspace_tab_btn_list").style.color = "white";
+  getE("lab_workspace_tab_btn_list").style.background = "#243797";
+  getE("medical_rec_tab").style.display = "block";
+  getE("medical_rec_tab_btn_list").style.color = "white";
+  getE("medical_rec_tab_btn_list").style.background = "#0d218a";
 }
 
 

@@ -380,7 +380,7 @@ function set_patients_main_fragment(assignID){
               
 
                 $.fn.check_professional_loged_in = function(){
-                  $.get("http://"+local_server+":5000/get_professional_logedin_id",
+                  $.get("http://"+local_server+":3130/get_professional_logedin_id",
                 {},
                 function(result){
                   process_check_professional_loged_in(result);
@@ -478,7 +478,7 @@ function set_patients_main_fragment(assignID){
                 };
 
                 $.fn.logoutHSD = function(){
-                  $.get("http://"+local_server+":5000/logout_professional",
+                  $.get("http://"+local_server+":3130/logout_professional",
                 {},
                 function(result){
                   process_logoutHSD();
@@ -489,9 +489,8 @@ function set_patients_main_fragment(assignID){
                 }
 
                 function process_check_professional_loged_in(id){
-                  var jsondata = JSON.parse(id);
-                  var jsonid = jsondata.$oid;
-                  document.getElementById('pr_profile_picSSG').src = 'http://"+local_server+":4417/employee/'+jsonid+'/profile/usr_profile.jpg';
+                  var jsonid = id;
+                  document.getElementById('pr_profile_picSSG').src = "http://"+local_server+":4417/employee?path="+jsonid+"/profile/usr_profile.jpg";
                 }
                 $.fn.get_r_attended_patients();
                 $.fn.check_professional_loged_in();
@@ -576,221 +575,221 @@ function set_patients_main_fragment(assignID){
               }
               
               function process_get_r_attended_patients(data){
-                var tbody = document.createElement("div");
-                tbody.setAttribute("id","r_attend_p_id");
+            //     var tbody = document.createElement("div");
+            //     tbody.setAttribute("id","r_attend_p_id");
                 
-                if(data.length <= 0){
-                  var emptyDiv = document.createElement("div");
-                  emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
-                  emptyDiv.append(document.createTextNode("You have not attended to any patient today"));
-                 tbody.prepend(emptyDiv);
-                 getE("asg_pTab_bBar_btn").style.display = "none";
-                }else{
-              if(data === "1110013"){
-                var emptyDiv = document.createElement("div");
-                emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
-                emptyDiv.append(document.createTextNode("Access Denied"));
-               tbody.prepend(emptyDiv);
-            }else{
+            //     if(data.length <= 0){
+            //       var emptyDiv = document.createElement("div");
+            //       emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+            //       emptyDiv.append(document.createTextNode("You have not attended to any patient today"));
+            //      tbody.prepend(emptyDiv);
+            //      getE("asg_pTab_bBar_btn").style.display = "none";
+            //     }else{
+            //   if(data === "1110013"){
+            //     var emptyDiv = document.createElement("div");
+            //     emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+            //     emptyDiv.append(document.createTextNode("Access Denied"));
+            //    tbody.prepend(emptyDiv);
+            // }else{
 
-             try{
+            //  try{
 
                
-              data.forEach(e=>{
-                var div1 = document.createElement("div");
-                div1.setAttribute("id","r_attend_p_table_id");
-                var div2 = document.createElement("div");
-                div2.setAttribute("style","padding-bottom: 20px; cursor:pointer");
-                div2.setAttribute("onclick","process_recent_attended_a_assigned_p_click('"+e.usrID+"')");
-                var div3 = document.createElement("div");
-                div3.setAttribute("style","width:100%; color: white; min-height: 50px; background: #11111133; padding: 20px; border-radius: 20px;");
-                var div4 = document.createElement("div");
-                div4.setAttribute("style","font-size: 18px;");
-                var pnameTXT = document.createTextNode(e.user_name);
-                var id_span = document.createElement("span");
-                id_span.setAttribute("style","color: #f3f1f1c9; font-size: 13px;");
-                var idTxt = document.createTextNode(e.usrID);
-                id_span.append(idTxt);
-                div4.append(pnameTXT);
-                div4.append(id_span);
-                var div5 = document.createElement("div");
-                div5.setAttribute("style","color: #f3f1f1c9;");
-                var opTXT = document.createTextNode(e.inserted_txt);
-                div5.append(opTXT);
+            //   data.forEach(e=>{
+            //     var div1 = document.createElement("div");
+            //     div1.setAttribute("id","r_attend_p_table_id");
+            //     var div2 = document.createElement("div");
+            //     div2.setAttribute("style","padding-bottom: 20px; cursor:pointer");
+            //     div2.setAttribute("onclick","process_recent_attended_a_assigned_p_click('"+e.usrID+"')");
+            //     var div3 = document.createElement("div");
+            //     div3.setAttribute("style","width:100%; color: white; min-height: 50px; background: #11111133; padding: 20px; border-radius: 20px;");
+            //     var div4 = document.createElement("div");
+            //     div4.setAttribute("style","font-size: 18px;");
+            //     var pnameTXT = document.createTextNode(e.user_name);
+            //     var id_span = document.createElement("span");
+            //     id_span.setAttribute("style","color: #f3f1f1c9; font-size: 13px;");
+            //     var idTxt = document.createTextNode(e.usrID);
+            //     id_span.append(idTxt);
+            //     div4.append(pnameTXT);
+            //     div4.append(id_span);
+            //     var div5 = document.createElement("div");
+            //     div5.setAttribute("style","color: #f3f1f1c9;");
+            //     var opTXT = document.createTextNode(e.inserted_txt);
+            //     div5.append(opTXT);
 
-                div3.append(div4);
-                div3.append(div5);
-                div2.append(div3);
-                div1.append(div2);
-                tbody.prepend(div1);
-              });
+            //     div3.append(div4);
+            //     div3.append(div5);
+            //     div2.append(div3);
+            //     div1.append(div2);
+            //     tbody.prepend(div1);
+            //   });
             
 
-              // data.forEach(e=>{
-              //   var tr = document.createElement("tr");
-              //   tr.setAttribute("class","dr_home_s_p");
-              //   tr.setAttribute("onclick","process_recent_attended_a_assigned_p_click('"+e.usrID+"')");
-              //   var th = document.createElement("th");
-              //   th.setAttribute("scope","row");
-              //   var img = document.createElement("img");
-              //   img.setAttribute("class","rounded-circle z-depth-0");
-              //   img.setAttribute("src","http://"+local_server+":4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
-              //   img.setAttribute("style","width: 70px; height: 70px;");
-              //   var td1 = document.createElement("td");
-              //   var div1 = document.createElement("div");
-              //   div1.setAttribute("style","width:50px;");
-              //   var strong1 = document.createElement("strong");
-              //   div1_1 = document.createElement("div");
-              //   div1_1.setAttribute("style","color:#616161");
-              //   var txt1_1 = document.createTextNode(e.user_name);
-              //   var hr = document.createElement("hr");
-              //   div1_2 = document.createElement("div");
-              //   div1_2.setAttribute("style","color:#616161");
-              //   var txt1_2 = document.createTextNode(e.usrID);
-              //   var td2 = document.createElement("td");
-              //   var b1 = document.createElement("b");
-              //   var br = document.createElement("br");
-              //   var txt2_1 = document.createTextNode(e.type);
-              //   div1_3 = document.createElement("div");
-              //   div1_3.setAttribute("style","width:40%;");
-              //   var txt2_2 = document.createTextNode(e.inserted_txt);
+            //   // data.forEach(e=>{
+            //   //   var tr = document.createElement("tr");
+            //   //   tr.setAttribute("class","dr_home_s_p");
+            //   //   tr.setAttribute("onclick","process_recent_attended_a_assigned_p_click('"+e.usrID+"')");
+            //   //   var th = document.createElement("th");
+            //   //   th.setAttribute("scope","row");
+            //   //   var img = document.createElement("img");
+            //   //   img.setAttribute("class","rounded-circle z-depth-0");
+            //   //   img.setAttribute("src","http://"+local_server+":4417/patient?path="+e.usrID+"/profile/usr_profile.jpg");
+            //   //   img.setAttribute("style","width: 70px; height: 70px;");
+            //   //   var td1 = document.createElement("td");
+            //   //   var div1 = document.createElement("div");
+            //   //   div1.setAttribute("style","width:50px;");
+            //   //   var strong1 = document.createElement("strong");
+            //   //   div1_1 = document.createElement("div");
+            //   //   div1_1.setAttribute("style","color:#616161");
+            //   //   var txt1_1 = document.createTextNode(e.user_name);
+            //   //   var hr = document.createElement("hr");
+            //   //   div1_2 = document.createElement("div");
+            //   //   div1_2.setAttribute("style","color:#616161");
+            //   //   var txt1_2 = document.createTextNode(e.usrID);
+            //   //   var td2 = document.createElement("td");
+            //   //   var b1 = document.createElement("b");
+            //   //   var br = document.createElement("br");
+            //   //   var txt2_1 = document.createTextNode(e.type);
+            //   //   div1_3 = document.createElement("div");
+            //   //   div1_3.setAttribute("style","width:40%;");
+            //   //   var txt2_2 = document.createTextNode(e.inserted_txt);
               
-              //   tr.append(th);
-              //   th.append(img);
-              //   tr.append(td1);
-              //   td1.append(div1);
-              //   div1.append(strong1);
-              //   strong1.append(div1_1);
-              //   div1_1.append(txt1_1);
-              //   strong1.append(hr);
-              //   strong1.append(div1_2);
-              //   div1_2.append(txt1_2);
-              //   tr.append(td2);
-              //   td2.append(b1);
-              //   b1.append(txt2_1);
-              //   td2.append(br);
-              //   div1_3.append(txt2_2);
-              //   td2.append(div1_3);
-              //   tbody.prepend(tr);
-              //   });
+            //   //   tr.append(th);
+            //   //   th.append(img);
+            //   //   tr.append(td1);
+            //   //   td1.append(div1);
+            //   //   div1.append(strong1);
+            //   //   strong1.append(div1_1);
+            //   //   div1_1.append(txt1_1);
+            //   //   strong1.append(hr);
+            //   //   strong1.append(div1_2);
+            //   //   div1_2.append(txt1_2);
+            //   //   tr.append(td2);
+            //   //   td2.append(b1);
+            //   //   b1.append(txt2_1);
+            //   //   td2.append(br);
+            //   //   div1_3.append(txt2_2);
+            //   //   td2.append(div1_3);
+            //   //   tbody.prepend(tr);
+            //   //   });
            
-              }catch(e){
-                var emptyDiv = document.createElement("div");
-                emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
-                emptyDiv.append(document.createTextNode("Opps.. something went wrong"));
-               tbody.prepend(emptyDiv);
-            }
-            }
-             }
+            //   }catch(e){
+            //     var emptyDiv = document.createElement("div");
+            //     emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+            //     emptyDiv.append(document.createTextNode("Opps.. something went wrong"));
+            //    tbody.prepend(emptyDiv);
+            // }
+            // }
+            //  }
                 
-              var replObject = document.getElementById("r_attend_p_id");
-              document.getElementById("r_attend_p_table_id").replaceChild(tbody,replObject);
+            //   var replObject = document.getElementById("r_attend_p_id");
+            //   document.getElementById("r_attend_p_table_id").replaceChild(tbody,replObject);
               }
               
               function process_get_all_assigned_patients(data){
-              var tbody = document.createElement("div");
-              tbody.setAttribute("id","asg_p_tb_id");
+              // var tbody = document.createElement("div");
+              // tbody.setAttribute("id","asg_p_tb_id");
               
               
-              if(data.length <= 0){
-                var emptyDiv = document.createElement("div");
-                emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
-                emptyDiv.append(document.createTextNode("No assigned patients"));
-               tbody.prepend(emptyDiv);
-               getE("asg_pTab_bBar_btn").style.display = "none";
-              }else{
-                if(data === "1110013"){
-                  var emptyDiv = document.createElement("div");
-                    emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
-                    emptyDiv.append(document.createTextNode("Access Denied"));
-                   tbody.prepend(emptyDiv);
-                   getE("asg_pTab_bBar_btn").style.display = "none";
-                }else{
+              // if(data.length <= 0){
+              //   var emptyDiv = document.createElement("div");
+              //   emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+              //   emptyDiv.append(document.createTextNode("No assigned patients"));
+              //  tbody.prepend(emptyDiv);
+              //  getE("asg_pTab_bBar_btn").style.display = "none";
+              // }else{
+              //   if(data === "1110013"){
+              //     var emptyDiv = document.createElement("div");
+              //       emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+              //       emptyDiv.append(document.createTextNode("Access Denied"));
+              //      tbody.prepend(emptyDiv);
+              //      getE("asg_pTab_bBar_btn").style.display = "none";
+              //   }else{
                   
-                  try{
+              //     try{
   
-                    data.forEach(e=>{
+              //       data.forEach(e=>{
                       
-                    if(e.assigned == '1'){
-                      static_data.attended_patients++;
-                    }else{
-                      var div1 = document.createElement("div");
-                    div1.setAttribute("style","width:50%; color: white;padding-bottom: 10px; cursor:pointer");
-                    div1.setAttribute("onclick","process_assigned_patients_click('"+e.usrID+"','"+e._id+"')");
-                    var nameTxt = document.createTextNode(e.user_name);
-                    var id_span = document.createElement("span");
-                    id_span.setAttribute("style","color: #f3f1f1c9;");
-                    var idTxt = document.createTextNode(" "+e.usrID);
-                    id_span.append(idTxt);
+              //       if(e.assigned == '1'){
+              //         static_data.attended_patients++;
+              //       }else{
+              //         var div1 = document.createElement("div");
+              //       div1.setAttribute("style","width:50%; color: white;padding-bottom: 10px; cursor:pointer");
+              //       div1.setAttribute("onclick","process_assigned_patients_click('"+e.usrID+"','"+e._id+"')");
+              //       var nameTxt = document.createTextNode(e.user_name);
+              //       var id_span = document.createElement("span");
+              //       id_span.setAttribute("style","color: #f3f1f1c9;");
+              //       var idTxt = document.createTextNode(" "+e.usrID);
+              //       id_span.append(idTxt);
   
-                    div1.append(nameTxt);
-                    div1.append(id_span);
-                    tbody.prepend(div1);
+              //       div1.append(nameTxt);
+              //       div1.append(id_span);
+              //       tbody.prepend(div1);
 
-                      static_data.unattended_patients++;
-                    }
-                    getE("asg_pTab_bBar_btn").style.display = "block";
-                    getE("asg_pTab_bBar_btn_num_indicators").innerHTML = static_data.unattended_patients;
-                    });
+              //         static_data.unattended_patients++;
+              //       }
+              //       getE("asg_pTab_bBar_btn").style.display = "block";
+              //       getE("asg_pTab_bBar_btn_num_indicators").innerHTML = static_data.unattended_patients;
+              //       });
   
-                    // data.forEach(e=>{
-                    //   if(e.assigned == "1"){
-                    //   }else{
-                    //     var tr = document.createElement("tr");
-                    //   tr.setAttribute("class","dr_home_s_p");
-                    //   tr.setAttribute("onclick","process_assigned_patients_click('"+e.usrID+"','"+e._id+"')");
-                    //   var th = document.createElement("th");
-                    //   th.setAttribute("scope","row");
-                    //   var img = document.createElement("img");
-                    //   img.setAttribute("class","rounded-circle z-depth-0");
-                    //   img.setAttribute("src","http://"+local_server+":4417/patient/"+e.usrID+"/profile/usr_profile.jpg");
-                    //   img.setAttribute("style","width: 30px; height: 30px;");
-                    //   var td1 = document.createElement("td");
-                    //   var txt1 = document.createTextNode(e.name);
-                    //   var td2 = document.createElement("td");
-                    //   var txt2 = document.createTextNode(e.age);
-                    //   var td3 = document.createElement("td");
-                    //   var txt3 = document.createTextNode(e.gender);
-                    //   tr.append(th)
-                    //   th.append(img);
-                    //   td1.append(txt1);
-                    //   tr.append(td1);
-                    //   td2.append(txt2);
-                    //   tr.append(td2);
-                    //   td3.append(txt3);
-                    //   tr.append(td3);
-                    //   tbody.prepend(tr);
-                    //   }
+              //       // data.forEach(e=>{
+              //       //   if(e.assigned == "1"){
+              //       //   }else{
+              //       //     var tr = document.createElement("tr");
+              //       //   tr.setAttribute("class","dr_home_s_p");
+              //       //   tr.setAttribute("onclick","process_assigned_patients_click('"+e.usrID+"','"+e._id+"')");
+              //       //   var th = document.createElement("th");
+              //       //   th.setAttribute("scope","row");
+              //       //   var img = document.createElement("img");
+              //       //   img.setAttribute("class","rounded-circle z-depth-0");
+              //       //   img.setAttribute("src","http://"+local_server+":4417/patient?path="+e.usrID+"/profile/usr_profile.jpg");
+              //       //   img.setAttribute("style","width: 30px; height: 30px;");
+              //       //   var td1 = document.createElement("td");
+              //       //   var txt1 = document.createTextNode(e.name);
+              //       //   var td2 = document.createElement("td");
+              //       //   var txt2 = document.createTextNode(e.age);
+              //       //   var td3 = document.createElement("td");
+              //       //   var txt3 = document.createTextNode(e.gender);
+              //       //   tr.append(th)
+              //       //   th.append(img);
+              //       //   td1.append(txt1);
+              //       //   tr.append(td1);
+              //       //   td2.append(txt2);
+              //       //   tr.append(td2);
+              //       //   td3.append(txt3);
+              //       //   tr.append(td3);
+              //       //   tbody.prepend(tr);
+              //       //   }
                     
-                    //   if(e.assigned == '1'){
-                    //     static_data.attended_patients++;
-                    //   }else{
-                    //     static_data.unattended_patients++;
-                    //   }
-                    // });
+              //       //   if(e.assigned == '1'){
+              //       //     static_data.attended_patients++;
+              //       //   }else{
+              //       //     static_data.unattended_patients++;
+              //       //   }
+              //       // });
                   
-                  }catch{
-                    var emptyDiv = document.createElement("div");
-                    emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
-                    emptyDiv.append(document.createTextNode("Opps.. something went wrong"));
-                   tbody.prepend(emptyDiv);
-                   getE("asg_pTab_bBar_btn").style.display = "none";
-                  }
-                }
-              }
+              //     }catch{
+              //       var emptyDiv = document.createElement("div");
+              //       emptyDiv.setAttribute("style","color: #bdbabaa6; font-size:30px;width:80%");
+              //       emptyDiv.append(document.createTextNode("Opps.. something went wrong"));
+              //      tbody.prepend(emptyDiv);
+              //      getE("asg_pTab_bBar_btn").style.display = "none";
+              //     }
+              //   }
+              // }
 
-              var replObject = document.getElementById("asg_p_tb_id");
-              document.getElementById("asg_p_table_id").replaceChild(tbody,replObject);
-              if(static_data.prv_unattended_patients == static_data.unattended_patients && static_data.prv_attended_patients == static_data.attended_patients){
-              }else{
-                static_data.prv_unattended_patients = static_data.unattended_patients;
-                static_data.prv_attended_patients = static_data.attended_patients;
-              }
-              document.getElementById("un_attend_p_t_Num").innerHTML = static_data.prv_unattended_patients;
-              document.getElementById("attend_p_t_Num").innerHTML = static_data.prv_attended_patients;
-              // document.getElementById("assigned_patients_txtx").innerHTML = "Assigned Patients: "+(static_data.attended_patients+static_data.unattended_patients);
-              static_data.attended_patients = 0;
-              static_data.unattended_patients = 0;
+              // var replObject = document.getElementById("asg_p_tb_id");
+              // document.getElementById("asg_p_table_id").replaceChild(tbody,replObject);
+              // if(static_data.prv_unattended_patients == static_data.unattended_patients && static_data.prv_attended_patients == static_data.attended_patients){
+              // }else{
+              //   static_data.prv_unattended_patients = static_data.unattended_patients;
+              //   static_data.prv_attended_patients = static_data.attended_patients;
+              // }
+              // document.getElementById("un_attend_p_t_Num").innerHTML = static_data.prv_unattended_patients;
+              // document.getElementById("attend_p_t_Num").innerHTML = static_data.prv_attended_patients;
+              // // document.getElementById("assigned_patients_txtx").innerHTML = "Assigned Patients: "+(static_data.attended_patients+static_data.unattended_patients);
+              // static_data.attended_patients = 0;
+              // static_data.unattended_patients = 0;
               }
 
               function reset_firstTabclickFlags(){
@@ -1150,7 +1149,7 @@ function set_patients_main_fragment(assignID){
                   dv2.setAttribute("style","padding-right: 100px;");
                   var img = document.createElement("img");
                   img.setAttribute("style","height: 100px; width: 100px;");
-                  img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                  img.setAttribute("src","http://"+local_server+":4417/patient?path="+e._id+"/profile/usr_profile.jpg")
                   var dv3 = document.createElement("div");
                   dv3.setAttribute("class","col-md-7");
                   dv3.setAttribute("style","text-align: left;");
@@ -1232,7 +1231,7 @@ function set_patients_main_fragment(assignID){
                   dv2.setAttribute("style","padding-right: 100px;");
                   var img = document.createElement("img");
                   img.setAttribute("style","height: 100px; width: 100px;");
-                  img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                  img.setAttribute("src","http://"+local_server+":4417/patient?path="+e._id+"/profile/usr_profile.jpg")
                   var dv3 = document.createElement("div");
                   dv3.setAttribute("class","col-md-7");
                   dv3.setAttribute("style","text-align: left;");
@@ -1322,7 +1321,7 @@ function set_patients_main_fragment(assignID){
                   dv2.setAttribute("style","padding-right: 100px;");
                   var img = document.createElement("img");
                   img.setAttribute("style","height: 100px; width: 100px;");
-                  img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                  img.setAttribute("src","http://"+local_server+":4417/patient?path="+e._id+"/profile/usr_profile.jpg")
                   var dv3 = document.createElement("div");
                   dv3.setAttribute("class","col-md-7");
                   dv3.setAttribute("style","text-align: left;");
@@ -1416,7 +1415,7 @@ function set_patients_main_fragment(assignID){
                   dv2.setAttribute("style","padding-right: 100px;");
                   var img = document.createElement("img");
                   img.setAttribute("style","height: 100px; width: 100px;");
-                  img.setAttribute("src","http://"+local_server+":4417/patient/"+e._id+"/profile/usr_profile.jpg")
+                  img.setAttribute("src","http://"+local_server+":4417/patient?path="+e._id+"/profile/usr_profile.jpg")
                   var dv3 = document.createElement("div");
                   dv3.setAttribute("class","col-md-7");
                   dv3.setAttribute("style","text-align: left;");
@@ -1671,12 +1670,20 @@ function set_patients_main_fragment(assignID){
     var selectedValue = $(el).children("option:selected").val();
     $(el).replaceWith('<span class="C_INP_P" id="'+el.id+'">'+selectedValue+'</span>');
   }}});
+
+  var wkr_disp_select = form_disp_wkr.find("img");
+  $.each(wkr_disp_select, function( i, el ) {
+    var idvalue = el.id;
+    if(idvalue == null || idvalue ===""){
+    }else{
+    e.id = "";
+    }});
   
   $.get("http://"+local_server+":3130/get_currOpratP_coll",{
   },
   function (result_id){
   $.ajax({
-    url: 'http://"+local_server+":3130/add_form_op_data',
+    url: "http://"+local_server+":3130/add_form_op_data",
     type:'POST',
     contentType:'application/json',
     data: JSON.stringify({
@@ -1697,7 +1704,7 @@ function set_patients_main_fragment(assignID){
           erro_notice_popup("Invalid node");
         }else{
           $.ajax({
-            url: 'http://"+local_server+":3130/add_form_disp_data',
+            url: "http://"+local_server+":3130/add_form_disp_data",
             type:'POST',
             contentType:'application/json',
             data: JSON.stringify({
@@ -1888,7 +1895,7 @@ function set_patients_main_fragment(assignID){
           },
           function (result_id){
           $.ajax({
-            url: 'http://"+local_server+":3130/add_note_disp_data',
+            url: "http://"+local_server+":3130/add_note_disp_data",
             type:'POST',
             contentType:'application/json',
             data: JSON.stringify({
@@ -2105,7 +2112,7 @@ $.fn.enterHome = function(){
             $.get("http://"+local_server+":3130/get_currOpratP_coll",{
             },
             function (result_id){
-              $("#patient_pp_pdr").attr("src","http://"+local_server+":4417/patient/"+result_id.usrID+"/profile/usr_profile.jpg");
+              $("#patient_pp_pdr").attr("src","http://"+local_server+":4417/patient?path="+result_id.usrID+"/profile/usr_profile.jpg");
             $.get("http://"+local_server+":3130/get_patient_d_f_static_vars",
             {
               usrID:result_id.usrID
@@ -2307,7 +2314,7 @@ $.fn.enterHome = function(){
               e.time = collect_o_date[1];
               }});
           $('#Prescription_selT_pdr').footable({
-            "columns": $.post("http://"+local_server+":4417/general_server_files/PrescriptionSelTableColuumn.json"),
+            "columns": $.get("http://"+local_server+":4417/general_server_files/?path=PrescriptionSelTableColuumn.json"),
             "rows": result.reverse()
           });
 
@@ -2315,7 +2322,7 @@ $.fn.enterHome = function(){
             if($('#Prescription_selT_pdr').length <= 0){
               $('#Prescription_selT_pdr_card_container').append('<table id="Prescription_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
               $('#Prescription_selT_pdr').footable({
-                "columns": $.post("http://"+local_server+":4417/general_server_files/PrescriptionSelTableColuumn.json"),
+                "columns": $.get("http://"+local_server+":4417/general_server_files/?path=PrescriptionSelTableColuumn.json"),
                 "rows": result.reverse()
               });
             }
@@ -2415,7 +2422,7 @@ $.fn.enterHome = function(){
               }});
 
               $('#radiograph_selT_pdr').footable({
-                "columns": $.post("http://"+local_server+":4417/general_server_files/radiographSelTableColuumn.json"),
+                "columns": $.get("http://"+local_server+":4417/general_server_files/?path=radiographSelTableColuumn.json"),
                 "rows": result.reverse()
               });
 
@@ -2423,7 +2430,7 @@ $.fn.enterHome = function(){
                 if($('#radiograph_selT_pdr').length <= 0){
                   $('#radiograph_selT_pdr_card_container').append('<table id="radiograph_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
                   $('#radiograph_selT_pdr').footable({
-                    "columns": $.post("http://"+local_server+":4417/general_server_files/radiographSelTableColuumn.json"),
+                    "columns": $.get("http://"+local_server+":4417/general_server_files/?path=radiographSelTableColuumn.json"),
                     "rows": result.reverse()
                   });
                 }
@@ -2528,14 +2535,14 @@ $.fn.enterHome = function(){
           }});
      
           $('#Lab_selT_pdr').footable({
-            "columns": $.post("http://"+local_server+":4417/general_server_files/LabSelTableColuumn.json"),
+            "columns": $.get("http://"+local_server+":4417/general_server_files/?path=LabSelTableColuumn.json"),
             "rows": result.reverse()
           });
       setTimeout(function() { 
         if($('#Lab_selT_pdr').length <= 0){
           $('#Lab_selT_pdr_card_container').append('<table id="Lab_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
           $('#Lab_selT_pdr').footable({
-            "columns": $.post("http://"+local_server+":4417/general_server_files/LabSelTableColuumn.json"),
+            "columns": $.get("http://"+local_server+":4417/general_server_files/?path=LabSelTableColuumn.json"),
             "rows": result.reverse()
           });
         }
@@ -2636,7 +2643,7 @@ $.fn.get_DispensedBy_id = function(DocID){
         }
       });
   $('#Dispensed_selT_pdr').footable({
-    "columns": $.post("http://"+local_server+":4417/general_server_files/DispensedSelTableColuumn.json"),
+    "columns": $.get("http://"+local_server+":4417/general_server_files/?path=DispensedSelTableColuumn.json"),
     "rows": result.reverse()
   });
 
@@ -2644,7 +2651,7 @@ $.fn.get_DispensedBy_id = function(DocID){
     if($('#Dispensed_selT_pdr').length <= 0){
       $('#Dispensed_selT_pdr_card_container').append('<table id="Dispensed_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
       $('#Dispensed_selT_pdr').footable({
-        "columns": $.post("http://"+local_server+":4417/general_server_files/DispensedSelTableColuumn.json"),
+        "columns": $.get("http://"+local_server+":4417/general_server_files/?path=DispensedSelTableColuumn.json"),
         "rows": result.reverse()
       });
     }
@@ -2742,7 +2749,7 @@ $.fn.getNoteSelectwithDate_dpr = function(){
     e.time = collect_o_date[1];
     }});
 $('#Note_selT_pdr').footable({
-  "columns": $.post("http://"+local_server+":4417/general_server_files/NoteSelTableColuumn.json"),
+  "columns": $.get("http://"+local_server+":4417/general_server_files/?path=NoteSelTableColuumn.json"),
   "rows": result.reverse()
 });
 
@@ -2750,7 +2757,7 @@ setTimeout(function() {
   if($('#Note_selT_pdr').length <= 0){
     $('#Note_selT_pdr_card_container').append('<table id="Note_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
     $('#Note_selT_pdr').footable({
-      "columns": $.post("http://"+local_server+":4417/general_server_files/NoteSelTableColuumn.json"),
+      "columns": $.get("http://"+local_server+":4417/general_server_files/?path=NoteSelTableColuumn.json"),
       "rows": result.reverse()
     });
   }
@@ -2825,7 +2832,7 @@ $.fn.getFullrecSelectwithDate_dpr = function(){
     e.time = collect_o_date[1];
     }});
 $('#Fullrec_selT_pdr').footable({
-  "columns": $.post("http://"+local_server+":4417/general_server_files/FullrecSelTableColuumn.json"),
+  "columns": $.get("http://"+local_server+":4417/general_server_files/?path=FullrecSelTableColuumn.json"),
   "rows": result.reverse()
 });
 
@@ -2833,7 +2840,7 @@ setTimeout(function() {
   if($('#Fullrec_selT_pdr').length <= 0){
     $('#Fullrec_selT_pdr_card_container').append('<table id="Fullrec_selT_pdr" style="cursor: pointer" class="table" data-show-toggle="false" data-paging="true" data-sorting="true" data-filtering="true" data-paging-size="5" data-filter-dropdown-title="Search Record"></table>');
     $('#Fullrec_selT_pdr').footable({
-      "columns": $.post("http://"+local_server+":4417/general_server_files/FullrecSelTableColuumn.json"),
+      "columns": $.get("http://"+local_server+":4417/general_server_files/?path=FullrecSelTableColuumn.json"),
       "rows": result.reverse()
     });
   }

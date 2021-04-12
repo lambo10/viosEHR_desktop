@@ -378,7 +378,7 @@ return result;
 }
 
 $.fn.check_professional_loged_in = function(){
-  $.get("http://localhost:5000/get_professional_logedin_id",
+  $.get("http://"+local_server+":3130/get_professional_logedin_id",
 {},
 function(result){
   process_check_professional_loged_in(result);
@@ -386,9 +386,8 @@ function(result){
 }
 
 function process_check_professional_loged_in(id){
-  var jsondata = JSON.parse(id);
-  var jsonid = jsondata.$oid;
-  document.getElementById('pr_profile_picSSG').src = 'http://localhost:4417/employee/'+jsonid+'/profile/usr_profile.jpg';
+ var jsonid = id
+ document.getElementById('pr_profile_picSSG').src = "http://"+local_server+":4417/employee?path="+jsonid+"/profile/usr_profile.jpg";
 }
 
 function onLoadfrm(){
@@ -397,7 +396,7 @@ function onLoadfrm(){
 }
 
 $.fn.logoutHSD = function(){
-  $.get("http://localhost:5000/logout_professional",
+  $.get("http://"+local_server+":3130/logout_professional",
 {},
 function(result){
   process_logoutHSD();
@@ -451,7 +450,7 @@ $.fn.saveForm = function (){
   }else{
 
     $.ajax({
-      url: 'http://localhost:3130/add_raw_form',
+      url: "http://"+local_server+":3130/add_raw_form",
       type:'POST',
       contentType:'application/json',
       data: JSON.stringify({
@@ -484,7 +483,7 @@ $.fn.saveForm = function (){
 };
 
 $.fn.goBack = function(){
-  $.get("http://localhost:3130/get_professionals_job",
+  $.get("http://"+local_server+":3130/get_professionals_job",
 {},
 function(result){
 
@@ -509,7 +508,7 @@ function(result){
 }
 
 $.fn.initial_setups = function(){
-  $.get("http://localhost:3130/get_professionals_job",
+  $.get("http://"+local_server+":3130/get_professionals_job",
   {},
   function(result){
     var options = $("#clerance_inp").find("option");

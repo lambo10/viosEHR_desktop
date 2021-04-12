@@ -151,6 +151,53 @@ a.nav-link{
 
 <div class="patient_fragment" id="main_patient_fragment" style="overflow-x: hidden;">
   <div id="patient_data_fragment" class="animated faster" style="display: none;">
+
+    <b>
+      <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-bottom: #243797; background: #243797;">
+        <div style="width: 100%; height: 10px;"></div>
+        <li class="waves-effect waves-light" style="width: 50%; padding: 10px; text-align: center; border-radius: 0px 10px 10px 0px;" id="lab_workspace_tab_btn_list" onclick="lab_workspace_tab_tabClick()">
+          <b>Lab</b>
+        </li>
+        <li class="waves-effect waves-light" style="width: 50%; padding: 10px; text-align: center; border-radius: 10px 0px 0px 10px;" id="medical_rec_tab_btn_list" onclick="medical_rec_tab_tabClick()">
+          <b>Medical Records</b>
+        </li>
+      </ul>
+    </b>
+
+    <div id="lab_workspace_tab" style="width: 100%; min-height: 800px; background-color: #eee;">
+      <b>
+        <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-bottom: #243797; background: #243797;">
+          <div style="width: 100%; height: 30px;"></div>
+          <li class="nav-item waves-effect waves-light" style="width: 30%;">
+            <a class="nav-link active v_nav_link" id="paid_LP_tab" data-toggle="tab" href="#paid_LP" role="tab" aria-controls="paid_LP" aria-selected="true" onclick="">Paid Lab Prescription</a>
+          </li>
+          <li class="nav-item waves-effect waves-light" style="width: 30%;">
+            <a class="nav-link" id="unpaid_LP_tab" data-toggle="tab" href="#unpaid_LP" role="tab" aria-controls="unpaid_LP" aria-selected="false" onclick="">Un-paid Lab Prescription</a>
+          </li>
+          <li class="nav-item waves-effect waves-light" style="width: 30%;">
+              <a class="nav-link" id="carriedOut_LP_tab" data-toggle="tab" href="#carriedOut_LP" role="tab" aria-controls="carriedOut_LP" aria-selected="false" onclick="">Carried out</a>
+            </li>
+        </ul>
+      </b>
+
+      <div class="tab-content">
+      <div class="tab-pane fade show active" id="paid_LP" role="tabpanel" aria-labelledby="paid_LP_tab">
+        dklfjkldf dfklnkldfjk djklfkdjf djkfndjkfjkd fdjknfdjk
+      </div>
+
+      <div class="tab-pane fade" id="unpaid_LP" role="tabpanel" aria-labelledby="unpaid_LP_tab">
+        hhkjkljklmkmkl kljklklljklj kljkljkl
+      </div>
+
+      <div class="tab-pane fade" id="carriedOut_LP" role="tabpanel" aria-labelledby="carriedOut_LP_tab">
+        yutuiyi yuiukljkn uiyutrf gcgmknjnk
+      </div>
+
+      </div>
+    </div>
+
+<div id="medical_rec_tab">
+
   <b>
     <ul class="nav nav-tabs" id="myTab" role="tablist" style="border-bottom: #243797; background: #243797;">
       <div style="width: 100%; height: 10px;"></div>
@@ -582,111 +629,175 @@ a.nav-link{
       </div>
     </div>
     
-  
+  </div>
   
   <div class="v_prescription_form_container animated faster" id="v_pr_form_container">
       <div class="classic-tabs">
   
           <ul class="nav" id="myClassicTab" role="tablist" style="width: 98.9%; background: #232323; border-top-right-radius: 30px; border-top-left-radius: 30px;">
-            <li class="nav-item v_lower_tab_cell_hw" style="display: none;">
-              <a class="waves-light waves-effect dispenseTabInitialTxtColor" onclick="tab_pane1ClickAction()" id="profile-tab-classic" data-toggle="tab" href="#profile-classic" role="tab" aria-controls="profile-classic" aria-selected="true" style="border-top-left-radius: 30px;"><div style="padding: 2px; width: 100px; text-align: center;"><b>Dispense</b></div></a>
+            <li class="nav-item v_lower_tab_cell_hw" style="">
+              <a class="waves-light waves-effect dispenseTabInitialTxtColor active show" onclick="" data-toggle="tab" href="#profile-classic" role="tab" aria-controls="profile-classic" aria-selected="true" style="border-top-left-radius: 30px; background: #09c; min-width: 500px;"><div style="padding: 2px; padding-left: 10px; width: 100%; text-align: center;"><b>Take Test</b></div></a>
             </li>
-            
-                <li class="nav-item v_lower_tab_cell_hw">
-                      <a class="v_lower_tab_cell waves-light v_text_whiteFF waves-effect active show" onclick="tab_pane5ClickAction()" id="note-btn" data-toggle="tab" href="#contact-classic3" role="tab" aria-controls="contact-classic3" aria-selected="false" style="border-top-left-radius: 30px;"><div style="padding: 2px; width: 100px; text-align: center; color: #ffd180;"><b>NOTE</b></div></a>
-                    </li>
-
-                <li class="nav-item" style="width: 70%;">
-                      <div class="row"> <div class="col-md-11"></div> <div class="col-md-1" style="padding-left: 0px; padding-top: 2px;"></div> </div>
-                    </li>
-                    
-                    <li class="nav-item v_lower_tab_cell_hw">
-                      <a class="v_lower_tab_cell waves-light waves-effect " style="background: #09c;" id="forms_btn_id" onclick="$.fn.openFormSelector()"><div style="padding: 2px; width: 130px; text-align: center;" class="v_text_whiteFF"><b>Forms</b></div></a>
-                    </li>
-                    <li class="nav-item">
-                      <div style="padding-top: 1.8px;"><div class=" waves-effect waves-light fa fa-arrow-up" id="push_bottom_dispense_pane_up_id" onclick="$.fn.bottom_dispense_pane_button_press()" style="padding-left: 10px; padding-right: 10px; padding-top: 8px; padding-bottom: 10px; height: 13px; font-size: 10px; color: white;"></div> </div>
-                    </li>
-                    
+                
           </ul>
           <div class="tab-content" id="myClassicTabContent" style="display: none;">
   
-            <div class="tab-pane" id="profile-classic" role="tabpanel" aria-labelledby="profile-tab-classic">
+            <div class="tab-pane active show" id="profile-classic" style="height: 470px;" role="tabpanel" aria-labelledby="profile-tab-classic">
               <div style="width: 100%;">
-  
-  
-                  <div class="row" style="width: 100%;">
-                      <div style="width: 55%; padding-left: 15px;">
-                          
-                      <div class="records_portal_bottom_pane" style="background: #f2f2f2; height: 470px;">
-                        <div style="height: 10px;"></div>
-                      <div class="prform_body">
-                        <div class="row" style="height: 470px; overflow: auto; color: white;">
-                            <table class="table table-striped" id="dispense_table_tablemain">
-                                <thead>
-                                  <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Type</th>
-                                    <th scope="col">Brand</th>
-                                    <th scope="col">Qantity</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col"></th>
-                                  </tr>
-                                </thead>
-                                <tbody id="dispense_table_tablebody" style="min-height: 300px;">
-                                 
-                                </tbody>
-                              </table>
-                              
-                              <div class="row">
-                                    <div class="col-md-6">
-                                        <div style="padding-right: 30px; padding-left: 10px; padding-bottom: 30px; width: 100%; text-align: left; color: #333333">
-                                            <div style="font-size: 15px;">
-                                              <b>Total Price:</b>
-                                            </div>
-                                            <b><div style="font-size: 30px; width:200px;" id="total_price_of_drugs_tb_dispn_id">
-                                                0 Naira
-                                              </div></b>
-                                            </div>
-                                    </div>
-  
-                                    <div class="col-md-6" style="padding-left: 300px;">
-                                      <button id="dispense_btn_oo" class="btn waves-effect waves-light" style="text-align: center; float:right; width: 140px; cursor:pointer;background: #232323;margin: .375rem;" onclick="$.fn.submit_dispensed_drug()"><span id="dispensed_btn_txt">Dispense </span> <span style="display: none;" id="dispensed_loading"><img src="img/loading_topnav.gif" style="width: 20px; height: 20px;" ></span></button>
-                                      </div>
-                              
-  
-                              
+        
+        
+                <div class="row" style="width: 100%;">
+                    <div style="width: 55%; padding-left: 15px;">
+                        
+                    <div class="records_portal_bottom_pane">
+                      <div style="height: 10px;"></div>
+                    <div class="prform_body">
+                      <a href="#ex1" rel="modal:open" id="prescription_modal_activator"></a>
+                        <div>
+                          <div style="padding-bottom: 60px;">
+                            <button class="btn btn-outline-black waves-effect waves-light" id="submitPresc_btn" style="text-align: center; padding-right: 20px; padding-left: 20px; border-radius: 10px; float: right;" onclick="start_prescription_upload()">Save</button>
+                          </div>
+                            <div>
+                              <form id="paper" method="get" action="">
+                                <textarea class="card mb-1" placeholder="Enter Prescription." id="text2" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 380px; width: 98%;"></textarea>
+                              </form>
                             </div>
+                            
+                            
+                            </div>
+                    </div>
+                    
+                    </div>
+                    </div>
+                    
+                    <div style="width: 45%;">
+                    <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray;">
+                      <div style="height: 10px;"></div>
+                    <div class="">
+                      <div style="height: 450px; overflow-y: auto; overflow-x: hidden">
+                     <div style="font-size: 20px; color: #333333;"><b>Lastest Prescription</b></div>
+                     <div style="font-size: 17px; color: #333333;"><b>Date: <span id="rPrescriptionDispLwNabBar_date_pdr"></span></b></div>
+                     <div id="rPrescriptionDispLwNabBar_loaderDDH" class="disp_loader_div">
+                      <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
                       </div>
+                     <div id="rPrescriptionDispLwNabBar_mainDDH" style="display: none;">
+                      <div style="min-height: 200px; width: 97%;" id="rPrescriptionDispLwNabBar"></div>
+                     </div>
                       </div>
-                      
+                    </div>
+                    
+                    </div>
+                    </div>
+                    </div>
+
+              
+            </div>
+            </div>
+  
+            <div class="tab-pane" id="follow-classic" style="height: 470px;" role="tabpanel" aria-labelledby="follow-tab-classic">
+              <div style="width: 100%;">
+        
+        
+                <div class="row" style="width: 100%;">
+                    <div style="width: 55%; padding-left: 15px;">
+                        
+                    <div class="records_portal_bottom_pane">
+                      <div style="height: 10px;"></div>
+                    <div class="prform_body">
+                      <a id="submitLabPresc_btn_modal_activator"></a>
+                        <div>
+                          <div style="padding-bottom: 60px;">
+                            <button class="btn btn-outline-black waves-effect waves-light" id="submitLabPresc_btn" style="text-align: center; padding-right: 20px; padding-left: 20px; border-radius: 10px; float: right;" onclick="start_labtest_upload()">Save</button>
+                          </div>
+                            <div>
+                              <form id="paper" method="get" action="">
+                                <textarea class="card mb-1" placeholder="Enter LabTest." id="text3" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 380px; width: 98%;"></textarea>
+                              </form>
+                            </div>
+                            
+                            
+                            </div>
+                    </div>
+                    
+                    </div>
+                    </div>
+                    
+                    <div style="width: 45%;">
+                    <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray;">
+                      <div style="height: 10px;"></div>
+                    <div class="">
+                      <div style="height: 450px; overflow-y: auto; overflow-x: hidden">
+                     <div style="font-size: 20px; color: #333333;"><b>Lastest Lab-Test</b></div>
+                     <div style="font-size: 17px; color: #333333;"><b>Date: <span id="rLabDispLwNabBardate_pdr"></span></b></div>
+                     <div id="rLabDispLwNabBardisp_div_loaderDDH" class="disp_loader_div">
+                      <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
                       </div>
+                     <div id="rLabDispLwNabBardisp_div_mainDDH" style="display: none;">
+                      <div style="min-height: 200px; width: 97%;" id="rLabDispLwNabBar"></div>
+                     </div>
                       </div>
-                      
-                      <div style="width: 45%;">
-                      <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray; background: #f2f2f2; height: 470px; overflow-y: 
-                      auto; overflow-x: none; ">
+                    </div>
+                    
+                    </div>
+                    </div>
+                    </div>
+
+              
+            </div>
+            </div>
+
+            <div class="tab-pane" id="contact-classic" style="height: 470px;" role="tabpanel" aria-labelledby="contact-tab-classic">
+              <div style="width: 100%;">
+        
+        
+                <div class="row" style="width: 100%;">
+                    <div style="width: 55%; padding-left: 15px;">
+                        
+                    <div class="records_portal_bottom_pane">
+                      <div style="height: 10px;"></div>
+                    <div class="prform_body">
+                      <a id="submitImagePresc_btn_modal_activator"></a>
+                        <div>
+                          <div style="padding-bottom: 60px;">
+                            <button class="btn btn-outline-black waves-effect waves-light" id="submitImagePresc_btn" style="text-align: center; padding-right: 20px; padding-left: 20px; border-radius: 10px; float: right;" onclick="start_imageTest_upload()">Save</button>
+                          </div>
+                            <div>
+                              <form id="paper" method="get" action="">
+                                <textarea class="card mb-1" placeholder="Enter Image Test." id="text4" name="text" rows="4" style="overflow: auto; word-wrap: break-word; resize: none; height: 380px; width: 98%;"></textarea>
+                              </form>
+                            </div>
+                            
+                            
+                            </div>
+                    </div>
+                    
+                    </div>
+                    </div>
+                    
+                    <div style="width: 45%;">
+                      <div class="records_portal_bottom_pane2" style="border-left: dashed 1px gray;">
                         <div style="height: 10px;"></div>
-                      <div style="padding-right: 30px; padding-left: 20px;padding-bottom: 10px;" id="dispen_drug_search_table_div">
-                      <div id="dispen_drug_search_table_label"></div>
-                      <table class="table" id="dispen_drug_search_table">
-                        <thead> <tr><td>Drug</td><td>Price(Naira)</td><td>Strength(mg)</td><td>Quantity in Stock</td><td>Dispense Quantity</td><td>Option</td> </tr> </thead> 
-                      </table>
+                      <div class="">
+                        <div style="height: 450px; overflow-y: auto; overflow-x: hidden">
+                       <div style="font-size: 20px; color: #333333;"><b>Lastest Radiograph-Test</b></div>
+                       <div style="font-size: 17px; color: #333333;"><b>Date: <span id="radiographDwrkBar_date_pdr"></span></b></div>
+                       <div id="radiographDwrkBar_loaderDDH" class="disp_loader_div">
+                        <img src="img/loading.gif" style="display: inline-block; width: 35px; height: 35px;">
+                        </div>
+                       <div id="radiographDwrkBar_mainDDH" style="display: none;">
+                        <div style="min-height: 200px; width: 97%;" id="radiographDwrkBar"></div>
+                       </div>
+                        </div>
+                      </div>
+                      
                       </div>
                       </div>
-                      </div>
-                      </div>
-  
-                
-              </div>
+                    </div>
+
+              
             </div>
-  
-  
-  
-  
-            <div class="tab-pane" id="follow-classic" role="tabpanel" aria-labelledby="follow-tab-classic">
             </div>
-            <div class="tab-pane" id="contact-classic" role="tabpanel" aria-labelledby="contact-tab-classic">
-            </div>
+
             <div class="tab-pane" id="contact-classic2" role="tabpanel" aria-labelledby="contact-tab-classic2"></div>
             <div class="tab-pane" id="note-btn" role="tabpanel" aria-labelledby="contact-tab-classic">
                   </div>
@@ -694,7 +805,7 @@ a.nav-link{
   
   
   
-              <div class="tab-pane active show" id="contact-classic3" style="height: 470px;" role="tabpanel" aria-labelledby="contact-tab-classic3">
+              <div class="tab-pane" id="contact-classic3" style="height: 470px;" role="tabpanel" aria-labelledby="contact-tab-classic3">
                       <div style="width: 100%;">
         
         
@@ -749,9 +860,12 @@ a.nav-link{
   
             
           </div>
+
         
         </div>
   </div>
+
+  
   
   </div>
   <div id="idle_fragment" style="min-height: 1000px; background-color: #0d218a; text-align: center; display: block;" class="animated faster">
@@ -809,7 +923,6 @@ a.nav-link{
 
 <div id="main_addpatient_wut_fragment" style="display: none;">
 
-
 </div>
 
 <div class="animated faster" id="rp_details_modal" style="background: black; opacity: 0.8; width: 30%; height: 600px; position: absolute; right: 0px; bottom: 0px; overflow: auto; display: none;">
@@ -817,14 +930,14 @@ a.nav-link{
 </div>
 
 <!-- modals -->
-
-
 <div style="display: none;"><div id="dispanseDispProcess"></div></div>
 <div style="display: none;"><div id="noteDispProcessing_div"></div></div>
 <div style="display: none;">
 <div id="f_file_collector" action="http://localhost:3130/uploadfile" class="dropzone dz-clickable" style="height: 140px; padding: 1px 1px; border: none;">
 </div>
 </div>
+
+
 </div>
 
   <script type="text/javascript" src="config/institution_info.js"></script>
@@ -848,7 +961,7 @@ a.nav-link{
 var options = {
 
 url: function(phrase){
-  return "http://localhost:4417/general_server_files/patient_sugestions.json";
+  return "http://"+local_server+":3130/patients_suggestions";
 },
 
 categories: [{
@@ -867,7 +980,7 @@ getValue: function(element) {
 
 ajaxSettings:{
   dataType: "json",
-  method: "POST",
+  method: "GET",
   data:{
     dataType: "json"
   }
@@ -907,7 +1020,7 @@ list: {
     },
     onClickEvent: function(){
       var id_value = $("#search_patient_input").getSelectedItemData().id;
-      $.get('http://localhost:3130/set_currOpratP_coll',{
+      $.get("http://"+local_server+":3130/set_currOpratP_coll",{
     usrID:id_value
   },
   function (result){
@@ -924,7 +1037,7 @@ theme: "square"
 var options2 = {
 
 url: function(phrase){
-  return "http://localhost:4417/general_server_files/patient_sugestions.json";
+  return "http://"+local_server+":3130/patients_suggestions";
 },
 
 categories: [{
@@ -943,7 +1056,7 @@ getValue: function(element) {
 
 ajaxSettings:{
   dataType: "json",
-  method: "POST",
+  method: "GET",
   data:{
     dataType: "json"
   }
@@ -983,7 +1096,7 @@ list: {
     },
     onClickEvent: function(){
       var id_value = $("#idle_searchBar").getSelectedItemData().id;
-      $.get('http://localhost:3130/set_currOpratP_coll',{
+      $.get("http://"+local_server+":3130/set_currOpratP_coll",{
     usrID:id_value
   },
   function (result){

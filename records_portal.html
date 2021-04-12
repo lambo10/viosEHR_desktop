@@ -1106,7 +1106,7 @@ a.nav-link{
     <div>
       <div style="float: left;">
          
-          <div id="employee_passport_id" action="http://localhost:5000/upload_patient_profile_pic" class="dropzone dz-clickable" style="height: 140px; padding: 1px 1px; border: none;">
+          <div id="employee_passport_id" action="http://localhost:3130/upload_patient_profile_pic" class="dropzone dz-clickable" style="height: 140px; padding: 1px 1px; border: none;">
             <div class="dz-default dz-message" style="margin: 0em 0; font-size:20px;">
                 <span>Drop files or click to upload</span>
             </div>
@@ -1221,7 +1221,7 @@ a.nav-link{
 var options = {
 
 url: function(phrase){
-  return "http://localhost:4417/general_server_files/patient_sugestions.json";
+  return "http://"+local_server+":3130/patients_suggestions";
 },
 
 categories: [{
@@ -1240,7 +1240,7 @@ getValue: function(element) {
 
 ajaxSettings:{
   dataType: "json",
-  method: "POST",
+  method: "GET",
   data:{
     dataType: "json"
   }
@@ -1280,7 +1280,7 @@ list: {
     },
     onClickEvent: function(){
       var id_value = $("#search_patient_input").getSelectedItemData().id;
-      $.get('http://localhost:3130/set_currOpratP_coll',{
+      $.get("http://"+local_server+":3130/set_currOpratP_coll",{
     usrID:id_value
   },
   function (result){
@@ -1297,7 +1297,7 @@ theme: "square"
 var options2 = {
 
 url: function(phrase){
-  return "http://localhost:4417/general_server_files/patient_sugestions.json";
+  return "http://"+local_server+":3130/patients_suggestions";
 },
 
 categories: [{
@@ -1316,7 +1316,7 @@ getValue: function(element) {
 
 ajaxSettings:{
   dataType: "json",
-  method: "POST",
+  method: "GET",
   data:{
     dataType: "json"
   }
@@ -1356,7 +1356,7 @@ list: {
     },
     onClickEvent: function(){
       var id_value = $("#idle_searchBar").getSelectedItemData().id;
-      $.get('http://localhost:3130/set_currOpratP_coll',{
+      $.get("http://"+local_server+":3130/set_currOpratP_coll",{
     usrID:id_value
   },
   function (result){

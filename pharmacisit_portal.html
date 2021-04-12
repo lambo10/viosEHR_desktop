@@ -1628,7 +1628,7 @@ a.nav-link{
 var drug_sugestion = {
 
 url: function(phrase){
-  return "http://localhost:4417/general_server_files/drug_sugestions.json";
+  return "http://localhost:4417/general_server_files/?path=drug_sugestions.json";
 },
 
 getValue: function(element) {
@@ -1637,7 +1637,7 @@ getValue: function(element) {
 
 ajaxSettings:{
   dataType: "json",
-  method: "POST",
+  method: "GET",
   data:{
     dataType: "json"
   }
@@ -1692,7 +1692,7 @@ $("#dispen_drug_search").easyAutocomplete(drug_sugestion);
 var options = {
 
 url: function(phrase){
-  return "http://localhost:4417/general_server_files/patient_sugestions.json";
+  return "http://"+local_server+":3130/patients_suggestions";
 },
 
 categories: [{
@@ -1711,7 +1711,7 @@ getValue: function(element) {
 
 ajaxSettings:{
   dataType: "json",
-  method: "POST",
+  method: "GET",
   data:{
     dataType: "json"
   }
@@ -1768,7 +1768,7 @@ theme: "square"
 var options2 = {
 
 url: function(phrase){
-  return "http://localhost:4417/general_server_files/patient_sugestions.json";
+  return "http://"+local_server+":3130/patients_suggestions";
 },
 
 categories: [{
@@ -1787,7 +1787,7 @@ getValue: function(element) {
 
 ajaxSettings:{
   dataType: "json",
-  method: "POST",
+  method: "GET",
   data:{
     dataType: "json"
   }

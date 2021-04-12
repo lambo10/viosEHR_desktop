@@ -858,7 +858,7 @@ a.nav-link{
 var options = {
 
 url: function(phrase){
-  return "http://localhost:4417/general_server_files/patient_sugestions.json";
+  return "http://"+local_server+":3130/patients_suggestions";
 },
 
 categories: [{
@@ -877,7 +877,7 @@ getValue: function(element) {
 
 ajaxSettings:{
   dataType: "json",
-  method: "POST",
+  method: "GET",
   data:{
     dataType: "json"
   }
@@ -934,7 +934,7 @@ theme: "square"
 var options2 = {
 
 url: function(phrase){
-  return "http://localhost:4417/general_server_files/patient_sugestions.json";
+  return "http://"+local_server+":3130/patients_suggestions";
 },
 
 categories: [{
@@ -953,7 +953,7 @@ getValue: function(element) {
 
 ajaxSettings:{
   dataType: "json",
-  method: "POST",
+  method: "GET",
   data:{
     dataType: "json"
   }
